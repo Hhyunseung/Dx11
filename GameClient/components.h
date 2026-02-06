@@ -12,6 +12,6 @@
 // #include "CLight2D.h"
 // #include "CLight3D.h"
 // #include "CParticleRender.h"
-// #include "CTileRender.h"
+#include "CTileRender.h"
 #include "CSpriteRender.h"
 #include "CScript.h"

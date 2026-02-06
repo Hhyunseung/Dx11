@@ -125,6 +125,21 @@ void LevelMgr::Init()
 	m_CurLevel->AddObject(3, pObject);
 
 
+
+	// Tile Object
+	Ptr<GameObject> pTileObj = new GameObject;
+
+	pTileObj->AddComponent(new CTransform);
+	pTileObj->AddComponent(new CCollider2D);
+	pTileObj->AddComponent(new CTileRender);
+
+	pTileObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
+	// pTileObj->Transform()->GetRelativeScale  // 내가 어떤 타일맵을 골랐는지에 따라.. CTileRender에서 크키조절
+	pTileObj->TileRender()->SetTileMap(FIND(ATileMap, L"TestTileMap"));
+	
+	m_CurLevel->AddObject(2, pTileObj);
+
+
 	// 레벨 충돌 설정
 	m_CurLevel->CheckCollisionLayer(3, 5);
 	m_CurLevel->CheckCollisionLayer(4, 5);

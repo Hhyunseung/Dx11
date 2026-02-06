@@ -15,6 +15,7 @@ private:
 public:
     COMPONENT_TYPE GetType() const { return m_Type; }
     GameObject* GetOwner() { return m_Owner; }
+    GET_OTHER_COMPONENT(TileRender);
     GET_OTHER_COMPONENT(SpriteRender);
     GET_OTHER_COMPONENT(FlipbookRender);
     GET_OTHER_COMPONENT(Transform);

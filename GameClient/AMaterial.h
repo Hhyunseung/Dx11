@@ -39,7 +39,7 @@ void AMaterial::SetScalar(SCALAR_PARAM _Param, const T& _Data)
     case INT_1:
     case INT_2:
     case INT_3:
-        if constexpr(std::is_same_v<T, int>)
+        if constexpr(std::is_same_v<T, int> || std::is_same_v<T, UINT>)
             m_Const.iArr[_Param] = _Data;
         break;
     case FLOAT_0:

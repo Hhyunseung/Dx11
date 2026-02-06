@@ -53,6 +53,8 @@ ASSET_TYPE GetAssetType()
 		return ASSET_TYPE::SPRITE;
 	else if constexpr (IsSameType<T, AFlipbook>)
 		return ASSET_TYPE::FLIPBOOK;
+	else if constexpr (IsSameType<T, ATileMap>)
+		return ASSET_TYPE::TILEMAP;
 
 	//if (info.hash_code() == typeid(AMesh).hash_code())
 	//	Type = ASSET_TYPE::MESH;

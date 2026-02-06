@@ -157,7 +157,13 @@
     <ClInclude Include="AFlipbook.h">
       <Filter>GameEngine\04.Asset\07.Flipbook</Filter>
     </ClInclude>
-    <ClInclude Include="CFlipbookRender.h" />
+    <ClInclude Include="CFlipbookRender.h">
+      <Filter>GameEngine\06.Component\RenderComponent\04.FlipbookRender</Filter>
+    </ClInclude>
+    <ClInclude Include="CTileRender.h">
+      <Filter>GameEngine\06.Component\RenderComponent\05.TileRender</Filter>
+    </ClInclude>
+    <ClInclude Include="StructuredBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -290,6 +296,12 @@
     </Filter>
     <Filter Include="GameEngine\06.Component\RenderComponent\04.FlipbookRender">
       <UniqueIdentifier>{907b9515-6611-4415-a76f-b802738ff8f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\06.Component\RenderComponent\05.TileRender">
+      <UniqueIdentifier>{02fae36f-0979-4359-b243-f9a2d1784cd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\02.Device\StructuredBuffer">
+      <UniqueIdentifier>{f53cdb2a-d30e-453f-9f41-396dc2f52348}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -426,7 +438,13 @@
     <ClCompile Include="AFlipbook.cpp">
       <Filter>GameEngine\04.Asset\07.Flipbook</Filter>
     </ClCompile>
-    <ClCompile Include="CFlipbookRender.cpp" />
+    <ClCompile Include="CFlipbookRender.cpp">
+      <Filter>GameEngine\06.Component\RenderComponent\04.FlipbookRender</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileRender.cpp">
+      <Filter>GameEngine\06.Component\RenderComponent\05.TileRender</Filter>
+    </ClCompile>
+    <ClCompile Include="StructuredBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -450,6 +468,9 @@
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
     <FxCompile Include="flipbook.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="tile.fx">
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
   </ItemGroup>

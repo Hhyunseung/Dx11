@@ -36,6 +36,8 @@ public:
 		m_AccTime = 0.f;
 	}
 
+///  UV 값의 정수부분을 버림 frac
+
 private:
 	bool CheckFinish();
 
