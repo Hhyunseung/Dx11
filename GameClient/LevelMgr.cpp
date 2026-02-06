@@ -65,14 +65,13 @@ void LevelMgr::Init()
 	pMonster->SetName(L"Monster");
 
 	pMonster->AddComponent(new CTransform);
-	pMonster->AddComponent(new CMeshRender);
+	pMonster->AddComponent(new CSpriteRender);
 	pMonster->AddComponent(new CCollider2D);
 
 	pMonster->Transform()->SetRelativePos(Vec3(300.f, 0.f, 100.f));
 	pMonster->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 	
-	pMonster->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-	pMonster->MeshRender()->SetMtrl(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
+	pMonster->SpriteRender()->SetSprite(FIND(ASprite, L"TileSprite_47"));
 
 	m_CurLevel->AddObject(5, pMonster);
 

@@ -209,6 +209,12 @@ void AssetMgr::CreateEngineTexture()
 	FilePath += L"Texture\\link.png";
 	pTex->Load(FilePath);
 	AddAsset(L"Link", pTex.Get());
+
+	pTex = new ATexture;
+	FilePath = CONTENT_PATH;
+	FilePath += L"Texture\\TILE.bmp";
+	pTex->Load(FilePath);
+	AddAsset(L"TileAtlas", pTex.Get());
 }
 
 void AssetMgr::CreateEngineMaterial()
@@ -336,4 +342,44 @@ void AssetMgr::CreateEngineSprite()
 		pFlipbook->AddSprite(FIND(ASprite, Buff));
 	}
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+
+
+	// ============
+	// Tile Sprite
+	// ============
+	pAtlas = FIND(ATexture, L"TileAtlas");
+
+	Width = pAtlas->GetWidth();
+	Height = pAtlas->GetHeight();
+	SlicePixel = Vec2(64.f, 64.f);
+
+	int Count = 0;
+	for (int i = 0; i < 6; ++i)
+	{
+		for (int j = 0; j < 8; ++j, ++Count)
+		{
+			wchar_t Buff[50] = {};
+			swprintf_s(Buff, L"TileSprite_%d", Count);
+
+			pSprite = new ASprite;
+			pSprite->SetName(Buff);
+			pSprite->SetAtlas(pAtlas);
+			pSprite->SetLeftTopUV(Vec2((SlicePixel.x / Width) * (float)j, (SlicePixel.y / Height) * i));
+			pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
+			AddAsset(pSprite->GetName(), pSprite.Get());
+		}
+	}
+
+	// ========
+	// TileMap
+	// ========
+	Ptr<ATileMap> pTileMap = nullptr;
+
+	pTileMap = new ATileMap;
+	pTileMap->SetName(L"TestTileMap");
+	pTileMap->SetRowCol(1, 1);
+	pTileMap->SetTileSize(Vec2(64.f, 64.f));
+	pTileMap->SetAtlas(FIND(ATexture, L"TileAtlas"));
+	pTileMap->SetSprite(0, 0, FIND(ASprite, L"TileSprite_0"));
+	AddAsset(pTileMap->GetName(), pTileMap.Get());
 }

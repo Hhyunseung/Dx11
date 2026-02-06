@@ -19,8 +19,15 @@ private:
 
 
 public:
-	//void SetFlipbook(Ptr<AFlipbook> _Flipbook) { m_Flipbook = _Flipbook; }
+	void SetFlipbook(int _Idx, Ptr<AFlipbook> _Flipbook)
+	{
+		if (m_vecFlipbook.size() <= _Idx)
+			m_vecFlipbook.resize(_Idx + 1);
+		m_vecFlipbook[_Idx] = _Flipbook;
+	}
+
 	void AddFlipbook(Ptr<AFlipbook> _Flipbook) { m_vecFlipbook.push_back(_Flipbook); }
+
 	void Play(int _FlipbookIdx, float _FPS, int _RepeatCount)
 	{
 		m_CurFlipbook = _FlipbookIdx;
