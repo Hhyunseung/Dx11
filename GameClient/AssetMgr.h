@@ -21,6 +21,7 @@ private:
 	void CreateEngineShader();
 	void CreateEngineTexture();
 	void CreateEngineMaterial();
+	void CreateEngineSprite();
 
 public:
 	void AddAsset(const wstring& _Key, Ptr<Asset> _Asset);
@@ -48,6 +49,10 @@ ASSET_TYPE GetAssetType()
 		return ASSET_TYPE::TEXTURE;
 	else if constexpr (IsSameType<T, AMaterial>)
 		return ASSET_TYPE::MATERIAL;
+	else if constexpr (IsSameType<T, ASprite>)
+		return ASSET_TYPE::SPRITE;
+	else if constexpr (IsSameType<T, AFlipbook>)
+		return ASSET_TYPE::FLIPBOOK;
 
 	//if (info.hash_code() == typeid(AMesh).hash_code())
 	//	Type = ASSET_TYPE::MESH;

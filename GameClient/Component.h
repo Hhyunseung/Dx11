@@ -16,13 +16,15 @@ public:
     COMPONENT_TYPE GetType() const { return m_Type; }
     GameObject* GetOwner() { return m_Owner; }
     GET_OTHER_COMPONENT(SpriteRender);
-
+    GET_OTHER_COMPONENT(FlipbookRender);
     GET_OTHER_COMPONENT(Transform);
     GET_OTHER_COMPONENT(MeshRender);
     GET_OTHER_COMPONENT(BillboardRender);
     GET_OTHER_COMPONENT(Camera);
     GET_OTHER_COMPONENT(Collider2D);
 
+
+    virtual void Init() {}
     virtual void Begin() {}
     virtual void FinalTick() = 0;
 

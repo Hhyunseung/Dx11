@@ -145,7 +145,19 @@
     <ClInclude Include="CSpriteRender.h">
       <Filter>GameEngine\06.Component\RenderComponent\03.SpriteRender</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionMgr.h" />
+    <ClInclude Include="ASprite.h">
+      <Filter>GameEngine\04.Asset\06.Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionMgr.h">
+      <Filter>GameEngine\03.Manager\08.CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ATileMap.h">
+      <Filter>GameEngine\04.Asset\08.TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="AFlipbook.h">
+      <Filter>GameEngine\04.Asset\07.Flipbook</Filter>
+    </ClInclude>
+    <ClInclude Include="CFlipbookRender.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -263,6 +275,21 @@
     </Filter>
     <Filter Include="GameEngine\06.Component\RenderComponent\03.SpriteRender">
       <UniqueIdentifier>{b0f41846-6e08-44c5-8e9d-66fe32d62ffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\04.Asset\06.Sprite">
+      <UniqueIdentifier>{fb2d47d4-8de0-4c0b-909e-c2f55d33f747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\03.Manager\08.CollisionMgr">
+      <UniqueIdentifier>{6f2ccd8e-7fb8-449f-bce3-bfa8b8fdbed8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\04.Asset\07.Flipbook">
+      <UniqueIdentifier>{f24c4bba-1cad-43b3-a545-ec8ef359b8e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\04.Asset\08.TileMap">
+      <UniqueIdentifier>{56a30640-d40a-4415-98c9-986502229556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\06.Component\RenderComponent\04.FlipbookRender">
+      <UniqueIdentifier>{907b9515-6611-4415-a76f-b802738ff8f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -387,7 +414,19 @@
     <ClCompile Include="CSpriteRender.cpp">
       <Filter>GameEngine\06.Component\RenderComponent\03.SpriteRender</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionMgr.cpp" />
+    <ClCompile Include="ASprite.cpp">
+      <Filter>GameEngine\04.Asset\06.Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionMgr.cpp">
+      <Filter>GameEngine\03.Manager\08.CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ATileMap.cpp">
+      <Filter>GameEngine\04.Asset\08.TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="AFlipbook.cpp">
+      <Filter>GameEngine\04.Asset\07.Flipbook</Filter>
+    </ClCompile>
+    <ClCompile Include="CFlipbookRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -406,6 +445,12 @@
     </FxCompile>
     <FxCompile Include="dbg.fx">
       <Filter>HLSL\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="sprite.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="flipbook.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

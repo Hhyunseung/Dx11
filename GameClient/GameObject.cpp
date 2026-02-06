@@ -141,6 +141,8 @@ void GameObject::AddComponent(Ptr<Component> _Com)
 	}
 
 	_Com->m_Owner = this;
+
+	_Com->Init();
 }
 
 void GameObject::Destroy()

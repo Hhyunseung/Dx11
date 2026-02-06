@@ -151,19 +151,23 @@ call ComponentAuto.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AFlipbook.h" />
     <ClInclude Include="AGraphicShader.h" />
     <ClInclude Include="ALevel.h" />
     <ClInclude Include="AMaterial.h" />
     <ClInclude Include="AMesh.h" />
+    <ClInclude Include="ASprite.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetMgr.h" />
     <ClInclude Include="assets.h" />
     <ClInclude Include="ATexture.h" />
+    <ClInclude Include="ATileMap.h" />
     <ClInclude Include="CBillboardRender.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCamMoveScript.h" />
     <ClInclude Include="CCollider2D.h" />
     <ClInclude Include="CEnemy.h" />
+    <ClInclude Include="CFlipbookRender.h" />
     <ClInclude Include="CMeshRender.h" />
     <ClInclude Include="CMissileScript.h" />
     <ClInclude Include="CollisionMgr.h" />
@@ -202,14 +206,17 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="TimeMgr.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AFlipbook.cpp" />
     <ClCompile Include="AGraphicShader.cpp" />
     <ClCompile Include="ALevel.cpp" />
     <ClCompile Include="AMaterial.cpp" />
     <ClCompile Include="AMesh.cpp" />
+    <ClCompile Include="ASprite.cpp" />
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetMgr.cpp" />
     <ClCompile Include="AssetMgr_Init.cpp" />
     <ClCompile Include="ATexture.cpp" />
+    <ClCompile Include="ATileMap.cpp" />
     <ClCompile Include="CBillboardRender.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCamMoveScript.cpp" />
@@ -218,6 +225,7 @@ call ComponentAuto.exe</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="CFlipbookRender.cpp" />
     <ClCompile Include="CMeshRender.cpp" />
     <ClCompile Include="CMissileScript.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
@@ -267,6 +275,18 @@ call ComponentAuto.exe</Command>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="dbg.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="flipbook.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="sprite.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

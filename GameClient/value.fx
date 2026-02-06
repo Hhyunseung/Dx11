@@ -16,6 +16,8 @@ cbuffer TRANSFORM : register(b0)
 
 /// 상수 레지스터는 자료형의 최소사이즈가 16byte (4 float) 여야 한다
 /// 배열로 가져오면 
+
+// HLSL 5.0 : 최대 4096byte (256 float4) 까지 가능
 cbuffer MATERIAL : register(b1)
 {
     int g_int_0;
@@ -44,6 +46,11 @@ cbuffer MATERIAL : register(b1)
 
 /// t0 에 바인딩된 텍스쳐가 512 512 라면 UV 좌표계로 샘플링
 /// 입력으로 들어오는 UV 좌표계를 이용해서 보간된 텍스쳐 색상을 출력
+
+/// 텍스쳐 레지스터
+/// 포인터를 사용하는 개념과 유사
+/// 가변적으로 텍스쳐를 바인딩 할 수 있다
+/// 가변적인 데이터가 필요한 경우... 구조화버퍼로 여기에 저장
 Texture2D g_tex_0 : register(t0);
 Texture2D g_tex_1 : register(t1);
 Texture2D g_tex_2 : register(t2);

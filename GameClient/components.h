@@ -8,7 +8,7 @@
 #include "CBillboardRender.h"
 
 // #include "CCollider3D.h"
-// #include "CFltpbookRender.h"
+#include "CFlipbookRender.h"
 // #include "CLight2D.h"
 // #include "CLight3D.h"
 // #include "CParticleRender.h"

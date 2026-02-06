@@ -16,7 +16,7 @@ public:
     GET_SET(Ptr<AMaterial>, Mtrl);
 
 public:
-    virtual void Begin() override;
+    virtual void Init() override;
     virtual void Render() = 0;
 
     // 자신이 사용할 재질 로딩 및 설정

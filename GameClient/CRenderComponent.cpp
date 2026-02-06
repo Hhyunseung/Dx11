@@ -12,7 +12,7 @@ CRenderComponent::~CRenderComponent()
 {
 }
 
-void CRenderComponent::Begin()
+void CRenderComponent::Init()
 {
 	CreateMaterial();
 }

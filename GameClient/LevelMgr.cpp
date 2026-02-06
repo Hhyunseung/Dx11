@@ -81,7 +81,7 @@ void LevelMgr::Init()
 	pObject->SetName(L"Player");
 
 	pObject->AddComponent(new CTransform);
-	pObject->AddComponent(new CMeshRender);
+	pObject->AddComponent(new CFlipbookRender);
 	pObject->AddComponent(new CCollider2D);
 	
 	Ptr<CPlayerScript> pPlayerScript = new CPlayerScript;
@@ -95,8 +95,11 @@ void LevelMgr::Init()
 	pObject->Collider2D()->SetScale(Vec2(0.25f, 0.25f));
 	pObject->Collider2D()->SetOffset(Vec2(0.5f, 0.f));
 
-	pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-	pObject->MeshRender()->SetMtrl(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
+	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveDown"));
+	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveLeft"));
+	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveUp"));
+	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveRight"));
+	pObject->FlipbookRender()->Play(1, 15.f, 1);
 
 
 	// 자식 오브젝트 생성

@@ -49,6 +49,7 @@ public:
     void Destroy();
 
     // GET_COMPONENT
+    GET_COMPONENT(FlipbookRender, FLIPBOOK_RENDER);
     GET_COMPONENT(SpriteRender, SPRITE_RENDER);
     GET_COMPONENT(Transform, TRANSFORM);
     GET_COMPONENT(MeshRender, MESHRENDER);

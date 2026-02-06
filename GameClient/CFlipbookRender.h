@@ -1,0 +1,45 @@
+#pragma once
+#include "CRenderComponent.h"
+
+#include "AFlipbook.h"
+
+class CFlipbookRender :
+    public CRenderComponent
+{
+private:
+	vector<Ptr<AFlipbook>>    m_vecFlipbook;
+
+	int						  m_CurFlipbook;
+	int						  m_CurSprite;
+	
+	int						  m_RepeatCount; // -1 : 반복재생, 1 이상이면 재생 횟수
+	bool 					  m_Finish;
+	float 					  m_FPS;
+	float 					  m_AccTime;
+
+
+public:
+	//void SetFlipbook(Ptr<AFlipbook> _Flipbook) { m_Flipbook = _Flipbook; }
+	void AddFlipbook(Ptr<AFlipbook> _Flipbook) { m_vecFlipbook.push_back(_Flipbook); }
+	void Play(int _FlipbookIdx, float _FPS, int _RepeatCount)
+	{
+		m_CurFlipbook = _FlipbookIdx;
+		m_RepeatCount = _RepeatCount;
+		m_FPS = _FPS;
+		m_AccTime = 0.f;
+	}
+
+private:
+	bool CheckFinish();
+
+public:
+	virtual void FinalTick() override;
+	virtual void Render() override;
+	virtual void CreateMaterial() override;
+
+public:
+	CFlipbookRender();
+	virtual ~CFlipbookRender();
+
+};
+
