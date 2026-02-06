@@ -215,6 +215,13 @@ void AssetMgr::CreateEngineTexture()
 	FilePath += L"Texture\\TILE.bmp";
 	pTex->Load(FilePath);
 	AddAsset(L"TileAtlas", pTex.Get());
+
+
+	pTex = new ATexture;
+	FilePath = CONTENT_PATH;
+	FilePath += L"Texture\\Cookie.png";
+	pTex->Load(FilePath);
+	AddAsset(L"Cookie", pTex.Get());
 }
 
 void AssetMgr::CreateEngineMaterial()
@@ -297,9 +304,49 @@ void AssetMgr::CreateEngineSprite()
 		pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
 		AddAsset(pSprite->GetName(), pSprite.Get());
 	}
-	
+
+
+	//Ptr<ATexture> pAtlas = FIND(ATexture, L"Cookie");
+	//float Width = pAtlas->GetWidth();
+	//float Height = pAtlas->GetHeight();
+	//Vec2 SlicePixel = Vec2(272.f, 272.f);
+	pAtlas = FIND(ATexture, L"Cookie");
+	Width = pAtlas->GetWidth();
+	Height = pAtlas->GetHeight();
+	SlicePixel = Vec2(272.f, 272.f);
+
+	pSprite = nullptr;
+	for (int i = 0; i < 11; i++)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"CookieJump_%d", i);
+
+		pSprite = new ASprite;
+		pSprite->SetName(Buff);
+		pSprite->SetAtlas(pAtlas);
+		pSprite->SetLeftTopUV(Vec2((SlicePixel.x / Width) * (float)i, (SlicePixel.y / Height) * 0.f));
+		pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
+		AddAsset(pSprite->GetName(), pSprite.Get());
+	}
 
 	Ptr<AFlipbook> pFlipbook = nullptr;
+	pFlipbook = new AFlipbook;
+	pFlipbook->SetName(L"Cookie_Jump");
+
+	for (int i = 0; i < 11; ++i)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"CookieJump_%d", i);
+		pFlipbook->AddSprite(FIND(ASprite, Buff));
+	}
+	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+	
+
+	/*Ptr<AFlipbook> pFlipbook = nullptr;
+	pFlipbook = new AFlipbook;
+	pFlipbook->SetName(L"Link_MoveDown");	*/
+
+	pFlipbook = nullptr;
 	pFlipbook = new AFlipbook;
 	pFlipbook->SetName(L"Link_MoveDown");
 

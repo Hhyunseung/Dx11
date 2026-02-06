@@ -96,9 +96,10 @@ void LevelMgr::Init()
 
 	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveDown"));
 	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveLeft"));
-	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveUp"));
 	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveRight"));
-	pObject->FlipbookRender()->Play(1, 15.f, 1);
+	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveUp"));
+	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Cookie_Jump"));
+	pObject->FlipbookRender()->Play(4, 15.f, 2);
 
 
 	// 자식 오브젝트 생성
