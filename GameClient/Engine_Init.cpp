@@ -8,6 +8,7 @@
 #include "AssetMgr.h"
 #include "LevelMgr.h"
 #include "RenderMgr.h"
+#include "EditorMgr.h"
 
 LRESULT CALLBACK  WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -45,7 +46,7 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height)
     // HWND hWnd = CreateWindowW(L"MyGame", L"Title Bar", WS_POPUP, 
     //     CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-
+    
     m_hWnd = CreateWindowW(L"MyGame", L"Title Bar", WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, m_hInst, nullptr);
 
@@ -112,6 +113,9 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height)
 
     // 렌더링 매니저 초기화
     RenderMgr::GetInst()->Init();
+
+	// 에디터 매니저 초기화
+	EditorMgr::GetInst()->Init();
 
 	return S_OK;
 }

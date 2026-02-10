@@ -9,7 +9,6 @@
 #include <crtdbg.h>
 
 
-
 // 변수 템플릿
 template<typename T>
 bool g_IsTrue = true;
@@ -155,12 +154,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 자기 자신의 ID handle (�
 
 #include "KeyMgr.h"
 
+LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 // 프로시저 함수
 // 윈도우에 발생한 사건(이벤트, 메시지)들을 처리해주는 함수
 // DispatchMessage 함수에 의해서 호출됨
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    int Data = 0; 
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+        return true;
+
+    int Data = 0;
 
     switch (message)
     {

@@ -6,7 +6,9 @@
 #include "KeyMgr.h"
 #include "LevelMgr.h"
 #include "RenderMgr.h"
+#include "EditorMgr.h"
 #include "TaskMgr.h"
+
 
 Engine::Engine()
 	: m_hInst(nullptr)
@@ -34,6 +36,11 @@ int Engine::Progress()
 
 	// RenderMgr 렌더링
 	RenderMgr::GetInst()->Progress();
+
+	// EditorMgr 
+	/// Render 끝나고(RenderMgr) UI 가 추가로 그려진 것(EditorMgr)을 화면에 보여줌(Device)
+	/// (RenderMgr=>EditerMgr=>Device)
+	EditorMgr::GetInst()->Progress();
 
 	// 렌더타겟에 그려진 그림을, 윈도우 비트맵으로 복사
 	Device::GetInst()->Present();

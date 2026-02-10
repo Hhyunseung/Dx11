@@ -66,8 +66,8 @@ void LevelMgr::Init()
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CLight2D);
 
-	pObject->Light2D()->SetLightType(LIGHT_TYPE::POINT);
-	pObject->Light2D()->SetLightColor(Vec3(1.f, 0.3f, 0.3f));
+	pObject->Light2D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
+	pObject->Light2D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
 	//pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
 	pObject->Light2D()->SetRadius(300.f);
 	pObject->Transform()->SetRelativePos(Vec3(-150.f, 0.f, 0.f));
@@ -75,22 +75,22 @@ void LevelMgr::Init()
 	m_CurLevel->AddObject(0, pObject);
 
 
-	// 광원 추가
-	pObject = new GameObject;
-	pObject->SetName(L"Light_2");
-	pObject->AddComponent(new CTransform);
-	pObject->AddComponent(new CLight2D);
+	//// 광원 추가
+	//pObject = new GameObject;
+	//pObject->SetName(L"Light_2");
+	//pObject->AddComponent(new CTransform);
+	//pObject->AddComponent(new CLight2D);
 
-	pObject->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
-	pObject->Light2D()->SetLightColor(Vec3(0.3f, 0.3f, 1.f));
-	//pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
-	pObject->Light2D()->SetRadius(200.f);
-	pObject->Light2D()->SetAngle(XM_PI / 4.f);
+	//pObject->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
+	//pObject->Light2D()->SetLightColor(Vec3(0.3f, 0.3f, 1.f));
+	////pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
+	//pObject->Light2D()->SetRadius(200.f);
+	//pObject->Light2D()->SetAngle(XM_PI / 4.f);
 
-	pObject->Transform()->SetRelativePos(Vec3(-250.f, 0.f, 0.f));
-	pObject->Transform()->SetRelativeRot(Vec3(0.f, 0.f, XM_PI / 4.f));
+	//pObject->Transform()->SetRelativePos(Vec3(-250.f, 0.f, 0.f));
+	//pObject->Transform()->SetRelativeRot(Vec3(0.f, 0.f, XM_PI / 4.f));
 
-	m_CurLevel->AddObject(0, pObject);
+	//m_CurLevel->AddObject(0, pObject);
 
 
 	// 적 오브젝트 생성

@@ -163,9 +163,38 @@
     <ClInclude Include="CTileRender.h">
       <Filter>GameEngine\06.Component\RenderComponent\05.TileRender</Filter>
     </ClInclude>
-    <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="CLight2D.h">
       <Filter>GameEngine\06.Component\04.Light2D</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_dx11.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_win32.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMgr.h">
+      <Filter>GameEngine\03.Manager\09.EditorMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="StructuredBuffer.h">
+      <Filter>GameEngine\02.Device\StructuredBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +338,12 @@
     <Filter Include="GameEngine\06.Component\04.Light2D">
       <UniqueIdentifier>{b0b5c3bc-ab39-494d-9556-12a859eabbaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{1417ace8-4665-4c41-9f2d-d760234fdad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\03.Manager\09.EditorMgr">
+      <UniqueIdentifier>{09a9f710-e61d-46cf-b82d-ed74f1669df3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -329,7 +364,6 @@
     <ClCompile Include="Engine_Init.cpp">
       <Filter>GameEngine\01.Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Test.cpp" />
     <ClCompile Include="PathMgr.cpp">
       <Filter>GameEngine\03.Manager\01.PathMgr</Filter>
     </ClCompile>
@@ -450,9 +484,35 @@
     <ClCompile Include="CTileRender.cpp">
       <Filter>GameEngine\06.Component\RenderComponent\05.TileRender</Filter>
     </ClCompile>
-    <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="CLight2D.cpp">
       <Filter>GameEngine\06.Component\04.Light2D</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_tables.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorMgr.cpp">
+      <Filter>GameEngine\03.Manager\09.EditorMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="StructuredBuffer.cpp">
+      <Filter>GameEngine\02.Device\StructuredBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
