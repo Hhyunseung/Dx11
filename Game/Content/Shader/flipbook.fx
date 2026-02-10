@@ -18,6 +18,7 @@ struct VS_OUT
 {
     float4 vPosition : SV_Position; // 래스터라이져로 보낼때, NDC 좌표
     float2 vUV : TEXCOORD;
+    float3 vWorldPos : POSITION; 
 };
 
 VS_OUT VS_Flipbook(VS_IN _input)
@@ -29,6 +30,7 @@ VS_OUT VS_Flipbook(VS_IN _input)
     float4 vProj = mul(vView, g_matProj);
      
     output.vPosition = vProj;
+    output.vWorldPos = vWorld;
     output.vUV = _input.vUV;
     
     return output;
@@ -42,6 +44,19 @@ float4 PS_Flipbook(VS_OUT _input) : SV_Target
     
     if (vColor.a == 0.f)
         discard;
+    
+    // 물체가 받는 빛의 총량
+    float3 LightColor = float3(0.f, 0.f, 0.f);
+    
+    // 반복문 돌면서, 모든 광원으로부터 어느정도의 빛을 받는지 합산
+    for (int i = 0; i < Light2DCount; ++i)
+    {
+        LightColor += CalcLight2D(i, _input.vWorldPos);
+    }
+    
+    // 물체의 색상에, 자신이 받는 최종빛 총량을 곱한다
+    vColor.rgb *= LightColor;
+    
     
     return vColor;
 }

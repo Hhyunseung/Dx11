@@ -164,6 +164,9 @@
       <Filter>GameEngine\06.Component\RenderComponent\05.TileRender</Filter>
     </ClInclude>
     <ClInclude Include="StructuredBuffer.h" />
+    <ClInclude Include="CLight2D.h">
+      <Filter>GameEngine\06.Component\04.Light2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -302,6 +305,9 @@
     </Filter>
     <Filter Include="GameEngine\02.Device\StructuredBuffer">
       <UniqueIdentifier>{f53cdb2a-d30e-453f-9f41-396dc2f52348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\06.Component\04.Light2D">
+      <UniqueIdentifier>{b0b5c3bc-ab39-494d-9556-12a859eabbaf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -445,6 +451,9 @@
       <Filter>GameEngine\06.Component\RenderComponent\05.TileRender</Filter>
     </ClCompile>
     <ClCompile Include="StructuredBuffer.cpp" />
+    <ClCompile Include="CLight2D.cpp">
+      <Filter>GameEngine\06.Component\04.Light2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -472,6 +481,12 @@
     </FxCompile>
     <FxCompile Include="tile.fx">
       <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="struct.fx">
+      <Filter>HLSL\1.Header</Filter>
+    </FxCompile>
+    <FxCompile Include="func.fx">
+      <Filter>HLSL\1.Header</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

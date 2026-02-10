@@ -9,6 +9,10 @@ private:
 public:
     virtual void Tick() override;
 
+private:
+    void MovePespective();
+    void MoveOrthographic();
+
 public:
     CCamMoveScript();
 	virtual ~CCamMoveScript();

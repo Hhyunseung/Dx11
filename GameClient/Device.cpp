@@ -15,6 +15,7 @@ int Device::Init(HWND _hwnd, Vec2 _Resolution)
 {
     m_hWnd = _hwnd;
     m_RenderResol = _Resolution;
+    g_Global.Resolution = m_RenderResol;
 
     // Dx11 라이브러리는 동적 라이브러리 이고
     // Dx11 관련 객체 생성함수를 통해서 생성된 객체의 주소를 받은 경우,
@@ -438,4 +439,7 @@ void Device::CreateConstBuffer()
 
     m_CB[(UINT)CB_TYPE::MATERIAL] = new ConstBuffer;
     m_CB[(UINT)CB_TYPE::MATERIAL]->Create(CB_TYPE::MATERIAL, sizeof(MtrlConst));
+
+    m_CB[(UINT)CB_TYPE::GLOBAL] = new ConstBuffer;
+    m_CB[(UINT)CB_TYPE::GLOBAL]->Create(CB_TYPE::GLOBAL, sizeof(GlobalData));
 }

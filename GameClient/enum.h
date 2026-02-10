@@ -4,7 +4,7 @@ enum class CB_TYPE
 {
 	TRANSFORM, // b0 // 행렬변환 
 	MATERIAL,  // b1 // 재질의 상수데이터
-
+	GLOBAL,    // b2
 
 	END,
 };
@@ -143,4 +143,11 @@ enum class TASK_TYPE
 	CREATE_OBJECT,
 	DESTROY_OBJECT,
 
+};
+
+enum class LIGHT_TYPE
+{
+	DIRECTIONAL,	// 방향성	멀리서부터 오는 광원에게 설정, 주로 전역광원(빛이 월드로 오는 방향이 모두 같다고 본다)
+	POINT,			// 점광원	기본적인 광원, 한 점으로부터 주변으로 빛이 뻗어나감
+	SPOT,			// 스포트	특수한 광원, 빛을 특정 방향으로 모아서 보내는 것으로 봄
 };

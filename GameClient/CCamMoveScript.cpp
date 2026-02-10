@@ -4,6 +4,7 @@
 #include "KeyMgr.h"
 #include "CTransform.h"
 #include "TimeMgr.h"
+#include "CCamera.h"
 
 CCamMoveScript::CCamMoveScript()
 {
@@ -15,6 +16,14 @@ CCamMoveScript::~CCamMoveScript()
 
 
 void CCamMoveScript::Tick()
+{
+	if (PROJ_TYPE::PERSPECTIVE == Camera()->GetProjType())
+		MovePespective();
+	else
+		MoveOrthographic();
+}
+
+void CCamMoveScript::MovePespective()
 {
 	Vec3 vPos = Transform()->GetRelativePos();
 	Vec3 vRot = Transform()->GetRelativeRot();
@@ -46,4 +55,21 @@ void CCamMoveScript::Tick()
 
 	Transform()->SetRelativePos(vPos);
 	Transform()->SetRelativeRot(vRot);
+}
+
+void CCamMoveScript::MoveOrthographic()
+{
+	Vec3 vPos = Transform()->GetRelativePos();
+
+	if (KEY_PRESSED(KEY::W))
+		vPos.y += 500.f * DT;
+	if (KEY_PRESSED(KEY::S))
+		vPos.y -= 500.f * DT;
+	if (KEY_PRESSED(KEY::A))
+		vPos.x -= 500.f * DT;
+	if (KEY_PRESSED(KEY::D))
+		vPos.x += 500.f * DT;
+
+	Transform()->SetRelativePos(vPos);
+	Transform()->SetRelativeRot(Vec3(0.f, 0.f, 0.f));
 }

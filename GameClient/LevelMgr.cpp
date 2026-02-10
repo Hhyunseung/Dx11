@@ -49,13 +49,46 @@ void LevelMgr::Init()
 	pObject->Camera()->LayerCheckAll();
 	//pObject->Camera()->LayerCheck(31); // 31 -> UI 레이어
 
-	pObject->Camera()->SetProjType(PROJ_TYPE::PERSPECTIVE);
+	pObject->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 	pObject->Camera()->SetFar(10000.f);
 	pObject->Camera()->SetFOV(90.f);
 	pObject->Camera()->SetOrthoScale(1.f);
 	Vec2 vResolution = Device::GetInst()->GetRenderResolution();
 	pObject->Camera()->SetAspectRatio(vResolution.x / vResolution.y); // 종횡비(AspectRatio)
 	pObject->Camera()->SetWidth(vResolution.x); // 직교 투영 가로 길이
+
+	m_CurLevel->AddObject(0, pObject);
+
+	
+	// 광원 추가
+	pObject = new GameObject;
+	pObject->SetName(L"Light_1");
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CLight2D);
+
+	pObject->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	pObject->Light2D()->SetLightColor(Vec3(1.f, 0.3f, 0.3f));
+	//pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
+	pObject->Light2D()->SetRadius(300.f);
+	pObject->Transform()->SetRelativePos(Vec3(-150.f, 0.f, 0.f));
+
+	m_CurLevel->AddObject(0, pObject);
+
+
+	// 광원 추가
+	pObject = new GameObject;
+	pObject->SetName(L"Light_2");
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CLight2D);
+
+	pObject->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
+	pObject->Light2D()->SetLightColor(Vec3(0.3f, 0.3f, 1.f));
+	//pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
+	pObject->Light2D()->SetRadius(200.f);
+	pObject->Light2D()->SetAngle(XM_PI / 4.f);
+
+	pObject->Transform()->SetRelativePos(Vec3(-250.f, 0.f, 0.f));
+	pObject->Transform()->SetRelativeRot(Vec3(0.f, 0.f, XM_PI / 4.f));
 
 	m_CurLevel->AddObject(0, pObject);
 
@@ -133,7 +166,7 @@ void LevelMgr::Init()
 	pTileObj->AddComponent(new CCollider2D);
 	pTileObj->AddComponent(new CTileRender);
 
-	pTileObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
+	pTileObj->Transform()->SetRelativePos(Vec3(-640.f, 640.f, 500.f));
 	// pTileObj->Transform()->GetRelativeScale  // 내가 어떤 타일맵을 골랐는지에 따라.. CTileRender에서 크키조절
 	pTileObj->TileRender()->SetTileMap(FIND(ATileMap, L"TestTileMap"));
 	

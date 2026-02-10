@@ -1,6 +1,7 @@
 #ifndef _VALUE
 #define _VALUE
 
+#include "struct.fx"
 
 SamplerState g_sam_0 : register(s0);
 SamplerState g_sam_1 : register(s1);
@@ -44,6 +45,18 @@ cbuffer MATERIAL : register(b1)
     row_major matrix g_mat_1;
 }
 
+cbuffer GLOBAL : register(b2)
+{
+    float2  Resolution;     // 화면 해상도
+    int     Light2DCount;   // 2D 광원 개수
+    int     Light3DCount;   // 3D 광원 개수
+    float   DT;             // DeltaTime
+    float   Time;           // 누적 시간값
+    float   EngineDT;       // DeltaTime
+    float   EngineTime;     // 누적 시간값
+}
+
+
 /// t0 에 바인딩된 텍스쳐가 512 512 라면 UV 좌표계로 샘플링
 /// 입력으로 들어오는 UV 좌표계를 이용해서 보간된 텍스쳐 색상을 출력
 
@@ -58,5 +71,11 @@ Texture2D g_tex_3 : register(t3);
 Texture2D g_tex_4 : register(t4);
 Texture2D g_tex_5 : register(t5);
 
+
+StructuredBuffer<Light2DInfo> g_Light2D : register(t12);
+
+#define PI 3.1415926535f
+
+#include "func.fx"
 
 #endif

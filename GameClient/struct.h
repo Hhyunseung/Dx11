@@ -34,6 +34,18 @@ struct TransformMatrix
 // extern 들의 구현만 따로 하는 extern.cpp 생성
 extern TransformMatrix g_Trans;
 
+// Light2D 정보
+struct Light2DInfo
+{
+	LIGHT_TYPE	Type;
+	Vec3		Color;		// 빛의 색상
+	Vec3		Ambient;	// 환경광, 광원이 존재하면서 최소한으로 발생하는 빛의 세기
+	Vec3 		LightDir;   // 광원의 빛이 향하는 방향
+	Vec3        WorldPos;   // 광원의 위치 (포인트, 스포트)
+	float       Radius;     // 빛의 영향 반경 (포인트, 스포트)
+	float		Angle;		// SpotLight 범위 각
+};
+
 
 struct MtrlConst
 {
@@ -69,3 +81,16 @@ struct TaskInfo
 	DWORD_PTR Param_1;
 	DWORD_PTR Param_2;
 };
+
+struct GlobalData
+{
+	Vec2	Resolution;		// 화면 해상도
+	int     Light2DCount;	// 2D 광원 개수
+	int		Light3DCount;	// 3D 광원 개수
+	float	DeltaTime;		// DeltaTime
+	float	Time;			// 누적 시간 값
+	float	EngineDT;		// DeltaTime (Engine 기준)
+	float	EngineTime;		// 누적 시간 값 (Engine 기준)
+};
+
+extern GlobalData g_Global;

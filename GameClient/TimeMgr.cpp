@@ -49,6 +49,11 @@ void TimeMgr::Tick()
 		swprintf_s(buff, 255, L"DeltaTime : %f", m_DeltaTime);
 		SetWindowText(Engine::GetInst()->GetMainWndHwnd(), buff);
 
-		m_Time = 0.f;
+		m_Time -= 1.f;
 	}
+
+	g_Global.DeltaTime = m_DeltaTime;
+	g_Global.Time += m_DeltaTime;
+	g_Global.EngineDT = m_DeltaTime;
+	g_Global.EngineTime += m_DeltaTime;
 }

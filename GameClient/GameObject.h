@@ -49,6 +49,7 @@ public:
     void Destroy();
 
     // GET_COMPONENT
+	GET_COMPONENT(Light2D, LIGHT2D);
     GET_COMPONENT(TileRender, TILE_RENDER);
     GET_COMPONENT(FlipbookRender, FLIPBOOK_RENDER);
     GET_COMPONENT(SpriteRender, SPRITE_RENDER);

@@ -424,20 +424,13 @@ void AssetMgr::CreateEngineSprite()
 
 	pTileMap = new ATileMap;
 	pTileMap->SetName(L"TestTileMap");
-	pTileMap->SetRowCol(10, 10);
+	pTileMap->SetRowCol(20, 20);
 	pTileMap->SetTileSize(Vec2(64.f, 64.f));
 	pTileMap->SetAtlas(FIND(ATexture, L"TileAtlas"));
 
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(0, i, FIND(ASprite, L"TileSprite_1"));
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(1, i, FIND(ASprite, L"TileSprite_2"));
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(2, i, FIND(ASprite, L"TileSprite_3"));
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(3, i, FIND(ASprite, L"TileSprite_4"));
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(4, i, FIND(ASprite, L"TileSprite_5"));
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(5, i, FIND(ASprite, L"TileSprite_6"));
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(6, i, FIND(ASprite, L"TileSprite_7"));
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(7, i, FIND(ASprite, L"TileSprite_8"));
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(8, i, FIND(ASprite, L"TileSprite_9"));
-	for (int i = 0; i < 10; ++i) pTileMap->SetSprite(9, i, FIND(ASprite, L"TileSprite_10"));
-	
+	for (int i = 0; i < 20; ++i)
+		for (int j = 0; j < 20; ++j)
+			pTileMap->SetSprite(i, j, FIND(ASprite, L"TileSprite_1"));
+
 	AddAsset(pTileMap->GetName(), pTileMap.Get());
 }

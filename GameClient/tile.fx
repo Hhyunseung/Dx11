@@ -28,6 +28,7 @@ struct VS_OUT
 {
     float4 vPosition : SV_Position; // 래스터라이져로 보낼때, NDC 좌표
     float2 vUV : TEXCOORD;
+    float3 vWorld : POSITION;
 };
 
 VS_OUT VS_Tile(VS_IN _input)
@@ -41,6 +42,7 @@ VS_OUT VS_Tile(VS_IN _input)
     float4 vProj = mul(vView, g_matProj);
      
     output.vPosition = vProj;
+    output.vWorld = vWorld;
     output.vUV = _input.vUV * float2(COL, ROW);
     
     return output;
@@ -57,6 +59,24 @@ float4 PS_Tile(VS_OUT _input) : SV_Target
     
     if (vColor.a == 0.f)
         discard;
+    
+    // 구조화 버퍼의 요소 개수, 요소 하나의 크기 정보 가져오기
+    // 성능 이슈가 있다. 웬만하면 상수버퍼로 해당 데이터를 따로 전달받는 것이 나음
+    //uint count = 0;
+    //uint stride = 0;
+    //g_Light2D.GetDimensions(count, stride);
+    
+    // 물체가 받는 빛의 총량
+    float3 LightColor = float3(0.f, 0.f, 0.f);
+    
+    // 반복문 돌면서, 모든 광원으로부터 어느정도의 빛을 받는지 합산
+    for (int i = 0; i < Light2DCount; ++i)
+    {
+        LightColor += CalcLight2D(i, _input.vWorld);
+    }
+    
+    // 물체의 색상에, 자신이 받는 최종빛 총량을 곱한다
+    vColor.rgb *= LightColor;
     
     return vColor;
 }
