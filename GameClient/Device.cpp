@@ -149,6 +149,13 @@ void Device::ClearTarget()
     CONTEXT->ClearDepthStencilView(m_DSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 }
 
+void Device::OMSetTarget()
+{
+    // 렌더타겟, 깊이 타겟 출력 설정
+    // 렌더링 파이프라인 과정에서 마지막에 그림을 출력시킬 목적지 설정
+    m_Context->OMSetRenderTargets(1, m_RTV.GetAddressOf(), m_DSV.Get());
+}
+
 int Device::CreateSwapChain()
 {
     DXGI_SWAP_CHAIN_DESC m_Desc = {};

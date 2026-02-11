@@ -34,9 +34,6 @@ void RenderMgr::Progress()
 	if (KEY_TAP(KEY::F9))
 		m_bDebugRender ? m_bDebugRender = false : m_bDebugRender = true;
 
-	// 렌더타겟 클리어
-	Device::GetInst()->ClearTarget();
-
 	// 렌더링 시작전에 할 일 
 	Render_Start();
 
@@ -55,6 +52,13 @@ void RenderMgr::Progress()
 
 void RenderMgr::Render_Start()
 {
+	// 타겟 설정
+	Device::GetInst()->OMSetTarget();
+
+	// 렌더타겟 클리어
+	Device::GetInst()->ClearTarget();
+
+
 	// 등록받은 Light2D 의 광원 정보를 구조화 버퍼에 담는다
 	// 구조화버퍼를 특정 t 레지스터에 바인딩 한다
 	vector<Light2DInfo> vecInfo;

@@ -196,6 +196,18 @@
     <ClInclude Include="StructuredBuffer.h">
       <Filter>GameEngine\02.Device\StructuredBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="EditorUI.h">
+      <Filter>GameEngine\EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Inspector.h">
+      <Filter>GameEngine\EditorUI\01.Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="Outliner.h">
+      <Filter>GameEngine\EditorUI\02.Outliner</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>GameEngine\EditorUI\03.Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -344,6 +356,18 @@
     <Filter Include="GameEngine\03.Manager\09.EditorMgr">
       <UniqueIdentifier>{09a9f710-e61d-46cf-b82d-ed74f1669df3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\EditorUI">
+      <UniqueIdentifier>{48cc9529-a808-46d3-803e-eeb16ac41816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\01.Inspector">
+      <UniqueIdentifier>{b973b834-d4bf-4e29-a1e2-6f0afd775595}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\02.Outliner">
+      <UniqueIdentifier>{1dacca57-4ccf-4a68-9631-8a5df087b5c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\03.Menu">
+      <UniqueIdentifier>{375a74e1-0739-4b01-9719-030adee92edd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -351,7 +375,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine.cpp">
       <Filter>GameEngine\01.Engine</Filter>
     </ClCompile>
@@ -513,6 +536,19 @@
     </ClCompile>
     <ClCompile Include="StructuredBuffer.cpp">
       <Filter>GameEngine\02.Device\StructuredBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorUI.cpp">
+      <Filter>GameEngine\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
+      <Filter>GameEngine\EditorUI\01.Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="Outliner.cpp">
+      <Filter>GameEngine\EditorUI\02.Outliner</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp">
+      <Filter>GameEngine\EditorUI\03.Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

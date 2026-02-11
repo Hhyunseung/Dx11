@@ -3,9 +3,12 @@
 
 #include "CScript.h"
 
-// 반환타입이 void 면서 CScript(혹은 파생된)의 멤버함수이면서 매개변수로 (CCollider2D*, CCollider2D*)를 받는 함수
+// 반환타입이 void 면서
+// CScript(혹은 파생된)의 멤버함수이면서 
+// 매개변수로 (CCollider2D*, CCollider2D*)를 받는 함수
 class CCollider2D;
 typedef void (CScript::* COLLISION_EVENT)(CCollider2D*, CCollider2D*);
+
 struct COLLISION_DELEGATE
 {
     class CScript*  Inst;

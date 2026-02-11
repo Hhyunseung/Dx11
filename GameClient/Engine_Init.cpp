@@ -46,8 +46,9 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height)
     // HWND hWnd = CreateWindowW(L"MyGame", L"Title Bar", WS_POPUP, 
     //     CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-    
-    m_hWnd = CreateWindowW(L"MyGame", L"Title Bar", WS_OVERLAPPEDWINDOW,
+    /// 윈도우 창 크기 고정
+    UINT Style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MAXIMIZEBOX;
+    m_hWnd = CreateWindowW(L"MyGame", L"Title Bar", Style,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, m_hInst, nullptr);
 
 

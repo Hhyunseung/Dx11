@@ -37,6 +37,7 @@ private:
 public:
 	int Init(HWND _hwnd, Vec2 _Resolution);
 	void ClearTarget();
+	void OMSetTarget();
 	void Present() { m_SwapChain->Present(0, 0); }
 
 	Vec2 GetRenderResolution() { return m_RenderResol; }
