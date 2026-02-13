@@ -13,7 +13,7 @@
 #include "Menu.h"
 #include "Inspector.h"
 #include "Outliner.h"
-#include "TransformUI.h"
+#include "ListUI.h"
 
 void HelpMarker(const char* desc);
 
@@ -148,6 +148,9 @@ void EditorMgr::CreateEditorUI()
     pUI = new Outliner;
     AddUI(pUI->GetUIName(), pUI);
 
+    pUI = new ListUI;
+    pUI->SetActive(false);
+    AddUI(pUI->GetUIName(), pUI);
 }
 
 

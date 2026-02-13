@@ -2,6 +2,7 @@
 
 #include "assets.h"
 
+#include "PathMgr.h"
 
 class AssetMgr
 	: public singleton<AssetMgr>
@@ -26,10 +27,15 @@ private:
 public:
 	void AddAsset(const wstring& _Key, Ptr<Asset> _Asset);
 
+	void GetAssetNames(ASSET_TYPE _type, vector<wstring>& _vec);
+
 	Ptr<Asset> FindAsset(const wstring& _Key, ASSET_TYPE _Type);
 
 	template<typename T>
 	Ptr<T> FindAsset(const wstring& _key);
+
+	template<typename T>
+	Ptr<T> Load(const wstring& _Key, const wstring& _RelativePath);
 };
 
 template<typename T1, typename T2>
@@ -80,6 +86,33 @@ Ptr<T> AssetMgr::FindAsset(const wstring& _key)
 
 	// Ptr<Asset> 이므로 다운 캐스팅해서 해당 Type 의 포인터 반환
 	return (T*)iter->second.Get();
+}
+
+template<typename T>
+inline Ptr<T> AssetMgr::Load(const wstring& _Key, const wstring& _RelativePath)
+{
+	// 동일키로 먼저 등록된 에셋이 있는지 확인
+	Ptr<T> pAsset = FindAsset<T>(_Key);
+	assert(pAsset == nullptr);
+
+	// 에셋 객체 생성
+	pAsset = new T;
+	
+	// 입력된 경로로부터 에셋 로딩작업 진행
+	pAsset->Load(CONTENT_PATH + _RelativePath);
+
+	// T 타입에 해당하는 실제 AssetType 확인
+	ASSET_TYPE type = GetAssetType<T>();
+
+	// 맵에 에셋 등록
+	m_mapAsset[(UINT)type].insert(make_pair(_Key, pAsset.Get()));
+
+	// 에셋이 자신이 매니저에 등록할 때 사용된 Key 와
+	// 자신이 어떤 경로에 있는 파일로부터 로딩된 에셋인지 스스로 알 수 있도록 해줌
+	pAsset->SetKey(_Key);
+	pAsset->SetRelativePath(_RelativePath);
+
+	return pAsset;
 }
 
 

@@ -223,6 +223,21 @@
     <ClInclude Include="Light2DUI.h">
       <Filter>GameEngine\EditorUI\04.ComponentUI\04.Light2DUI</Filter>
     </ClInclude>
+    <ClInclude Include="MeshRenderUI.h">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\05.MeshRenderUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderUI.h">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\06.SpriteRenderUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TileRenderUI.h">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\07.TileRenderUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FlipbookRenderUI.h">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\08.FlipbookRenderUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ListUI.h">
+      <Filter>GameEngine\EditorUI\05.ListUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -397,6 +412,21 @@
     </Filter>
     <Filter Include="GameEngine\EditorUI\04.ComponentUI\04.Light2DUI">
       <UniqueIdentifier>{a593fb6e-df45-4f91-a4ff-a45d2d95292c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\04.ComponentUI\05.MeshRenderUI">
+      <UniqueIdentifier>{69c771e9-20d8-43b9-8772-a260886306e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\04.ComponentUI\06.SpriteRenderUI">
+      <UniqueIdentifier>{314e1b38-ac8c-428c-8e24-f681de2eb9f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\04.ComponentUI\07.TileRenderUI">
+      <UniqueIdentifier>{f56ec5e6-b2f4-4958-be9e-3c9c7c7aa6fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\04.ComponentUI\08.FlipbookRenderUI">
+      <UniqueIdentifier>{8378d9ea-9e18-4791-ae1a-07888006a893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\05.ListUI">
+      <UniqueIdentifier>{55430b08-befc-4de3-b2c0-2e33c875950b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -594,6 +624,24 @@
     </ClCompile>
     <ClCompile Include="Light2DUI.cpp">
       <Filter>GameEngine\EditorUI\04.ComponentUI\04.Light2DUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector_Init.cpp">
+      <Filter>GameEngine\EditorUI\01.Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderUI.cpp">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\05.MeshRenderUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderUI.cpp">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\06.SpriteRenderUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TileRenderUI.cpp">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\07.TileRenderUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipbookRenderUI.cpp">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\08.FlipbookRenderUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ListUI.cpp">
+      <Filter>GameEngine\EditorUI\05.ListUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

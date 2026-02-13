@@ -167,61 +167,16 @@ void AssetMgr::CreateEngineShader()
 void AssetMgr::CreateEngineTexture()
 {
 	// 이미지 한장 로딩해보기
-	Ptr<ATexture> pTex = nullptr;
-	pTex = new ATexture;
-	wstring FilePath = CONTENT_PATH;
-	FilePath += L"Texture\\Character.png";
-	pTex->Load(FilePath);
-	AddAsset(L"PlayerImage", pTex.Get());
+	Load<ATexture>(L"PlayerImage", L"Texture\\Character.png");
+	Load<ATexture>(L"Missile", L"Texture\\Missile.png");
+	Load<ATexture>(L"Enemy", L"Texture\\Enemy.png");
+	Load<ATexture>(L"Star", L"Texture\\Star.png");
+	Load<ATexture>(L"Sol", L"Texture\\Sol.png");
+	Load<ATexture>(L"BackGround", L"Texture\\BackGround.png");
+	Load<ATexture>(L"Link", L"Texture\\link.png");
+	Load<ATexture>(L"TileAtlas", L"Texture\\TILE.bmp");
+	Load<ATexture>(L"Cookie", L"Texture\\Cookie.png");
 
-	pTex = new ATexture;
-	FilePath = CONTENT_PATH;
-	FilePath += L"Texture\\Missile.png";
-	pTex->Load(FilePath);
-	AddAsset(L"Missile", pTex.Get());
-
-	pTex = new ATexture;
-	FilePath = CONTENT_PATH;
-	FilePath += L"Texture\\Enemy.png";
-	pTex->Load(FilePath);
-	AddAsset(L"Enemy", pTex.Get());
-
-	pTex = new ATexture;
-	FilePath = CONTENT_PATH;
-	FilePath += L"Texture\\Star.png";
-	pTex->Load(FilePath);
-	AddAsset(L"Star", pTex.Get());
-
-	pTex = new ATexture;
-	FilePath = CONTENT_PATH;
-	FilePath += L"Texture\\Sol.png";
-	pTex->Load(FilePath);
-	AddAsset(L"Sol", pTex.Get());
-
-	pTex = new ATexture;
-	FilePath = CONTENT_PATH;
-	FilePath += L"Texture\\BackGround.png";
-	pTex->Load(FilePath);
-	AddAsset(L"BackGround", pTex.Get());
-
-	pTex = new ATexture;
-	FilePath = CONTENT_PATH;
-	FilePath += L"Texture\\link.png";
-	pTex->Load(FilePath);
-	AddAsset(L"Link", pTex.Get());
-
-	pTex = new ATexture;
-	FilePath = CONTENT_PATH;
-	FilePath += L"Texture\\TILE.bmp";
-	pTex->Load(FilePath);
-	AddAsset(L"TileAtlas", pTex.Get());
-
-
-	pTex = new ATexture;
-	FilePath = CONTENT_PATH;
-	FilePath += L"Texture\\Cookie.png";
-	pTex->Load(FilePath);
-	AddAsset(L"Cookie", pTex.Get());
 }
 
 void AssetMgr::CreateEngineMaterial()

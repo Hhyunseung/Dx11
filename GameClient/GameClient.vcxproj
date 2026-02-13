@@ -194,6 +194,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="enum.h" />
+    <ClInclude Include="FlipbookRenderUI.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="GameClient.h" />
@@ -212,7 +213,9 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LevelMgr.h" />
     <ClInclude Include="Light2DUI.h" />
+    <ClInclude Include="ListUI.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MeshRenderUI.h" />
     <ClInclude Include="Outliner.h" />
     <ClInclude Include="PathMgr.h" />
     <ClInclude Include="pch.h" />
@@ -221,10 +224,12 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="single.h" />
+    <ClInclude Include="SpriteRenderUI.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TaskMgr.h" />
+    <ClInclude Include="TileRenderUI.h" />
     <ClInclude Include="TimeMgr.h" />
     <ClInclude Include="TransformUI.h" />
   </ItemGroup>
@@ -272,6 +277,7 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="Engine_Init.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="extern.cpp" />
+    <ClCompile Include="FlipbookRenderUI.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -282,20 +288,25 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Inspector.cpp" />
+    <ClCompile Include="Inspector_Init.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LevelMgr.cpp" />
     <ClCompile Include="Light2DUI.cpp" />
+    <ClCompile Include="ListUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MeshRenderUI.cpp" />
     <ClCompile Include="Outliner.cpp" />
     <ClCompile Include="PathMgr.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="RenderMgr.cpp" />
+    <ClCompile Include="SpriteRenderUI.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="TaskMgr.cpp" />
+    <ClCompile Include="TileRenderUI.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="TransformUI.cpp" />
   </ItemGroup>

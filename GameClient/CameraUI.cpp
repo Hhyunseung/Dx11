@@ -74,7 +74,7 @@ void CameraUI::Tick_UI()
 	// Projection Type
 	// ===============
 	ImGui::Text("Projection Type;");
-	ImGui::SameLine(SameLine);
+	ImGui::SameLine(SameLine); /// 정렬 맞추기
 	
 	PROJ_TYPE ProjType = GetTarget()->Camera()->GetProjType();
 	const char* items[] = { "ORTHOGRAPHIC", "PERSPECTIVE" };

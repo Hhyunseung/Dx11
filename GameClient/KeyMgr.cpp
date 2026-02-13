@@ -73,8 +73,9 @@ void KeyMgr::Tick()
 	{
 		for (UINT i = 0; i < (UINT)KEY::KEY_END; i++)
 		{
-			// 지금 눌려있는지
-			if (GetAsyncKeyState(g_keyIndex[i]))
+			// 지금 눌려있는지 /// 가장 왼쪽 비트가 1이면 눌려있는 상태 0x8000 : 1000 0000 0000 0000
+			/// 현 시점에 눌려있는 거만 알려줌
+			if (GetAsyncKeyState(g_keyIndex[i])) //& 0x8000)
 			{
 				// 이전 프레임에서도 눌려있었다
 				if (m_vecKeys[i].Pressed)
@@ -114,6 +115,9 @@ void KeyMgr::Tick()
 	{
 		for (UINT i = 0; i < (UINT)KEY::KEY_END; i++)
 		{
+			/// 강제로 모든 키를 떼어낸다
+			GetAsyncKeyState(g_keyIndex[i]);
+
 			if (m_vecKeys[i].State == KEY_STATE::TAP || m_vecKeys[i].State == KEY_STATE::PRESSED)
 			{
 				m_vecKeys[i].State = KEY_STATE::RELEASED;

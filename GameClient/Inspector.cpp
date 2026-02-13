@@ -11,23 +11,9 @@
 Inspector::Inspector()
 	: EditorUI("Inspector")
 {
-	m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM] = new TransformUI;
-	m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM]->SetSizeAsChild(Vec2(0.f, 250.f));
-	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM].Get());
+	CreateChildUI();
 
-	m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D] = new Collider2DUI;
-	m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D]->SetSizeAsChild(Vec2(0.f, 350.f));
-	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D].Get());
-
-	m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA] = new CameraUI;
-	m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA]->SetSizeAsChild(Vec2(0.f, 350.f));
-	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA].Get());
-
-	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D] = new Light2DUI;
-	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]->SetSizeAsChild(Vec2(0.f, 350.f));
-	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D].Get());
-
-	SetTargetObject(LevelMgr::GetInst()->FindObjectByName(L"Light_1"));
+	SetTargetObject(LevelMgr::GetInst()->FindObjectByName(L"Monster"));
 }
 
 Inspector::~Inspector()

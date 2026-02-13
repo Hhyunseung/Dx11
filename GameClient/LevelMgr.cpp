@@ -66,7 +66,7 @@ void LevelMgr::Init()
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CLight2D);
 
-	pObject->Light2D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
+	pObject->Light2D()->SetLightType(LIGHT_TYPE::POINT);
 	pObject->Light2D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
 	//pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
 	pObject->Light2D()->SetRadius(300.f);
@@ -98,13 +98,15 @@ void LevelMgr::Init()
 	pMonster->SetName(L"Monster");
 
 	pMonster->AddComponent(new CTransform);
-	pMonster->AddComponent(new CSpriteRender);
+	pMonster->AddComponent(new CMeshRender);
 	pMonster->AddComponent(new CCollider2D);
 
 	pMonster->Transform()->SetRelativePos(Vec3(300.f, 0.f, 100.f));
 	pMonster->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 	
-	pMonster->SpriteRender()->SetSprite(FIND(ASprite, L"TileSprite_47"));
+	//pMonster->SpriteRender()->SetSprite(FIND(ASprite, L"TileSprite_47"));
+	//pMonster->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+	pMonster->MeshRender()->SetMtrl(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
 
 	m_CurLevel->AddObject(5, pMonster);
 

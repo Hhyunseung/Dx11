@@ -30,7 +30,7 @@ public:
 	float GetHeight() { return m_Desc.Height; }
 
 public:
-	int Load(const wstring& _strFilePath);
+	virtual int Load(const wstring& _strFilePath);
 
 public:
 	ATexture();

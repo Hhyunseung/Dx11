@@ -18,6 +18,9 @@ public:
 public:
     virtual void Tick_UI() override;
 
+private:
+    void CreateChildUI();
+
 public:
     Inspector();
 	virtual ~Inspector();

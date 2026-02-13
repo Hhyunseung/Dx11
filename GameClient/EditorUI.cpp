@@ -19,7 +19,14 @@ void EditorUI::Tick()
 {
 	if (nullptr == m_Parent)
 	{
-		ImGui::Begin(GetUIName().c_str(), &m_Active);
+		bool Active = m_Active;
+
+		ImGui::Begin(GetUIName().c_str(), &Active);
+
+		if (m_Active != Active)
+		{
+			SetActive(Active);
+		}
 
 		CheckFocus();
 

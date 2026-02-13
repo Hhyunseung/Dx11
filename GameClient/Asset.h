@@ -25,10 +25,18 @@ public:
 	const wstring& GetKey() { return m_Key; }
 	const wstring& GetRelativePath() { return m_RelativePath; }
 
+private:
+	void SetKey(const wstring& _Key) { m_Key = _Key; };
+	void SetRelativePath(const wstring& _Path) { m_RelativePath = _Path; };
+
+public:
+	virtual int Load(const wstring& _FilePath) { return S_OK; };
+
 public:
 	// Asset(); // 기본 생성자 제거, 자신이 어떤 타입의 Asset 인지 입력으로 받는 버전의 생성자만 남겨둠
 	Asset(ASSET_TYPE _Type);
 	virtual ~Asset();
 
+	friend class AssetMgr;
 };
 
