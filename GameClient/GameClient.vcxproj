@@ -164,6 +164,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="assets.h" />
     <ClInclude Include="ATexture.h" />
     <ClInclude Include="ATileMap.h" />
+    <ClInclude Include="CameraUI.h" />
     <ClInclude Include="CBillboardRender.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCamMoveScript.h" />
@@ -173,9 +174,11 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="CLight2D.h" />
     <ClInclude Include="CMeshRender.h" />
     <ClInclude Include="CMissileScript.h" />
+    <ClInclude Include="Collider2DUI.h" />
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="components.h" />
+    <ClInclude Include="ComponentUI.h" />
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="CPlanet.h" />
     <ClInclude Include="CPlayerScript.h" />
@@ -208,6 +211,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LevelMgr.h" />
+    <ClInclude Include="Light2DUI.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Outliner.h" />
     <ClInclude Include="PathMgr.h" />
@@ -222,6 +226,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TaskMgr.h" />
     <ClInclude Include="TimeMgr.h" />
+    <ClInclude Include="TransformUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AFlipbook.cpp" />
@@ -235,6 +240,7 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="AssetMgr_Init.cpp" />
     <ClCompile Include="ATexture.cpp" />
     <ClCompile Include="ATileMap.cpp" />
+    <ClCompile Include="CameraUI.cpp" />
     <ClCompile Include="CBillboardRender.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCamMoveScript.cpp" />
@@ -247,8 +253,10 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="CLight2D.cpp" />
     <ClCompile Include="CMeshRender.cpp" />
     <ClCompile Include="CMissileScript.cpp" />
+    <ClCompile Include="Collider2DUI.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentUI.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="CPlanet.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
@@ -277,6 +285,7 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LevelMgr.cpp" />
+    <ClCompile Include="Light2DUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Outliner.cpp" />
@@ -288,6 +297,7 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="TaskMgr.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
+    <ClCompile Include="TransformUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc" />

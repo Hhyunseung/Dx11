@@ -50,6 +50,9 @@ UINT g_keyIndex[(UINT)KEY::KEY_END] =
 
 
 KeyMgr::KeyMgr()
+	: m_Wheel(0)
+	, m_WheelChanged(false)
+	, m_Active(true)
 {
 }
 
@@ -65,42 +68,63 @@ void KeyMgr::Init()
 
 void KeyMgr::Tick()
 {
-	for (UINT i = 0; i < (UINT)KEY::KEY_END; i++)
+	// GetFocus : 현재 포커싱 중인 윈도우 핸들 반환
+	if (GetFocus() == Engine::GetInst()->GetMainWndHwnd() && m_Active)
 	{
-		// 지금 눌려있는지
-		if (GetAsyncKeyState(g_keyIndex[i]))
+		for (UINT i = 0; i < (UINT)KEY::KEY_END; i++)
 		{
-			// 이전 프레임에서도 눌려있었다
-			if (m_vecKeys[i].Pressed)
+			// 지금 눌려있는지
+			if (GetAsyncKeyState(g_keyIndex[i]))
 			{
-				m_vecKeys[i].State = PRESSED;
+				// 이전 프레임에서도 눌려있었다
+				if (m_vecKeys[i].Pressed)
+				{
+					m_vecKeys[i].State = PRESSED;
+				}
+
+				// 이전 프레임에서 눌리지 않았었다
+				else
+				{
+					m_vecKeys[i].State = TAP;
+				}
+
+				m_vecKeys[i].Pressed = true;
 			}
 
-			// 이전 프레임에서 눌리지 않았었다
+			// 지금 안눌려있다
 			else
 			{
-				m_vecKeys[i].State = TAP;
-			}
+				// 이전 프레임에서는 눌려있었다
+				if (m_vecKeys[i].Pressed)
+				{
+					m_vecKeys[i].State = RELEASED;
+				}
 
-			m_vecKeys[i].Pressed = true;
+				else
+				{
+					m_vecKeys[i].State = NONE;
+				}
+
+				m_vecKeys[i].Pressed = false;
+			}
 		}
-
-		// 지금 안눌려있다
-		else
+	}
+	
+	else
+	{
+		for (UINT i = 0; i < (UINT)KEY::KEY_END; i++)
 		{
-			// 이전 프레임에서는 눌려있었다
-			if (m_vecKeys[i].Pressed)
+			if (m_vecKeys[i].State == KEY_STATE::TAP || m_vecKeys[i].State == KEY_STATE::PRESSED)
 			{
-				m_vecKeys[i].State = RELEASED;
+				m_vecKeys[i].State = KEY_STATE::RELEASED;
 			}
-
 			else
 			{
-				m_vecKeys[i].State = NONE;
+				m_vecKeys[i].State = KEY_STATE::NONE;
 			}
 
 			m_vecKeys[i].Pressed = false;
-		}
+		} 
 	}
 
 

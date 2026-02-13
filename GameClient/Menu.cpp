@@ -4,6 +4,7 @@
 #include "EditorMgr.h"
 
 Menu::Menu()
+	: EditorUI("Menu")
 {
 }
 

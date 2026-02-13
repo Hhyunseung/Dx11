@@ -208,6 +208,21 @@
     <ClInclude Include="Menu.h">
       <Filter>GameEngine\EditorUI\03.Menu</Filter>
     </ClInclude>
+    <ClInclude Include="TransformUI.h">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\01.TransformUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentUI.h">
+      <Filter>GameEngine\EditorUI\04.ComponentUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider2DUI.h">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\02.Collider2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraUI.h">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\03.CameraUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Light2DUI.h">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\04.Light2DUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -367,6 +382,21 @@
     </Filter>
     <Filter Include="GameEngine\EditorUI\03.Menu">
       <UniqueIdentifier>{375a74e1-0739-4b01-9719-030adee92edd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\04.ComponentUI">
+      <UniqueIdentifier>{cc4f3e02-da4f-461c-91d8-451dcb405887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\04.ComponentUI\01.TransformUI">
+      <UniqueIdentifier>{87dd9148-af35-42ee-a9e6-2edc45bb2ba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\04.ComponentUI\02.Collider2DUI">
+      <UniqueIdentifier>{152fb33b-bf79-4893-b3fe-80cc2f7b13f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\04.ComponentUI\03.CameraUI">
+      <UniqueIdentifier>{8f72291b-0209-47c4-9cc6-aad74db013b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\04.ComponentUI\04.Light2DUI">
+      <UniqueIdentifier>{a593fb6e-df45-4f91-a4ff-a45d2d95292c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -549,6 +579,21 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp">
       <Filter>GameEngine\EditorUI\03.Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformUI.cpp">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\01.TransformUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentUI.cpp">
+      <Filter>GameEngine\EditorUI\04.ComponentUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider2DUI.cpp">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\02.Collider2DUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraUI.cpp">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\03.CameraUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Light2DUI.cpp">
+      <Filter>GameEngine\EditorUI\04.ComponentUI\04.Light2DUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

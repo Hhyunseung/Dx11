@@ -35,6 +35,8 @@ public:
     GET_SET(float, AspectRatio);
     GET_SET(float, OrthoScale);
 
+    UINT GetLayerCheck() { return m_LayerCheck; }
+
     float GetFOV() { return m_FOV * (180 / XM_PI);}
     void SetFOV(float _Degree) { m_FOV = _Degree* (XM_PI / 180.f); /* 라디안 단위로 저장 */ };
 

@@ -13,6 +13,7 @@
 #include "Menu.h"
 #include "Inspector.h"
 #include "Outliner.h"
+#include "TransformUI.h"
 
 void HelpMarker(const char* desc);
 
@@ -85,14 +86,15 @@ void EditorMgr::Progress()
 
 void EditorMgr::Tick()
 {
-
     // Start the Dear ImGui frame
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
-    if (KEY_TAP(KEY::F8))
-        m_ShowDemo ? m_ShowDemo = false : m_ShowDemo = true;
+    m_FocusedUI = nullptr;
+
+    if (KEY_TAP(KEY::ENTER))
+        ImGui::SetWindowFocus(nullptr);
 
     // DemoUI
     if (m_ShowDemo)
@@ -110,6 +112,11 @@ void EditorMgr::Tick()
     {
         iter->second->Tick();
     }*/
+
+    if (m_FocusedUI != nullptr)
+        KeyMgr::GetInst()->SetActive(false);
+    else
+        KeyMgr::GetInst()->SetActive(true);
 }
 
 void EditorMgr::Render()
@@ -133,15 +140,12 @@ void EditorMgr::CreateEditorUI()
     Ptr<EditorUI> pUI = nullptr;
 
     pUI = new Menu;
-    pUI->SetUIName("Menu");
     AddUI(pUI->GetUIName(), pUI);
 
     pUI = new Inspector;
-    pUI->SetUIName("Inspector");
     AddUI(pUI->GetUIName(), pUI);
 
     pUI = new Outliner;
-    pUI->SetUIName("Outliner");
     AddUI(pUI->GetUIName(), pUI);
 
 }

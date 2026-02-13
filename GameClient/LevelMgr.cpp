@@ -40,7 +40,7 @@ void LevelMgr::Init()
 
 	// 카메라 역할 오브젝트
 	pObject = new GameObject;
-	pObject->SetName(L"Main Camera");
+	pObject->SetName(L"MainCamera");
 
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CCamera);
@@ -195,4 +195,9 @@ void LevelMgr::Progress()
 
 	// 충돌 검사 진행
 	CollisionMgr::GetInst()->Progress(m_CurLevel);
+}
+
+Ptr<GameObject> LevelMgr::FindObjectByName(const wstring& _name)
+{
+	return m_CurLevel->FindObjectByName(_name);
 }

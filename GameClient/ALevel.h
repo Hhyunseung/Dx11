@@ -25,6 +25,8 @@ public:
 	
 	UINT* GetCollisionMatrix() { return m_Matrix; }
 
+	Ptr<GameObject> FindObjectByName(const wstring& _Name);
+
 public:
 	void Begin();
 	void Tick();

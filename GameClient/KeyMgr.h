@@ -77,11 +77,16 @@ private:
 	bool			m_WheelChanged;
 	int				m_Wheel;		// 1, 0, -1
 
+	bool 			m_Active;
+
 public:
 	KEY_STATE GetKeyState(KEY _Key) { return m_vecKeys[(UINT)_Key].State; }
 	GET(Vec2, MousePos);
 	GET(Vec2, MousePrevPos);
 	GET(Vec2, MouseDir);
+
+	bool IsActive() { return m_Active; }
+	void SetActive(bool _Active) { m_Active = _Active; }
 
 	int GetMouseWheel() { return m_Wheel; }
 	void SetMouseWheel(int _Wheel) 

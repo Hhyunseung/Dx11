@@ -12,6 +12,7 @@
 CCamera::CCamera()
 	: Component(COMPONENT_TYPE::CAMERA)
 	, m_LayerCheck(0)
+	, m_OrthoScale(1.f)
 {
 	// 아직 
 }
@@ -95,7 +96,7 @@ void CCamera::FinalTick()
 	{
 		// 직교 투영(Projection) 행렬 계산
 		/// NDC 좌표계가 정사각형이라 직사각형이 될 수 있기 때문에 종횡비가 필요
-		m_matProj = XMMatrixOrthographicLH(m_Width, m_Width / m_AspectRatio, 1.f, m_Far);
+		m_matProj = XMMatrixOrthographicLH(m_Width * m_OrthoScale, (m_Width / m_AspectRatio) * m_OrthoScale, 1.f, m_Far);
 	}
 	else
 	{

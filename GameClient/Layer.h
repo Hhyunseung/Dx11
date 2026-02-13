@@ -20,8 +20,8 @@ public:
     // vector<Ptr<GameObject>> GetParentObjects() { return m_vecParents; }
 
     /// 원본 유지 // 수정하지 않기 위해 const 
-    const vector<Ptr<GameObject>>& GetParentObjects() { return m_vecParents; }
-    const vector<Ptr<GameObject>>& GetAllObjects() { return m_vecAllObjects; }
+    const vector<Ptr<GameObject>>& GetParentObjects() { return m_vecParents; } /// 처음 Init 할 때 넣어줌
+    const vector<Ptr<GameObject>>& GetAllObjects() { return m_vecAllObjects; } /// 한번이라도 프레임이 지나야 넣어줌
 
 public:
     void Begin();

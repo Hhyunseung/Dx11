@@ -44,6 +44,7 @@ public:
 	// return 값은 사라지므로 스마트 포인터로 반환 ?
 	Ptr<GameObject> GetParent() { return m_Parent; }
 	Ptr<GameObject> GetChild(int _idx) { return m_vecChild[_idx]; }
+	const vector<Ptr<GameObject>>& GetChild() { return m_vecChild; }
 
     bool IsDead() { return m_Dead; }
     void Destroy();

@@ -31,6 +31,8 @@ public:
     Vec3 GetWorldScale();
 
 	void SetIndependentScale(bool _On) { m_IndependentScale = _On; }
+    bool IsIndependentScale() { return m_IndependentScale; }
+
     Vec3 GetDir(DIR _Type) { return m_Dir[(UINT)_Type]; }
 	
     const Matrix& GetWorldMat() { return m_matWorld; }

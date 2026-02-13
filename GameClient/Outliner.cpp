@@ -3,6 +3,7 @@
 
 
 Outliner::Outliner()
+	: EditorUI("Outliner")
 {
 }
 

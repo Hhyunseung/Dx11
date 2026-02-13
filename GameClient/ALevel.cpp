@@ -50,6 +50,7 @@ void ALevel::CheckCollisionLayer(const wstring& _LayerName1, const wstring& _Lay
 
 }
 
+
 void ALevel::Begin()
 {
 	for (UINT i = 0; i < MAX_LAYER; ++i)
@@ -72,4 +73,38 @@ void ALevel::FinalTick()
 	{
 		m_arrLayer[i].FinalTick();
 	}
+}
+
+Ptr<GameObject> ALevel::FindObjectByName(const wstring& _Name)
+{
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		// Layer 의 최상위 부모 오브젝트들 가져오기 // GetAllObjects 는 Init 이후에 채워져서
+		const vector<Ptr<GameObject>>& vecParents = m_arrLayer[i].GetParentObjects();
+
+		// 자식 탐색
+		for (size_t i = 0; i < vecParents.size(); ++i)
+		{
+			list<Ptr<GameObject>> queue;
+			queue.push_back(vecParents[i]);
+
+			while (!queue.empty())
+			{
+				Ptr<GameObject> pObject = queue.front();
+				queue.pop_front();
+
+				// 찾았다
+				if (pObject->GetName() == _Name)
+					return pObject;
+
+				const vector<Ptr<GameObject>>& vecChild = pObject->GetChild();
+				for (size_t j = 0; j < vecChild.size(); ++j)
+				{
+					queue.push_back(vecChild[j]);
+				}
+			}
+		}
+	}
+
+	return nullptr;
 }

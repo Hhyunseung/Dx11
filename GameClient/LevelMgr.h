@@ -12,6 +12,7 @@ private:
 
 public:
 	Ptr<ALevel> GetCurrentLevel() { return m_CurLevel; }
+	Ptr<GameObject> FindObjectByName(const wstring& _name);
 
 public:
 	void Init();
