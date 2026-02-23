@@ -151,3 +151,18 @@ enum class LIGHT_TYPE
 	POINT,			// 점광원	기본적인 광원, 한 점으로부터 주변으로 빛이 뻗어나감
 	SPOT,			// 스포트	특수한 광원, 빛을 특정 방향으로 모아서 보내는 것으로 봄
 };
+
+
+// 재질이 렌더링 되는 시점
+enum class RENDER_DOMAIN
+{
+	DOMAIN_OPAQUE,		// 불투명
+	DOMAIN_MASKED,		// 붙투명 + 완전 투명 /// discard 가 있는 셰이더
+	DOMAIN_TRANSPARENT, // 반투명 
+	DOMAIN_POSTPROCESS, // 후처리 - 가장 마지막에 동작, 기존에 그려진 장면을 재가공
+
+
+	DOMAIN_DEBUG,		// 디버그 렌더링
+
+	DOMAIN_NONE,		// 미지정
+};

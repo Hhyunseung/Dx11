@@ -6,6 +6,7 @@
 
 #include "value.fx"
 
+#define TintColor g_vec4_0;
 
 struct VS_IN
 {
@@ -75,11 +76,17 @@ float4 PS_Std2D(VS_OUT _input) : SV_Target
 {
     // 샘플링
     // 입력 UV 는 정점에서 반환한 값을 보간받아서 픽셀셰이더에 입력됨
-    float4 vColor = g_tex_0.Sample(g_sam_1, _input.vUV);
+    float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
+    if (g_btex_0)
+    {
+        vColor = g_tex_0.Sample(g_sam_1, _input.vUV);
+    }
+    
+    vColor *= TintColor;
     
     // 알파 채널이 있는 png 텍스쳐라서 alpha 값 추가
     /// 윈도우 비트맵(텍스쳐)에는 알파가 없어서 1.0f 로 들어온다
-    if (vColor.a == 0.f || vColor.r < 0.01f && vColor.g < 0.01f && vColor.b < 0.01f)
+    if (vColor.a == 0.f)
     {
         /// 해당 픽셀은 출력하지 않음 (알파 테스트)
         /// 픽셀이 버려지고 깊이값도 기록되지 않음

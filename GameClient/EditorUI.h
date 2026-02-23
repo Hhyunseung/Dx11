@@ -9,6 +9,9 @@ class EditorUI :
 {
 private:
     string                  m_UIName;
+    string  			    m_UIKey; 
+
+	bool 				    m_IsModal; /// 모달 창 여부 (모달 창이면, 다른 UI 들이 클릭되지 않도록 막는다)
     bool 	                m_Active;
 
     EditorUI*               m_Parent;
@@ -18,7 +21,9 @@ private:
 
 public:
     GET_SET(Vec2, SizeAsChild);
+    GET_SET(string, UIName);
 
+    void SetModal(bool _Modal) { m_IsModal = _Modal; }
     bool IsActive() { return m_Active; }
     void SetActive(bool _Active) 
     { 
@@ -39,9 +44,8 @@ public:
         m_ChildUI.push_back(_Child);
     }
 
-public:
-	void SetUIName(const string& _ID) { m_UIName = _ID; }
-	string GetUIName() { return m_UIName; }
+protected:
+    void SetUIKey(const string& _Key) { m_UIKey = _Key; }
 
 public:
     virtual void Tick();

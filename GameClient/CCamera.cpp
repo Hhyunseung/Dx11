@@ -107,22 +107,73 @@ void CCamera::FinalTick()
 }
 
 
+void CCamera::SortObject()
+{
+	// 렌더링 할 물체들을 정렬한다
+	m_vecOpaque.clear();
+	m_vecMasked.clear();
+	m_vecTrapsnarent.clear();
+
+	Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
+
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		// 카메라가 레이어를 볼 수 있어야 함
+		if (false == (m_LayerCheck & (1 << i)))
+			continue;
+
+		// 레이어에 소속된 모든 오브젝트를 가져온다
+		Layer* pLayer = pCurLevel->GetLayer(i);
+		const vector<Ptr<GameObject>>& vecObjects = pLayer->GetAllObjects();
+
+		for (size_t j = 0; j < vecObjects.size(); ++j)
+		{
+			// 오브젝트가 렌더링 할 수 있는 상태인지 확인
+			 if (nullptr == vecObjects[j]->GetRenderCom()
+				|| nullptr == vecObjects[j]->GetRenderCom()->GetMesh()
+				|| nullptr == vecObjects[j]->GetRenderCom()->GetMaterial())
+			{
+				continue;
+			}
+
+			 RENDER_DOMAIN domain = vecObjects[j]->GetRenderCom()->GetMaterial()->GetDomain();
+
+			 switch (domain)
+			 {
+			 case RENDER_DOMAIN::DOMAIN_OPAQUE:
+				 m_vecOpaque.push_back(vecObjects[j]);
+				 break;
+			 case RENDER_DOMAIN::DOMAIN_MASKED:
+				 m_vecMasked.push_back(vecObjects[j]);
+				 break;
+			 case RENDER_DOMAIN::DOMAIN_TRANSPARENT:
+				 m_vecTrapsnarent.push_back(vecObjects[j]);
+				 break;
+			 case RENDER_DOMAIN::DOMAIN_POSTPROCESS:
+				 m_vePostProcess.push_back(vecObjects[j]);
+				 break;
+			 }
+		}
+	}
+}
+
 void CCamera::Render()
 {
 	g_Trans.matView = m_matView;
 	g_Trans.matProj = m_matProj;
 
-	// 카메라가 보는 장면을 화면에 렌더링
-	Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
+	// Domain 순서대로 렌더링 진행
+	for (size_t i = 0; i < m_vecOpaque.size(); ++i)
+		m_vecOpaque[i]->Render();
 
-	for (UINT i = 0; i < MAX_LAYER; ++i)
-	{
-		if (false == (m_LayerCheck & (1 << i)))
-			continue;
+	for (size_t i = 0; i < m_vecMasked.size(); ++i)
+		m_vecMasked[i]->Render();
 
-		Layer* pLayer = pCurLevel->GetLayer(i);
-		pLayer->Render();
-	}
+	for (size_t i = 0; i < m_vecTrapsnarent.size(); ++i)
+		m_vecTrapsnarent[i]->Render();
+
+	for (size_t i = 0; i < m_vePostProcess.size(); ++i)
+		m_vePostProcess[i]->Render();
 }
 
 void CCamera::LayerCheck(int _Idx)

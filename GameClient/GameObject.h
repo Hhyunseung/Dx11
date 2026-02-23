@@ -39,6 +39,9 @@ public:
     void AddComponent(Ptr<Component> _Com);
     Ptr<Component> GetComponent(COMPONENT_TYPE _Type) { return m_Com[(UINT)_Type]; }
 
+    template<typename T>
+    Ptr<T> GetScript();
+
     void AddChild(Ptr<GameObject> _Child) { m_vecChild.push_back(_Child); _Child->m_Parent = this; }
 
 	// return 값은 사라지므로 스마트 포인터로 반환 ?
@@ -77,3 +80,17 @@ public:
 // 스마트 포인터 원본 참조
 bool IsValid(Ptr<GameObject>& _Object);
 
+template<typename T>
+inline Ptr<T> GameObject::GetScript()
+{
+    for (size_t i = 0; i < m_vecScripts.size(); ++i)
+    {
+        T* pScript = dynamic_cast<T*>(m_vecScripts[i].Get());
+        if (nullptr == pScript)
+            continue;
+
+        return pScript;
+    }
+
+    return nullptr;
+}

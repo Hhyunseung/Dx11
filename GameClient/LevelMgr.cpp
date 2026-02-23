@@ -6,6 +6,7 @@
 #include "CCamMoveScript.h"
 #include "CPlayerScript.h"
 #include "CCamera.h"
+#include "CMonsterScript.h"
 
 #include "Device.h"
 #include "CollisionMgr.h"
@@ -66,7 +67,7 @@ void LevelMgr::Init()
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CLight2D);
 
-	pObject->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	pObject->Light2D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
 	pObject->Light2D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
 	//pObject->Light2D()->SetAmbient(Vec3(0.15f, 0.15f, 0.15f));
 	pObject->Light2D()->SetRadius(300.f);
@@ -93,22 +94,27 @@ void LevelMgr::Init()
 	//m_CurLevel->AddObject(0, pObject);
 
 
+
 	// 적 오브젝트 생성
-	Ptr<GameObject> pMonster = new GameObject;
-	pMonster->SetName(L"Monster");
+	for (int i = 0; i < 5; ++i)
+	{
+		Ptr<GameObject> pMonster = new GameObject;
+		pMonster->SetName(L"Monster");
 
-	pMonster->AddComponent(new CTransform);
-	pMonster->AddComponent(new CMeshRender);
-	pMonster->AddComponent(new CCollider2D);
+		pMonster->AddComponent(new CTransform);
+		pMonster->AddComponent(new CMeshRender);
+		pMonster->AddComponent(new CCollider2D);
+		pMonster->AddComponent(new CMonsterScript);
 
-	pMonster->Transform()->SetRelativePos(Vec3(300.f, 0.f, 100.f));
-	pMonster->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
-	
-	//pMonster->SpriteRender()->SetSprite(FIND(ASprite, L"TileSprite_47"));
-	//pMonster->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-	pMonster->MeshRender()->SetMtrl(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
+		pMonster->Transform()->SetRelativePos(Vec3(300.f * (float)i, 0.f, 100.f));
+		pMonster->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 
-	m_CurLevel->AddObject(5, pMonster);
+		//pMonster->SpriteRender()->SetSprite(FIND(ASprite, L"TileSprite_47"));
+		pMonster->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+		pMonster->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"MonsterMtrl"));
+
+		m_CurLevel->AddObject(5, pMonster);
+	}
 
 	// 플레이어 오브젝트 생성
 	pObject = new GameObject;
@@ -117,10 +123,11 @@ void LevelMgr::Init()
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CFlipbookRender);
 	pObject->AddComponent(new CCollider2D);
+	pObject->AddComponent(new CPlayerScript);
 	
-	Ptr<CPlayerScript> pPlayerScript = new CPlayerScript;
-	pPlayerScript->SetTarget(pMonster);
-	pObject->AddComponent(pPlayerScript.Get());
+	//Ptr<CPlayerScript> pPlayerScript = new CPlayerScript;
+	//pPlayerScript->SetTarget(pMonster);
+	//pObject->AddComponent(pPlayerScript.Get());
 
 
 	pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
@@ -151,7 +158,7 @@ void LevelMgr::Init()
 	pChild->Transform()->SetIndependentScale(true);
 
 	pChild->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-	pChild->MeshRender()->SetMtrl(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
+	pChild->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
 
 	// Player 와 Child 부모자식 연결
 	pObject->AddChild(pChild);

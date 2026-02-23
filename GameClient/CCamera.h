@@ -28,6 +28,12 @@ private:
     Matrix      m_matView;      // View 행렬
     Matrix	    m_matProj;      // Proj 행렬
 
+
+    vector<Ptr<GameObject>> m_vecOpaque;
+    vector<Ptr<GameObject>> m_vecMasked;
+    vector<Ptr<GameObject>> m_vecTrapsnarent;
+    vector<Ptr<GameObject>> m_vePostProcess;
+
 public:
     GET_SET(PROJ_TYPE, ProjType);
     GET_SET(float, Far);
@@ -49,7 +55,7 @@ public:
     void LayerCheckClear() { m_LayerCheck = 0; }
     void LayerCheck(int _Idx);
 
-public:
+    void SortObject();
     void Render();
 
 public:

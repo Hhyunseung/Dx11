@@ -43,6 +43,8 @@ void MeshRenderUI::Tick_UI()
 		Ptr<ListUI> pUI = dynamic_cast<ListUI*>(EditorMgr::GetInst()->FindUI("ListUI").Get());
 		assert(pUI.Get());
 
+		pUI->SetUIName("Mesh List");
+
 		vector<wstring> vecMeshNames;
 		AssetMgr::GetInst()->GetAssetNames(ASSET_TYPE::MESH, vecMeshNames);
 		pUI->AddString(vecMeshNames);
@@ -57,7 +59,7 @@ void MeshRenderUI::Tick_UI()
 	ImGui::Text("Material");	
 	ImGui::SameLine(120);
 
-	Ptr<AMaterial> pMtrl = pMeshRender->GetMtrl();
+	Ptr<AMaterial> pMtrl = pMeshRender->GetMaterial();
 	string MtrlKey = string(pMtrl->GetKey().begin(), pMtrl->GetKey().end());
 	ImGui::InputText("##MtrlName", MtrlKey.data(), MtrlKey.length() + 1, ImGuiInputTextFlags_ReadOnly);
 
@@ -67,6 +69,8 @@ void MeshRenderUI::Tick_UI()
 		// 버튼이 눌리면, 리스트UI 를 찾아서 활성화 시키고, 출력시키고 싶은 문자열을 ListUI 에 등록시킨다
 		Ptr<ListUI> pUI = dynamic_cast<ListUI*>(EditorMgr::GetInst()->FindUI("ListUI").Get());
 		assert(pUI.Get());
+
+		pUI->SetUIName("Material List");
 
 		vector<wstring> vecMtrlNames;
 		AssetMgr::GetInst()->GetAssetNames(ASSET_TYPE::MATERIAL, vecMtrlNames);
@@ -95,5 +99,5 @@ void MeshRenderUI::SelectMtrl(DWORD_PTR _ListUI)
 
 	Ptr<AMaterial> pMtrl = FIND(AMaterial, key);
 
-	GetTarget()->MeshRender()->SetMtrl(pMtrl);
+	GetTarget()->MeshRender()->SetMaterial(pMtrl);
 }

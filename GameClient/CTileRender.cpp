@@ -23,16 +23,16 @@ void CTileRender::Render()
 {
 	m_Buffer->Binding(20);
 
-	GetMtrl()->SetTexture(TEX_0, m_TileMap->GetAtlas());
+	GetMaterial()->SetTexture(TEX_0, m_TileMap->GetAtlas());
 	
-	GetMtrl()->SetScalar(INT_0, m_TileMap->GetRow());
-	GetMtrl()->SetScalar(INT_1, m_TileMap->GetCol());
+	GetMaterial()->SetScalar(INT_0, m_TileMap->GetRow());
+	GetMaterial()->SetScalar(INT_1, m_TileMap->GetCol());
 
 	/// 구조화버퍼에서 세팅해줌
 	//GetMtrl()->SetScalar(VEC2_0, m_vecSpriteInfo[0].LeftTop);
 	//GetMtrl()->SetScalar(VEC2_1, m_vecSpriteInfo[0].Slice);
 
-	GetMtrl()->Binding();
+	GetMaterial()->Binding();
 
 	GetMesh()->Render();
 
@@ -119,8 +119,9 @@ void CTileRender::CreateMaterial()
 
 		// 찾은 or 생성한 쉐이더를 재질에 설정해주고, 재질도 에셋매니저에 등록한다.
 		pMtrl->SetShader(pShader);
+		pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 		AssetMgr::GetInst()->AddAsset(pMtrl->GetName(), pMtrl.Get());
 	}
 
-	SetMtrl(pMtrl);
+	SetMaterial(pMtrl);
 }

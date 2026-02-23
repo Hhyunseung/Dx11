@@ -17,10 +17,10 @@ void CMeshRender::FinalTick()
 
 void CMeshRender::Render()
 {
-	if (GetMtrl() == nullptr || GetMesh() == nullptr)
+	if (GetMaterial() == nullptr || GetMesh() == nullptr)
 		return;
 
-	GetMtrl()->Binding();
+	GetMaterial()->Binding();
 	GetMesh()->Render();
-	GetMtrl()->Clear();
+	GetMaterial()->Clear();
 }

@@ -18,9 +18,9 @@ CMissileScript::~CMissileScript()
 
 void CMissileScript::Begin()
 {
-	Collider2D()->AddDynamicBeginOverlap(this, (COLLISION_EVENT)&CMissileScript::BeginOverlap);
-	Collider2D()->AddDynamicOverlap(this, (COLLISION_EVENT)&CMissileScript::Overlap);
-	Collider2D()->AddDynamicEndOverlap(this, (COLLISION_EVENT)&CMissileScript::EndOverlap);
+	ADD_DYNAMIC_BEGIN_OVERLAP(CMissileScript::BeginOverlap);
+	ADD_DYNAMIC_OVERLAP(CMissileScript::Overlap);
+	ADD_DYNAMIC_END_OVERLAP(CMissileScript::EndOverlap);
 }
 
 void CMissileScript::Tick()

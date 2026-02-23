@@ -43,6 +43,15 @@ cbuffer MATERIAL : register(b1)
     
     row_major matrix g_mat_0;
     row_major matrix g_mat_1;
+    
+    // 텍스쳐 바인딩 됐냐 안됐냐
+    int     g_btex_0; 
+    int     g_btex_1; 
+    int     g_btex_2; 
+    int     g_btex_3; 
+    int     g_btex_4; 
+    int     g_btex_5; 
+    int2    padding; 
 }
 
 cbuffer GLOBAL : register(b2)

@@ -6,6 +6,7 @@
 
 EditorUI::EditorUI(const string& _Name)
 	: m_UIName(_Name)
+	, m_IsModal(false)
 	, m_Active(true)
 	, m_Parent(nullptr)
 {
@@ -17,11 +18,45 @@ EditorUI::~EditorUI()
 
 void EditorUI::Tick()
 {
-	if (nullptr == m_Parent)
+	if (m_IsModal)
+	{
+		string StrKey = m_UIName + m_UIKey;
+		ImGui::OpenPopup(StrKey.c_str());
+
+		bool Active = m_Active;
+
+		if (ImGui::BeginPopupModal(StrKey.c_str(), &Active, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			CheckFocus();
+
+			Tick_UI();
+
+			for (size_t i = 0; i < m_ChildUI.size(); ++i)
+			{
+				if (m_ChildUI[i]->IsActive())
+				{
+					m_ChildUI[i]->Tick();
+					ImGui::Separator(); /// 자식 UI 들이 구분되도록 구분선 삽입
+				}
+			}
+			
+			ImGui::EndPopup();
+		}
+
+		else
+		{
+			SetActive(Active);
+		}
+
+	}
+
+	else if (nullptr == m_Parent)
 	{
 		bool Active = m_Active;
 
-		ImGui::Begin(GetUIName().c_str(), &Active);
+		string StrKey = m_UIName + m_UIKey;
+
+		ImGui::Begin(StrKey.c_str(), &Active); 
 
 		if (m_Active != Active)
 		{

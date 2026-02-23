@@ -42,11 +42,11 @@ void CFlipbookRender::Render()
 	Ptr<AFlipbook> pCurFlipbook = m_vecFlipbook[m_CurFlipbook];
 	Ptr<ASprite> pCurSprite = pCurFlipbook->GetSprite(m_CurSprite);
 
-	GetMtrl()->SetTexture(TEX_0, pCurSprite->GetAtlas());
-	GetMtrl()->SetScalar(VEC2_0, pCurSprite->GetLeftTopUV());
-	GetMtrl()->SetScalar(VEC2_1, pCurSprite->GetSliceUV());
+	GetMaterial()->SetTexture(TEX_0, pCurSprite->GetAtlas());
+	GetMaterial()->SetScalar(VEC2_0, pCurSprite->GetLeftTopUV());
+	GetMaterial()->SetScalar(VEC2_1, pCurSprite->GetSliceUV());
 
-	GetMtrl()->Binding();
+	GetMaterial()->Binding();
 	GetMesh()->Render();
 }
 
@@ -88,10 +88,11 @@ void CFlipbookRender::CreateMaterial()
 
 		// 찾은 or 생성한 쉐이더를 재질에 설정해주고, 재질도 에셋매니저에 등록한다.
 		pMtrl->SetShader(pShader);
+		pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 		AssetMgr::GetInst()->AddAsset(pMtrl->GetName(), pMtrl.Get());
 	}
 
-	SetMtrl(pMtrl);
+	SetMaterial(pMtrl);
 }
 
 bool CFlipbookRender::CheckFinish()

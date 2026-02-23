@@ -10,12 +10,14 @@ class AMaterial :
 private:
     Ptr<AGraphicShader>     m_Shader;
     Ptr<ATexture>           m_Tex[TEX_END];
-
     MtrlConst               m_Const;
+    RENDER_DOMAIN           m_Domain;
 
 public:
 	void SetShader(Ptr<AGraphicShader> _Shader) { m_Shader = _Shader; }
     Ptr<AGraphicShader> GetShader() { return m_Shader; }
+
+	GET_SET(RENDER_DOMAIN, Domain);
     
     void SetTexture(TEX_PARAM _Param, Ptr<ATexture> _Texture) { m_Tex[_Param] = _Texture;  }
     void Binding();
@@ -24,8 +26,11 @@ public:
     template<typename T>
     void SetScalar(SCALAR_PARAM _Param, const T& _Data);
 
+    AMaterial* Clone();
+
 public:
     AMaterial();
+    AMaterial(const AMaterial& _Other);
 	virtual ~AMaterial();
 };
 

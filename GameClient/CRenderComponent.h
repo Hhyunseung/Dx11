@@ -9,11 +9,20 @@ class CRenderComponent :
 {
 private:
     Ptr<AMesh>      m_Mesh;
-    Ptr<AMaterial>  m_Mtrl;
+
+    Ptr<AMaterial>  m_Mtrl;         // 현재 사용중인 재질
+    Ptr<AMaterial>  m_SharedMtrl;   // 공유 재질 (에셋매니저의 관리를 받는)
+    Ptr<AMaterial>  m_DynamicMtrl;  // 나만의 동적 재질 (쓰고 버리는...)
 
 public:
     GET_SET(Ptr<AMesh>, Mesh);
-    GET_SET(Ptr<AMaterial>, Mtrl);
+
+    void SetMaterial(Ptr<AMaterial>  _Mtrl);
+	Ptr<AMaterial> GetMaterial() { return m_Mtrl; }
+    Ptr<AMaterial> GetSharedMaterial();
+
+public:
+    Ptr<AMaterial> CreateDynamicMaterial(); 
 
 public:
     virtual void Init() override;

@@ -149,6 +149,7 @@ void EditorMgr::CreateEditorUI()
     AddUI(pUI->GetUIName(), pUI);
 
     pUI = new ListUI;
+    pUI->SetModal(true);
     pUI->SetActive(false);
     AddUI(pUI->GetUIName(), pUI);
 }

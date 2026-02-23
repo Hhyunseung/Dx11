@@ -18,15 +18,15 @@ void CBillboardRender::FinalTick()
 
 void CBillboardRender::Render()
 {
-	if (GetMesh() == nullptr || GetMtrl() == nullptr)
+	if (GetMesh() == nullptr || GetMaterial() == nullptr)
 		return;
 
-	GetMtrl()->SetScalar(VEC2_0, m_BillboardScale);
-	GetMtrl()->Binding();
+	GetMaterial()->SetScalar(VEC2_0, m_BillboardScale);
+	GetMaterial()->Binding();
 	
 	GetMesh()->Render();
 	
-	GetMtrl()->Clear();
+	GetMaterial()->Clear();
 }
 
 void CBillboardRender::CreateMaterial()
@@ -60,8 +60,9 @@ void CBillboardRender::CreateMaterial()
 
 		// 찾은 or 생성한 쉐이더를 재질에 설정해주고, 재질도 에셋매니저에 등록한다
 		pMtrl->SetShader(pShader);
+		pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_OPAQUE);
 		AssetMgr::GetInst()->AddAsset(pMtrl->GetName(), pMtrl.Get());
 	}
 
-	SetMtrl(pMtrl);
+	SetMaterial(pMtrl);
 }

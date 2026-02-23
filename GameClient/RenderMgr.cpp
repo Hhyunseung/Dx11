@@ -24,7 +24,7 @@ void RenderMgr::Init()
 	m_DbgObj->AddComponent(new CMeshRender);
 
 	/// 디버그 렌더링 전용 재질
-	m_DbgObj->MeshRender()->SetMtrl(FIND(AMaterial, L"DbgMtrl"));
+	m_DbgObj->MeshRender()->SetMaterial(FIND(AMaterial, L"DbgMtrl"));
 
 	m_Light2DBuffer = new StructuredBuffer;
 }
@@ -41,6 +41,7 @@ void RenderMgr::Progress()
 	if (m_MainCam == nullptr)
 		return;
 
+	m_MainCam->SortObject();
 	m_MainCam->Render();
 
 	// 디버그 렌더링 요청 처리
@@ -135,12 +136,12 @@ void RenderMgr::Render_Debug()
 			m_DbgObj->Transform()->SetWorldMat((*iter).matWorld);
 		}
 
-		m_DbgObj->MeshRender()->GetMtrl()->SetScalar(VEC4_0, (*iter).Color);
+		m_DbgObj->MeshRender()->GetMaterial()->SetScalar(VEC4_0, (*iter).Color);
 
 		if ((*iter).DepthTest)
-			m_DbgObj->MeshRender()->GetMtrl()->GetShader()->SetDSType(DS_TYPE::LESS);
+			m_DbgObj->MeshRender()->GetMaterial()->GetShader()->SetDSType(DS_TYPE::LESS);
 		else
-			m_DbgObj->MeshRender()->GetMtrl()->GetShader()->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+			m_DbgObj->MeshRender()->GetMaterial()->GetShader()->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
 
 
 		// Render 요청

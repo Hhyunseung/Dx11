@@ -18,11 +18,11 @@ void CSpriteRender::FinalTick()
 
 void CSpriteRender::Render()
 {
-	GetMtrl()->SetTexture(TEX_0, m_Sprite->GetAtlas());
-	GetMtrl()->SetScalar(VEC2_0, m_Sprite->GetLeftTopUV());
-	GetMtrl()->SetScalar(VEC2_1, m_Sprite->GetSliceUV());
+	GetMaterial()->SetTexture(TEX_0, m_Sprite->GetAtlas());
+	GetMaterial()->SetScalar(VEC2_0, m_Sprite->GetLeftTopUV());
+	GetMaterial()->SetScalar(VEC2_1, m_Sprite->GetSliceUV());
 
-	GetMtrl()->Binding();
+	GetMaterial()->Binding();
 	GetMesh()->Render();
 }
 
@@ -64,8 +64,9 @@ void CSpriteRender::CreateMaterial()
 
 		// 찾은 or 생성한 쉐이더를 재질에 설정해주고, 재질도 에셋매니저에 등록한다.
 		pMtrl->SetShader(pShader);
+		pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 		AssetMgr::GetInst()->AddAsset(pMtrl->GetName(), pMtrl.Get());
 	}
 
-	SetMtrl(pMtrl);
+	SetMaterial(pMtrl);
 }

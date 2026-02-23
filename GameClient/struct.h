@@ -54,6 +54,9 @@ struct MtrlConst
 	Vec2	v2Arr[4];
 	Vec4	v4Arr[4];
 	Matrix	mat[2];
+
+	int		IsTex[(UINT)TEX_PARAM::TEX_END]; /// bool 자료형을 쓸 수 없어서 int 배열로 텍스처가 들어가는지 여부를 표현
+	int		Padding[2]; /// 16 바이트 정렬을 위한 패딩
 };
 
 // DebugInfo : 디버그 렌더링 요청사항 정보

@@ -7,6 +7,7 @@ ListUI::ListUI()
 	, m_Inst(nullptr)
 	, m_MemFunc(nullptr)
 {
+	SetUIKey("##ListUI"); 
 }
 
 ListUI::~ListUI()

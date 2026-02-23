@@ -176,6 +176,7 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Link", L"Texture\\link.png");
 	Load<ATexture>(L"TileAtlas", L"Texture\\TILE.bmp");
 	Load<ATexture>(L"Cookie", L"Texture\\Cookie.png");
+	Load<ATexture>(L"DragonCookieIdle", L"Texture\\Idle.png");
 
 }
 
@@ -188,12 +189,30 @@ void AssetMgr::CreateEngineMaterial()
 	pMtrl = new AMaterial;
 	pMtrl->SetName(L"Std2DMtrl");
 	pMtrl->SetShader(FindAsset<AGraphicShader>(L"Std2DShader"));
+
+	// Parameter
+	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
 	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"PlayerImage"));
+
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
+	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
+	//================== MonsterMtrl 持失 ==============//
+	pMtrl = new AMaterial;
+	pMtrl->SetName(L"MonsterMtrl");
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"Std2DShader"));
+
+	// Parameter
+	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"Enemy"));
+
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 	AddAsset(pMtrl->GetName(), pMtrl.Get());
 
 	//================== DbgMtrl 持失 ==============//
 	pMtrl = new AMaterial;
 	pMtrl->SetName(L"DbgMtrl");
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_DEBUG);
 	pMtrl->SetShader(FindAsset<AGraphicShader>(L"DbgShader"));
 
 
@@ -345,6 +364,26 @@ void AssetMgr::CreateEngineSprite()
 	}
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
 
+
+
+	pAtlas = FIND(ATexture, L"DragonCookieIdle");
+	Width = pAtlas->GetWidth();
+	Height = pAtlas->GetHeight();
+	SlicePixel = Vec2(364.f, 364.f);
+
+	pSprite = nullptr;
+	for (int i = 0; i < 4; i++)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"DragonCookieIdle_%d", i);
+
+		pSprite = new ASprite;
+		pSprite->SetName(Buff);
+		pSprite->SetAtlas(pAtlas);
+		pSprite->SetLeftTopUV(Vec2((SlicePixel.x / Width) * (float)i, (SlicePixel.y / Height) * 0.f));
+		pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
+		AddAsset(pSprite->GetName(), pSprite.Get());
+	}
 
 	// ============
 	// Tile Sprite

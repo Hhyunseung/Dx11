@@ -121,7 +121,7 @@ void CPlayerScript::Shoot()
 		pObject->Transform()->SetRelativeScale(Vec3(70.f, 70.f, 1.f));
 
 		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-		pObject->MeshRender()->SetMtrl(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
+		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
 
 		CreateObject(pObject, 4);
 

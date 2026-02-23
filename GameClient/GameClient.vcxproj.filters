@@ -238,6 +238,9 @@
     <ClInclude Include="ListUI.h">
       <Filter>GameEngine\EditorUI\05.ListUI</Filter>
     </ClInclude>
+    <ClInclude Include="CMonsterScript.h">
+      <Filter>GameEngine\06.Component\Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -642,6 +645,9 @@
     </ClCompile>
     <ClCompile Include="ListUI.cpp">
       <Filter>GameEngine\EditorUI\05.ListUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterScript.cpp">
+      <Filter>GameEngine\06.Component\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
