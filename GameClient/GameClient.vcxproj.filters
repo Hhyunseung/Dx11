@@ -241,6 +241,15 @@
     <ClInclude Include="CMonsterScript.h">
       <Filter>GameEngine\06.Component\Script</Filter>
     </ClInclude>
+    <ClInclude Include="ContentUI.h">
+      <Filter>GameEngine\EditorUI\06.Content</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeUI.h">
+      <Filter>GameEngine\EditorUI\07.TreeUI</Filter>
+    </ClInclude>
+    <ClInclude Include="extern.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -430,6 +439,12 @@
     </Filter>
     <Filter Include="GameEngine\EditorUI\05.ListUI">
       <UniqueIdentifier>{55430b08-befc-4de3-b2c0-2e33c875950b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\06.Content">
+      <UniqueIdentifier>{c19449c1-d1e3-4869-8afa-864d75c1453f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\EditorUI\07.TreeUI">
+      <UniqueIdentifier>{60e02f87-bc05-4ca4-8d8c-4c7de108e4b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -648,6 +663,12 @@
     </ClCompile>
     <ClCompile Include="CMonsterScript.cpp">
       <Filter>GameEngine\06.Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentUI.cpp">
+      <Filter>GameEngine\EditorUI\06.Content</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeUI.cpp">
+      <Filter>GameEngine\EditorUI\07.TreeUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

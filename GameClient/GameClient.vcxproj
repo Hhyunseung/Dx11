@@ -181,6 +181,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="components.h" />
     <ClInclude Include="ComponentUI.h" />
     <ClInclude Include="ConstBuffer.h" />
+    <ClInclude Include="ContentUI.h" />
     <ClInclude Include="CPlanet.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CRenderComponent.h" />
@@ -195,6 +196,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="enum.h" />
+    <ClInclude Include="extern.h" />
     <ClInclude Include="FlipbookRenderUI.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
@@ -233,6 +235,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="TileRenderUI.h" />
     <ClInclude Include="TimeMgr.h" />
     <ClInclude Include="TransformUI.h" />
+    <ClInclude Include="TreeUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AFlipbook.cpp" />
@@ -265,6 +268,7 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentUI.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
+    <ClCompile Include="ContentUI.cpp" />
     <ClCompile Include="CPlanet.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CRenderComponent.cpp" />
@@ -311,6 +315,7 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="TileRenderUI.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="TransformUI.cpp" />
+    <ClCompile Include="TreeUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc" />

@@ -7,3 +7,4 @@
 #include "ASprite.h"
 #include "AFlipbook.h"
 #include "ATilemap.h"
+#include "extern.h"

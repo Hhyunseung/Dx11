@@ -14,6 +14,7 @@
 #include "Inspector.h"
 #include "Outliner.h"
 #include "ListUI.h"
+#include "ContentUI.h"
 
 void HelpMarker(const char* desc);
 
@@ -151,6 +152,9 @@ void EditorMgr::CreateEditorUI()
     pUI = new ListUI;
     pUI->SetModal(true);
     pUI->SetActive(false);
+    AddUI(pUI->GetUIName(), pUI);
+
+	pUI = new ContentUI;
     AddUI(pUI->GetUIName(), pUI);
 }
 

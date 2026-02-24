@@ -131,17 +131,13 @@ void LevelMgr::Init()
 
 
 	pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-	pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+	pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
 
 	pObject->Collider2D()->SetScale(Vec2(0.25f, 0.25f));
 	pObject->Collider2D()->SetOffset(Vec2(0.5f, 0.f));
 
-	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveDown"));
-	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveLeft"));
-	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveRight"));
-	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Link_MoveUp"));
-	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Cookie_Jump"));
-	pObject->FlipbookRender()->Play(4, 15.f, 2);
+	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"DragonCookie_Idle"));
+	pObject->FlipbookRender()->Play(0, 15.f, -1);
 
 
 	// 자식 오브젝트 생성

@@ -13,7 +13,7 @@ Inspector::Inspector()
 {
 	CreateChildUI();
 
-	SetTargetObject(LevelMgr::GetInst()->FindObjectByName(L"Monster"));
+	SetTargetObject(LevelMgr::GetInst()->FindObjectByName(L"Player"));
 }
 
 Inspector::~Inspector()
