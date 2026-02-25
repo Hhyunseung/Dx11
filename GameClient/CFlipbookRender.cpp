@@ -30,8 +30,8 @@ void CFlipbookRender::FinalTick()
 		++m_CurSprite;
 
 		if (m_vecFlipbook[m_CurFlipbook]->GetSpriteCount() <= m_CurSprite)
-		{
-			m_Finish = true;
+		{ 
+ 			m_Finish = true;
 			--m_CurSprite;
 		}
 	}

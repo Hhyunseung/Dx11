@@ -13,7 +13,7 @@ Inspector::Inspector()
 {
 	CreateChildUI();
 
-	SetTargetObject(LevelMgr::GetInst()->FindObjectByName(L"Player"));
+	SetTargetObject(LevelMgr::GetInst()->FindObjectByName(L"BackGround1"));
 }
 
 Inspector::~Inspector()
@@ -41,6 +41,10 @@ void Inspector::Tick_UI()
 
 	wstring Name = m_TargetObject->GetName();
 	string strName(string(Name.begin(), Name.end()));
+
+	if (strName.empty())
+		strName = "No Name";
+
 	ImGui::Button(strName.c_str());
 
 	ImGui::Separator();

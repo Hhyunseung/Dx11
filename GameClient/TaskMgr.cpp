@@ -34,6 +34,7 @@ void TaskMgr::Progress()
 			Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
 			pCurLevel->AddObject(m_vecTask[i].Param_1, pNewObj); // 여기서 Level 이 스마트 포인터로 받아서 참조 카운트 증가
 			/// 이 지역함수가 끝나서 pNewObj 의 참조 카운트가 줄어들어도 Level 이 들고 있으니까 문제 없음
+			pCurLevel->SetChanged(); // 레벨 상태 변경
 
 			pNewObj->Begin();
 		}
@@ -47,6 +48,8 @@ void TaskMgr::Progress()
 			{
 				pObj->m_Dead = true;
 				m_Garbage.push_back(pObj);
+				Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
+				pCurLevel->SetChanged(); // 레벨 상태 변경
 			}
 		}
 			break;

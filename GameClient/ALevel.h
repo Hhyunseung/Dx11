@@ -9,11 +9,9 @@ class ALevel
 {
 private:
 	Layer		m_arrLayer[MAX_LAYER]; // 하나의 레벨안에 총 32개의 레이어가 존재 
-
-	/// 가로세로 32(UINT 비트수) x 32(레이어 수) 행렬
-    /// -> 같은 열, 같은 행 충돌이면 같은 레이어 끼리의 충돌... 개념
-	/// 더 작은 숫자가 행이고 더 큰 숫자가 열
 	UINT        m_Matrix[MAX_LAYER];   // 어떤 레이어와, 어떤 레이어가 충돌검사를 진행할지 마킹한 데이터
+
+	bool		m_Changed;			   // 레벨 안에 오브젝트들의 상태가 변경(오브젝트 추가, 삭제, 계층구조 변경...)됐는지 확인하는 변수
 
 public:
 	void AddObject(int _LayerLevel, Ptr<GameObject> _Obj);
@@ -24,8 +22,15 @@ public:
 	void CheckCollisionLayer(const wstring& _LayerName1, const wstring& _LayerName2);
 	
 	UINT* GetCollisionMatrix() { return m_Matrix; }
-
 	Ptr<GameObject> FindObjectByName(const wstring& _Name);
+
+	bool IsChanged()
+	{
+		bool Changed = m_Changed;
+		m_Changed = false; /// 상태 변경 여부 반환 후 초기화
+		return Changed;
+	}
+	void SetChanged() { m_Changed = true; }
 
 public:
 	void Begin();

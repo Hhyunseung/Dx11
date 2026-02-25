@@ -9,6 +9,10 @@ class CPlayerScript :
 private:
     Ptr<GameObject>     m_Target;
 
+	bool 			    m_Land; // 땅에 닿아있는지 여부
+	bool                m_Jump; // 점프 중인지 여부
+	bool 			    m_DoubleJump; // 점프 중인지 여부
+
 public:
 	void SetTarget(Ptr<GameObject> _Target) { m_Target = _Target; }
 
@@ -18,6 +22,7 @@ public:
 private:
     void Move();
     void Shoot();
+    void Jump();
 
 public:
     CPlayerScript();

@@ -92,12 +92,7 @@ float4 PS_Std2D(VS_OUT _input) : SV_Target
         /// 픽셀이 버려지고 깊이값도 기록되지 않음
         discard;
     }
-    
-    if (g_int_0 == 1)
-    {
-        vColor.r *= 2.f;
-    }
-    
+
     // 물체가 받는 빛의 총량
     float3 LightColor = float3(0.f, 0.f, 0.f);
     

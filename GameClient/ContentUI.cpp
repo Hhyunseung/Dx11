@@ -9,6 +9,7 @@ ContentUI::ContentUI()
 	 : EditorUI("ContentUI")
 {
 	m_Tree = new TreeUI;
+	m_Tree->SetSeperator(false);
 	AddChildUI(m_Tree.Get());
 
 	// Asset 내용을 트리에 반영
@@ -30,6 +31,7 @@ void ContentUI::Renew()
 	{
 		// 에셋의 이름에 해당하는 노드를 추가 (enum 타입을 문자열로 바꿔서 추가)
 		Ptr<TreeNode> pNode = m_Tree->AddItem(nullptr, ToString((ASSET_TYPE)i));
+		pNode->SetFramed(true);
 
 		// 해당 에셋 모든 이름을 받아와서 하위 자식으로 추가
 		vector<wstring> vecAssetNames;
@@ -38,7 +40,8 @@ void ContentUI::Renew()
 
 		for (const auto& Name : vecAssetNames)
 		{
-			m_Tree->AddItem(pNode, string(Name.begin(), Name.end()));
+			Ptr<Asset> pAsset = AssetMgr::GetInst()->FindAsset(Name, (ASSET_TYPE)i);
+			m_Tree->AddItem(pNode, string(Name.begin(), Name.end()), (DWORD_PTR)pAsset.Get());
 		}
 	}
 }

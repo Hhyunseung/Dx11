@@ -21,6 +21,10 @@ public:
 private:
     void AddGameObject(Ptr<TreeNode> _ParentNode, Ptr<GameObject> _Object);
 
+    void SelectGameObject(DWORD_PTR _Object);
+
+    void AddChild(DWORD_PTR _Src, DWORD_PTR _Dest);
+
 public:
     Outliner();
 	virtual ~Outliner();

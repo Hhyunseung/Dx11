@@ -145,6 +145,86 @@ void GameObject::AddComponent(Ptr<Component> _Com)
 	_Com->Init();
 }
 
+void GameObject::AddChild(Ptr<GameObject> _Child)
+{
+	/// 부모 오브젝트가 있는지 확인
+	if (_Child->GetParent().Get())
+	{
+		// 기존 부모 오브젝트와 관계를 해제한다
+		_Child->DisconnectWithParent();
+	}
+
+	// 최상위 부모 오브젝트 였다면
+	else
+	{
+		// 레벨 내부에 있던 오브젝트라면
+		if (_Child->m_LayerIdx != -1)
+		{
+			// Layer 에서 최상위 부모로 가리키던 포인터를 제거
+			_Child->DeregisterAsParent();
+		}
+	}
+
+	m_vecChild.push_back(_Child); 
+	_Child->m_Parent = this;
+
+	// 레이어가 없는 소속이면
+	if (_Child->m_LayerIdx == -1)
+	{
+		/// 지금 나의 레이어 인덱스를 자식에게 물려준다
+		_Child->m_LayerIdx = m_LayerIdx;
+	}
+
+	// 부모 오브젝트가 레벨 소속이 아니면
+	if (m_LayerIdx != -1)
+	{
+		/// 둘다 레벨 밖 소속이면 레이어 인덱스는 -1 이니까 Level 에 변경사항이 생긴걸 알릴 필요가 없다
+		LevelMgr::GetInst()->GetCurrentLevel()->SetChanged();
+	}
+}
+
+void GameObject::DisconnectWithParent()
+{
+	if (nullptr == m_Parent)
+		return;
+
+	if (m_LayerIdx != -1)
+	{
+		LevelMgr::GetInst()->GetCurrentLevel()->SetChanged();
+	}
+
+	vector<Ptr<GameObject>>::iterator iter = m_Parent->m_vecChild.begin();
+
+	for (; iter != m_Parent->m_vecChild.end(); ++iter)
+	{
+		if (*iter == this)
+		{
+			m_Parent->m_vecChild.erase(iter);
+			m_Parent = nullptr;
+			return;
+		}
+	}
+
+	assert(nullptr);
+}
+
+void GameObject::DeregisterAsParent()
+{
+	Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
+
+	Layer* pLayer = pCurLevel->GetLayer(m_LayerIdx);
+
+	pLayer->DeregisterAsParent(this);
+}
+
+void GameObject::RegisterAsParent()
+{
+	if (m_LayerIdx == -1)
+		return;
+
+	LevelMgr::GetInst()->GetCurrentLevel()->GetLayer(m_LayerIdx)->AddObject(this);
+}
+
 void GameObject::Destroy()
 {
 	if (m_Dead)

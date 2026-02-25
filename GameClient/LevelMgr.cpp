@@ -137,7 +137,9 @@ void LevelMgr::Init()
 	pObject->Collider2D()->SetOffset(Vec2(0.5f, 0.f));
 
 	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"DragonCookie_Idle"));
-	pObject->FlipbookRender()->Play(0, 15.f, -1);
+	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"DragonCookie_Jump"));
+	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"DragonCookie_DoubleJump"));
+	pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 
 	// 자식 오브젝트 생성
@@ -163,6 +165,67 @@ void LevelMgr::Init()
 	m_CurLevel->AddObject(3, pObject);
 
 
+	// Back Ground - 가로로 반복
+	for (int i = 0; i < 3; ++i)  // 3개의 배경을 가로로 배치
+	{
+		pObject = new GameObject;
+		wchar_t nameBuff[50] = {};
+		swprintf_s(nameBuff, L"BackGround_1_%d", i);
+		pObject->SetName(nameBuff);
+
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CMeshRender);
+
+		pObject->Transform()->SetRelativePos(Vec3(-50.f + (2066.f * i), 0.f, 900.f));  // 가로로 배치
+		pObject->Transform()->SetRelativeScale(Vec3(2066.f, 740.f, 1.f));
+
+		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"BackGround_Ship_Stage1_1_Mtrl"));
+
+		m_CurLevel->AddObject(1, pObject);
+	}
+
+	// Back Ground - 가로로 반복
+	for (int i = 0; i < 3; ++i)  // 5개의 배경을 가로로 배치
+	{
+		pObject = new GameObject;
+		wchar_t nameBuff[50] = {};
+		swprintf_s(nameBuff, L"BackGround_2_%d", i);
+		pObject->SetName(nameBuff);
+
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CMeshRender);
+
+		pObject->Transform()->SetRelativePos(Vec3(-50.f + (2066.f * i), 0.f, 800.f));  // 가로로 배치
+		pObject->Transform()->SetRelativeScale(Vec3(2066.f, 740.f, 1.f));
+
+		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"BackGround_Ship_Stage1_2_Mtrl"));
+
+		m_CurLevel->AddObject(1, pObject);
+	}
+
+
+	for (int i = 0; i < 10; ++i)
+	{
+		Ptr<GameObject> pObject = new GameObject;
+		wchar_t nameBuff[50] = {};
+		swprintf_s(nameBuff, L"Tile_1_%d", i);
+		pObject->SetName(nameBuff);
+
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CMeshRender);
+		pObject->AddComponent(new CCollider2D);
+
+		pObject->Transform()->SetRelativePos(Vec3(-100.f + (124.f * i), -200.f, 700.f));
+		pObject->Transform()->SetRelativeScale(Vec3(124.f, 140.f, 1.f));
+
+		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Tile_Ship_Stage1_1_Mtrl"));
+
+		m_CurLevel->AddObject(2, pObject);
+	}
+
 
 	// Tile Object
 	Ptr<GameObject> pTileObj = new GameObject;
@@ -175,7 +238,7 @@ void LevelMgr::Init()
 	// pTileObj->Transform()->GetRelativeScale  // 내가 어떤 타일맵을 골랐는지에 따라.. CTileRender에서 크키조절
 	pTileObj->TileRender()->SetTileMap(FIND(ATileMap, L"TestTileMap"));
 	
-	m_CurLevel->AddObject(2, pTileObj);
+	//m_CurLevel->AddObject(2, pTileObj);
 
 
 	// 레벨 충돌 설정
@@ -185,6 +248,7 @@ void LevelMgr::Init()
 
 
 	// 레벨 시작
+	m_CurLevel->SetChanged(); // 레벨 상태 변경
 	m_CurLevel->Begin();
 }
 

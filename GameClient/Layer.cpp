@@ -31,6 +31,22 @@ void Layer::AddObject(Ptr<GameObject> _Object)
 	}
 }
 
+void Layer::DeregisterAsParent(Ptr<GameObject> _Obj)
+{
+	vector<Ptr<GameObject>>::iterator iter = m_vecParents.begin();
+
+	for (; iter != m_vecParents.end(); ++iter)
+	{
+		if (*iter == _Obj)
+		{
+			m_vecParents.erase(iter);
+			return;
+		}
+	}
+
+	assert(nullptr);
+}
+
 void Layer::Begin()
 {
 	for (size_t i = 0; i < m_vecParents.size(); ++i)

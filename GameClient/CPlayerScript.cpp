@@ -11,6 +11,9 @@
 #include "GameObject.h"
 
 CPlayerScript::CPlayerScript()
+	: m_Land(true)
+	, m_Jump(false)
+	, m_DoubleJump(false)
 {
 
 }
@@ -21,9 +24,12 @@ CPlayerScript::~CPlayerScript()
 
 void CPlayerScript::Tick()
 {
+	Jump();
+
 	Move();
 
 	Shoot();
+
 
 	//if (KEY_PRESSED(KEY::X))
 	//{
@@ -34,37 +40,10 @@ void CPlayerScript::Tick()
 	//	MeshRender()->GetMtrl()->SetScalar(INT_0, 0);
 	//}
 
-	Ptr<GameObject> pChild = GetOwner()->GetChild(0);
+	//Ptr<GameObject> pChild = GetOwner()->GetChild(0);
 
-	Vec3 vRelativePos = pChild->Transform()->GetRelativePos();
-	Vec3 vWorldPos = pChild->Transform()->GetWorldPos();
-
-	//Ptr<CCamera> pCam = RenderMgr::GetInst()->GetPOVCamera();
-//Vec3 vCamPos = pCam->Transform()->GetPos();
-//Vec3 vMyPos = Transform()->GetPos();
-//Vec3 vDirToCam = vCamPos - vMyPos;
-//vDirToCam.Normalize();
-
-//Vec3 vBot = Vec3(vDirToCam.x, 0.f, vDirToCam.z).Normalize();
-//Vec3 vFront = Vec3(0.f, 0.f, -1.f);
-//	
-//float YDot = vBot.Dot(vFront);
-//float YAngle = acosf(YDot);
-
-//if (vFront.Cross(vBot).y < 0.f)
-//	YAngle = XM_2PI - YAngle;
-//	
-//float XDot = vBot.Dot(vDirToCam);
-//if (XDot > 1.f) XDot = 1.f;
-//if (XDot < -1.f) XDot = -1.f;
-
-//float XAngle = acosf(XDot);
-//if(vCamPos.y < vMyPos.y)
-//	XAngle = XM_2PI - XAngle;
-
-//Transform()->SetRotation(Vec3(0.f, YAngle, 0.f));
-//Transform()->SetRotation(Vec3(XAngle, 0.f, 0.f));
-//Transform()->SetRotation(Vec3(XAngle, YAngle, 0.f));
+	//Vec3 vRelativePos = pChild->Transform()->GetRelativePos();
+	//Vec3 vWorldPos = pChild->Transform()->GetWorldPos();
 }
 void CPlayerScript::Move()
 {
@@ -136,20 +115,72 @@ void CPlayerScript::Shoot()
 	/// info.Param_0 에서 스마트 포인터로 받았으면 TaskMgr 가 pObject 를 가지고 있는 상황이 되니까 지워지지 않음
 	/// 하지만 일반 포인터로 받으면 delete 도 안될거고 ~ 
 
-	if (KEY_TAP(KEY::SPACE))
-	{
-		//DrawDebugRect(Transform()->GetRelativePos()
-		//	, Transform()->GetRelativeScale() * Vec3(2.f, 2.f, 2.f),
-		//	Vec3(0.f, 0.f, 0.f), Vec4(1.f, 1.f, 0.f, 1.f), 2.f);
-
-		//DrawDebugRect(Transform()->GetWorldMat(), Vec4(1.f, 1.f, 0.f, 1.f), 2.f);
-
-		//DrawDebugCircle(Transform()->GetRelativePos(), 100.f, Vec4(1.f, 0.f, 0.f, 1.f), 2.f);
-	}
 
 	if (KEY_TAP(KEY::Z))
 	{
 		Destroy();
+	}
+}
+
+void CPlayerScript::Jump()
+{
+	if (KEY_TAP(KEY::SPACE))
+	{
+		if (!m_Land)
+		{
+			m_DoubleJump = true;
+
+			GetOwner()->FlipbookRender()->Play(2, 8.f, 1);
+		}
+
+		else
+		{
+			m_Land = false;
+			m_Jump = true;
+
+			GetOwner()->FlipbookRender()->Play(1, 8.f, 1);
+		}
+	}
+
+
+	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
+
+	// 점프해서 위로 올라가는 느낌
+	float jumpPower = 500.f;
+	static float jumpTime = 0.2f;
+	
+
+	static float jumpDuration = 0.f;
+
+	if (m_Jump)
+	{
+		jumpDuration += DT;
+		vPos.y += jumpPower * DT;
+
+		GetOwner()->Transform()->SetRelativePos(vPos);
+	}
+
+	float gravety = 1000.f;
+	static float dropSpeed = 0.f;
+
+	// 점프 시간 종료하면 다시 내려오는 느낌
+	if (jumpDuration >= jumpTime)
+	{
+		m_Jump = false;
+
+		dropSpeed += gravety * DT;
+		vPos.y -= dropSpeed * DT;
+
+		GetOwner()->Transform()->SetRelativePos(vPos);
+	}
+
+	// 더블 점프
+	if (m_DoubleJump)
+	{
+		jumpDuration = 0.f;
+		dropSpeed = 0.f;
+		m_Jump = true;
+		m_DoubleJump = false;
 	}
 }
 

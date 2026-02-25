@@ -30,6 +30,7 @@ public:
 
 	void Play(int _FlipbookIdx, float _FPS, int _RepeatCount)
 	{
+		m_CurSprite = 0; /// 배열 초기화
 		m_CurFlipbook = _FlipbookIdx;
 		m_RepeatCount = _RepeatCount;
 		m_FPS = _FPS;

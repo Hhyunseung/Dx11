@@ -42,7 +42,10 @@ public:
     template<typename T>
     Ptr<T> GetScript();
 
-    void AddChild(Ptr<GameObject> _Child) { m_vecChild.push_back(_Child); _Child->m_Parent = this; }
+    void AddChild(Ptr<GameObject> _Child);
+	void DisconnectWithParent();
+	void DeregisterAsParent();
+    void RegisterAsParent();
 
 	// return 값은 사라지므로 스마트 포인터로 반환 ?
 	Ptr<GameObject> GetParent() { return m_Parent; }

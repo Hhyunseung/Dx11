@@ -7,6 +7,7 @@
 EditorUI::EditorUI(const string& _Name)
 	: m_UIName(_Name)
 	, m_IsModal(false)
+	, m_Separator(true)
 	, m_Active(true)
 	, m_Parent(nullptr)
 {
@@ -30,6 +31,8 @@ void EditorUI::Tick()
 			CheckFocus();
 
 			Tick_UI();
+
+			bool HasChild = false;
 
 			for (size_t i = 0; i < m_ChildUI.size(); ++i)
 			{
@@ -72,7 +75,6 @@ void EditorUI::Tick()
 			if (m_ChildUI[i]->IsActive())
 			{
 				m_ChildUI[i]->Tick();
-				ImGui::Separator(); /// 자식 UI 들이 구분되도록 구분선 삽입
 			}
 		}
 
@@ -97,6 +99,11 @@ void EditorUI::Tick()
 		}
 
 		ImGui::EndChild();
+
+		if (m_Separator)
+		{
+			ImGui::Separator(); /// 자식 UI 들이 구분되도록 구분선 삽입
+		}
 	}
 }
 

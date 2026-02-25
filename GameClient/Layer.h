@@ -15,6 +15,7 @@ public:
     void AddObject(Ptr<GameObject> _Obj);
     void RegisterObject(Ptr<GameObject> _Obj) { m_vecAllObjects.push_back(_Obj); }
     void DeregisterObject() { m_vecAllObjects.clear(); }
+	void DeregisterAsParent(Ptr<GameObject> _Obj);
 
     /// 배열이 복사되어 들어감
     // vector<Ptr<GameObject>> GetParentObjects() { return m_vecParents; }

@@ -6,17 +6,37 @@
 #include "LevelMgr.h"
 #include "ALevel.h"
 
+#include "EditorMgr.h"
+#include "Inspector.h"
+
+
 Outliner::Outliner()
 	: EditorUI("Outliner")
 {
 	m_Tree = new TreeUI;
-	AddChildUI(m_Tree.Get());
+	m_Tree->SetSeperator(false);
+	m_Tree->AddDynamicSelect(this, (DELEGATE_1)&Outliner::SelectGameObject);
+	
+	m_Tree->SetDropKey("Outliner"); // Self DragDrop 사용
+	m_Tree->AddDynamicDragDrop(this, (DELEGATE_2)&Outliner::AddChild);
 
-	Renew();
+	AddChildUI(m_Tree.Get());
 }
 
 Outliner::~Outliner()
 {
+}
+
+void Outliner::Tick_UI()
+{
+	Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
+	if (nullptr != pCurLevel)
+	{
+		if (pCurLevel->IsChanged())
+		{
+			Renew();
+		}
+	}
 }
 
 
@@ -50,7 +70,7 @@ void Outliner::AddGameObject(Ptr<TreeNode> _ParentNode, Ptr<GameObject> _Object)
 	if (ObjectName.empty())
 		ObjectName = "No Name";
 
-	Ptr<TreeNode> pNewNode = m_Tree->AddItem(_ParentNode, ObjectName.c_str());
+	Ptr<TreeNode> pNewNode = m_Tree->AddItem(_ParentNode, ObjectName.c_str(), (DWORD_PTR)_Object.Get());
 
 	for (size_t i = 0; i < _Object->GetChild().size(); ++i)
 	{
@@ -58,8 +78,41 @@ void Outliner::AddGameObject(Ptr<TreeNode> _ParentNode, Ptr<GameObject> _Object)
 	}
 }
 
-
-void Outliner::Tick_UI()
+void Outliner::SelectGameObject(DWORD_PTR _Object)
 {
+	Ptr<GameObject> SelectedpObject = (GameObject*)_Object;
 
+	Ptr<Inspector> pInspector = (Inspector*)EditorMgr::GetInst()->FindUI("Inspector").Get();
+	assert(pInspector.Get());
+
+	pInspector->SetTargetObject(SelectedpObject);
+}
+
+void Outliner::AddChild(DWORD_PTR _Src, DWORD_PTR _Dest)
+{
+	Ptr<TreeNode> pDragNode = (TreeNode*)_Src;
+	Ptr<TreeNode> pDropNode = (TreeNode*)_Dest;
+
+	Ptr<GameObject> SrcObj = (GameObject*)pDragNode->Data;
+	Ptr<GameObject> DestObj = nullptr;
+
+	if (pDropNode != nullptr)
+		DestObj = (GameObject*)pDropNode->Data;
+
+	// 목적지가 없고, 자식타입 오브젝트인 경우
+	if (DestObj == nullptr)
+	{
+		if (nullptr != SrcObj->GetParent())
+		{
+			// 자식오브젝트를 최상위 부모로 이동
+			SrcObj->DisconnectWithParent(); /// 부모와의 연결 끊기
+			SrcObj->RegisterAsParent(); /// 레이어의 최상위 부모로 등록
+		}
+	}
+
+	else
+	{
+		// SrcObj 가 DesObj 의 Ancetor 이면 안된다
+		DestObj->AddChild(SrcObj);
+	}
 }

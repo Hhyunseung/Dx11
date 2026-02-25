@@ -170,13 +170,24 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"PlayerImage", L"Texture\\Character.png");
 	Load<ATexture>(L"Missile", L"Texture\\Missile.png");
 	Load<ATexture>(L"Enemy", L"Texture\\Enemy.png");
-	Load<ATexture>(L"Star", L"Texture\\Star.png");
-	Load<ATexture>(L"Sol", L"Texture\\Sol.png");
-	Load<ATexture>(L"BackGround", L"Texture\\BackGround.png");
 	Load<ATexture>(L"Link", L"Texture\\link.png");
 	Load<ATexture>(L"TileAtlas", L"Texture\\TILE.bmp");
 	Load<ATexture>(L"Cookie", L"Texture\\Cookie.png");
-	Load<ATexture>(L"DragonCookieIdle", L"Texture\\Idle.png");
+
+	// ==============================
+	// 리치드래곤 쿠키 애니메이션 텍스쳐
+	// ==============================
+	Load<ATexture>(L"DragonCookieIdle", L"Texture\\Lychee_Idle.png");
+	Load<ATexture>(L"DragonCookieJump", L"Texture\\Lychee_Jump.png");
+	Load<ATexture>(L"DragonCookieDoubleJump", L"Texture\\Lychee_DoubleJump.png");
+
+	// ==========
+	// 해적 맵_1 텍스쳐
+	// ==========
+	Load<ATexture>(L"BackGroundShipStage1_1", L"Texture\\ovenbreak_tm001_bg1.png");
+	Load<ATexture>(L"BackGroundShipStage1_2", L"Texture\\ovenbreak_tm001_bg2.png");
+	Load<ATexture>(L"TileShipStage1_1", L"Texture\\ovenbreak_tm001_tb.png");
+	Load<ATexture>(L"TileShipStage1_2", L"Texture\\ovenbreak_tm001_fh.png");
 
 }
 
@@ -207,6 +218,54 @@ void AssetMgr::CreateEngineMaterial()
 	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"Enemy"));
 
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
+	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
+	// ================== 해적 맵_1 생성 ==============//
+	pMtrl = new AMaterial;
+	pMtrl->SetName(L"BackGround_Ship_Stage1_1_Mtrl");
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"Std2DShader"));
+
+	// Parameter
+	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"BackGroundShipStage1_1"));
+
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_OPAQUE);
+	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
+
+	pMtrl = new AMaterial;
+	pMtrl->SetName(L"BackGround_Ship_Stage1_2_Mtrl");
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"Std2DShader"));
+
+	// Parameter
+	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"BackGroundShipStage1_2"));
+
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_OPAQUE);
+	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
+
+
+	pMtrl = new AMaterial;
+	pMtrl->SetName(L"Tile_Ship_Stage1_1_Mtrl");
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"Std2DShader"));
+
+	// Parameter
+	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"TileShipStage1_1"));
+
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_OPAQUE);
+	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
+	pMtrl = new AMaterial;
+	pMtrl->SetName(L"Tile_Ship_Stage1_2_Mtrl");
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"Std2DShader"));
+
+	// Parameter
+	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"TileShipStage1_2"));
+
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_OPAQUE);
 	AddAsset(pMtrl->GetName(), pMtrl.Get());
 
 	//================== DbgMtrl 생성 ==============//
@@ -280,42 +339,6 @@ void AssetMgr::CreateEngineSprite()
 	}
 
 
-	//Ptr<ATexture> pAtlas = FIND(ATexture, L"Cookie");
-	//float Width = pAtlas->GetWidth();
-	//float Height = pAtlas->GetHeight();
-	//Vec2 SlicePixel = Vec2(272.f, 272.f);
-	//pAtlas = FIND(ATexture, L"Cookie");
-	//Width = pAtlas->GetWidth();
-	//Height = pAtlas->GetHeight();
-	//SlicePixel = Vec2(272.f, 272.f);
-
-	//pSprite = nullptr;
-	//for (int i = 0; i < 11; i++)
-	//{
-	//	wchar_t Buff[50] = {};
-	//	swprintf_s(Buff, L"CookieJump_%d", i);
-
-	//	pSprite = new ASprite;
-	//	pSprite->SetName(Buff);
-	//	pSprite->SetAtlas(pAtlas);
-	//	pSprite->SetLeftTopUV(Vec2((SlicePixel.x / Width) * (float)i, (SlicePixel.y / Height) * 0.f));
-	//	pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
-	//	AddAsset(pSprite->GetName(), pSprite.Get());
-	//}
-
-	//Ptr<AFlipbook> pFlipbook = nullptr;
-	//pFlipbook = new AFlipbook;
-	//pFlipbook->SetName(L"Cookie_Jump");
-
-	//for (int i = 0; i < 11; ++i)
-	//{
-	//	wchar_t Buff[50] = {};
-	//	swprintf_s(Buff, L"CookieJump_%d", i);
-	//	pFlipbook->AddSprite(FIND(ASprite, Buff));
-	//}
-	//AddAsset(pFlipbook->GetName(), pFlipbook.Get());
-	//
-
 	Ptr<AFlipbook> pFlipbook = nullptr;
 	pFlipbook = new AFlipbook;
 	pFlipbook->SetName(L"Link_MoveDown");
@@ -365,7 +388,7 @@ void AssetMgr::CreateEngineSprite()
 	pAtlas = FIND(ATexture, L"DragonCookieIdle");
 	Width = pAtlas->GetWidth();
 	Height = pAtlas->GetHeight();
-	SlicePixel = Vec2(384.f, 384.f);
+	SlicePixel = Vec2(364.f, 364.f);
 
 	pSprite = nullptr;
 	for (int i = 0; i < 4; i++)
@@ -388,6 +411,69 @@ void AssetMgr::CreateEngineSprite()
 	{
 		wchar_t Buff[50] = {};
 		swprintf_s(Buff, L"DragonCookieIdle_%d", i);
+		pFlipbook->AddSprite(FIND(ASprite, Buff));
+	}
+	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+
+
+	pAtlas = FIND(ATexture, L"DragonCookieJump");
+	Width = pAtlas->GetWidth();
+	Height = pAtlas->GetHeight();
+	SlicePixel = Vec2(364.f, 364.f);
+
+	pSprite = nullptr;
+	for (int i = 0; i < 2; i++)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"DragonCookieJump_%d", i);
+
+		pSprite = new ASprite;
+		pSprite->SetName(Buff);
+		pSprite->SetAtlas(pAtlas);
+		pSprite->SetLeftTopUV(Vec2((SlicePixel.x / Width) * (float)i, (SlicePixel.y / Height) * 0.f));
+		pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
+		AddAsset(pSprite->GetName(), pSprite.Get());
+	}
+
+	pFlipbook = new AFlipbook;
+	pFlipbook->SetName(L"DragonCookie_Jump");
+
+	for (int i = 0; i < 2; ++i)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"DragonCookieJump_%d", i);
+		pFlipbook->AddSprite(FIND(ASprite, Buff));
+	}
+	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+
+
+	pAtlas = FIND(ATexture, L"DragonCookieDoubleJump");
+	Width = pAtlas->GetWidth();
+	Height = pAtlas->GetHeight();
+	SlicePixel = Vec2(364.f, 364.f);
+
+	pSprite = nullptr;
+	for (int i = 0; i < 5; i++)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"DragonCookieDoubleJump_%d", i);
+
+		pSprite = new ASprite;
+		pSprite->SetName(Buff);
+		pSprite->SetAtlas(pAtlas);
+		pSprite->SetLeftTopUV(Vec2((SlicePixel.x / Width) * (float)i, (SlicePixel.y / Height) * 0.f));
+		pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
+		AddAsset(pSprite->GetName(), pSprite.Get());
+	}
+
+
+	pFlipbook = new AFlipbook;
+	pFlipbook->SetName(L"DragonCookie_DoubleJump");
+
+	for (int i = 0; i < 5; ++i)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"DragonCookieDoubleJump_%d", i);
 		pFlipbook->AddSprite(FIND(ASprite, Buff));
 	}
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
