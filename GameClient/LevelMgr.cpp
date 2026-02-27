@@ -136,27 +136,45 @@ void LevelMgr::Init()
 	pObject->Collider2D()->SetScale(Vec2(0.25f, 0.25f));
 	pObject->Collider2D()->SetOffset(Vec2(0.5f, 0.f));
 
-	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"DragonCookie_Idle"));
-	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"DragonCookie_Jump"));
-	pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"DragonCookie_DoubleJump"));
+	//// Save 후 Load
+	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Idle.flip"));
+	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Jump.flip"));
+	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_DoubleJump.flip"));
 	pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 
 	// 자식 오브젝트 생성
+	//////// 펫은 자식 오브젝트로 설정안하고 따로 따라오게 해야할듯..
+	//////// 플레이어 뒤를 딜레이 주고 따라오는 느낌으로 만들어야
 	Ptr<GameObject> pChild = new GameObject;
-	pChild->SetName(L"Child");
+	pChild->SetName(L"CookiePet");
 
 	pChild->AddComponent(new CTransform);
-	pChild->AddComponent(new CMeshRender);
-	pChild->AddComponent(new CCollider2D);
+	pChild->AddComponent(new CFlipbookRender);
 
 	/// 부모의 상대적인 위치와 크기로 설정해야함
-	pChild->Transform()->SetRelativePos(Vec3(-50.f, 0.f, 0.f));
-	pChild->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+	pChild->Transform()->SetRelativePos(Vec3(-80.f, -65.f, 0.f));
+	pChild->Transform()->SetRelativeScale(Vec3(150.f, 150.f, 1.f));
 	pChild->Transform()->SetIndependentScale(true);
 
-	pChild->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-	pChild->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
+	pChild->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_PetIdle.flip"));
+	pChild->FlipbookRender()->Play(0, 8.f, -1);
+
+
+	// Player 와 Child 부모자식 연결
+	pObject->AddChild(pChild);
+
+	// 발 센서 역할을 하는 자식 오브젝트
+	pChild = new GameObject;
+	pChild->SetName(L"FootSensor");
+
+	pChild->AddComponent(new CTransform);
+	pChild->AddComponent(new CCollider2D);
+
+	pChild->Transform()->SetRelativePos(Vec3(-5.f, -126.f, 0.f));
+	pChild->Transform()->SetRelativeScale(Vec3(60.f, 7.f, 1.f));
+	pChild->Transform()->SetIndependentScale(true);
+
 
 	// Player 와 Child 부모자식 연결
 	pObject->AddChild(pChild);
@@ -242,6 +260,7 @@ void LevelMgr::Init()
 
 
 	// 레벨 충돌 설정
+	m_CurLevel->CheckCollisionLayer(2, 3);
 	m_CurLevel->CheckCollisionLayer(3, 5);
 	m_CurLevel->CheckCollisionLayer(4, 5);
 	m_CurLevel->CheckCollisionLayer(3, 6);

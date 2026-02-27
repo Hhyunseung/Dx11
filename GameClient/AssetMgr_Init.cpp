@@ -153,6 +153,42 @@ void AssetMgr::CreateEngineShader()
 	AddAsset(L"Std2DShader", pShader.Get());
 
 
+	// ============== BillboardShader 积己 ==============//
+	pShader = new AGraphicShader;
+	pShader->SetName(L"BillboardShader");
+	pShader->CreateVertexShader(L"Shader\\billboard.fx", "VS_Billboard");
+	pShader->CreatePixelShader(L"Shader\\billboard.fx", "PS_Billboard");
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
+
+	// ============== SpriteShader 积己 ==============//
+	pShader = new AGraphicShader;
+	pShader->SetName(L"SpriteShader");
+	pShader->CreateVertexShader(L"Shader\\sprite.fx", "VS_Sprite");
+	pShader->CreatePixelShader(L"Shader\\sprite.fx", "PS_Sprite");
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
+
+	// ============== FlipbookShader 积己 ==============//
+	pShader = new AGraphicShader;
+	pShader->SetName(L"FlipbookShader");
+	pShader->CreateVertexShader(L"Shader\\flipbook.fx", "VS_Flipbook");
+	pShader->CreatePixelShader(L"Shader\\flipbook.fx", "PS_Flipbook");
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
+
+	// ============== TileShader 积己 ==============//
+	pShader = new AGraphicShader;
+	pShader->SetName(L"TileShader");
+	pShader->CreateVertexShader(L"Shader\\tile.fx", "VS_Tile");
+	pShader->CreatePixelShader(L"Shader\\tile.fx", "PS_Tile");
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
+	
 	//================== DbgShader 积己 ==============//
 	pShader = new AGraphicShader;
 	pShader->CreateVertexShader(L"Shader\\dbg.fx", "VS_Debug");
@@ -180,6 +216,10 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"DragonCookieIdle", L"Texture\\Lychee_Idle.png");
 	Load<ATexture>(L"DragonCookieJump", L"Texture\\Lychee_Jump.png");
 	Load<ATexture>(L"DragonCookieDoubleJump", L"Texture\\Lychee_DoubleJump.png");
+
+	Load<ATexture>(L"DragonCookiePetIdle", L"Texture\\Lycheye_Idle.png");
+
+
 
 	// ==========
 	// 秦利 甘_1 咆胶媚
@@ -219,6 +259,8 @@ void AssetMgr::CreateEngineMaterial()
 
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
+	Load<AMaterial>(L"Material\\Default Material_0.mtrl", L"Material\\Default Material_0.mtrl");
 
 	// ================== 秦利 甘_1 积己 ==============//
 	pMtrl = new AMaterial;
@@ -280,6 +322,7 @@ void AssetMgr::CreateEngineMaterial()
 
 void AssetMgr::CreateEngineSprite()
 {
+	/*
 	Ptr<ATexture> pAtlas = FIND(ATexture, L"Link");
 	float Width = pAtlas->GetWidth();
 	float Height = pAtlas->GetHeight();
@@ -289,7 +332,7 @@ void AssetMgr::CreateEngineSprite()
 	for (int i = 0; i < 10; i++)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"LinkMD_%d", i);
+		swprintf_s(Buff, L"Sprite\\LinkMD_%d.sprite", i);
 
 		pSprite = new ASprite;
 		pSprite->SetName(Buff);
@@ -302,7 +345,7 @@ void AssetMgr::CreateEngineSprite()
 	for (int i = 0; i < 10; i++)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"LinkML_%d", i);
+		swprintf_s(Buff, L"Sprite\\LinkML_%d.sprite", i);
 
 		pSprite = new ASprite;
 		pSprite->SetName(Buff);
@@ -315,7 +358,7 @@ void AssetMgr::CreateEngineSprite()
 	for (int i = 0; i < 10; i++)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"LinkMU_%d", i);
+		swprintf_s(Buff, L"Sprite\\LinkMU_%d.sprite", i);
 
 		pSprite = new ASprite;
 		pSprite->SetName(Buff);
@@ -328,7 +371,7 @@ void AssetMgr::CreateEngineSprite()
 	for (int i = 0; i < 10; i++)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"LinkMR_%d", i);
+		swprintf_s(Buff, L"Sprite\\LinkMR_%d.sprite", i);
 
 		pSprite = new ASprite;
 		pSprite->SetName(Buff);
@@ -337,54 +380,58 @@ void AssetMgr::CreateEngineSprite()
 		pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
 		AddAsset(pSprite->GetName(), pSprite.Get());
 	}
+	*/
 
-
+	/*
 	Ptr<AFlipbook> pFlipbook = nullptr;
 	pFlipbook = new AFlipbook;
-	pFlipbook->SetName(L"Link_MoveDown");
+	pFlipbook->SetName(L"Flipbook\\Link_MoveDown.flip");
 
 	for (int i = 0; i < 10; ++i)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"LinkMD_%d", i);
-		pFlipbook->AddSprite(FIND(ASprite, Buff));
+		swprintf_s(Buff, L"Sprite\\LinkMD_%d.sprite", i);
+		pFlipbook->AddSprite(LOAD(ASprite, Buff));
 	}
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
 
 	pFlipbook = new AFlipbook;
-	pFlipbook->SetName(L"Link_MoveLeft");
+	pFlipbook->SetName(L"Flipbook\\Link_MoveLeft.flip");
 	for (int i = 0; i < 10; ++i)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"LinkML_%d", i);
-		pFlipbook->AddSprite(FIND(ASprite, Buff));
+		swprintf_s(Buff, L"Sprite\\LinkML_%d.sprite", i);
+		pFlipbook->AddSprite(LOAD(ASprite, Buff));
 	}
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
 
 	pFlipbook = new AFlipbook;
-	pFlipbook->SetName(L"Link_MoveUp");
+	pFlipbook->SetName(L"Flipbook\\Link_MoveUp.flip");
 
 	for (int i = 0; i < 10; ++i)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"LinkMU_%d", i);
-		pFlipbook->AddSprite(FIND(ASprite, Buff));
+		swprintf_s(Buff, L"Sprite\\LinkMU_%d.sprite", i);
+		pFlipbook->AddSprite(LOAD(ASprite, Buff));
 	}
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
 
 	pFlipbook = new AFlipbook;
-	pFlipbook->SetName(L"Link_MoveRight");
+	pFlipbook->SetName(L"Flipbook\\Link_MoveRight.flip");
 
 	for (int i = 0; i < 10; ++i)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"LinkMR_%d", i);
-		pFlipbook->AddSprite(FIND(ASprite, Buff));
+		swprintf_s(Buff, L"Sprite\\LinkMR_%d.sprite", i);
+		pFlipbook->AddSprite(LOAD(ASprite, Buff));
 	}
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+
+	*/
 
 	//============================================
 
+	/*
 	pAtlas = FIND(ATexture, L"DragonCookieIdle");
 	Width = pAtlas->GetWidth();
 	Height = pAtlas->GetHeight();
@@ -394,7 +441,7 @@ void AssetMgr::CreateEngineSprite()
 	for (int i = 0; i < 4; i++)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"DragonCookieIdle_%d", i);
+		swprintf_s(Buff, L"Sprite\\DragonCookieIdle_%d.sprite", i);
 
 		pSprite = new ASprite;
 		pSprite->SetName(Buff);
@@ -403,18 +450,6 @@ void AssetMgr::CreateEngineSprite()
 		pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
 		AddAsset(pSprite->GetName(), pSprite.Get());
 	}
-
-	pFlipbook = new AFlipbook;
-	pFlipbook->SetName(L"DragonCookie_Idle");
-
-	for (int i = 0; i < 4; ++i)
-	{
-		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"DragonCookieIdle_%d", i);
-		pFlipbook->AddSprite(FIND(ASprite, Buff));
-	}
-	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
-
 
 	pAtlas = FIND(ATexture, L"DragonCookieJump");
 	Width = pAtlas->GetWidth();
@@ -425,7 +460,7 @@ void AssetMgr::CreateEngineSprite()
 	for (int i = 0; i < 2; i++)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"DragonCookieJump_%d", i);
+		swprintf_s(Buff, L"Sprite\\DragonCookieJump_%d.sprite", i);
 
 		pSprite = new ASprite;
 		pSprite->SetName(Buff);
@@ -434,17 +469,6 @@ void AssetMgr::CreateEngineSprite()
 		pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
 		AddAsset(pSprite->GetName(), pSprite.Get());
 	}
-
-	pFlipbook = new AFlipbook;
-	pFlipbook->SetName(L"DragonCookie_Jump");
-
-	for (int i = 0; i < 2; ++i)
-	{
-		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"DragonCookieJump_%d", i);
-		pFlipbook->AddSprite(FIND(ASprite, Buff));
-	}
-	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
 
 
 	pAtlas = FIND(ATexture, L"DragonCookieDoubleJump");
@@ -456,7 +480,7 @@ void AssetMgr::CreateEngineSprite()
 	for (int i = 0; i < 5; i++)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"DragonCookieDoubleJump_%d", i);
+		swprintf_s(Buff, L"Sprite\\DragonCookieDoubleJump_%d.sprite", i);
 
 		pSprite = new ASprite;
 		pSprite->SetName(Buff);
@@ -466,22 +490,81 @@ void AssetMgr::CreateEngineSprite()
 		AddAsset(pSprite->GetName(), pSprite.Get());
 	}
 
+	pAtlas = FIND(ATexture, L"DragonCookiePetIdle");
+	Width = pAtlas->GetWidth();
+	Height = pAtlas->GetHeight();
+	SlicePixel = Vec2(273.f, 273.f);
+
+	pSprite = nullptr;
+	for (int i = 0; i < 5; i++)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"Sprite\\DragonCookiePetIdle_%d.sprite", i);
+
+		pSprite = new ASprite;
+		pSprite->SetName(Buff);
+		pSprite->SetAtlas(pAtlas);
+		pSprite->SetLeftTopUV(Vec2((SlicePixel.x / Width) * (float)i, (SlicePixel.y / Height) * 0.f));
+		pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
+		AddAsset(pSprite->GetName(), pSprite.Get());
+	}
+
+	*/
+
+	/*
+	pFlipbook = new AFlipbook;
+	pFlipbook->SetName(L"Flipbook\\DragonCookie_Idle.flip");
+
+	for (int i = 0; i < 4; ++i)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"Sprite\\DragonCookieIdle_%d.sprite", i);
+		pFlipbook->AddSprite(LOAD(ASprite, Buff));
+	}
+	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+
 
 	pFlipbook = new AFlipbook;
-	pFlipbook->SetName(L"DragonCookie_DoubleJump");
+	pFlipbook->SetName(L"Flipbook\\DragonCookie_Jump.flip");
+
+	for (int i = 0; i < 2; ++i)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"Sprite\\DragonCookieJump_%d.sprite", i);
+		pFlipbook->AddSprite(LOAD(ASprite, Buff));
+	}
+	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+
+
+	pFlipbook = new AFlipbook;
+	pFlipbook->SetName(L"Flipbook\\DragonCookie_DoubleJump.flip");
 
 	for (int i = 0; i < 5; ++i)
 	{
 		wchar_t Buff[50] = {};
-		swprintf_s(Buff, L"DragonCookieDoubleJump_%d", i);
-		pFlipbook->AddSprite(FIND(ASprite, Buff));
+		swprintf_s(Buff, L"Sprite\\DragonCookieDoubleJump_%d.sprite", i);
+		pFlipbook->AddSprite(LOAD(ASprite, Buff));
 	}
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+
+
+	pFlipbook = new AFlipbook;
+	pFlipbook->SetName(L"Flipbook\\DragonCookie_PetIdle.flip");
+
+	for (int i = 0; i < 5; ++i)
+	{
+		wchar_t Buff[50] = {};
+		swprintf_s(Buff, L"Sprite\\DragonCookiePetIdle_%d.sprite", i);
+		pFlipbook->AddSprite(LOAD(ASprite, Buff));
+	}
+	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+	*/
 
 	// ============
 	// Tile Sprite
 	// ============
-	pAtlas = FIND(ATexture, L"TileAtlas");
+	
+	/* pAtlas = FIND(ATexture, L"TileAtlas");
 
 	Width = pAtlas->GetWidth();
 	Height = pAtlas->GetHeight();
@@ -493,7 +576,7 @@ void AssetMgr::CreateEngineSprite()
 		for (int j = 0; j < 8; ++j, ++Count)
 		{
 			wchar_t Buff[50] = {};
-			swprintf_s(Buff, L"TileSprite_%d", Count);
+			swprintf_s(Buff, L"Sprite\\TileSprite_%d.sprite", Count);
 
 			pSprite = new ASprite;
 			pSprite->SetName(Buff);
@@ -503,10 +586,11 @@ void AssetMgr::CreateEngineSprite()
 			AddAsset(pSprite->GetName(), pSprite.Get());
 		}
 	}
+	*/
 
-	// ========
-	// TileMap
-	// ========
+	 //========
+	 //TileMap
+	 //========
 	Ptr<ATileMap> pTileMap = nullptr;
 
 	pTileMap = new ATileMap;
@@ -517,7 +601,22 @@ void AssetMgr::CreateEngineSprite()
 
 	for (int i = 0; i < 20; ++i)
 		for (int j = 0; j < 20; ++j)
-			pTileMap->SetSprite(i, j, FIND(ASprite, L"TileSprite_1"));
+			pTileMap->SetSprite(i, j, LOAD(ASprite, L"Sprite\\TileSprite_1.sprite"));
 
 	AddAsset(pTileMap->GetName(), pTileMap.Get());
+
+
+	// 葛电 胶橇扼捞飘甫 颇老肺 历厘
+	//for (const auto& pair : m_mapAsset[(UINT)ASSET_TYPE::SPRITE])
+	//{
+	//	wstring FilePath = CONTENT_PATH + pair.first;
+	//	pair.second->Save(FilePath);
+	//}
+
+	// 葛电 Flipbook阑 颇老肺 历厘
+	//for (const auto& pair : m_mapAsset[(UINT)ASSET_TYPE::FLIPBOOK])
+	//{
+	//	wstring FilePath = CONTENT_PATH + pair.first;
+	//	pair.second->Save(FilePath);
+	//}
 }

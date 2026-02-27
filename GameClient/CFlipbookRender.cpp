@@ -74,18 +74,6 @@ void CFlipbookRender::CreateMaterial()
 		// 쉐이더를 찾아서 재질에 세팅해준다.
 		Ptr<AGraphicShader> pShader = AssetMgr::GetInst()->FindAsset<AGraphicShader>(ShaderName);
 
-		// 찾는 쉐이더가 없으면 만들어서 에셋매니저에 등록해둔다
-		if (nullptr == pShader)
-		{
-			pShader = new AGraphicShader;
-			pShader->SetName(ShaderName);
-			pShader->CreateVertexShader(FilePath, VS);
-			pShader->CreatePixelShader(FilePath, PS);
-			pShader->SetBSType(BS_TYPE::DEFAULT);
-			pShader->SetRSType(RS_TYPE::CULL_NONE);
-			AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
-		}
-
 		// 찾은 or 생성한 쉐이더를 재질에 설정해주고, 재질도 에셋매니저에 등록한다.
 		pMtrl->SetShader(pShader);
 		pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);

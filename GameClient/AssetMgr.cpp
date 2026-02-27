@@ -8,6 +8,7 @@
 #include "PathMgr.h"
 
 AssetMgr::AssetMgr()
+	: m_Changed(false)
 {
 
 }
@@ -34,6 +35,8 @@ void AssetMgr::AddAsset(const wstring& _Key, Ptr<Asset> _Asset)
 
 	_Asset->SetKey(_Key);
 	m_mapAsset[(UINT)_Asset->GetType()].insert(make_pair(_Key, _Asset));
+
+	m_Changed = true;
 }
 
 void AssetMgr::GetAssetNames(ASSET_TYPE _type, vector<wstring>& _vec)

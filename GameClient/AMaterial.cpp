@@ -2,7 +2,7 @@
 #include "AMaterial.h"
 
 #include "Device.h"
-
+#include "AssetMgr.h"
 
 AMaterial::AMaterial()
 	: Asset(ASSET_TYPE::MATERIAL)
@@ -70,4 +70,57 @@ void AMaterial::Clear()
 AMaterial* AMaterial::Clone()
 {
 	return new AMaterial(*this);
+}
+
+int AMaterial::Save(const wstring& _FilePath)
+{
+	// 파일 스트림 커널
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, _FilePath.c_str(), L"wb");
+
+	// 재질이 사용하는 쉐이더 파이프라인 정보
+	SaveAssetRef(pFile, m_Shader.Get());
+
+	// 파이프라인 동작 시, 어떤 텍스쳐를 전달하기로 했었는지
+	for (UINT i = 0; i < (UINT)TEX_PARAM::TEX_END; ++i)
+	{
+		SaveAssetRef(pFile, m_Tex[i].Get());
+	}
+
+	// 파이프라인 동작 시, 전달 할 상수 데이터
+	fwrite(&m_Const, sizeof(MtrlConst), 1, pFile);
+
+	// 렌더링 시점, 도메인
+	fwrite(&m_Domain, sizeof(RENDER_DOMAIN), 1, pFile);
+
+	fclose(pFile);
+
+	return 0;
+}
+
+int AMaterial::Load(const wstring& _FilePath)
+{
+	// 파일 스트림 커널
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, _FilePath.c_str(), L"rb");
+
+	// 재질이 사용하는 쉐이더 파이프라인 정보
+	m_Shader = LoadAssetRef<AGraphicShader>(pFile);
+
+	// 파이프라인 동작 시, 어떤 텍스쳐를 전달하기로 했었는지
+	for (UINT i = 0; i < (UINT)TEX_PARAM::TEX_END; ++i)
+	{
+		m_Tex[i] = LoadAssetRef<ATexture>(pFile);	
+	}
+
+	// 파이프라인 동작 시, 전달 할 상수 데이터
+	fread(&m_Const, sizeof(MtrlConst), 1, pFile);
+
+	// 렌더링 시점, 도메인
+	fread(&m_Domain, sizeof(RENDER_DOMAIN), 1, pFile);
+
+
+	return 0;
 }

@@ -13,9 +13,16 @@ private:
 	/// 다운 캐스팅을해서 각 Asset 타입별로 반환하여 사용해야함
 	///		잘못된 다운캐스팅을 할 수 있으므로 분류해서 관리
 	map<wstring, Ptr<Asset>>	m_mapAsset[(UINT)ASSET_TYPE::END];
+	bool 						m_Changed;
 
 public:
 	void Init();
+	bool IsChanged()
+	{
+		bool Changed = m_Changed;
+		m_Changed = false;
+		return Changed;
+	}
 
 private:
 	void CreateEngineMesh();
@@ -93,7 +100,10 @@ inline Ptr<T> AssetMgr::Load(const wstring& _Key, const wstring& _RelativePath)
 {
 	// 동일키로 먼저 등록된 에셋이 있는지 확인
 	Ptr<T> pAsset = FindAsset<T>(_Key);
-	assert(pAsset == nullptr);
+	
+	// 동일키로 먼저 등록된 에셋이 있으면, 그걸 반환
+	if (nullptr != pAsset)
+		return pAsset;
 
 	// 에셋 객체 생성
 	pAsset = new T;
@@ -112,8 +122,30 @@ inline Ptr<T> AssetMgr::Load(const wstring& _Key, const wstring& _RelativePath)
 	pAsset->SetKey(_Key);
 	pAsset->SetRelativePath(_RelativePath);
 
+	m_Changed = true;
+
 	return pAsset;
 }
 
 
+template<typename T>
+Ptr<T> LoadAssetRef(FILE* _File)
+{
+	// Asset 이 Null 인지 아닌지 저장
+	bool IsNull = false;
+	fread(&IsNull, sizeof(bool), 1, _File);
+
+	// Asset 의 Key, RelativePath 저장
+	if (IsNull)
+	{
+		wstring Key = LoadWString(_File);
+		wstring RelativePath = LoadWString(_File);
+		return AssetMgr::GetInst()->Load<T>(Key, RelativePath);
+	}
+
+	return nullptr;
+}
+
+
 #define FIND(Type, Key) AssetMgr::GetInst()->FindAsset<Type>(Key)
+#define LOAD(Type, AssetPath) AssetMgr::GetInst()->Load<Type>(AssetPath, AssetPath) 

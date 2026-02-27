@@ -51,10 +51,12 @@ enum class ASSET_TYPE
 	MATERIAL,
 	SOUND,
 	GRAPHICSHADER,
+	COMPUTESHADER,
 	LEVEL,
 	SPRITE,
 	FLIPBOOK,
 	TILEMAP,
+	PREFAB,
 
 	END,
 };
@@ -165,4 +167,17 @@ enum class RENDER_DOMAIN
 	DOMAIN_DEBUG,		// 디버그 렌더링
 
 	DOMAIN_NONE,		// 미지정
+};
+
+// 플레이어의 상태
+enum class PLAYERSTATEID
+{
+	RUN,
+	JUMP,
+	DOUBLE_JUMP,
+	SLIDE,
+	HIT,
+	DEAD,
+
+	END,
 };

@@ -24,6 +24,9 @@ public:
 
     UINT GetSpriteCount() { return m_vecSprite.size(); }
 
+	virtual int Load(const wstring& _FilePath) override;
+	virtual int Save(const wstring& _FilePath) override;
+
 public:
     AFlipbook();
     virtual ~AFlipbook();

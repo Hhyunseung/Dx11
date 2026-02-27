@@ -22,13 +22,41 @@ CPlayerScript::~CPlayerScript()
 {
 }
 
+void CPlayerScript::Begin()
+{
+	// 상태 등록
+}
+
 void CPlayerScript::Tick()
 {
+	if (KEY_TAP(KEY::SPACE))
+	{
+		if (!m_Land)
+		{
+			m_DoubleJump = true;
+
+			/////////// 더블 점프 Play 한번 하고 나머지는 내려오는 스프라이트 하나만 
+			GetOwner()->FlipbookRender()->Play(2, 8.f, 1);
+		}
+
+		else
+		{
+			m_Land = false;
+			m_Jump = true;
+
+			GetOwner()->FlipbookRender()->Play(1, 8.f, 1);
+		}
+	}
+
+
+
+
+
 	Jump();
 
 	Move();
 
-	Shoot();
+	Skill();
 
 
 	//if (KEY_PRESSED(KEY::X))
@@ -73,7 +101,7 @@ void CPlayerScript::Move()
 
 }
 
-void CPlayerScript::Shoot()
+void CPlayerScript::Skill()
 {
 	if (KEY_TAP(KEY::SPACE))
 	{
@@ -130,6 +158,7 @@ void CPlayerScript::Jump()
 		{
 			m_DoubleJump = true;
 
+			/////////// 더블 점프 Play 한번 하고 나머지는 내려오는 스프라이트 하나만 
 			GetOwner()->FlipbookRender()->Play(2, 8.f, 1);
 		}
 
@@ -182,5 +211,9 @@ void CPlayerScript::Jump()
 		m_Jump = true;
 		m_DoubleJump = false;
 	}
+}
+
+void CPlayerScript::Slide()
+{
 }
 

@@ -62,6 +62,48 @@ void DrawDebugCircle(Vec3 _Pos, float _Radius, Vec4 _Color, float _Duration, boo
 	RenderMgr::GetInst()->AddDebugInfo(info);
 }
 
+void SaveWString(FILE* _File, const wstring& _String)
+{
+	int Len = _String.length();
+	fwrite(&Len, sizeof(int), 1, _File);
+	fwrite(_String.data(), sizeof(wchar_t), Len, _File);
+}
+
+wstring LoadWString(FILE* _File)
+{
+	int Len = 0;
+	fread(&Len, sizeof(int), 1, _File);
+
+	wchar_t buff[255] = {};
+	fread(buff, sizeof(wchar_t), Len, _File);
+
+	return buff;
+}
+
+void SaveAssetRef(FILE* _File, Asset* _Asset)
+{
+	// Asset 이 Null 인지 아닌지 저장
+	bool IsNull = _Asset;
+	fwrite(&IsNull, sizeof(bool), 1, _File);
+
+	// Asset 의 Key, RelativePath 저장
+	if (nullptr != _Asset)
+	{
+		SaveWString(_File, _Asset->GetKey());
+		SaveWString(_File, _Asset->GetRelativePath());
+	}
+}
+
+float Saturate(float _Data)
+{
+	if (1.f < _Data)
+		return 1.f;
+	else if (_Data < 0.f)
+		return 0.f;
+	else
+		return _Data;
+}
+
 bool IsValid(Ptr<GameObject>& _Object)
 {
 	if (nullptr == _Object || _Object->IsDead())

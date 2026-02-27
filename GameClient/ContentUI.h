@@ -14,7 +14,7 @@ public:
     void Renew();
 
 private:
-    void AddAsset(Ptr<TreeNode> _ParentNode, Ptr<Asset> _Asset);
+    void SelectAsset(DWORD_PTR _Asset);
 
 public:
     ContentUI();

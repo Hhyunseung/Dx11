@@ -14,7 +14,7 @@ Outliner::Outliner()
 	: EditorUI("Outliner")
 {
 	m_Tree = new TreeUI;
-	m_Tree->SetSeperator(false);
+	m_Tree->SetSaperator(false);
 	m_Tree->AddDynamicSelect(this, (DELEGATE_1)&Outliner::SelectGameObject);
 	
 	m_Tree->SetDropKey("Outliner"); // Self DragDrop 사용

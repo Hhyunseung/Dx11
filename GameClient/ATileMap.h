@@ -27,6 +27,10 @@ public:
 	
 	GET_SET(Vec2, TileSize);
 	GET_SET(Ptr<ATexture>, Atlas);
+
+	virtual int Load(const wstring& _FilePath) override;
+	virtual int Save(const wstring& _FilePath) override;
+
 public:
     ATileMap();
 	virtual ~ATileMap();

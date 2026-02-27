@@ -3,6 +3,7 @@
 
 #include "GameObject.h"
 #include "ComponentUI.h"
+#include "AssetUI.h"
 
 /// 게임 오브젝트를 알려주면 게임 오브젝트의 정보를 알려주는 UI
 class Inspector :
@@ -12,8 +13,12 @@ private:
     Ptr<GameObject>      m_TargetObject;
     Ptr<ComponentUI>     m_arrComUI[(UINT)COMPONENT_TYPE::END];
 
+    Ptr<Asset>           m_TargetAsset;
+	Ptr<AssetUI> 	     m_arrAssetUI[(UINT)ASSET_TYPE::END];
+
 public:
     void SetTargetObject(Ptr<GameObject> _Object);
+    void SetTargetAsset(Ptr<Asset> _Asset);
 
 public:
     virtual void Tick_UI() override;

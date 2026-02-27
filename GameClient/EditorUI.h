@@ -24,7 +24,7 @@ public:
     GET_SET(Vec2, SizeAsChild);
     GET_SET(string, UIName);
 
-    void SetSeperator(bool _Set) { m_Separator = _Set; }
+    void SetSaperator(bool _Set) { m_Separator = _Set; }
     void SetModal(bool _Modal) { m_IsModal = _Modal; }
     bool IsActive() { return m_Active; }
     void SetActive(bool _Active) 

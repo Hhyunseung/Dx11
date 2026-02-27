@@ -3,13 +3,16 @@
 
 #include "AssetMgr.h"
 #include "TreeUI.h"
-#include "Asset.h"
+
+#include "EditorMgr.h"
+#include "Inspector.h"
 
 ContentUI::ContentUI()
 	 : EditorUI("ContentUI")
 {
 	m_Tree = new TreeUI;
-	m_Tree->SetSeperator(false);
+	m_Tree->SetSaperator(false);
+	m_Tree->AddDynamicSelect(this, (DELEGATE_1)&ContentUI::SelectAsset);
 	AddChildUI(m_Tree.Get());
 
 	// Asset 내용을 트리에 반영
@@ -20,6 +23,13 @@ ContentUI::~ContentUI()
 {
 }
 
+void ContentUI::Tick_UI()
+{
+	if (AssetMgr::GetInst()->IsChanged())
+	{
+		Renew();
+	}
+}
 
 void ContentUI::Renew()
 {
@@ -46,12 +56,19 @@ void ContentUI::Renew()
 	}
 }
 
-void ContentUI::AddAsset(Ptr<TreeNode> _ParentNode, Ptr<Asset> _Asset)
+void ContentUI::SelectAsset(DWORD_PTR _Asset)
 {
+	if (0 == _Asset)
+		return;
 
+	// 클릭한 노드가 들고있는 Asset 주소값을 입력받는다
+	Ptr<Asset> pAsset = (Asset*)_Asset;
+
+	// Inspector 에 ContentUI 에서 클릭된 Asset 의 주소를 알려준다
+	Ptr<Inspector> pInspector = (Inspector*)EditorMgr::GetInst()->FindUI("Inspector").Get();
+	assert(pInspector.Get());
+
+	pInspector->SetTargetAsset(pAsset);
 }
 
-void ContentUI::Tick_UI()
-{
-}
 

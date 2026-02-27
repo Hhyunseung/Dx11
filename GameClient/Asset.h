@@ -31,6 +31,7 @@ private:
 
 public:
 	virtual int Load(const wstring& _FilePath) { return S_OK; };
+	virtual int Save(const wstring& _FilePath) { return S_OK; };
 
 public:
 	// Asset(); // 기본 생성자 제거, 자신이 어떤 타입의 Asset 인지 입력으로 받는 버전의 생성자만 남겨둠

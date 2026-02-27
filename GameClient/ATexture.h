@@ -29,6 +29,10 @@ public:
 	float GetWidth() { return m_Desc.Width; }
 	float GetHeight() { return m_Desc.Height; }
 
+	ComPtr<ID3D11RenderTargetView>	 GetRTV() { return m_RTV; }
+	ComPtr<ID3D11DepthStencilView>	 GetDSV() { return m_DSV; }
+	ComPtr<ID3D11ShaderResourceView> GetSRV() { return m_SRV; }
+
 public:
 	virtual int Load(const wstring& _strFilePath);
 

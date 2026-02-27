@@ -3,6 +3,7 @@
 
 
 Layer::Layer()
+	: m_LayerIdx(-1)
 {
 }
 

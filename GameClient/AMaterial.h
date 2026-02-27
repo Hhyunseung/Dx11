@@ -26,7 +26,11 @@ public:
     template<typename T>
     void SetScalar(SCALAR_PARAM _Param, const T& _Data);
 
+    virtual int Save(const wstring& _FilePath);
+    virtual int Load(const wstring& _FilePath);
+
     AMaterial* Clone();
+
 
 public:
     AMaterial();
