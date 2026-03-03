@@ -3,7 +3,8 @@
 
 // Task
 void CreateObject(class GameObject* _Object, int LayerIdx);
-
+void ChangeLevel(const wstring& _NextLevelName);
+void ChangeLevelState(LEVEL_STATE _NextState);
 
 
 // DebugRebder
@@ -17,6 +18,7 @@ wstring LoadWString(FILE* _File);
 
 void SaveAssetRef(FILE* _File, class Asset* _Asset);
 
+void CreateTestLevel();
 
 // 0 ~ 1 사이의 값으로 만듦
 float Saturate(float _Data);

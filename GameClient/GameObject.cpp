@@ -76,10 +76,32 @@ void GameObject::FinalTick()
 	// 자신이 소속된 Layer 에 자기자신을 알림 (등록)
 	RegisterLayer();
 
-
-	// 
+	// 자식 오브젝트 FinalTick 호출
+	// 만약 Dead 상태인 자식 오브젝트가 있으면, Vector 에서 제거한다
 	vector<Ptr<GameObject>>::iterator iter = m_vecChild.begin();
+	for (; iter != m_vecChild.end();)
+	{
+		(*iter)->FinalTick();
 
+		if ((*iter)->IsDead())
+			iter = m_vecChild.erase(iter);
+		else
+			++iter;
+	}
+}
+
+/// 원래 override 해서 스크립트에서 FinalTick 구현할 수 있게 하는게 더 좋긴하나 우리 프로젝트는 규모가 적으니까..
+void GameObject::FinalTick_Editor()
+{
+	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+	{
+		if (m_Com[i] != nullptr)
+			m_Com[i]->FinalTick();
+	}
+
+	// 자식 오브젝트 FinalTick 호출
+	// 만약 Dead 상태인 자식 오브젝트가 있으면, Vector 에서 제거한다
+	vector<Ptr<GameObject>>::iterator iter = m_vecChild.begin();
 	for (; iter != m_vecChild.end();)
 	{
 		(*iter)->FinalTick();
@@ -168,11 +190,19 @@ void GameObject::AddChild(Ptr<GameObject> _Child)
 	m_vecChild.push_back(_Child); 
 	_Child->m_Parent = this;
 
-	// 레이어가 없는 소속이면
+	// 자식으로 들어오려는 오브젝트가 원래 이 레벨 소속이 아니라 외부에서 들어온 경우
+	/// 레이어가 없는 소속이면
 	if (_Child->m_LayerIdx == -1)
 	{
 		/// 지금 나의 레이어 인덱스를 자식에게 물려준다
 		_Child->m_LayerIdx = m_LayerIdx;
+
+		// 부모가 될 오브젝트는 레벨 내부 소속인 경우 + 레벨이 Play 모드
+		if (m_LayerIdx != -1 && LEVEL_STATE::PLAY == LevelMgr::GetInst()->GetLevelState())
+		{
+			// Play 중인 레벨 안에 있는 어떤 오브젝트의 자식으로서 레벨에 합류했기 때문에 Begin 호출
+  			_Child->Begin();
+		}
 	}
 
 	// 부모 오브젝트가 레벨 소속이 아니면

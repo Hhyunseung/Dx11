@@ -13,7 +13,7 @@ Inspector::Inspector()
 {
 	CreateChildUI();
 
-	SetTargetObject(LevelMgr::GetInst()->FindObjectByName(L"BackGround1"));
+	SetTargetObject(nullptr);
 }
 
 Inspector::~Inspector()

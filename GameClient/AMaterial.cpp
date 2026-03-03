@@ -121,6 +121,7 @@ int AMaterial::Load(const wstring& _FilePath)
 	// 렌더링 시점, 도메인
 	fread(&m_Domain, sizeof(RENDER_DOMAIN), 1, pFile);
 
+	fclose(pFile);
 
 	return 0;
 }

@@ -14,6 +14,8 @@ CMonsterScript::~CMonsterScript()
 void CMonsterScript::Begin()
 {
 	ADD_DYNAMIC_BEGIN_OVERLAP(CMonsterScript::BeginOverlap);
+	ADD_DYNAMIC_BEGIN_OVERLAP(CMonsterScript::Overlap);
+	ADD_DYNAMIC_BEGIN_OVERLAP(CMonsterScript::Overlap);
 	ADD_DYNAMIC_END_OVERLAP(CMonsterScript::EndOverlap);
 }
 
@@ -29,6 +31,11 @@ void CMonsterScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _Other
 		Ptr<AMaterial> pDynamicMtrl = GetOwner()->GetRenderCom()->CreateDynamicMaterial();
 		pDynamicMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 2.f, 1.f));
 	}
+}
+
+void CMonsterScript::Overlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
+{
+	//if ()
 }
 
 void CMonsterScript::EndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)

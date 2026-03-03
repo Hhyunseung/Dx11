@@ -115,6 +115,8 @@ void CCamera::SortObject()
 	m_vecTrapsnarent.clear();
 
 	Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
+	if (nullptr == pCurLevel)
+		return;
 
 	for (UINT i = 0; i < MAX_LAYER; ++i)
 	{

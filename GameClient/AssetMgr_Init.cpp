@@ -150,6 +150,9 @@ void AssetMgr::CreateEngineShader()
 	pShader->CreatePixelShader(L"Shader\\std2d.fx", "PS_Std2D");
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 
+	pShader->AddShaderParam(SHADER_PARAM::VEC4, 0, L"TintColor");
+	pShader->AddShaderParam(SHADER_PARAM::TEX, 0, L"OutColor");
+
 	AddAsset(L"Std2DShader", pShader.Get());
 
 
@@ -591,20 +594,20 @@ void AssetMgr::CreateEngineSprite()
 	 //========
 	 //TileMap
 	 //========
-	Ptr<ATileMap> pTileMap = nullptr;
+	//Ptr<ATileMap> pTileMap = nullptr;
 
-	pTileMap = new ATileMap;
-	pTileMap->SetName(L"TestTileMap");
-	pTileMap->SetRowCol(20, 20);
-	pTileMap->SetTileSize(Vec2(64.f, 64.f));
-	pTileMap->SetAtlas(FIND(ATexture, L"TileAtlas"));
+	//pTileMap = new ATileMap;
+	//pTileMap->SetName(L"TileMap\\TestTileMap");
+	//pTileMap->SetRowCol(20, 20);
+	//pTileMap->SetTileSize(Vec2(64.f, 64.f));
+	//pTileMap->SetAtlas(FIND(ATexture, L"TileAtlas"));
 
-	for (int i = 0; i < 20; ++i)
-		for (int j = 0; j < 20; ++j)
-			pTileMap->SetSprite(i, j, LOAD(ASprite, L"Sprite\\TileSprite_1.sprite"));
+	//for (int i = 0; i < 20; ++i)
+	//	for (int j = 0; j < 20; ++j)
+	//		pTileMap->SetSprite(i, j, LOAD(ASprite, L"Sprite\\TileSprite_1.sprite"));
 
-	AddAsset(pTileMap->GetName(), pTileMap.Get());
-
+	//AddAsset(pTileMap->GetName(), pTileMap.Get());
+	//pTileMap->Save(CONTENT_PATH + pTileMap->GetKey());
 
 	// 모든 스프라이트를 파일로 저장
 	//for (const auto& pair : m_mapAsset[(UINT)ASSET_TYPE::SPRITE])

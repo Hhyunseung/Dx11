@@ -7,4 +7,5 @@
 #include "ASprite.h"
 #include "AFlipbook.h"
 #include "ATilemap.h"
+#include "ALevel.h"
 #include "extern.h"

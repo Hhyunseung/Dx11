@@ -2,6 +2,7 @@
 #include "CScript.h"
 
 #include "CMissileScript.h"
+#include "StateMachine.h"
 
 class CPlayerScript;
 
@@ -10,18 +11,19 @@ class PlayerState
 {
 private:
 	CPlayerScript*      m_Owner;
-	PLAYERSTATEID       m_Id;
+	PLAYER_STATE_ID       m_Id;
 
 public:
 	CPlayerScript* GetOwner() { return m_Owner; }
+	PLAYER_STATE_ID GetId() { return m_Id; }
 
 public:
-	virtual void Enter(PLAYERSTATEID _Prev) = 0;
+	virtual void Enter(PLAYER_STATE_ID _Prev) = 0;
 	virtual void Tick(float dt) = 0;
-	virtual void Exit(PLAYERSTATEID _Next) = 0;
+	virtual void Exit(PLAYER_STATE_ID _Next) = 0;
 
 public:
-	PlayerState(CPlayerScript* _Owner, PLAYERSTATEID _Id) 
+	PlayerState(CPlayerScript* _Owner, PLAYER_STATE_ID _Id) 
 		: m_Owner(_Owner), m_Id(_Id) {}
 	virtual ~PlayerState() {}
 };
@@ -34,7 +36,9 @@ class CPlayerScript :
     public CScript
 {
 private:
-    Ptr<GameObject>     m_Target;
+    Ptr<GameObject>		m_Target;
+
+	StateMachine		m_StateMachine; // 상태 머신
 
 	bool 			    m_Land; // 땅에 닿아있는지 여부
 	bool                m_Jump; // 점프 중인지 여부

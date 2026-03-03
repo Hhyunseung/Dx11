@@ -10,8 +10,9 @@ class EditorMgr
 private:
 	map<string, Ptr<EditorUI>> m_mapUI;
 	bool					   m_ShowDemo;
-
 	Ptr<EditorUI>			   m_FocusedUI;
+
+	vector<Ptr<GameObject>>	   m_EditorObject;
 
 public:
 	bool IsShowDemo() { return m_ShowDemo; }
@@ -32,5 +33,6 @@ private:
 
 private:
 	void CreateEditorUI();
+	void CreateEditorObject();
 };
 

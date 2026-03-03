@@ -144,7 +144,8 @@ enum class TASK_TYPE
 {
 	CREATE_OBJECT,
 	DESTROY_OBJECT,
-
+	CHANGE_LEVEL,
+	CHANGE_LEVEL_STATE,
 };
 
 enum class LIGHT_TYPE
@@ -170,7 +171,7 @@ enum class RENDER_DOMAIN
 };
 
 // 플레이어의 상태
-enum class PLAYERSTATEID
+enum class PLAYER_STATE_ID
 {
 	RUN,
 	JUMP,
@@ -180,4 +181,12 @@ enum class PLAYERSTATEID
 	DEAD,
 
 	END,
+};
+
+
+enum class LEVEL_STATE
+{
+	PLAY,
+	PAUSE,
+	STOP,
 };

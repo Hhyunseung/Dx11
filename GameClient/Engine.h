@@ -19,6 +19,8 @@ private:
 	HWND		m_hWnd;
 	Vec2		m_Resolution;
 
+	bool		m_EditorMode; /// 에디터 모드 여부
+
 public:
 	// 인스턴스 핸들 반환
 	HINSTANCE GetInstance() { return m_hInst; }
@@ -29,6 +31,6 @@ public:
 	Vec2 GetResolution() { return m_Resolution; }
 
 public:
-	int Init(HINSTANCE _hInst, UINT _Width, UINT _Height);
+	int Init(HINSTANCE _hInst, UINT _Width, UINT _Height, bool _EditorMode);
 	int Progress();
 };

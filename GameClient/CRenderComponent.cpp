@@ -1,5 +1,7 @@
 #include "pch.h"
+
 #include "CRenderComponent.h"
+#include "LevelMgr.h"
 
 CRenderComponent::CRenderComponent(COMPONENT_TYPE _Type)
 	: Component(_Type)
@@ -25,6 +27,9 @@ Ptr<AMaterial> CRenderComponent::GetSharedMaterial()
 
 Ptr<AMaterial> CRenderComponent::CreateDynamicMaterial()
 {
+	// 동적 재질 생성은 반드시 레벨이 Play 모드일 경우에만 사용 가능한 기능
+	assert(LEVEL_STATE::PLAY == LevelMgr::GetInst()->GetLevelState());
+
 	if (nullptr != m_DynamicMtrl)
 	{
 		m_Mtrl = m_DynamicMtrl;

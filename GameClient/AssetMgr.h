@@ -1,7 +1,6 @@
 #pragma once
 
 #include "assets.h"
-
 #include "PathMgr.h"
 
 class AssetMgr
@@ -68,6 +67,8 @@ ASSET_TYPE GetAssetType()
 		return ASSET_TYPE::FLIPBOOK;
 	else if constexpr (IsSameType<T, ATileMap>)
 		return ASSET_TYPE::TILEMAP;
+	else if constexpr (IsSameType<T, ALevel>)
+		return ASSET_TYPE::LEVEL;
 
 	//if (info.hash_code() == typeid(AMesh).hash_code())
 	//	Type = ASSET_TYPE::MESH;

@@ -12,10 +12,11 @@
 
 LRESULT CALLBACK  WndProc(HWND, UINT, WPARAM, LPARAM);
 
-int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height)
+int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height, bool _EditorMode)
 {
     m_hInst = _hInst;
     m_Resolution = Vec2(_Width, _Height);
+	m_EditorMode = _EditorMode;
 
     // 생성시킬 윈도우(창) 옵션 설정
     WNDCLASSEXW wcex = {};
@@ -115,8 +116,9 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height)
     // 렌더링 매니저 초기화
     RenderMgr::GetInst()->Init();
 
-	// 에디터 매니저 초기화
-	EditorMgr::GetInst()->Init();
+    // 에디터 매니저 초기화
+    if (m_EditorMode)
+        EditorMgr::GetInst()->Init();
 
 	return S_OK;
 }

@@ -1,10 +1,9 @@
 ﻿// GameClient.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 #include "pch.h"
-#include "framework.h"
-#include "GameClient.h"
 
 #include "Engine.h"
+#include "EditorMgr.h"
 
 #include <crtdbg.h>
 
@@ -78,7 +77,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 자기 자신의 ID handle (�
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    Test();
+    //Test();
 
 
     // CRT new, delete, 디버깅 모드에서 메모리 누수 추적. 출력창에 알림
@@ -90,6 +89,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 자기 자신의 ID handle (�
     hInst = hInstance;
 
 
+
     // 복사생성자는 컴파일러가 기본적으로 만들어지는데 이는 public 필드에 선언된다
     // singleton 패턴에서는 복사생성자를 delete 해서 막아버리는게 좋다
     // 소멸자만 추가하더라도 복사생성자가 막혔던 이유는... 
@@ -99,12 +99,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 자기 자신의 ID handle (�
 
     // Engine 초기화
     // 최상위 관리자
-    if (FAILED(Engine::GetInst()->Init(hInstance, 1600, 900)))
+    if (FAILED(Engine::GetInst()->Init(hInstance, 1600, 900, true)))
         return 0;
 
     // 프로세스는 여러개의 윈도우를 가질 수도, 하나도 가지지 않을 수도 있다
     // 게임 화면을 출력시킬 윈도우가 반드시 필요한 프로그램
     // 따라서 윈도우가 생성되지 않거나, 윈도우를 종료하면 곧 프로그램 종료로 싱크를 맞춰둔 상태
+
+
+    CreateTestLevel();
 
 
     // 메시지 루프

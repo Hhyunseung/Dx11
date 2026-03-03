@@ -2,6 +2,7 @@
 
 #include "Device.h"
 
+#include "LevelMgr.h"
 #include "RenderMgr.h"
 #include "AssetMgr.h"
 #include "TimeMgr.h"
@@ -37,17 +38,35 @@ void RenderMgr::Progress()
 	// 렌더링 시작전에 할 일 
 	Render_Start();
 
-	// 카메라 기반 렌더링
-	if (m_MainCam == nullptr)
-		return;
+	// Level 의 상태가 Play 상태면 등록된 mainCam 으로 렌더링
+	if (LevelMgr::GetInst()->GetLevelState() == LEVEL_STATE::PLAY)
+	{
+		// 카메라 기반 렌더링
+		if (m_MainCam == nullptr)
+			return;
 
-	m_MainCam->SortObject();
-	m_MainCam->Render();
+		// 카메라를 이용해서 레벨 안에 있는 물체들을 렌더링
+		m_MainCam->SortObject();
+		m_MainCam->Render();
+	}
+
+	// Level 의 상태가 Pause, Stop 상태면 등록된 EditorCam 으로 렌더링
+	else
+	{
+		// 카메라 기반 렌더링
+		if (m_EditorCam == nullptr)
+			return;
+
+		// 카메라를 이용해서 레벨 안에 있는 물체들을 렌더링
+		m_EditorCam->SortObject();
+		m_EditorCam->Render();
+	}
 
 	// 디버그 렌더링 요청 처리
 	if (m_bDebugRender)
 		Render_Debug();
 
+	
 	Render_End();
 }
 

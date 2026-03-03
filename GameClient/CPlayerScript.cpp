@@ -10,6 +10,9 @@
 
 #include "GameObject.h"
 
+#include "RunState.h"
+#include "JumpState.h"
+
 CPlayerScript::CPlayerScript()
 	: m_Land(true)
 	, m_Jump(false)
@@ -25,10 +28,17 @@ CPlayerScript::~CPlayerScript()
 void CPlayerScript::Begin()
 {
 	// 상태 등록
+	m_StateMachine.AddState(new RunState(this));
+	m_StateMachine.AddState(new JumpState(this));
+
+	m_StateMachine.StartState(PLAYER_STATE_ID::RUN);
 }
 
 void CPlayerScript::Tick()
 {
+	m_StateMachine.Tick(DT);
+
+
 	if (KEY_TAP(KEY::SPACE))
 	{
 		if (!m_Land)
@@ -73,6 +83,7 @@ void CPlayerScript::Tick()
 	//Vec3 vRelativePos = pChild->Transform()->GetRelativePos();
 	//Vec3 vWorldPos = pChild->Transform()->GetWorldPos();
 }
+
 void CPlayerScript::Move()
 {
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
@@ -131,6 +142,9 @@ void CPlayerScript::Skill()
 		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
 
 		CreateObject(pObject, 4);
+
+		// Player 와 Child 부모자식 연결
+		//GetOwner()->AddChild(pObject);
 
 	/*	TaskInfo info = {};
 		info.Type = TASK_TYPE::DESTROY_OBJECT;

@@ -64,18 +64,27 @@ void CollisionMgr::CollisionBtwLayer(Layer* _Left, Layer* _Right)
 				iter = m_mapColID.find(colID.ID);
 			}
 
-
-			vecLeft[i]->Collider2D()->GetID();
-			vecRight[j]->Collider2D()->GetID();
-
+			// 충돌 검사를 진행하는 두 오브젝트 중에서 하나라도 곧 삭제될 예정인 오브젝트가 있는지
+			bool IsDead = vecLeft[i]->IsDead() || vecRight[j]->IsDead();
+			
+			// 지금 충돌중인지
 			if (IsCollision(vecLeft[i]->Collider2D(), vecRight[j]->Collider2D()))
 			{
-				if (iter->second)
+				// 둘중 하나가 곧 삭제 예정
+				if (IsDead)
+				{
+					vecLeft[i]->Collider2D()->EndOverlap(vecRight[j]->Collider2D());
+					vecRight[j]->Collider2D()->EndOverlap(vecLeft[i]->Collider2D());
+				}
+
+				// 이전에도 충돌했었다
+				else if (iter->second)
 				{
 					vecLeft[i]->Collider2D()->Overlap(vecRight[j]->Collider2D());
 					vecRight[j]->Collider2D()->Overlap(vecLeft[i]->Collider2D());
 				}
 
+				// 이전에는 충돌하지 않았다
 				else
 				{
 					vecLeft[i]->Collider2D()->BeginOverlap(vecRight[j]->Collider2D());
@@ -84,8 +93,11 @@ void CollisionMgr::CollisionBtwLayer(Layer* _Left, Layer* _Right)
 
 				iter->second = true;
 			}
+
+			// 현재 충돌중이 아니다
 			else
 			{
+				// 이전 프레임에는 충돌 중이었다
 				if (iter->second)
 				{
 					vecLeft[i]->Collider2D()->EndOverlap(vecRight[j]->Collider2D());

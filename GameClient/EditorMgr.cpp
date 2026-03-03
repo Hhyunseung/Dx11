@@ -9,12 +9,15 @@
 #include "Engine.h"
 #include "Device.h"
 #include "KeyMgr.h"
+#include "RenderMgr.h"
 
 #include "Menu.h"
 #include "Inspector.h"
 #include "Outliner.h"
 #include "ListUI.h"
 #include "ContentUI.h"
+
+#include "CCamMoveScript.h"
 
 void HelpMarker(const char* desc);
 
@@ -77,6 +80,9 @@ void EditorMgr::Init()
 
     // 게임 에디터 UI 만들기
     CreateEditorUI();
+
+    // Editor 용 GameObject 만들기
+    CreateEditorObject();
 }
 
 void EditorMgr::Progress()
@@ -87,37 +93,57 @@ void EditorMgr::Progress()
 
 void EditorMgr::Tick()
 {
-    // Start the Dear ImGui frame
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
-
-    m_FocusedUI = nullptr;
-
-    if (KEY_TAP(KEY::ENTER))
-        ImGui::SetWindowFocus(nullptr);
-
-    // DemoUI
-    if (m_ShowDemo)
-        ImGui::ShowDemoWindow(&m_ShowDemo);
-
-    // EditorUI
-    for (const auto& pair : m_mapUI)
+    // =============
+    // Editor Object
+    // =============
     {
-        if (pair.second->IsActive())
-            pair.second->Tick();
+        for (const auto& Object : m_EditorObject)
+        {
+            Object->Tick();
+        }
+
+		for (const auto& Object : m_EditorObject)
+        {
+            Object->FinalTick_Editor();
+        }
     }
 
-    /*map<string, Ptr<EditorUI>>::iterator iter = m_mapUI.begin();
-    for (; iter != m_mapUI.end(); ++iter)
+    // =============
+	// Editor UI
+	// =============
     {
-        iter->second->Tick();
-    }*/
+        // Start the Dear ImGui frame
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
+        ImGui::NewFrame();
 
-    if (m_FocusedUI != nullptr)
-        KeyMgr::GetInst()->SetActive(false);
-    else
-        KeyMgr::GetInst()->SetActive(true);
+        m_FocusedUI = nullptr;
+
+        if (KEY_TAP(KEY::ENTER))
+            ImGui::SetWindowFocus(nullptr);
+
+        // DemoUI
+        if (m_ShowDemo)
+            ImGui::ShowDemoWindow(&m_ShowDemo);
+
+        // EditorUI
+        for (const auto& pair : m_mapUI)
+        {
+            if (pair.second->IsActive())
+                pair.second->Tick();
+        }
+
+        /*map<string, Ptr<EditorUI>>::iterator iter = m_mapUI.begin();
+        for (; iter != m_mapUI.end(); ++iter)
+        {
+            iter->second->Tick();
+        }*/
+
+        if (m_FocusedUI != nullptr)
+            KeyMgr::GetInst()->SetActive(false);
+        else
+            KeyMgr::GetInst()->SetActive(true);
+    }
 }
 
 void EditorMgr::Render()
@@ -156,6 +182,34 @@ void EditorMgr::CreateEditorUI()
 
 	pUI = new ContentUI;
     AddUI(pUI->GetUIName(), pUI);
+}
+
+void EditorMgr::CreateEditorObject()
+{
+    // Editor Camera Object 생성
+    // 카메라 역할 오브젝트
+    Ptr<GameObject> pObject = new GameObject;
+    pObject->SetName(L"EditorCamera");
+
+    pObject->AddComponent(new CTransform);
+    pObject->AddComponent(new CCamera);
+    pObject->AddComponent(new CCamMoveScript);
+
+    pObject->Camera()->LayerCheckAll();
+
+    pObject->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
+    pObject->Camera()->SetFar(10000.f);
+    pObject->Camera()->SetFOV(90.f);
+    pObject->Camera()->SetOrthoScale(1.f);
+
+    Vec2 vResolution = Device::GetInst()->GetRenderResolution();
+    pObject->Camera()->SetAspectRatio(vResolution.x / vResolution.y); // 종횡비(AspectRatio)
+    pObject->Camera()->SetWidth(vResolution.x); // 직교 투영 가로 길이
+
+	m_EditorObject.push_back(pObject);
+
+    // Editor 용 카메라로서 RenderMgr 에 등록
+    RenderMgr::GetInst()->RegisterEditorCamera(pObject->Camera());
 }
 
 

@@ -5,9 +5,9 @@ class JumpState :
     public PlayerState
 {
 public:
-    void Enter(PLAYERSTATEID _prev) override;
+    void Enter(PLAYER_STATE_ID _prev) override;
     void Tick(float dt) override;
-    void Exit(PLAYERSTATEID _Next) override;
+    void Exit(PLAYER_STATE_ID _Next) override;
 
 public:
     JumpState(CPlayerScript* _Owner);

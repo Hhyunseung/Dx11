@@ -12,6 +12,7 @@ public:
 
 public:
 	void BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider); 
+	void Overlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
     void EndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 
 public:

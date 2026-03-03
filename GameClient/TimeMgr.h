@@ -20,5 +20,5 @@ public:
 	float GetDeltaTime() { return m_DeltaTime; }
 };
 
-#define DT TimeMgr::GetInst()->GetDeltaTime();
+#define DT TimeMgr::GetInst()->GetDeltaTime()
 

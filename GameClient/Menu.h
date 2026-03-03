@@ -5,6 +5,7 @@ class Menu :
 {
 private:
     void File();
+    void Level();
     void View();
     void GameObject();
     void Asset();

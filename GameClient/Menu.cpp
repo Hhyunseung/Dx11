@@ -4,6 +4,7 @@
 #include "AssetMgr.h"
 #include "EditorMgr.h"
 #include "ContentUI.h"
+#include "LevelMgr.h"
 
 Menu::Menu()
 	: EditorUI("Menu")
@@ -23,6 +24,8 @@ void Menu::Tick()
 	if (ImGui::BeginMainMenuBar())
 	{
 		File();
+
+		Level();
 
 		View();
 
@@ -46,6 +49,42 @@ void Menu::File()
 		if (ImGui::MenuItem("Level Load"))
 		{
 
+		}
+
+		ImGui::EndMenu();
+	}
+}
+
+void Menu::Level()
+{
+	if (ImGui::BeginMenu("Level"))
+	{
+		bool HasLevel = LevelMgr::GetInst()->GetCurrentLevel().Get();
+		bool IsPlay = false, IsPause = false, IsStop = false;
+		if (HasLevel)
+		{
+			LEVEL_STATE CurState = LevelMgr::GetInst()->GetLevelState();
+			if (LEVEL_STATE::PLAY == CurState)
+				IsPlay = true;
+			else if (LEVEL_STATE::PAUSE == CurState)
+				IsPause = true;
+			else if (LEVEL_STATE::STOP == CurState)
+				IsStop = true;
+		}
+
+		if (ImGui::MenuItem("Play", nullptr, nullptr, HasLevel && !IsPlay))
+		{
+			ChangeLevelState(LEVEL_STATE::PLAY);
+		}
+
+		if (ImGui::MenuItem("Pause", nullptr, nullptr, HasLevel && IsPlay))
+		{
+			ChangeLevelState(LEVEL_STATE::PAUSE);
+		}
+
+		if (ImGui::MenuItem("Stop", nullptr, nullptr, HasLevel && !IsStop))
+		{
+			ChangeLevelState(LEVEL_STATE::STOP);
 		}
 
 		ImGui::EndMenu();

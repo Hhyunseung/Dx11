@@ -32,6 +32,9 @@ public:
 
     void FinalTick();
 
+	// 레이어에 없는 오브젝트는 에디터에서만 존재하기 때문에, 에디터에서만 호출되는 Tick
+    void FinalTick_Editor();
+
     // 자신을 타겟에 그림
     void Render();
 

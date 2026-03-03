@@ -14,7 +14,7 @@ Engine::Engine()
 	: m_hInst(nullptr)
 	, m_hWnd(nullptr)
 	, m_Resolution{}
-	
+	, m_EditorMode(true)
 {
 
 }
@@ -37,10 +37,14 @@ int Engine::Progress()
 	// RenderMgr 렌더링
 	RenderMgr::GetInst()->Progress();
 
-	// EditorMgr 
-	/// Render 끝나고(RenderMgr) UI 가 추가로 그려진 것(EditorMgr)을 화면에 보여줌(Device)
-	/// (RenderMgr=>EditerMgr=>Device)
-	EditorMgr::GetInst()->Progress();
+	if (m_EditorMode)
+	{
+		// EditorMgr 
+		/// Render 끝나고(RenderMgr) UI 가 추가로 그려진 것(EditorMgr)을 화면에 보여줌(Device)
+		/// (RenderMgr=>EditerMgr=>Device)
+		EditorMgr::GetInst()->Progress();
+	}
+
 
 	// 렌더타겟에 그려진 그림을, 윈도우 비트맵으로 복사
 	Device::GetInst()->Present();
