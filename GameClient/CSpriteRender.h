@@ -17,6 +17,8 @@ public:
     virtual void Render() override;
 	virtual void CreateMaterial() override;
 
+    CLONE(CSpriteRender);
+
 public:
     CSpriteRender();
     virtual ~CSpriteRender();

@@ -36,6 +36,7 @@ public:
 public:
 	// Asset(); // 기본 생성자 제거, 자신이 어떤 타입의 Asset 인지 입력으로 받는 버전의 생성자만 남겨둠
 	Asset(ASSET_TYPE _Type);
+	Asset(const Asset& _Origin);
 	virtual ~Asset();
 
 	friend class AssetMgr;

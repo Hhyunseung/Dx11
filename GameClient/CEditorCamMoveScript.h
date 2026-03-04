@@ -1,10 +1,10 @@
 #pragma once
 #include "CScript.h"
-class CCamMoveScript :
+class CEditorCamMoveScript :
     public CScript
 {
-
 private:
+    float m_Speed;
 
 public:
     virtual void Tick() override;
@@ -13,10 +13,10 @@ private:
     void MovePespective();
     void MoveOrthographic();
 
-    CLONE(CCamMoveScript);
+    CLONE(CEditorCamMoveScript);
 
 public:
-    CCamMoveScript();
-	virtual ~CCamMoveScript();
+    CEditorCamMoveScript();
+    virtual ~CEditorCamMoveScript();
 };
 

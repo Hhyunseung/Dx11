@@ -47,6 +47,8 @@ public:
 	virtual void Render() override;
 	virtual void CreateMaterial() override;
 
+	CLONE(CFlipbookRender);
+
 public:
 	CFlipbookRender();
 	virtual ~CFlipbookRender();

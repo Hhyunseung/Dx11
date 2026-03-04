@@ -2,12 +2,15 @@
 #include "TimeMgr.h"
 #include "Engine.h"
 
+#include "LevelMgr.h"
+
 TimeMgr::TimeMgr()
 	: m_Frequency{}
 	, m_Prev{}
 	, m_Current{}
 	, m_DeltaTime(0.f)
 	, m_Time(0.f)
+	, m_FPS(0)
 {
 }
 
@@ -31,6 +34,8 @@ void TimeMgr::Init()
 
 void TimeMgr::Tick()
 {
+	++m_FPS;
+
 	QueryPerformanceCounter(&m_Current);
 
 	// 이전과 현재 카운팅 차이를 Frequency 로 나눠서 1 프레임동안 진행한 시간값을 구하기
@@ -46,14 +51,29 @@ void TimeMgr::Tick()
 	if (1.f < m_Time)
 	{
 		wchar_t buff[255] = {};
-		swprintf_s(buff, 255, L"DeltaTime : %f", m_DeltaTime);
+		swprintf_s(buff, 255, L"DeltaTime : %f, FPS : %d", m_DeltaTime, m_FPS);
 		SetWindowText(Engine::GetInst()->GetMainWndHwnd(), buff);
 
+		m_FPS = 0;
 		m_Time -= 1.f;
 	}
 
-	g_Global.DeltaTime = m_DeltaTime;
-	g_Global.Time += m_DeltaTime;
+	// Game Engine 
 	g_Global.EngineDT = m_DeltaTime;
 	g_Global.EngineTime += m_DeltaTime;
+
+	// Level 이 Pause 나 Stop 상태
+	if (LEVEL_STATE::PLAY != LevelMgr::GetInst()->GetLevelState())
+	{
+		g_Global.DeltaTime = m_DeltaTime = 0.f;
+		g_Global.Time = 0.f;
+	}
+
+	// Level 이 Play 상태
+	else
+	{
+		// Game Content 용 Time
+		g_Global.DeltaTime = m_DeltaTime;
+		g_Global.Time += m_DeltaTime;
+	}
 }

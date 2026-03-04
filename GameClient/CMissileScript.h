@@ -22,6 +22,8 @@ public:
 	void Overlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 	void EndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 
+	CLONE(CMissileScript);
+
 public:
     CMissileScript();
     virtual ~CMissileScript();

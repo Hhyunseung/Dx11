@@ -75,7 +75,11 @@ private:
     void RegisterLayer();
 
 public:
+    CLONE(GameObject);
+
+public:
     GameObject();
+    GameObject(const GameObject& _Origin);
     virtual ~GameObject();
 
     friend class Layer;

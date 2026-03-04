@@ -10,9 +10,26 @@ CTileRender::CTileRender()
 	m_Buffer = new StructuredBuffer;
 }
 
+CTileRender::CTileRender(const CTileRender& _Origin)
+	: CRenderComponent(_Origin)
+	, m_TileMap(_Origin.m_TileMap)
+	, m_vecSpriteInfo(_Origin.m_vecSpriteInfo)
+	, m_Buffer(nullptr)
+{
+	m_Buffer = new StructuredBuffer;
+}
+
 CTileRender::~CTileRender()
 {
 }
+
+void CTileRender::Init()
+{
+	CRenderComponent::Init(); // 부모의 Init 호출
+	
+	SetTileMap(m_TileMap);
+}
+
 
 void CTileRender::FinalTick()
 {

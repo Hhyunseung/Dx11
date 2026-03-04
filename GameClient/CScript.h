@@ -24,6 +24,9 @@ protected:
     void Destroy();
 
 public:
+    virtual CScript* Clone() = 0;
+
+public:
     CScript();
     virtual ~CScript();
 };

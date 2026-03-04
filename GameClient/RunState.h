@@ -6,8 +6,10 @@ class RunState :
 {
 public:
 	void Enter(PLAYER_STATE_ID _prev) override;
-	void Tick(float dt) override;
+	void Tick();
 	void Exit(PLAYER_STATE_ID _Next) override;
+
+	CLONE(RunState);
 
 public:
 	RunState(CPlayerScript* _Owner);

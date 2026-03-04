@@ -30,6 +30,8 @@ public:
     float GetAngle() { return m_Info.Angle; }
 	void SetAngle(float _Angle) { m_Info.Angle = _Angle; }
 
+    CLONE(CLight2D);
+
 public:
     CLight2D();
 	virtual ~CLight2D();

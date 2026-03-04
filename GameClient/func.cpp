@@ -151,6 +151,7 @@ bool IsValid(Ptr<GameObject>& _Object)
 #include "CCamMoveScript.h"
 #include "CPlayerScript.h"
 #include "CMonsterScript.h"
+#include "StateMachine.h"
 
 void CreateTestLevel()
 {
@@ -255,10 +256,9 @@ void CreateTestLevel()
 	pObject->AddComponent(new CCollider2D);
 	pObject->AddComponent(new CPlayerScript);
 
-	//Ptr<CPlayerScript> pPlayerScript = new CPlayerScript;
-	//pPlayerScript->SetTarget(pMonster);
-	//pObject->AddComponent(pPlayerScript.Get());
-
+	Ptr<CPlayerScript> pPlayerScript = new CPlayerScript;
+	pPlayerScript->SetStateMachine(new StateMachine);
+	pObject->AddComponent(pPlayerScript.Get());
 
 	pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
 	pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
@@ -304,14 +304,34 @@ void CreateTestLevel()
 	pChild->Transform()->SetRelativePos(Vec3(-5.f, -126.f, 0.f));
 	pChild->Transform()->SetRelativeScale(Vec3(60.f, 7.f, 1.f));
 	pChild->Transform()->SetIndependentScale(true);
+	
+	//Ptr<CPlayerScript> pPlayerScript = new CPlayerScript;
+	//pPlayerScript->SetFeetCollider(pChild);
+	//pObject->AddComponent(pPlayerScript.Get());
 
 
 	// Player 와 Child 부모자식 연결
 	pObject->AddChild(pChild);
 
+
+	// 발 센서 역할을 하는 자식 오브젝트
+	pChild = new GameObject;
+	pChild->SetName(L"BodySensor");
+
+	pChild->AddComponent(new CTransform);
+	pChild->AddComponent(new CCollider2D);
+
+	pChild->Transform()->SetRelativePos(Vec3(-5.f, -126.f, 0.f));
+	pChild->Transform()->SetRelativeScale(Vec3(60.f, 60.f, 1.f));
+	pChild->Transform()->SetIndependentScale(true);
+	
+
+	// Player 와 Child 부모자식 연결
+	pObject->AddChild(pChild);
+
+
 	// Player(부모 오브젝트) 를 레벨에 추가
 	pLevel->AddObject(3, pObject);
-
 
 	// Back Ground - 가로로 반복
 	for (int i = 0; i < 3; ++i)  // 3개의 배경을 가로로 배치

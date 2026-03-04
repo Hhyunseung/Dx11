@@ -33,6 +33,7 @@ public:
 
 public:
     CRenderComponent(COMPONENT_TYPE _Type);
+	CRenderComponent(const CRenderComponent& _Origin);
 	virtual ~CRenderComponent();
 };
 

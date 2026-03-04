@@ -170,6 +170,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCamMoveScript.h" />
     <ClInclude Include="CCollider2D.h" />
+    <ClInclude Include="CEditorCamMoveScript.h" />
     <ClInclude Include="CEnemy.h" />
     <ClInclude Include="CFlipbookRender.h" />
     <ClInclude Include="CLight2D.h" />
@@ -185,7 +186,6 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="ComputeShaderUI.h" />
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="ContentUI.h" />
-    <ClInclude Include="CPlanet.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CRenderComponent.h" />
     <ClInclude Include="CScript.h" />
@@ -271,6 +271,7 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCamMoveScript.cpp" />
     <ClCompile Include="CCollider2D.cpp" />
+    <ClCompile Include="CEditorCamMoveScript.cpp" />
     <ClCompile Include="CEnemy.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -288,7 +289,6 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="ComputeShaderUI.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="ContentUI.cpp" />
-    <ClCompile Include="CPlanet.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CRenderComponent.cpp" />
     <ClCompile Include="CScript.cpp" />

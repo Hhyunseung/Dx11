@@ -30,9 +30,11 @@ public:
     virtual void Begin() {}
     virtual void FinalTick() = 0;
 
+    virtual Component* Clone() = 0;
 
 public:
     Component(COMPONENT_TYPE _Type);
+	Component(const Component& _Other);
     virtual ~Component();
 
     friend class GameObject;

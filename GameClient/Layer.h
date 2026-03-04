@@ -32,6 +32,7 @@ public:
 
 public:
     Layer();
+    Layer(const Layer& _Origin);
 	virtual ~Layer();
 
     friend class ALevel;

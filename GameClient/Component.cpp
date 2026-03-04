@@ -11,6 +11,13 @@ Component::Component(COMPONENT_TYPE _Type)
 {
 }
 
+Component::Component(const Component& _Origin)
+	: Entity(_Origin)
+	, m_Owner(nullptr)	/// 컴포넌트는 복사 생성자에서 소유자를 복사하지 않음 AddComponent 할 때 소유자 설정해주니까
+	, m_Type(_Origin.m_Type)
+{
+}
+
 Component::~Component()
 {
 }

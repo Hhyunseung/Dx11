@@ -121,9 +121,6 @@
     <ClInclude Include="AMaterial.h">
       <Filter>GameEngine\04.Asset\05.Material</Filter>
     </ClInclude>
-    <ClInclude Include="CPlanet.h">
-      <Filter>GameEngine\06.Component\Script</Filter>
-    </ClInclude>
     <ClInclude Include="CRenderComponent.h">
       <Filter>GameEngine\06.Component\RenderComponent</Filter>
     </ClInclude>
@@ -297,6 +294,9 @@
     </ClInclude>
     <ClInclude Include="PrefabUI.h">
       <Filter>GameEngine\07.EditorUI\08.AssetUI\11.PrefabUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditorCamMoveScript.h">
+      <Filter>GameEngine\06.Component\Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -636,9 +636,6 @@
     <ClCompile Include="AMaterial.cpp">
       <Filter>GameEngine\04.Asset\05.Material</Filter>
     </ClCompile>
-    <ClCompile Include="CPlanet.cpp">
-      <Filter>GameEngine\06.Component\Script</Filter>
-    </ClCompile>
     <ClCompile Include="AssetMgr_Init.cpp">
       <Filter>GameEngine\03.Manager\04.AssetMgr</Filter>
     </ClCompile>
@@ -816,6 +813,9 @@
     </ClCompile>
     <ClCompile Include="PrefabUI.cpp">
       <Filter>GameEngine\07.EditorUI\08.AssetUI\11.PrefabUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditorCamMoveScript.cpp">
+      <Filter>GameEngine\06.Component\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

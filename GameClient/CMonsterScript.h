@@ -15,6 +15,8 @@ public:
 	void Overlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
     void EndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 
+	CLONE(CMonsterScript);
+
 public:
     CMonsterScript();
     virtual ~CMonsterScript();

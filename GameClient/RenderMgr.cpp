@@ -168,7 +168,8 @@ void RenderMgr::Render_Debug()
 
 
 		// 최대 수명에 도달하면 정보 삭제
-		(*iter).Age += DT;
+		(*iter).Age += E_DT;
+
 		if ((*iter).Life < (*iter).Age)
 		{
 			/// 다음 iter 를 가져옴

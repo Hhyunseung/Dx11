@@ -17,7 +17,7 @@
 #include "ListUI.h"
 #include "ContentUI.h"
 
-#include "CCamMoveScript.h"
+#include "CEditorCamMoveScript.h"
 
 void HelpMarker(const char* desc);
 
@@ -193,7 +193,7 @@ void EditorMgr::CreateEditorObject()
 
     pObject->AddComponent(new CTransform);
     pObject->AddComponent(new CCamera);
-    pObject->AddComponent(new CCamMoveScript);
+    pObject->AddComponent(new CEditorCamMoveScript);
 
     pObject->Camera()->LayerCheckAll();
 

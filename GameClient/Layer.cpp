@@ -7,6 +7,19 @@ Layer::Layer()
 {
 }
 
+Layer::Layer(const Layer& _Origin)
+	: Entity(_Origin)
+	, m_LayerIdx(_Origin.m_LayerIdx)
+{
+	/// vecAllObjects 는 프레임이 지나면 채워지는 데이터이므로 복사 생성자에서 굳이 초기화 하지 않음
+	for (const auto& Object : _Origin.m_vecParents)
+	{
+		AddObject(Object->Clone());
+		
+	}
+
+}
+
 Layer::~Layer()
 {
 }

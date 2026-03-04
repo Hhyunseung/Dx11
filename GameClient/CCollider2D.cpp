@@ -3,11 +3,21 @@
 
 #include "RenderMgr.h"
 
+
 CCollider2D::CCollider2D()
 	: Component(COMPONENT_TYPE::COLLIDER2D)
 	, m_Scale(Vec2(1.f, 1.f))
 	, m_OverlapCount(0)
 {
+}
+
+CCollider2D::CCollider2D(const CCollider2D& _Origin)
+	: Component(_Origin)
+	, m_Offset(_Origin.m_Offset)
+	, m_Scale(_Origin.m_Scale)
+	, m_OverlapCount(0) /// 복사 생성자는 충돌이 시작된 상태가 아니므로 0으로 초기화
+{
+	/// 델리게이트는 복사 생성자에서 복사하지 않음
 }
 
 CCollider2D::~CCollider2D()
@@ -46,6 +56,22 @@ void CCollider2D::AddDynamicEndOverlap(CScript* _Inst, COLLISION_EVENT _MemFunc)
 	m_vecEndDel.push_back(COLLISION_DELEGATE{ _Inst, _MemFunc });
 }
 
+
+float CCollider2D::GetTopY()
+{
+	float centerY = m_matWorld._42; /// 월드 행렬의 Y축 이동값이 충돌체의 중심 Y좌표가 된다
+	float halfH = m_matWorld._22 * 0.5f; /// 월드 행렬의 Y축 스케일값이 충돌체의 높이가 된다
+
+	return centerY + halfH;
+}
+
+float CCollider2D::GetBottomY()
+{
+	float centerY = m_matWorld._42; /// 월드 행렬의 Y축 이동값이 충돌체의 중심 Y좌표가 된다
+	float halfH = m_matWorld._22 * 0.5f; /// 월드 행렬의 Y축 스케일값이 충돌체의 높이가 된다
+
+	return centerY - halfH;
+}
 
 // 충돌이 처음 시작되었을 때 처리
 void CCollider2D::BeginOverlap(Ptr<CCollider2D> _Other)

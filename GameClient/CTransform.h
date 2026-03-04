@@ -46,6 +46,8 @@ public:
     // 데이터를 GPU 메모리로 전송
     void Binding();
 
+    CLONE(CTransform);
+
 public:
     CTransform();
     virtual ~CTransform();

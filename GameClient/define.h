@@ -15,3 +15,5 @@
 #define SET(Type, MemName) void Set##MemName(Type _Data) { m_##MemName = _Data; }
 
 #define GET_SET(Type, MemName) GET(Type, MemName) SET(Type, MemName)
+
+#define CLONE(Type) public: Type* Clone() { return new Type(*this); } /// 복사 생성자 호출

@@ -68,8 +68,8 @@ void LevelMgr::ChangeLevelState(LEVEL_STATE _NextState)
 	if (m_LevelState == LEVEL_STATE::STOP && _NextState == LEVEL_STATE::PLAY) 
 	{
 		// 원본 에셋 레벨의 복제본 레벨을 만들어서 현재 레벨로 가리킨다
-		// m_CurLevel = m_SharedLevel->Clone(); 
-
+		m_CurLevel = m_SharedLevel->Clone(); 
+		m_CurLevel->SetChanged();
 		m_CurLevel->Begin();
 	}
 
@@ -80,7 +80,8 @@ void LevelMgr::ChangeLevelState(LEVEL_STATE _NextState)
 	{
 		/// 원본 레벨을 가리키게 함 
 		/// -> 복제본 레벨은 스마트 포인터로 관리되고 있으니까 더이상 가리키는 곳이 없어서 자동으로 소멸됨
-		m_CurLevel = m_SharedLevel; 
+		m_CurLevel = m_SharedLevel;
+		m_CurLevel->SetChanged();
 	}
 
 	/// 일시정지 -> Play 는 Begin() 호출 X

@@ -10,6 +10,25 @@ CRenderComponent::CRenderComponent(COMPONENT_TYPE _Type)
 	//CreateMaterial();
 }
 
+CRenderComponent::CRenderComponent(const CRenderComponent& _Origin)
+	: Component(_Origin)
+	, m_Mesh(_Origin.m_Mesh)
+	, m_SharedMtrl(_Origin.m_SharedMtrl)
+{
+	// 원본 렌더컴포넌트가 공유재질(에셋 매니저로부터 관리되는) 을 사용하고 있다면
+	if (_Origin.m_Mtrl == _Origin.m_SharedMtrl)
+	{
+		// 나도 공유재질 사용
+		m_Mtrl = m_SharedMtrl;
+	}
+
+	// 원본 렌더컴포넌트의 동적재질이 존재하고, 현재 사용중인 재질이 동적 재질인 경우
+	else if (nullptr != _Origin.m_DynamicMtrl && _Origin.m_Mtrl == _Origin.m_DynamicMtrl)
+	{
+		CreateDynamicMaterial();
+	}
+}
+
 CRenderComponent::~CRenderComponent()
 {
 }

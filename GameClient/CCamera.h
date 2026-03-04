@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
 
+class GameObject;
+
 enum class PROJ_TYPE
 {
     ORTHOGRAPHIC,   // 직교 투영
@@ -12,27 +14,27 @@ class CCamera :
     public Component
 {
 private:
-    UINT        m_LayerCheck;   // 어떤 레이어만 화면에 렌더링 할 것인지 비트 체크
-    PROJ_TYPE   m_ProjType;     // 투영 방식
+    UINT                    m_LayerCheck;   // 어떤 레이어만 화면에 렌더링 할 것인지 비트 체크
+    PROJ_TYPE               m_ProjType;     // 투영 방식
 
-    float 	    m_Far;		    // 카메라 시야 최대거리
-    float 	    m_Width;        // 직교투영 가로길이
-    float       m_AspectRatio;  // 종횡비 (가로 / 세로), 세로대비 가로의 길이 비율
+    float 	                m_Far;		    // 카메라 시야 최대거리
+    float 	                m_Width;        // 직교투영 가로길이
+    float                   m_AspectRatio;  // 종횡비 (가로 / 세로), 세로대비 가로의 길이 비율
     /// NDC 좌표계가 정사각형이라 직사각형이 될 수 있기 때문에 종횡비가 필요
 
-    float 	    m_FOV;          // 시야각
+    float 	                m_FOV;          // 시야각
 
-    float 	    m_OrthoScale;   // 직교 투영 배율
-
-
-    Matrix      m_matView;      // View 행렬
-    Matrix	    m_matProj;      // Proj 행렬
+    float 	                m_OrthoScale;   // 직교 투영 배율
 
 
-    vector<Ptr<GameObject>> m_vecOpaque;
-    vector<Ptr<GameObject>> m_vecMasked;
-    vector<Ptr<GameObject>> m_vecTrapsnarent;
-    vector<Ptr<GameObject>> m_vePostProcess;
+    Matrix                  m_matView;      // View 행렬
+    Matrix	                m_matProj;      // Proj 행렬
+
+
+    vector<GameObject*>     m_vecOpaque;
+    vector<GameObject*>     m_vecMasked;
+    vector<GameObject*>     m_vecTrapsnarent;
+    vector<GameObject*>     m_vePostProcess;
 
 public:
     GET_SET(PROJ_TYPE, ProjType);
@@ -57,6 +59,8 @@ public:
 
     void SortObject();
     void Render();
+
+    CLONE(CCamera);
 
 public:
     CCamera();

@@ -35,6 +35,9 @@ void Outliner::Tick_UI()
 		if (pCurLevel->IsChanged())
 		{
 			Renew();
+
+			Ptr<Inspector> pInspector = (Inspector*)EditorMgr::GetInst()->FindUI("Inspector").Get();
+			pInspector->SetTargetObject(nullptr);
 		}
 	}
 }

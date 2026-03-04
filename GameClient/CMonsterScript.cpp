@@ -15,7 +15,6 @@ void CMonsterScript::Begin()
 {
 	ADD_DYNAMIC_BEGIN_OVERLAP(CMonsterScript::BeginOverlap);
 	ADD_DYNAMIC_BEGIN_OVERLAP(CMonsterScript::Overlap);
-	ADD_DYNAMIC_BEGIN_OVERLAP(CMonsterScript::Overlap);
 	ADD_DYNAMIC_END_OVERLAP(CMonsterScript::EndOverlap);
 }
 

@@ -46,6 +46,9 @@ public:
 
     const Matrix& GetWorldMat() const { return m_matWorld; }
 
+    float GetTopY();
+    float GetBottomY();
+
 private:
     void BeginOverlap(Ptr<CCollider2D> _Other);
     void Overlap(Ptr<CCollider2D> _Other);
@@ -54,8 +57,10 @@ private:
 public:
 	virtual void FinalTick() override;
 
+    CLONE(CCollider2D);
 public:
     CCollider2D();
+    CCollider2D(const CCollider2D& _Origin);
     virtual ~CCollider2D();
 
     friend class CollisionMgr;

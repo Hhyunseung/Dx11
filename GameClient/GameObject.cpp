@@ -15,6 +15,36 @@ GameObject::GameObject()
 {
 }
 
+GameObject::GameObject(const GameObject& _Origin)
+	: Entity(_Origin)
+	, m_Com{}
+	, m_Parent(nullptr)
+	, m_LayerIdx(-1)
+	, m_Dead(false)
+{
+	// 원본 오브젝트와 동일한 세팅의 컴포넌트를 복사해서 나한테 넣어준다
+	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+	{
+		if (_Origin.m_Com[i] == nullptr)
+			continue;
+
+		AddComponent(_Origin.m_Com[i]->Clone());
+	}
+
+	// 원본 오브젝트와 동일한 스크립트를 복사해서 낳나테 넣어준다
+	for (const auto& Script : _Origin.m_vecScripts)
+	{
+		AddComponent(Script->Clone());
+	}
+
+	// 원본 오브젝트가 보유한 자식 오브젝트를 복사해서 나한테 넣어준다
+	for (const auto& Child : _Origin.m_vecChild)
+	{
+		// 자식 오브젝트들도 Clone() 내부에서 복사 생성자가 호출되어서 자식의 자식들도 복사되어 들어감
+		AddChild(Child->Clone());
+	}
+}
+
 GameObject::~GameObject()
 {
 }

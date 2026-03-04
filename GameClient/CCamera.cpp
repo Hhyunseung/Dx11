@@ -6,6 +6,7 @@
 #include "Layer.h"
 #include "RenderMgr.h"
 
+#include "GameObject.h"
 #include "CTransform.h"
 #include "Device.h"
 
@@ -113,6 +114,7 @@ void CCamera::SortObject()
 	m_vecOpaque.clear();
 	m_vecMasked.clear();
 	m_vecTrapsnarent.clear();
+	m_vePostProcess.clear();
 
 	Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
 	if (nullptr == pCurLevel)
@@ -143,16 +145,16 @@ void CCamera::SortObject()
 			 switch (domain)
 			 {
 			 case RENDER_DOMAIN::DOMAIN_OPAQUE:
-				 m_vecOpaque.push_back(vecObjects[j]);
+				 m_vecOpaque.push_back(vecObjects[j].Get());
 				 break;
 			 case RENDER_DOMAIN::DOMAIN_MASKED:
-				 m_vecMasked.push_back(vecObjects[j]);
+				 m_vecMasked.push_back(vecObjects[j].Get());
 				 break;
 			 case RENDER_DOMAIN::DOMAIN_TRANSPARENT:
-				 m_vecTrapsnarent.push_back(vecObjects[j]);
+				 m_vecTrapsnarent.push_back(vecObjects[j].Get());
 				 break;
 			 case RENDER_DOMAIN::DOMAIN_POSTPROCESS:
-				 m_vePostProcess.push_back(vecObjects[j]);
+				 m_vePostProcess.push_back(vecObjects[j].Get());
 				 break;
 			 }
 		}

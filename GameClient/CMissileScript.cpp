@@ -14,7 +14,7 @@ CMissileScript::CMissileScript()
 
 CMissileScript::~CMissileScript()
 {
-}
+} 
 
 void CMissileScript::Begin()
 {

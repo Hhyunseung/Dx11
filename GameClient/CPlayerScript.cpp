@@ -7,6 +7,7 @@
 #include "LevelMgr.h"
 #include "RenderMgr.h"
 #include "TaskMgr.h"
+#include "StateMachine.h"
 
 #include "GameObject.h"
 
@@ -27,16 +28,18 @@ CPlayerScript::~CPlayerScript()
 
 void CPlayerScript::Begin()
 {
-	// 상태 등록
-	m_StateMachine.AddState(new RunState(this));
-	m_StateMachine.AddState(new JumpState(this));
+	m_StateMachine = new StateMachine;
 
-	m_StateMachine.StartState(PLAYER_STATE_ID::RUN);
+	// 상태 등록
+	m_StateMachine->AddState(new RunState(this));
+	m_StateMachine->AddState(new JumpState(this));
+
+	m_StateMachine->StartState(PLAYER_STATE_ID::RUN);
 }
 
 void CPlayerScript::Tick()
 {
-	m_StateMachine.Tick(DT);
+	m_StateMachine->Tick();
 
 
 	if (KEY_TAP(KEY::SPACE))
@@ -44,16 +47,14 @@ void CPlayerScript::Tick()
 		if (!m_Land)
 		{
 			m_DoubleJump = true;
-
-			/////////// 더블 점프 Play 한번 하고 나머지는 내려오는 스프라이트 하나만 
-			GetOwner()->FlipbookRender()->Play(2, 8.f, 1);
+			//GetOwner()->FlipbookRender()->Play(2, 8.f, 1);
+			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
 		}
 
 		else
 		{
 			m_Land = false;
 			m_Jump = true;
-
 			GetOwner()->FlipbookRender()->Play(1, 8.f, 1);
 		}
 	}
@@ -86,29 +87,6 @@ void CPlayerScript::Tick()
 
 void CPlayerScript::Move()
 {
-	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
-	Vec3 vScale = GetOwner()->Transform()->GetRelativeScale();
-	Vec3 vRotation = GetOwner()->Transform()->GetRelativeRot();
-
-	Vec3 vUp = GetOwner()->Transform()->GetDir(DIR::UP);
-	Vec3 vDown = -vUp;
-
-
-
-	if (KEY_PRESSED(KEY::UP))
-		vPos += vUp * 150.f * DT;
-	if (KEY_PRESSED(KEY::DOWN))
-		vPos += vDown * 150.f * DT;
-
-	if (KEY_PRESSED(KEY::RIGHT))
-		vRotation.z -= XM_PI * DT;
-	if (KEY_PRESSED(KEY::LEFT))
-		vRotation.z += XM_PI * DT;
-
-
-	GetOwner()->Transform()->SetRelativePos(vPos);
-	GetOwner()->Transform()->SetRelativeScale(vScale);
-	GetOwner()->Transform()->SetRelativeRot(vRotation);
 
 }
 

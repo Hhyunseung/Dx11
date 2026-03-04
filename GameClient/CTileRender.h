@@ -23,12 +23,16 @@ public:
     void SetTileMap(Ptr<ATileMap> _TileMap);
 
 public:
+    virtual void Init() override;
     virtual void FinalTick() override;
     virtual void Render() override;
 	virtual void CreateMaterial() override;
 
+    CLONE(CTileRender);
+
 public:
     CTileRender();
+    CTileRender(const CTileRender& _Origin);
     virtual ~CTileRender();
 
 };

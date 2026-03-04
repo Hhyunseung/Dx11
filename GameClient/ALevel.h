@@ -38,6 +38,9 @@ public:
 	void FinalTick();
 	
 public:
+	ALevel* Clone() { return new ALevel(*this); } /// 복사 생성자 호출 
+
+public:
 	ALevel();
 	virtual ~ALevel();
 
