@@ -240,7 +240,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="Source\Scripts\CPlayerScript.h" />
     <ClInclude Include="Source\Scripts\CJumpState.h" />
     <ClInclude Include="Source\Scripts\CRunState.h" />
-    <ClInclude Include="Source\Scripts\StateMachine.h" />
+    <ClInclude Include="Source\Scripts\CStateMachine.h" />
     <ClInclude Include="SpriteRenderUI.h" />
     <ClInclude Include="SpriteUI.h" />
     <ClInclude Include="struct.h" />
@@ -336,7 +336,7 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="Source\Scripts\CPlayerScript.cpp" />
     <ClCompile Include="Source\Scripts\CJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CRunState.cpp" />
-    <ClCompile Include="Source\Scripts\StateMachine.cpp" />
+    <ClCompile Include="Source\Scripts\CStateMachine.cpp" />
     <ClCompile Include="SpriteRenderUI.cpp" />
     <ClCompile Include="SpriteUI.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />

@@ -7,7 +7,7 @@
 #include "LevelMgr.h"
 #include "RenderMgr.h"
 #include "TaskMgr.h"
-#include "StateMachine.h"
+#include "CStateMachine.h"
 
 #include "GameObject.h"
 
@@ -32,7 +32,7 @@ CPlayerScript::~CPlayerScript()
 
 void CPlayerScript::Begin()
 {
-	m_StateMachine = new StateMachine;
+	m_StateMachine = new CStateMachine;
 
 	// 상태 등록
 	m_StateMachine->AddState(new CRunState(this));

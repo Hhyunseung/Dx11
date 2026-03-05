@@ -2,7 +2,7 @@
 #include "CScript.h"
 
 #include "CMissileScript.h"
-#include "StateMachine.h"
+#include "CStateMachine.h"
 
 
 class CPlayerScript;
@@ -41,7 +41,7 @@ private:
 	CCollider2D*		m_BodyCollider; // 충돌체 컴포넌트
 	CCollider2D*		m_FeetCollider; // 땅 체크용 충돌체 컴포넌트
 
-	Ptr<StateMachine>	m_StateMachine; // 상태 머신
+	Ptr<CStateMachine>	m_StateMachine; // 상태 머신
 
 	float				m_PrevFeetY; // 땅 체크용 충돌체의 이전 y 좌표
 	float			    m_CurFeetY; // 땅 체크용 충돌체의 y 좌표
@@ -54,7 +54,7 @@ public:
 	void SetTarget(Ptr<GameObject> _Target) { m_Target = _Target; }
 	void SetBodyCollider(CCollider2D* _Collider) { m_BodyCollider = _Collider; }
 	void SetFeetCollider(CCollider2D* _Collider) { m_FeetCollider = _Collider; }
-	void SetStateMachine(Ptr<StateMachine> _StateMachine) { m_StateMachine = _StateMachine; }
+	void SetStateMachine(Ptr<CStateMachine> _StateMachine) { m_StateMachine = _StateMachine; }
 
 	void BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 

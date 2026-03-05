@@ -151,7 +151,7 @@ bool IsValid(Ptr<GameObject>& _Object)
 #include "Source\Scripts\CCamMoveScript.h"
 #include "Source\Scripts\CPlayerScript.h"
 #include "Source\Scripts\CMonsterScript.h"
-#include "Source\Scripts\StateMachine.h"
+#include "Source\Scripts\CStateMachine.h"
 
 void CreateTestLevel()
 {

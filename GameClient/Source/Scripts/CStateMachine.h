@@ -1,7 +1,7 @@
 #pragma once
 #include "CScript.h"
 
-class StateMachine
+class CStateMachine
 	: public CScript
 {
 private:
@@ -25,10 +25,10 @@ public:
 private:
 	void RequestChange(PLAYER_STATE_ID _NextId);
 
-	CLONE(StateMachine);
+	CLONE(CStateMachine);
 
 public:
-	StateMachine();
-	~StateMachine();
+	CStateMachine();
+	~CStateMachine();
 };
 

@@ -295,7 +295,7 @@
     <ClInclude Include="Source\Scripts\CRunState.h">
       <Filter>Source\Scripts\02.Cookie\State\Run</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scripts\StateMachine.h">
+    <ClInclude Include="Source\Scripts\CStateMachine.h">
       <Filter>Source\Scripts\02.Cookie\State</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scripts\CLycheeScript.h">
@@ -826,7 +826,7 @@
     <ClCompile Include="Source\Scripts\CRunState.cpp">
       <Filter>Source\Scripts\02.Cookie\State\Run</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\StateMachine.cpp">
+    <ClCompile Include="Source\Scripts\CStateMachine.cpp">
       <Filter>Source\Scripts\02.Cookie\State</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scripts\CLycheeScript.cpp">

@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "StateMachine.h"
+#include "CStateMachine.h"
 
 #include "CPlayerScript.h"
 
 
-StateMachine::StateMachine()
+CStateMachine::CStateMachine()
 	: CScript(SCRIPT_TYPE::STATEMACHINE)
 	, m_CurStateId(PLAYER_STATE_ID::END)
 	, m_NextStateId(PLAYER_STATE_ID::END)
@@ -12,18 +12,18 @@ StateMachine::StateMachine()
 {
 }
 
-StateMachine::~StateMachine()
+CStateMachine::~CStateMachine()
 {
 }
 
-void StateMachine::AddState(Ptr<PlayerState> _State)
+void CStateMachine::AddState(Ptr<PlayerState> _State)
 {
 	// 상태 추가
 	PLAYER_STATE_ID id = _State->GetId();
 	m_arrState[(UINT)id] = _State;
 }
 
-void StateMachine::StartState(PLAYER_STATE_ID _Start)
+void CStateMachine::StartState(PLAYER_STATE_ID _Start)
 {
 	// 시작하려는 상태가 등록되어 있는지 확인
 	assert(m_arrState[(UINT)_Start] != nullptr);
@@ -34,7 +34,7 @@ void StateMachine::StartState(PLAYER_STATE_ID _Start)
 	m_CurState->Enter(m_CurStateId);
 }
 
-void StateMachine::Tick()
+void CStateMachine::Tick()
 {
 	// 현재 상태가 존재하는지 확인
 	assert(m_CurState != nullptr);
@@ -48,7 +48,7 @@ void StateMachine::Tick()
 	}
 }
 
-void StateMachine::ChangeState(PLAYER_STATE_ID _NextId)
+void CStateMachine::ChangeState(PLAYER_STATE_ID _NextId)
 {
 	if (m_CurStateId == _NextId)
 		return;
@@ -57,7 +57,7 @@ void StateMachine::ChangeState(PLAYER_STATE_ID _NextId)
 	m_Change = true;
 }
 
-void StateMachine::RequestChange(PLAYER_STATE_ID _NextId)
+void CStateMachine::RequestChange(PLAYER_STATE_ID _NextId)
 {
 	assert(m_arrState[(UINT)_NextId] != nullptr);
 
