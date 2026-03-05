@@ -168,16 +168,11 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="CameraUI.h" />
     <ClInclude Include="CBillboardRender.h" />
     <ClInclude Include="CCamera.h" />
-    <ClInclude Include="CCamMoveScript.h" />
     <ClInclude Include="CCollider2D.h" />
     <ClInclude Include="CEditorCamMoveScript.h" />
-    <ClInclude Include="CEnemy.h" />
     <ClInclude Include="CFlipbookRender.h" />
     <ClInclude Include="CLight2D.h" />
-    <ClInclude Include="CLycheeScript.h" />
     <ClInclude Include="CMeshRender.h" />
-    <ClInclude Include="CMissileScript.h" />
-    <ClInclude Include="CMonsterScript.h" />
     <ClInclude Include="Collider2DUI.h" />
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Component.h" />
@@ -186,7 +181,6 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="ComputeShaderUI.h" />
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="ContentUI.h" />
-    <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CRenderComponent.h" />
     <ClInclude Include="CScript.h" />
     <ClInclude Include="CSpriteRender.h" />
@@ -217,7 +211,6 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="Inspector.h" />
-    <ClInclude Include="JumpState.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LevelMgr.h" />
@@ -235,13 +228,21 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="Ptr.h" />
     <ClInclude Include="RenderMgr.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="RunState.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="single.h" />
     <ClInclude Include="SoundUI.h" />
+    <ClInclude Include="Source\ScriptMgr.h" />
+    <ClInclude Include="Source\Scripts\CCamMoveScript.h" />
+    <ClInclude Include="Source\Scripts\CEnemy.h" />
+    <ClInclude Include="Source\Scripts\CLycheeScript.h" />
+    <ClInclude Include="Source\Scripts\CMissileScript.h" />
+    <ClInclude Include="Source\Scripts\CMonsterScript.h" />
+    <ClInclude Include="Source\Scripts\CPlayerScript.h" />
+    <ClInclude Include="Source\Scripts\CJumpState.h" />
+    <ClInclude Include="Source\Scripts\CRunState.h" />
+    <ClInclude Include="Source\Scripts\StateMachine.h" />
     <ClInclude Include="SpriteRenderUI.h" />
     <ClInclude Include="SpriteUI.h" />
-    <ClInclude Include="StateMachine.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="targetver.h" />
@@ -269,19 +270,11 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="CameraUI.cpp" />
     <ClCompile Include="CBillboardRender.cpp" />
     <ClCompile Include="CCamera.cpp" />
-    <ClCompile Include="CCamMoveScript.cpp" />
     <ClCompile Include="CCollider2D.cpp" />
     <ClCompile Include="CEditorCamMoveScript.cpp" />
-    <ClCompile Include="CEnemy.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="CFlipbookRender.cpp" />
     <ClCompile Include="CLight2D.cpp" />
-    <ClCompile Include="CLycheeScript.cpp" />
     <ClCompile Include="CMeshRender.cpp" />
-    <ClCompile Include="CMissileScript.cpp" />
-    <ClCompile Include="CMonsterScript.cpp" />
     <ClCompile Include="Collider2DUI.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -289,7 +282,6 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="ComputeShaderUI.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="ContentUI.cpp" />
-    <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CRenderComponent.cpp" />
     <ClCompile Include="CScript.cpp" />
     <ClCompile Include="CSpriteRender.cpp" />
@@ -316,7 +308,6 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Inspector.cpp" />
     <ClCompile Include="Inspector_Init.cpp" />
-    <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LevelMgr.cpp" />
@@ -335,11 +326,19 @@ call ComponentAuto.exe</Command>
     </ClCompile>
     <ClCompile Include="PrefabUI.cpp" />
     <ClCompile Include="RenderMgr.cpp" />
-    <ClCompile Include="RunState.cpp" />
     <ClCompile Include="SoundUI.cpp" />
+    <ClCompile Include="Source\ScriptMgr.cpp" />
+    <ClCompile Include="Source\Scripts\CCamMoveScript.cpp" />
+    <ClCompile Include="Source\Scripts\CEnemy.cpp" />
+    <ClCompile Include="Source\Scripts\CLycheeScript.cpp" />
+    <ClCompile Include="Source\Scripts\CMissileScript.cpp" />
+    <ClCompile Include="Source\Scripts\CMonsterScript.cpp" />
+    <ClCompile Include="Source\Scripts\CPlayerScript.cpp" />
+    <ClCompile Include="Source\Scripts\CJumpState.cpp" />
+    <ClCompile Include="Source\Scripts\CRunState.cpp" />
+    <ClCompile Include="Source\Scripts\StateMachine.cpp" />
     <ClCompile Include="SpriteRenderUI.cpp" />
     <ClCompile Include="SpriteUI.cpp" />
-    <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="TaskMgr.cpp" />
     <ClCompile Include="TextureUI.cpp" />

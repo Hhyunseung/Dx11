@@ -6,7 +6,8 @@
 #include "TimeMgr.h"
 
 CMissileScript::CMissileScript()
-	: m_Speed(200.f)
+	: CScript(SCRIPT_TYPE::MISSILESCRIPT)
+	, m_Speed(200.f)
 	, m_Time(0.f)
 {
 

@@ -23,8 +23,8 @@ public:
 	virtual void Exit(PLAYER_STATE_ID _Next) = 0;
 
 public:
-	PlayerState(CPlayerScript* _Owner, PLAYER_STATE_ID _Id) 
-		: m_Owner(_Owner), m_Id(_Id) {}
+	PlayerState(int _ScriptType, CPlayerScript* _Owner, PLAYER_STATE_ID _Id) 
+		: CScript(_ScriptType), m_Owner(_Owner), m_Id(_Id) {}
 	virtual ~PlayerState() {}
 };
 
@@ -43,6 +43,9 @@ private:
 
 	Ptr<StateMachine>	m_StateMachine; // 상태 머신
 
+	float				m_PrevFeetY; // 땅 체크용 충돌체의 이전 y 좌표
+	float			    m_CurFeetY; // 땅 체크용 충돌체의 y 좌표
+
 	bool 			    m_Land; // 땅에 닿아있는지 여부
 	bool                m_Jump; // 점프 중인지 여부
 	bool 			    m_DoubleJump; // 점프 중인지 여부
@@ -52,6 +55,12 @@ public:
 	void SetBodyCollider(CCollider2D* _Collider) { m_BodyCollider = _Collider; }
 	void SetFeetCollider(CCollider2D* _Collider) { m_FeetCollider = _Collider; }
 	void SetStateMachine(Ptr<StateMachine> _StateMachine) { m_StateMachine = _StateMachine; }
+
+	void BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
+
+	void FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
+	void FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
+	void FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 
 public:
 	void Begin() override;

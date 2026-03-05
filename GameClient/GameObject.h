@@ -58,6 +58,8 @@ public:
     bool IsDead() { return m_Dead; }
     void Destroy();
 
+	void SetLayerIdx(int _LayerIdx) { m_LayerIdx = _LayerIdx; }
+
     // GET_COMPONENT
 	GET_COMPONENT(Light2D, LIGHT2D);
     GET_COMPONENT(TileRender, TILE_RENDER);

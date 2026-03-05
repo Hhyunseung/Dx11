@@ -1,7 +1,7 @@
 #pragma once
 #include "CPlayerScript.h"
 
-class RunState :
+class CRunState :
 	public PlayerState
 {
 public:
@@ -9,10 +9,11 @@ public:
 	void Tick();
 	void Exit(PLAYER_STATE_ID _Next) override;
 
-	CLONE(RunState);
+	CLONE(CRunState);
 
 public:
-	RunState(CPlayerScript* _Owner);
-	virtual ~RunState();
+	CRunState();
+	CRunState(CPlayerScript* _Owner);
+	virtual ~CRunState();
 };
 

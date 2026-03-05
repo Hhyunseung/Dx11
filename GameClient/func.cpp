@@ -148,10 +148,10 @@ bool IsValid(Ptr<GameObject>& _Object)
 #include "Device.h"
 #include "CollisionMgr.h"
 
-#include "CCamMoveScript.h"
-#include "CPlayerScript.h"
-#include "CMonsterScript.h"
-#include "StateMachine.h"
+#include "Source\Scripts\CCamMoveScript.h"
+#include "Source\Scripts\CPlayerScript.h"
+#include "Source\Scripts\CMonsterScript.h"
+#include "Source\Scripts\StateMachine.h"
 
 void CreateTestLevel()
 {
@@ -163,10 +163,12 @@ void CreateTestLevel()
 	pLevel->GetLayer(1)->SetName(L"Background");
 	pLevel->GetLayer(2)->SetName(L"Tile");
 	pLevel->GetLayer(3)->SetName(L"Player");
-	pLevel->GetLayer(4)->SetName(L"PlayerProjectile");
+	pLevel->GetLayer(4)->SetName(L"PlayerFeet");
+	pLevel->GetLayer(5)->SetName(L"PlayerProjectile");
 
-	pLevel->GetLayer(5)->SetName(L"Enermy");
-	pLevel->GetLayer(6)->SetName(L"EnermyProjectile");
+	pLevel->GetLayer(6)->SetName(L"Enermy");
+	pLevel->GetLayer(7)->SetName(L"EnermyProjectile");
+
 
 	Ptr<GameObject> pObject = nullptr;
 
@@ -244,7 +246,7 @@ void CreateTestLevel()
 		pMonster->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
 		pMonster->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"MonsterMtrl"));
 
-		pLevel->AddObject(5, pMonster);
+		pLevel->AddObject(6, pMonster);
 	}
 
 	// 플레이어 오브젝트 생성
@@ -255,10 +257,6 @@ void CreateTestLevel()
 	pObject->AddComponent(new CFlipbookRender);
 	pObject->AddComponent(new CCollider2D);
 	pObject->AddComponent(new CPlayerScript);
-
-	Ptr<CPlayerScript> pPlayerScript = new CPlayerScript;
-	pPlayerScript->SetStateMachine(new StateMachine);
-	pObject->AddComponent(pPlayerScript.Get());
 
 	pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
 	pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
@@ -410,9 +408,8 @@ void CreateTestLevel()
 
 
 	// 레벨 충돌 설정
-	pLevel->CheckCollisionLayer(2, 3);
-	pLevel->CheckCollisionLayer(3, 5);
-	pLevel->CheckCollisionLayer(4, 5);
+	pLevel->CheckCollisionLayer(2, 4);
+	//pLevel->CheckCollisionLayer(3, 5);
 	pLevel->CheckCollisionLayer(3, 6);
 
 

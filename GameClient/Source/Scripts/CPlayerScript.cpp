@@ -11,11 +11,14 @@
 
 #include "GameObject.h"
 
-#include "RunState.h"
-#include "JumpState.h"
+#include "CRunState.h"
+#include "CJumpState.h"
 
 CPlayerScript::CPlayerScript()
-	: m_Land(true)
+	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
+	, m_Land(true)
+	, m_BodyCollider(nullptr)
+	, m_FeetCollider(nullptr)
 	, m_Jump(false)
 	, m_DoubleJump(false)
 {
@@ -26,28 +29,45 @@ CPlayerScript::~CPlayerScript()
 {
 }
 
+
 void CPlayerScript::Begin()
 {
 	m_StateMachine = new StateMachine;
 
 	// 상태 등록
-	m_StateMachine->AddState(new RunState(this));
-	m_StateMachine->AddState(new JumpState(this));
+	m_StateMachine->AddState(new CRunState(this));
+	m_StateMachine->AddState(new CJumpState(this));
 
 	m_StateMachine->StartState(PLAYER_STATE_ID::RUN);
+
+
+	Ptr<GameObject> pChild = nullptr;
+	
+	pChild = GetOwner()->GetChild(1);
+	pChild->SetLayerIdx(4); // PlayerFeet 레이어
+	m_FeetCollider = pChild->Collider2D().Get();
+
+	
+	m_FeetCollider->AddDynamicBeginOverlap(this, (COLLISION_EVENT)&CPlayerScript::FeetBeginOverlap);
+	m_FeetCollider->AddDynamicOverlap(this, (COLLISION_EVENT)&CPlayerScript::FeetOverlap);
+	m_FeetCollider->AddDynamicEndOverlap(this, (COLLISION_EVENT)&CPlayerScript::FeetEndOverlap);
+
+	pChild = GetOwner()->GetChild(2);
+	m_BodyCollider = pChild->Collider2D().Get();
+
+	m_BodyCollider->AddDynamicBeginOverlap(this, (COLLISION_EVENT)&CPlayerScript::BeginOverlap);
+	
 }
 
 void CPlayerScript::Tick()
 {
-	m_StateMachine->Tick();
-
+	m_PrevFeetY = m_FeetCollider->GetBottomY();
 
 	if (KEY_TAP(KEY::SPACE))
 	{
 		if (!m_Land)
 		{
 			m_DoubleJump = true;
-			//GetOwner()->FlipbookRender()->Play(2, 8.f, 1);
 			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
 		}
 
@@ -59,15 +79,20 @@ void CPlayerScript::Tick()
 		}
 	}
 
+	m_StateMachine->Tick();
 
 
 
 
-	Jump();
 
-	Move();
 
-	Skill();
+
+
+	//Jump();
+
+	//Move();
+
+	//Skill();
 
 
 	//if (KEY_PRESSED(KEY::X))
@@ -79,10 +104,7 @@ void CPlayerScript::Tick()
 	//	MeshRender()->GetMtrl()->SetScalar(INT_0, 0);
 	//}
 
-	//Ptr<GameObject> pChild = GetOwner()->GetChild(0);
-
-	//Vec3 vRelativePos = pChild->Transform()->GetRelativePos();
-	//Vec3 vWorldPos = pChild->Transform()->GetWorldPos();
+	m_CurFeetY = m_FeetCollider->GetBottomY();
 }
 
 void CPlayerScript::Move()
@@ -144,26 +166,6 @@ void CPlayerScript::Skill()
 
 void CPlayerScript::Jump()
 {
-	if (KEY_TAP(KEY::SPACE))
-	{
-		if (!m_Land)
-		{
-			m_DoubleJump = true;
-
-			/////////// 더블 점프 Play 한번 하고 나머지는 내려오는 스프라이트 하나만 
-			GetOwner()->FlipbookRender()->Play(2, 8.f, 1);
-		}
-
-		else
-		{
-			m_Land = false;
-			m_Jump = true;
-
-			GetOwner()->FlipbookRender()->Play(1, 8.f, 1);
-		}
-	}
-
-
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 
 	// 점프해서 위로 올라가는 느낌
@@ -209,3 +211,27 @@ void CPlayerScript::Slide()
 {
 }
 
+
+void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
+{
+}
+
+void CPlayerScript::FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
+{
+}
+
+void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
+{
+	if ((m_FeetCollider->GetBottomY() <= _OtherCollider->GetTopY())
+		&& (m_CurFeetY >= m_FeetCollider->GetBottomY()))
+	{
+		float playerBottomY = m_FeetCollider->GetBottomY();
+		float PlatformTopY = _OtherCollider->GetTopY();
+		int a = 0;
+	}
+}
+
+void CPlayerScript::FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
+{
+
+}

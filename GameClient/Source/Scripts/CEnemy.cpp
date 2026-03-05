@@ -5,12 +5,14 @@
 #include "GameObject.h"
 
 CEnemy::CEnemy()
-	: m_Speed(0.5f)
+	: CScript(SCRIPT_TYPE::ENEMY)
+	, m_Speed(0.5f)
 {
 }
 
 CEnemy::CEnemy(float Speed)
-	: m_Speed(Speed)
+	: CScript(SCRIPT_TYPE::ENEMY)
+	, m_Speed(Speed)
 {
 }
 

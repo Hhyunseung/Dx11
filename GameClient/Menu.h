@@ -7,7 +7,7 @@ private:
     void File();
     void Level();
     void View();
-    void GameObject();
+    void GameObjectMenu();
     void Asset();
 
 public:

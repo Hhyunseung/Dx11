@@ -60,7 +60,7 @@ void CCollider2D::AddDynamicEndOverlap(CScript* _Inst, COLLISION_EVENT _MemFunc)
 float CCollider2D::GetTopY()
 {
 	float centerY = m_matWorld._42; /// 월드 행렬의 Y축 이동값이 충돌체의 중심 Y좌표가 된다
-	float halfH = m_matWorld._22 * 0.5f; /// 월드 행렬의 Y축 스케일값이 충돌체의 높이가 된다
+	float halfH = fabsf(m_matWorld._22) * 0.5f; /// 월드 행렬의 Y축 스케일값이 충돌체의 높이가 된다
 
 	return centerY + halfH;
 }
@@ -68,7 +68,7 @@ float CCollider2D::GetTopY()
 float CCollider2D::GetBottomY()
 {
 	float centerY = m_matWorld._42; /// 월드 행렬의 Y축 이동값이 충돌체의 중심 Y좌표가 된다
-	float halfH = m_matWorld._22 * 0.5f; /// 월드 행렬의 Y축 스케일값이 충돌체의 높이가 된다
+	float halfH = fabsf(m_matWorld._22) * 0.5f; /// 월드 행렬의 Y축 스케일값이 충돌체의 높이가 된다
 
 	return centerY - halfH;
 }

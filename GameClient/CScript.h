@@ -1,12 +1,18 @@
 #pragma once
 #include "Component.h"
 
+#include "Source/ScriptMgr.h"
+
 class CCollider2D;
 
 class CScript :
     public Component
 {
 private:
+    int     m_ScriptType;
+
+public:
+    int GetScriptType() { return m_ScriptType; }
 
 public:
     virtual void Tick() = 0;
@@ -27,7 +33,7 @@ public:
     virtual CScript* Clone() = 0;
 
 public:
-    CScript();
+    CScript(int _ScriptType);
     virtual ~CScript();
 };
 

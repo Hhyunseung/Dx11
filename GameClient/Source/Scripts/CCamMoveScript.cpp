@@ -7,6 +7,7 @@
 #include "CCamera.h"
 
 CCamMoveScript::CCamMoveScript()
+	: CScript(SCRIPT_TYPE::CAMMOVESCRIPT)
 {
 }
 

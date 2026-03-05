@@ -3,8 +3,9 @@
 
 #include "TaskMgr.h"
 
-CScript::CScript()
-	:Component(COMPONENT_TYPE::SCRIPT)
+CScript::CScript(int _ScriptType)
+	: Component(COMPONENT_TYPE::SCRIPT)
+	, m_ScriptType(_ScriptType)
 {
 }
 

@@ -6,6 +6,12 @@
 #include "ContentUI.h"
 #include "LevelMgr.h"
 
+#include "Inspector.h"
+#include "GameObject.h"
+
+#include "Source\\ScriptMgr.h"
+
+
 Menu::Menu()
 	: EditorUI("Menu")
 {
@@ -124,10 +130,34 @@ void Menu::View()
 	}
 }
 
-void Menu::GameObject()
+void Menu::GameObjectMenu()
 {
 	if (ImGui::BeginMenu("GameObject"))
 	{
+		if (ImGui::BeginMenu("Add Script"))
+		{
+			vector<wstring> vecScriptName;
+			ScriptMgr::GetScriptInfo(vecScriptName);
+
+			for (const auto& ScriptName : vecScriptName)
+			{
+				if (ImGui::MenuItem(string(ScriptName.begin(), ScriptName.end()).c_str()))
+				{
+					Ptr<Inspector> pInspector = (Inspector*)EditorMgr::GetInst()->FindUI("Inspector").Get();
+					Ptr<GameObject> pObject = pInspector->GetTargetObejct();
+
+					if (pObject != nullptr)
+					{
+						CScript* pNewScript = ScriptMgr::GetScript(ScriptName);
+						pObject->AddComponent(pNewScript);
+					}
+
+				}
+			}
+			ImGui::EndMenu();
+
+		}
+
 
 		ImGui::EndMenu();
 	}

@@ -7,6 +7,8 @@
 #include "CCamera.h"
 
 CEditorCamMoveScript::CEditorCamMoveScript()
+	: CScript(-1)
+	, m_Speed(500.f)
 {
 }
 

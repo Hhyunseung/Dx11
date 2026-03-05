@@ -4,6 +4,7 @@
 #include "GameObject.h"
 
 CMonsterScript::CMonsterScript()
+	: CScript(SCRIPT_TYPE::MONSTERSCRIPT)
 {
 }
 

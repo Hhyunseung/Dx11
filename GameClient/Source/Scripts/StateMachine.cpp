@@ -5,7 +5,8 @@
 
 
 StateMachine::StateMachine()
-	: m_CurStateId(PLAYER_STATE_ID::END)
+	: CScript(SCRIPT_TYPE::STATEMACHINE)
+	, m_CurStateId(PLAYER_STATE_ID::END)
 	, m_NextStateId(PLAYER_STATE_ID::END)
 	, m_Change(false)
 {

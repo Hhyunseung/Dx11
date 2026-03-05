@@ -7,7 +7,9 @@ private:
 	float m_Speed;
 
 public:
-    virtual void Tick() override;
+    void Tick();
+
+    CLONE(CEnemy);
 
 public:
     CEnemy();

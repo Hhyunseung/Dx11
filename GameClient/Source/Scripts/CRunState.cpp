@@ -1,25 +1,30 @@
 #include "pch.h"
-#include "RunState.h"
+#include "CRunState.h"
 
 #include "TimeMgr.h"
 #include "KeyMgr.h"
 #include "CTransform.h"
 
 
-RunState::RunState(CPlayerScript* _Owner)
-	: PlayerState(_Owner, PLAYER_STATE_ID::RUN)
+CRunState::CRunState()
+	: PlayerState((UINT)SCRIPT_TYPE::RUNSTATE, nullptr, PLAYER_STATE_ID::RUN)
 {
 }
 
-RunState::~RunState()
+CRunState::CRunState(CPlayerScript* _Owner)
+	: PlayerState((UINT)SCRIPT_TYPE::RUNSTATE, _Owner, PLAYER_STATE_ID::RUN)
 {
 }
 
-void RunState::Enter(PLAYER_STATE_ID _prev)
+CRunState::~CRunState()
 {
 }
 
-void RunState::Tick()
+void CRunState::Enter(PLAYER_STATE_ID _prev)
+{
+}
+
+void CRunState::Tick()
 {
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 	Vec3 vScale = GetOwner()->Transform()->GetRelativeScale();
@@ -46,6 +51,6 @@ void RunState::Tick()
 	GetOwner()->Transform()->SetRelativeRot(vRotation);
 }
 
-void RunState::Exit(PLAYER_STATE_ID _Next)
+void CRunState::Exit(PLAYER_STATE_ID _Next)
 {
 }

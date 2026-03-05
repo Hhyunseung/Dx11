@@ -17,7 +17,10 @@ private:
 	Ptr<AssetUI> 	     m_arrAssetUI[(UINT)ASSET_TYPE::END];
 
 public:
+    Ptr<GameObject> GetTargetObejct() { return m_TargetObject; }
     void SetTargetObject(Ptr<GameObject> _Object);
+
+    Ptr<Asset> GetTargetAsset() { return m_TargetAsset; }
     void SetTargetAsset(Ptr<Asset> _Asset);
 
 public:
