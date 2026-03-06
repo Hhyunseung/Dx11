@@ -17,9 +17,12 @@
 
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
-	, m_IsLand(true)
 	, m_BodyCollider(nullptr)
 	, m_FeetCollider(nullptr)
+	, m_gravity(-980.f)
+	, m_JumpPower(800.f)
+	, m_DoubleJumpPower(400.f)
+	, m_IsLand(true)
 	, m_IsJump(false)
 	, m_IsDoubleJump(false)
 {
@@ -65,24 +68,25 @@ void CPlayerScript::Tick()
 {
 	m_PrevFeetY = GetOwner()->Transform()->GetRelativePos().y;
 
-	if (KEY_TAP(KEY::SPACE))
-	{
-		if (!m_IsLand)
-		{
-			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
-		}
+	//if (KEY_TAP(KEY::SPACE))
+	//{
+	//	if (!m_IsLand)
+	//	{
+	//		m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
+	//	}
 
-		else
-		{
-			m_IsLand = false;
-			m_IsJump = true;
-			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
-		}
-	}
+	//	else
+	//	{
+	//		m_IsLand = false;
+	//		m_IsJump = true;
+	//		m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
+	//	}
+	//}
+
+	Jump();
 
 	m_StateMachine->Tick();
 
-	Jump();
 	//Move();
 	//Skill();
 
@@ -157,44 +161,31 @@ void CPlayerScript::Skill()
 
 void CPlayerScript::Jump()
 {
-	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
-
-	// 점프해서 위로 올라가는 느낌
-	float jumpPower = 500.f;
-	static float jumpTime = 0.2f;
-	
-
-	static float jumpDuration = 0.f;
-
-	if (m_IsJump)
+	if (KEY_TAP(KEY::SPACE))
 	{
-		jumpDuration += DT;
-		vPos.y += jumpPower * DT;
+		// 착지 상태에서 점프
+		if (m_IsLand)
+		{
+			m_JumpPower = 800.f;
+			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
+		}
 
-		GetOwner()->Transform()->SetRelativePos(vPos);
+		// 더블 점프
+		else
+		{
+			// m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
+		}
 	}
 
-	float gravety = 1000.f;
-	static float dropSpeed = 0.f;
 
-	// 점프 시간 종료하면 다시 내려오는 느낌
-	if (jumpDuration >= jumpTime)
+	if (!m_IsLand)
 	{
-		m_IsJump = false;
+		Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 
-		dropSpeed += gravety * DT;
-		vPos.y -= dropSpeed * DT;
-
+		m_JumpPower += m_gravity * 2 * DT;
+		vPos.y += m_JumpPower * DT;
+		
 		GetOwner()->Transform()->SetRelativePos(vPos);
-	}
-
-	// 더블 점프
-	if (m_IsDoubleJump)
-	{
-		jumpDuration = 0.f;
-		dropSpeed = 0.f;
-		m_IsJump = true;
-		m_IsDoubleJump = false;
 	}
 }
 
@@ -209,28 +200,16 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherC
 
 void CPlayerScript::FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
+	if ((m_FeetCollider->GetBottomY() <= _OtherCollider->GetTopY())
+		&& (m_CurFeetY <= m_PrevFeetY) && !m_IsLand)
+	{
+		m_StateMachine->ChangeState(PLAYER_STATE_ID::LAND);
+	}
 }
 
 void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
-	// Fall 일때 발바닥이 플랫폼 위로 올라오는 경우에만 착지 상태로 변경
-	if ((m_FeetCollider->GetBottomY() <= _OtherCollider->GetTopY())
-		&& (m_CurFeetY <= m_PrevFeetY))
-	{
-		// 플레이어 위치 가져오기
- 		Vec3 playerPos = GetOwner()->Transform()->GetRelativePos();
 
-		// 현재 발바닥 위치
-		float playerBottomY = m_FeetCollider->GetBottomY();
-
-		// 플랫폼 위로 위치 보정
-		float offset = _OtherCollider->GetTopY() - playerBottomY;
-		playerPos.y += offset;
-
-		GetOwner()->Transform()->SetRelativePos(playerPos);
-
-		m_StateMachine->ChangeState(PLAYER_STATE_ID::LAND);
-	}
 }
 
 void CPlayerScript::FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)

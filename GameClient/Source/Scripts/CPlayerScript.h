@@ -46,6 +46,11 @@ private:
 	float				m_PrevFeetY; // 땅 체크용 충돌체의 이전 y 좌표
 	float			    m_CurFeetY; // 땅 체크용 충돌체의 y 좌표
 
+	float			    m_gravity; // 중력 가속도
+
+	float 			    m_JumpPower; // 점프 힘
+	float			    m_DoubleJumpPower; // 더블 점프 힘
+
 	bool 			    m_IsLand; // 땅에 닿아있는지 여부
 	bool                m_IsJump; // 점프 중인지 여부
 	bool 			    m_IsDoubleJump; // 점프 중인지 여부

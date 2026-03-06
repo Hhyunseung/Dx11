@@ -20,21 +20,16 @@ CJumpState::~CJumpState()
 
 void CJumpState::Enter(PLAYER_STATE_ID _prev)
 {
-	if (PLAYER_STATE_ID::RUN == _prev)
-	{
-		GetOwner()->SetIsLand(false);
-		GetOwner()->SetIsJump(true);
+	GetOwner()->SetIsLand(false);
+	GetOwner()->SetIsJump(true);
 
-		GetOwner()->FlipbookRender()->Play(1, 8.f, 1);
-	}
+	GetOwner()->FlipbookRender()->Play(1, 8.f, 1);
 }
 
 void CJumpState::Tick()
 {
 	if (GetOwner()->GetIsLand())
 	{
- 		GetOwner()->SetIsJump(false);
-		GetOwner()->SetIsDoubleJump(false);
 		GetOwner()->ChangeState(PLAYER_STATE_ID::LAND);
 	}
 
@@ -51,4 +46,5 @@ void CJumpState::Tick()
 
 void CJumpState::Exit(PLAYER_STATE_ID _Next)
 {
+	GetOwner()->SetIsJump(false);
 }

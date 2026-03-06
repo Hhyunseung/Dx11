@@ -23,11 +23,16 @@ CRunState::~CRunState()
 
 void CRunState::Enter(PLAYER_STATE_ID _prev)
 {
+
+
 	GetOwner()->FlipbookRender()->Play(0, 8.f, -1);
 }
 
 void CRunState::Tick()
 {
+
+
+
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 	Vec3 vScale = GetOwner()->Transform()->GetRelativeScale();
 	Vec3 vRotation = GetOwner()->Transform()->GetRelativeRot();

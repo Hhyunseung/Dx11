@@ -564,7 +564,6 @@ void AssetMgr::CreateEngineSprite()
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
 	*/
 
-
  //추가할때 임시
 	//Ptr<ATexture> pAtlas = FIND(ATexture, L"DragonCookieLand");
 	//float Width = pAtlas->GetWidth();
