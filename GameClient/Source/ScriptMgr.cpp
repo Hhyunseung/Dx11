@@ -4,6 +4,7 @@
 #include "Scripts/CCamMoveScript.h"
 #include "Scripts/CEnemy.h"
 #include "Scripts/CJumpState.h"
+#include "Scripts/CLandState.h"
 #include "Scripts/CLycheeScript.h"
 #include "Scripts/CMissileScript.h"
 #include "Scripts/CMonsterScript.h"
@@ -16,6 +17,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CCamMoveScript");
 	_vec.push_back(L"CEnemy");
 	_vec.push_back(L"CJumpState");
+	_vec.push_back(L"CLandState");
 	_vec.push_back(L"CLycheeScript");
 	_vec.push_back(L"CMissileScript");
 	_vec.push_back(L"CMonsterScript");
@@ -32,6 +34,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CEnemy;
 	if (L"CJumpState" == _strScriptName)
 		return new CJumpState;
+	if (L"CLandState" == _strScriptName)
+		return new CLandState;
 	if (L"CLycheeScript" == _strScriptName)
 		return new CLycheeScript;
 	if (L"CMissileScript" == _strScriptName)
@@ -59,6 +63,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::JUMPSTATE:
 		return new CJumpState;
+		break;
+	case (UINT)SCRIPT_TYPE::LANDSTATE:
+		return new CLandState;
 		break;
 	case (UINT)SCRIPT_TYPE::LYCHEESCRIPT:
 		return new CLycheeScript;
@@ -96,6 +103,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::JUMPSTATE:
 		return L"CJumpState";
+		break;
+
+	case SCRIPT_TYPE::LANDSTATE:
+		return L"CLandState";
 		break;
 
 	case SCRIPT_TYPE::LYCHEESCRIPT:

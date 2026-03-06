@@ -45,6 +45,8 @@ void CFlipbookRender::Render()
 	GetMaterial()->SetTexture(TEX_0, pCurSprite->GetAtlas());
 	GetMaterial()->SetScalar(VEC2_0, pCurSprite->GetLeftTopUV());
 	GetMaterial()->SetScalar(VEC2_1, pCurSprite->GetSliceUV());
+	GetMaterial()->SetScalar(VEC2_2, pCurSprite->GetBackgroundUV());
+	GetMaterial()->SetScalar(VEC2_3, pCurSprite->GetOffsetUV());
 
 	GetMaterial()->Binding();
 	GetMesh()->Render();

@@ -268,6 +268,8 @@ void CreateTestLevel()
 	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Idle.flip"));
 	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Jump.flip"));
 	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_DoubleJump.flip"));
+	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Land.flip"));
+	
 	pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 

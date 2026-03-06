@@ -35,7 +35,7 @@ void Menu::Tick()
 
 		View();
 
-		GameObject();
+		GameObjectMenu();
 
 		Asset();
 		
@@ -178,7 +178,9 @@ void Menu::Asset()
 
 			if (ImGui::MenuItem("Create Sprite"))
 			{
-
+				Ptr<ASprite> pSprite = new ASprite;
+				wstring Key = GetAssetName(ASSET_TYPE::SPRITE, L"Sprite\\Default Sprite");
+				AssetMgr::GetInst()->AddAsset(Key, pSprite.Get());
 			}
 
 			if (ImGui::MenuItem("Create Flipbook"))

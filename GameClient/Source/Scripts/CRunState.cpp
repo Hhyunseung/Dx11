@@ -3,6 +3,7 @@
 
 #include "TimeMgr.h"
 #include "KeyMgr.h"
+#include "GameObject.h"
 #include "CTransform.h"
 
 
@@ -22,6 +23,7 @@ CRunState::~CRunState()
 
 void CRunState::Enter(PLAYER_STATE_ID _prev)
 {
+	GetOwner()->FlipbookRender()->Play(0, 8.f, -1);
 }
 
 void CRunState::Tick()

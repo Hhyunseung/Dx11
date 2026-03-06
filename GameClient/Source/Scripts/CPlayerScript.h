@@ -46,9 +46,9 @@ private:
 	float				m_PrevFeetY; // 땅 체크용 충돌체의 이전 y 좌표
 	float			    m_CurFeetY; // 땅 체크용 충돌체의 y 좌표
 
-	bool 			    m_Land; // 땅에 닿아있는지 여부
-	bool                m_Jump; // 점프 중인지 여부
-	bool 			    m_DoubleJump; // 점프 중인지 여부
+	bool 			    m_IsLand; // 땅에 닿아있는지 여부
+	bool                m_IsJump; // 점프 중인지 여부
+	bool 			    m_IsDoubleJump; // 점프 중인지 여부
 
 public:
 	void SetTarget(Ptr<GameObject> _Target) { m_Target = _Target; }
@@ -56,11 +56,18 @@ public:
 	void SetFeetCollider(CCollider2D* _Collider) { m_FeetCollider = _Collider; }
 	void SetStateMachine(Ptr<CStateMachine> _StateMachine) { m_StateMachine = _StateMachine; }
 
+	void ChangeState(PLAYER_STATE_ID _NextId) { m_StateMachine->ChangeState(_NextId); }
+
 	void BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 
 	void FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 	void FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 	void FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
+
+public:
+	GET_SET(bool, IsLand);
+	GET_SET(bool, IsJump);
+	GET_SET(bool, IsDoubleJump);
 
 public:
 	void Begin() override;

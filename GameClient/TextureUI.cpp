@@ -18,15 +18,25 @@ void TextureUI::Tick_UI()
 
 	Ptr<ATexture> pTexture = (ATexture*)GetTargetAsset().Get();
 
-	// 이미지 샘플		
-	ImGui::ImageWithBg((ImTextureRef)pTexture->GetSRV().Get()
-		, ImVec2(200, 200)
-		, Vec2(0.f, 0.f), Vec2(1.f, 1.f)
-		, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
+
+	string Key = string(pTexture->GetKey().begin(), pTexture->GetKey().end());
+
+	ImGui::Text("Name");
+	ImGui::SameLine(120);
+	ImGui::InputText("##TextureName", Key.data(), Key.length() + 1, ImGuiInputTextFlags_ReadOnly);
+
+
 
 	// 해상도
 	int Width = pTexture->GetWidth();
 	int Height = pTexture->GetHeight();
+
+	// 이미지 샘플		
+	ImGui::ImageWithBg((ImTextureRef)pTexture->GetSRV().Get()
+		, ImVec2(Width/4, Height/4)
+		, Vec2(0.f, 0.f), Vec2(1.f, 1.f)
+		, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
+
 
 	ImGui::Text("Resolution");
 	ImGui::SameLine(150);

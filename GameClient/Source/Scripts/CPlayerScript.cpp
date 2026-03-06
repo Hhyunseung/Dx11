@@ -13,14 +13,15 @@
 
 #include "CRunState.h"
 #include "CJumpState.h"
+#include "CLandState.h"
 
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
-	, m_Land(true)
+	, m_IsLand(true)
 	, m_BodyCollider(nullptr)
 	, m_FeetCollider(nullptr)
-	, m_Jump(false)
-	, m_DoubleJump(false)
+	, m_IsJump(false)
+	, m_IsDoubleJump(false)
 {
 
 }
@@ -37,6 +38,7 @@ void CPlayerScript::Begin()
 	// 상태 등록
 	m_StateMachine->AddState(new CRunState(this));
 	m_StateMachine->AddState(new CJumpState(this));
+	m_StateMachine->AddState(new CLandState(this));
 
 	m_StateMachine->StartState(PLAYER_STATE_ID::RUN);
 
@@ -61,39 +63,28 @@ void CPlayerScript::Begin()
 
 void CPlayerScript::Tick()
 {
-	m_PrevFeetY = m_FeetCollider->GetBottomY();
+	m_PrevFeetY = GetOwner()->Transform()->GetRelativePos().y;
 
 	if (KEY_TAP(KEY::SPACE))
 	{
-		if (!m_Land)
+		if (!m_IsLand)
 		{
-			m_DoubleJump = true;
 			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
 		}
 
 		else
 		{
-			m_Land = false;
-			m_Jump = true;
-			GetOwner()->FlipbookRender()->Play(1, 8.f, 1);
+			m_IsLand = false;
+			m_IsJump = true;
+			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
 		}
 	}
 
 	m_StateMachine->Tick();
 
-
-
-
-
-
-
-
-	//Jump();
-
+	Jump();
 	//Move();
-
 	//Skill();
-
 
 	//if (KEY_PRESSED(KEY::X))
 	//{
@@ -104,7 +95,7 @@ void CPlayerScript::Tick()
 	//	MeshRender()->GetMtrl()->SetScalar(INT_0, 0);
 	//}
 
-	m_CurFeetY = m_FeetCollider->GetBottomY();
+	m_CurFeetY = GetOwner()->Transform()->GetRelativePos().y;
 }
 
 void CPlayerScript::Move()
@@ -175,7 +166,7 @@ void CPlayerScript::Jump()
 
 	static float jumpDuration = 0.f;
 
-	if (m_Jump)
+	if (m_IsJump)
 	{
 		jumpDuration += DT;
 		vPos.y += jumpPower * DT;
@@ -189,7 +180,7 @@ void CPlayerScript::Jump()
 	// 점프 시간 종료하면 다시 내려오는 느낌
 	if (jumpDuration >= jumpTime)
 	{
-		m_Jump = false;
+		m_IsJump = false;
 
 		dropSpeed += gravety * DT;
 		vPos.y -= dropSpeed * DT;
@@ -198,12 +189,12 @@ void CPlayerScript::Jump()
 	}
 
 	// 더블 점프
-	if (m_DoubleJump)
+	if (m_IsDoubleJump)
 	{
 		jumpDuration = 0.f;
 		dropSpeed = 0.f;
-		m_Jump = true;
-		m_DoubleJump = false;
+		m_IsJump = true;
+		m_IsDoubleJump = false;
 	}
 }
 
@@ -222,12 +213,23 @@ void CPlayerScript::FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _Ot
 
 void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
+	// Fall 일때 발바닥이 플랫폼 위로 올라오는 경우에만 착지 상태로 변경
 	if ((m_FeetCollider->GetBottomY() <= _OtherCollider->GetTopY())
-		&& (m_CurFeetY >= m_FeetCollider->GetBottomY()))
+		&& (m_CurFeetY <= m_PrevFeetY))
 	{
+		// 플레이어 위치 가져오기
+ 		Vec3 playerPos = GetOwner()->Transform()->GetRelativePos();
+
+		// 현재 발바닥 위치
 		float playerBottomY = m_FeetCollider->GetBottomY();
-		float PlatformTopY = _OtherCollider->GetTopY();
-		int a = 0;
+
+		// 플랫폼 위로 위치 보정
+		float offset = _OtherCollider->GetTopY() - playerBottomY;
+		playerPos.y += offset;
+
+		GetOwner()->Transform()->SetRelativePos(playerPos);
+
+		m_StateMachine->ChangeState(PLAYER_STATE_ID::LAND);
 	}
 }
 

@@ -219,6 +219,7 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"DragonCookieIdle", L"Texture\\Lychee_Idle.png");
 	Load<ATexture>(L"DragonCookieJump", L"Texture\\Lychee_Jump.png");
 	Load<ATexture>(L"DragonCookieDoubleJump", L"Texture\\Lychee_DoubleJump.png");
+	Load<ATexture>(L"DragonCookieLand", L"Texture\\Lychee_Land.png");
 
 	Load<ATexture>(L"DragonCookiePetIdle", L"Texture\\Lycheye_Idle.png");
 
@@ -563,6 +564,39 @@ void AssetMgr::CreateEngineSprite()
 	AddAsset(pFlipbook->GetName(), pFlipbook.Get());
 	*/
 
+
+ //추가할때 임시
+	//Ptr<ATexture> pAtlas = FIND(ATexture, L"DragonCookieLand");
+	//float Width = pAtlas->GetWidth();
+	//float Height = pAtlas->GetHeight();
+	//Vec2 SlicePixel = Vec2(364.f, 364.f);
+	//
+	//Ptr<ASprite> pSprite = nullptr;
+	//for (int i = 0; i < 2; i++)
+	//{
+	//	wchar_t Buff[50] = {};
+	//	swprintf_s(Buff, L"Sprite\\DragonCookieLand_%d.sprite", i);
+	//
+	//	pSprite = new ASprite;
+	//	pSprite->SetName(Buff);
+	//	pSprite->SetAtlas(pAtlas);
+	//	pSprite->SetLeftTopUV(Vec2((SlicePixel.x / Width) * (float)i, (SlicePixel.y / Height) * 0.f));
+	//	pSprite->SetSliceUV(SlicePixel / Vec2(Width, Height));
+	//	AddAsset(pSprite->GetName(), pSprite.Get());
+	//}
+
+	//Ptr<AFlipbook> pFlipbook = new AFlipbook;
+	//pFlipbook->SetName(L"Flipbook\\DragonCookie_Land.flip");
+	//
+	//for (int i = 0; i < 2; ++i)
+	//{
+	//	wchar_t Buff[50] = {};
+	//	swprintf_s(Buff, L"Sprite\\DragonCookieLand_%d.sprite", i);
+	//	pFlipbook->AddSprite(LOAD(ASprite, Buff));
+	//}
+	//AddAsset(pFlipbook->GetName(), pFlipbook.Get());
+
+
 	// ============
 	// Tile Sprite
 	// ============
@@ -616,7 +650,7 @@ void AssetMgr::CreateEngineSprite()
 	//	pair.second->Save(FilePath);
 	//}
 
-	// 모든 Flipbook을 파일로 저장
+	////모든 Flipbook을 파일로 저장
 	//for (const auto& pair : m_mapAsset[(UINT)ASSET_TYPE::FLIPBOOK])
 	//{
 	//	wstring FilePath = CONTENT_PATH + pair.first;

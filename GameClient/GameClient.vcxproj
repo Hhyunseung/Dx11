@@ -129,7 +129,8 @@
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
 call CopyShader.bat
-call ComponentAuto.exe</Command>
+call ComponentAuto.exe
+call CodeGen.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -149,7 +150,8 @@ call ComponentAuto.exe</Command>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
 call CopyShader.bat
-call ComponentAuto.exe</Command>
+call ComponentAuto.exe
+call CodeGen.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -234,6 +236,7 @@ call ComponentAuto.exe</Command>
     <ClInclude Include="Source\ScriptMgr.h" />
     <ClInclude Include="Source\Scripts\CCamMoveScript.h" />
     <ClInclude Include="Source\Scripts\CEnemy.h" />
+    <ClInclude Include="Source\Scripts\CLandState.h" />
     <ClInclude Include="Source\Scripts\CLycheeScript.h" />
     <ClInclude Include="Source\Scripts\CMissileScript.h" />
     <ClInclude Include="Source\Scripts\CMonsterScript.h" />
@@ -330,6 +333,7 @@ call ComponentAuto.exe</Command>
     <ClCompile Include="Source\ScriptMgr.cpp" />
     <ClCompile Include="Source\Scripts\CCamMoveScript.cpp" />
     <ClCompile Include="Source\Scripts\CEnemy.cpp" />
+    <ClCompile Include="Source\Scripts\CLandState.cpp" />
     <ClCompile Include="Source\Scripts\CLycheeScript.cpp" />
     <ClCompile Include="Source\Scripts\CMissileScript.cpp" />
     <ClCompile Include="Source\Scripts\CMonsterScript.cpp" />

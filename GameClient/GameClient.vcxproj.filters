@@ -301,6 +301,9 @@
     <ClInclude Include="Source\Scripts\CLycheeScript.h">
       <Filter>Source\Scripts\02.Cookie</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CLandState.h">
+      <Filter>Source\Scripts\02.Cookie\State\Land</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -556,6 +559,9 @@
     </Filter>
     <Filter Include="Source\ScriptMgr">
       <UniqueIdentifier>{77b3cb4d-5892-42e0-a0a3-319b97c1b5bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\02.Cookie\State\Land">
+      <UniqueIdentifier>{fa865398-a768-4c3a-94b8-b2ade79c77db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -831,6 +837,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CLycheeScript.cpp">
       <Filter>Source\Scripts\02.Cookie</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CLandState.cpp">
+      <Filter>Source\Scripts\02.Cookie\State\Land</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

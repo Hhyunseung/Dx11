@@ -176,6 +176,7 @@ enum class PLAYER_STATE_ID
 	RUN,
 	JUMP,
 	DOUBLE_JUMP,
+	LAND,
 	SLIDE,
 	HIT,
 	DEAD,
