@@ -31,6 +31,10 @@ public:
     // 자신이 사용할 재질 로딩 및 설정
     virtual void CreateMaterial() = 0;
 
+    // 저장 불러오기
+    virtual void SaveToLevelFile(FILE* _File) override;
+    virtual void LoadFromLevelFile(FILE* _File) override;
+
 public:
     CRenderComponent(COMPONENT_TYPE _Type);
 	CRenderComponent(const CRenderComponent& _Origin);

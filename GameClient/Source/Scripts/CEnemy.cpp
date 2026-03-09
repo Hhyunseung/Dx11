@@ -29,3 +29,13 @@ void CEnemy::Tick()
 
 	GetOwner()->Transform()->SetRelativePos(Pos);
 }
+
+void CEnemy::SaveToLevelFile(FILE* _File)
+{
+	fwrite(&m_Speed, sizeof(Vec3), 1, _File);
+}
+
+void CEnemy::LoadFromLevelFile(FILE* _File)
+{
+	fread(&m_Speed, sizeof(Vec3), 1, _File);
+}

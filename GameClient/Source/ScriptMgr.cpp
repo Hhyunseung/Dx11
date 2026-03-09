@@ -2,6 +2,7 @@
 #include "ScriptMgr.h"
 
 #include "Scripts/CCamMoveScript.h"
+#include "Scripts/CDoubleJumpState.h"
 #include "Scripts/CEnemy.h"
 #include "Scripts/CJumpState.h"
 #include "Scripts/CLandState.h"
@@ -15,6 +16,7 @@
 void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CCamMoveScript");
+	_vec.push_back(L"CDoubleJumpState");
 	_vec.push_back(L"CEnemy");
 	_vec.push_back(L"CJumpState");
 	_vec.push_back(L"CLandState");
@@ -30,6 +32,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 {
 	if (L"CCamMoveScript" == _strScriptName)
 		return new CCamMoveScript;
+	if (L"CDoubleJumpState" == _strScriptName)
+		return new CDoubleJumpState;
 	if (L"CEnemy" == _strScriptName)
 		return new CEnemy;
 	if (L"CJumpState" == _strScriptName)
@@ -57,6 +61,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 	{
 	case (UINT)SCRIPT_TYPE::CAMMOVESCRIPT:
 		return new CCamMoveScript;
+		break;
+	case (UINT)SCRIPT_TYPE::DOUBLEJUMPSTATE:
+		return new CDoubleJumpState;
 		break;
 	case (UINT)SCRIPT_TYPE::ENEMY:
 		return new CEnemy;
@@ -95,6 +102,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 	{
 	case SCRIPT_TYPE::CAMMOVESCRIPT:
 		return L"CCamMoveScript";
+		break;
+
+	case SCRIPT_TYPE::DOUBLEJUMPSTATE:
+		return L"CDoubleJumpState";
 		break;
 
 	case SCRIPT_TYPE::ENEMY:

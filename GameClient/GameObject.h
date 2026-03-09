@@ -73,6 +73,10 @@ public:
 
     Ptr<CRenderComponent> GetRenderCom() { return m_RenderCom; }
 
+public:
+    void SaveToLevelFile(FILE* _File);
+	void LoadFromLevelFile(FILE* _File);
+
 private:
     void RegisterLayer();
 

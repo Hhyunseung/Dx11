@@ -108,3 +108,79 @@ Ptr<GameObject> ALevel::FindObjectByName(const wstring& _Name)
 
 	return nullptr;
 }
+
+int ALevel::Save(const wstring& _FilePath)
+{
+	// 파일 스트림 커널
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, _FilePath.c_str(), L"wb");
+
+	// 레벨 이름
+	wstring LevelName = GetName();
+	SaveWString(pFile, LevelName);
+
+	// 충돌 체크 정보
+	fwrite(m_Matrix, sizeof(UINT), MAX_LAYER, pFile);
+
+	// 레이어 정보
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		// 레이어의 이름 저장
+		SaveWString(pFile, m_arrLayer[i].GetName());
+
+		// 레이어 소속 최상위 부모 오브젝트를 계층구조로 저장
+		const vector<Ptr<GameObject>>& vecParents = m_arrLayer[i].GetParentObjects();
+		
+		// 오브젝트 개수
+		size_t parentCount = vecParents.size();
+		fwrite(&parentCount, sizeof(size_t), 1, pFile);
+
+		for (const auto& Object : vecParents)
+		{
+			Object->SaveToLevelFile(pFile);
+		}
+	}
+
+	fclose(pFile);
+
+	return S_OK;
+}
+
+
+int ALevel::Load(const wstring& _FilePath)
+{
+	// 파일 스트림 커널
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, _FilePath.c_str(), L"rb");
+
+	// 레벨 이름
+	wstring LevelName = LoadWString(pFile);
+	SetName(LevelName);
+
+	// 충돌 체크 저장
+	fread(m_Matrix, sizeof(UINT), MAX_LAYER, pFile);
+
+	// 레이어 정보
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		// 레이어의 이름 저장
+		wstring LayerName = LoadWString(pFile);
+		m_arrLayer[i].SetName(LayerName);
+
+		// 레이어 소속 최상위 부모 오브젝트를 계층구조로 불러온다
+		// 오브젝트 개수
+		size_t parentCount = 0;
+		fread(&parentCount, sizeof(size_t), 1, pFile);
+
+		for (size_t j = 0; j < parentCount; ++j)
+		{
+			Ptr<GameObject> pObject = new GameObject;
+			pObject->LoadFromLevelFile(pFile);
+			AddObject(i, pObject);
+		}
+	}
+
+	fclose(pFile);
+
+	return S_OK;
+}

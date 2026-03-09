@@ -155,6 +155,14 @@ bool IsValid(Ptr<GameObject>& _Object)
 
 void CreateTestLevel()
 {
+	{
+		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+		ChangeLevel(L"Level\\TestLevel.lv");
+	}
+
+	return;
+
+
 	// Level 생성
 	Ptr<ALevel> pLevel = new ALevel;
 	pLevel->SetName(L"Current Level");
@@ -258,7 +266,7 @@ void CreateTestLevel()
 	pObject->AddComponent(new CCollider2D);
 	pObject->AddComponent(new CPlayerScript);
 
-	pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+	pObject->Transform()->SetRelativePos(Vec3(0.f, 17.f, 100.f));
 	pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
 
 	pObject->Collider2D()->SetScale(Vec2(0.25f, 0.25f));
@@ -301,7 +309,7 @@ void CreateTestLevel()
 	pChild->AddComponent(new CTransform);
 	pChild->AddComponent(new CCollider2D);
 
-	pChild->Transform()->SetRelativePos(Vec3(-5.f, -126.f, 0.f));
+	pChild->Transform()->SetRelativePos(Vec3(-5.f, -147.f, 0.f));
 	pChild->Transform()->SetRelativeScale(Vec3(60.f, 7.f, 1.f));
 	pChild->Transform()->SetIndependentScale(true);
 	
@@ -422,7 +430,10 @@ void CreateTestLevel()
 	// 레벨을 AssetMgr 에 등록
 	AssetMgr::GetInst()->AddAsset(L"TestLevel", pLevel.Get());
 
+	// 레벨을 파일로 저장
+	wstring ContentPath = CONTENT_PATH;
+	pLevel->Save(ContentPath + L"Level\\TestLevel.lv");
+
 	// 레벨을 변경 /// 즉시 바꾸면 안됨. 호출되는 시점이 Tick 중간일수도 있으니까... TaskMgr 을 이용해서 다음 프레임에
 	ChangeLevel(L"TestLevel");
-
 }

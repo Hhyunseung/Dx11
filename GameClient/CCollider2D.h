@@ -57,7 +57,12 @@ private:
 public:
 	virtual void FinalTick() override;
 
+    // 저장 불러오기
+    virtual void SaveToLevelFile(FILE* _File) override;
+    virtual void LoadFromLevelFile(FILE* _File) override;
+
     CLONE(CCollider2D);
+
 public:
     CCollider2D();
     CCollider2D(const CCollider2D& _Origin);

@@ -1,7 +1,7 @@
 #pragma once
 #include "CPlayerScript.h"
 
-class CJumpState :
+class CDoubleJumpState :
     public PlayerState
 {
 public:
@@ -13,11 +13,11 @@ public:
     virtual void SaveToLevelFile(FILE* _File) override {}
     virtual void LoadFromLevelFile(FILE* _File) override {}
 
-	CLONE(CJumpState);
+    CLONE(CDoubleJumpState);
 
 public:
-    CJumpState();
-    CJumpState(CPlayerScript* _Owner);
-    virtual ~CJumpState();
+    CDoubleJumpState();
+    CDoubleJumpState(CPlayerScript* _Owner);
+    virtual ~CDoubleJumpState();
 };
 

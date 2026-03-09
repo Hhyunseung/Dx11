@@ -35,7 +35,7 @@ void CLandState::Tick()
 	// 0.3초 정도 땅에 닿아있는 상태 유지하다가 다시 달리는 상태로
 	m_LandTime += DT;
 
-	if (m_LandTime >= 0.1f)
+	if (m_LandTime >= 0.08f)
 	{
 		GetOwner()->ChangeState(PLAYER_STATE_ID::RUN);
 	}

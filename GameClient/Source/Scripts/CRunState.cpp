@@ -48,9 +48,9 @@ void CRunState::Tick()
 		vPos += vDown * 150.f * DT;
 
 	if (KEY_PRESSED(KEY::RIGHT))
-		vRotation.z -= XM_PI * DT;
+		vPos.x += 150.f * DT;
 	if (KEY_PRESSED(KEY::LEFT))
-		vRotation.z += XM_PI * DT;
+		vPos.x -= 150.f * DT;
 
 
 	GetOwner()->Transform()->SetRelativePos(vPos);

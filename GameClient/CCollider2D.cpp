@@ -41,6 +41,7 @@ void CCollider2D::FinalTick()
 		assert(nullptr);
 }
 
+
 void CCollider2D::AddDynamicBeginOverlap(CScript* _Inst, COLLISION_EVENT _MemFunc)
 {
 	m_vecBeginDel.push_back(COLLISION_DELEGATE{ _Inst, _MemFunc }); 
@@ -104,4 +105,16 @@ void CCollider2D::EndOverlap(Ptr<CCollider2D> _Other)
 	{
 		(m_vecEndDel[i].Inst->*m_vecEndDel[i].MemFunc)(this, _Other.Get());
 	}
+}
+
+void CCollider2D::SaveToLevelFile(FILE* _File)
+{
+	fwrite(&m_Offset, sizeof(Vec2), 1, _File);
+	fwrite(&m_Scale, sizeof(Vec2), 1, _File);
+}
+
+void CCollider2D::LoadFromLevelFile(FILE* _File)
+{
+	fread(&m_Offset, sizeof(Vec2), 1, _File);
+	fread(&m_Scale, sizeof(Vec2), 1, _File);
 }

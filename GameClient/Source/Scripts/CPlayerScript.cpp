@@ -13,6 +13,7 @@
 
 #include "CRunState.h"
 #include "CJumpState.h"
+#include "CDoubleJumpState.h"
 #include "CLandState.h"
 
 CPlayerScript::CPlayerScript()
@@ -21,7 +22,7 @@ CPlayerScript::CPlayerScript()
 	, m_FeetCollider(nullptr)
 	, m_gravity(-980.f)
 	, m_JumpPower(800.f)
-	, m_DoubleJumpPower(400.f)
+	, m_DoubleJumpPower(600.f)
 	, m_IsLand(true)
 	, m_IsJump(false)
 	, m_IsDoubleJump(false)
@@ -41,6 +42,7 @@ void CPlayerScript::Begin()
 	// 상태 등록
 	m_StateMachine->AddState(new CRunState(this));
 	m_StateMachine->AddState(new CJumpState(this));
+	m_StateMachine->AddState(new CDoubleJumpState(this));
 	m_StateMachine->AddState(new CLandState(this));
 
 	m_StateMachine->StartState(PLAYER_STATE_ID::RUN);
@@ -173,7 +175,8 @@ void CPlayerScript::Jump()
 		// 더블 점프
 		else
 		{
-			// m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
+			m_JumpPower = 600.f;
+			m_StateMachine->ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
 		}
 	}
 
@@ -214,5 +217,26 @@ void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCo
 
 void CPlayerScript::FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
+	m_IsLand = false;
+}
 
+
+void CPlayerScript::SaveToLevelFile(FILE* _File)
+{
+	fwrite(&m_gravity, sizeof(float), 1, _File);
+	fwrite(&m_JumpPower, sizeof(float), 1, _File);
+	fwrite(&m_DoubleJumpPower, sizeof(float), 1, _File);
+	fwrite(&m_IsLand, sizeof(bool), 1, _File);
+	fwrite(&m_IsJump, sizeof(bool), 1, _File);
+	fwrite(&m_IsDoubleJump, sizeof(bool), 1, _File);
+}
+
+void CPlayerScript::LoadFromLevelFile(FILE* _File)
+{
+	fread(&m_gravity, sizeof(float), 1, _File);
+	fread(&m_JumpPower, sizeof(float), 1, _File);
+	fread(&m_DoubleJumpPower, sizeof(float), 1, _File);
+	fread(&m_IsLand, sizeof(bool), 1, _File);
+	fread(&m_IsJump, sizeof(bool), 1, _File);
+	fread(&m_IsDoubleJump, sizeof(bool), 1, _File);
 }

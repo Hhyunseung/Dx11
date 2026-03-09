@@ -57,6 +57,7 @@ void LevelMgr::ChangeLevel(Ptr<ALevel> _NextLevel)
 	m_CurLevel = m_SharedLevel = _NextLevel;
 
 	m_LevelState = LEVEL_STATE::STOP;
+	_NextLevel->SetChanged();
 }
 
 void LevelMgr::ChangeLevelState(LEVEL_STATE _NextState)

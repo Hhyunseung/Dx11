@@ -38,6 +38,10 @@ public:
 	void FinalTick();
 	
 public:
+	virtual int Load(const wstring& _FilePath) override;
+	virtual int Save(const wstring& _FilePath) override;
+
+public:
 	ALevel* Clone() { return new ALevel(*this); } /// 복사 생성자 호출 
 
 public:

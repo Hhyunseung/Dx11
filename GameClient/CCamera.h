@@ -23,13 +23,10 @@ private:
     /// NDC 좌표계가 정사각형이라 직사각형이 될 수 있기 때문에 종횡비가 필요
 
     float 	                m_FOV;          // 시야각
-
     float 	                m_OrthoScale;   // 직교 투영 배율
-
 
     Matrix                  m_matView;      // View 행렬
     Matrix	                m_matProj;      // Proj 행렬
-
 
     vector<GameObject*>     m_vecOpaque;
     vector<GameObject*>     m_vecMasked;
@@ -60,7 +57,12 @@ public:
     void SortObject();
     void Render();
 
+    // 저장 불러오기
+    virtual void SaveToLevelFile(FILE* _File) override;
+    virtual void LoadFromLevelFile(FILE* _File) override;
+
     CLONE(CCamera);
+
 
 public:
     CCamera();

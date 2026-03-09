@@ -36,6 +36,7 @@ class CPlayerScript :
     public CScript
 {
 private:
+    ///  어떤 물체를 가리키고 있는지 ... 는 GUID 같은 걸로 관리해서 찾는게
     Ptr<GameObject>		m_Target;
 
 	CCollider2D*		m_BodyCollider; // 충돌체 컴포넌트
@@ -85,6 +86,10 @@ private:
 
 public:
     virtual void Skill();
+
+	// 저장 불러오기
+	virtual void SaveToLevelFile(FILE* _File) override;
+	virtual void LoadFromLevelFile(FILE* _File) override;
 
 	CLONE(CPlayerScript);
 

@@ -4,6 +4,7 @@
 #include "Device.h"
 #include "GameObject.h"
 
+
 CTransform::CTransform()
 	: Component(COMPONENT_TYPE::TRANSFORM)
 	, m_RelativeScale(Vec3(1.f, 1.f, 1.f))
@@ -116,4 +117,20 @@ void CTransform::Binding()
 	// 전역변수에 들어있는 오브젝트 위치 정보를 상수버퍼로 복사
 	Device::GetInst()->GetCB(CB_TYPE::TRANSFORM)->SetData(&g_Trans);
 	Device::GetInst()->GetCB(CB_TYPE::TRANSFORM)->Binding();
+}
+
+void CTransform::SaveToLevelFile(FILE* _File)
+{
+	fwrite(&m_RelativePos, sizeof(Vec3), 1, _File);
+	fwrite(&m_RelativeScale, sizeof(Vec3), 1, _File);
+	fwrite(&m_RelativeRot, sizeof(Vec3), 1, _File);
+	fwrite(&m_IndependentScale, sizeof(bool), 1, _File);
+}
+
+void CTransform::LoadFromLevelFile(FILE* _File)
+{
+	fread(&m_RelativePos, sizeof(Vec3), 1, _File);
+	fread(&m_RelativeScale, sizeof(Vec3), 1, _File);
+	fread(&m_RelativeRot, sizeof(Vec3), 1, _File);
+	fread(&m_IndependentScale, sizeof(bool), 1, _File);
 }

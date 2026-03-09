@@ -6,6 +6,7 @@
 #include "TimeMgr.h"
 #include "TaskMgr.h"
 
+#include "Source/ScriptMgr.h"
 
 GameObject::GameObject()
 	: m_Com{}
@@ -142,6 +143,7 @@ void GameObject::FinalTick_Editor()
 			++iter;
 	}
 }
+
 
 void GameObject::RegisterLayer()
 {
@@ -296,4 +298,136 @@ void GameObject::Destroy()
 	info.Param_0 = (DWORD_PTR)this;
 
 	TaskMgr::GetInst()->AddTask(info);
+}
+
+void GameObject::SaveToLevelFile(FILE* _File)
+{
+	// 이름
+	SaveWString(_File, GetName());
+
+	// 컴포넌트
+	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+	{
+		if (nullptr == m_Com[i])
+			continue;
+
+		// 컴포넌트 타입
+		fwrite(&i, sizeof(UINT), 1, _File);
+
+		// 컴포넌트 내용
+		m_Com[i]->SaveToLevelFile(_File);
+	}
+
+	// 컴포넌트 끝
+	UINT ComEnd = (UINT)COMPONENT_TYPE::END;
+	fwrite(&ComEnd, sizeof(UINT), 1, _File);
+
+	// 스크립트
+	size_t ScriptCount = m_vecScripts.size();
+	fwrite(&ScriptCount, sizeof(size_t), 1, _File);
+
+	for (const auto& Script : m_vecScripts)
+	{
+		wstring ScriptName = ScriptMgr::GetScriptName(Script.Get());
+		SaveWString(_File, ScriptName);
+
+		Script->SaveToLevelFile(_File);
+	}
+
+	// Child 오브젝트
+	size_t ChildCount = m_vecChild.size();
+	fwrite(&ChildCount, sizeof(size_t), 1, _File);
+
+	for (const auto& Child : m_vecChild)
+	{
+		Child->SaveToLevelFile(_File);
+	}
+}
+
+void GameObject::LoadFromLevelFile(FILE* _File)
+{
+	// 이름
+	SetName(LoadWString(_File));
+
+	// 컴포넌트
+	UINT ComType = 0;
+
+	while (true)
+	{
+		fread(&ComType, sizeof(UINT), 1, _File);
+
+		if (ComType == (UINT)COMPONENT_TYPE::END)
+			break;
+
+		Ptr<Component> pComponent = nullptr;
+
+		switch ((COMPONENT_TYPE)ComType)
+		{
+		case COMPONENT_TYPE::TRANSFORM:
+			pComponent = new CTransform;
+			break;
+		case COMPONENT_TYPE::CAMERA:
+			pComponent = new CCamera;
+			break;
+		case COMPONENT_TYPE::COLLIDER2D:
+			pComponent = new CCollider2D;
+			break;
+		case COMPONENT_TYPE::COLLIDER3D:
+			//pComponent = new CCollider3D;
+			break;
+		case COMPONENT_TYPE::LIGHT2D:
+			pComponent = new CLight2D;
+			break;
+		case COMPONENT_TYPE::LIGHT3D:
+			//pComponent = new CTransform;
+			break;
+		case COMPONENT_TYPE::MESHRENDER:
+			pComponent = new CMeshRender;
+			break;
+		case COMPONENT_TYPE::BILLBOARD_RENDER:
+			pComponent = new CBillboardRender;
+			break;
+		case COMPONENT_TYPE::SPRITE_RENDER:
+			pComponent = new CSpriteRender;
+			break;
+		case COMPONENT_TYPE::FLIPBOOK_RENDER:
+			pComponent = new CFlipbookRender;
+			break;
+		case COMPONENT_TYPE::PARTICLE_RENDER:
+			//pComponent = new CTransform;
+			break;
+		case COMPONENT_TYPE::TILE_RENDER:
+			pComponent = new CTileRender;
+			break;
+		}
+
+		AddComponent(pComponent);
+		pComponent->LoadFromLevelFile(_File);
+	}
+
+
+
+	// 스크립트
+	size_t ScriptCount = 0;
+	fread(&ScriptCount, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < ScriptCount; ++i)
+	{
+		wstring ScriptName = LoadWString(_File);
+		Ptr<CScript> pScript = ScriptMgr::GetScript(ScriptName);
+		AddComponent(pScript.Get());
+
+		pScript->LoadFromLevelFile(_File);
+	}
+
+	// 자식 오브젝트 복구
+	size_t ChildCount = 0;
+	fread(&ChildCount, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < ChildCount; ++i)
+	{
+		Ptr<GameObject> ChildObject = new GameObject;
+		AddChild(ChildObject);
+		ChildObject->LoadFromLevelFile(_File);
+	}
 }

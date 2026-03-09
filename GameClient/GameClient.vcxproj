@@ -235,6 +235,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="SoundUI.h" />
     <ClInclude Include="Source\ScriptMgr.h" />
     <ClInclude Include="Source\Scripts\CCamMoveScript.h" />
+    <ClInclude Include="Source\Scripts\CDoubleJumpState.h" />
     <ClInclude Include="Source\Scripts\CEnemy.h" />
     <ClInclude Include="Source\Scripts\CLandState.h" />
     <ClInclude Include="Source\Scripts\CLycheeScript.h" />
@@ -332,6 +333,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="SoundUI.cpp" />
     <ClCompile Include="Source\ScriptMgr.cpp" />
     <ClCompile Include="Source\Scripts\CCamMoveScript.cpp" />
+    <ClCompile Include="Source\Scripts\CDoubleJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CEnemy.cpp" />
     <ClCompile Include="Source\Scripts\CLandState.cpp" />
     <ClCompile Include="Source\Scripts\CLycheeScript.cpp" />

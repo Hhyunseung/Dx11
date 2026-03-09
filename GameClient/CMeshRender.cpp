@@ -24,3 +24,4 @@ void CMeshRender::Render()
 	GetMesh()->Render();
 	GetMaterial()->Clear();
 }
+

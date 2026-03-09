@@ -304,6 +304,9 @@
     <ClInclude Include="Source\Scripts\CLandState.h">
       <Filter>Source\Scripts\02.Cookie\State\Land</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CDoubleJumpState.h">
+      <Filter>Source\Scripts\02.Cookie\State\Jump</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -840,6 +843,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CLandState.cpp">
       <Filter>Source\Scripts\02.Cookie\State\Land</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CDoubleJumpState.cpp">
+      <Filter>Source\Scripts\02.Cookie\State\Jump</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

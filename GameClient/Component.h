@@ -30,6 +30,9 @@ public:
     virtual void Begin() {}
     virtual void FinalTick() = 0;
 
+
+    virtual void SaveToLevelFile(FILE* _File) = 0;
+    virtual void LoadFromLevelFile(FILE* _File) = 0;
     virtual Component* Clone() = 0;
 
 public:
