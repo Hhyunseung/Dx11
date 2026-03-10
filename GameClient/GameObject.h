@@ -42,6 +42,8 @@ public:
     void AddComponent(Ptr<Component> _Com);
     Ptr<Component> GetComponent(COMPONENT_TYPE _Type) { return m_Com[(UINT)_Type]; }
 
+    vector<Ptr<CScript>> GetScripts() { return m_vecScripts; }
+
     template<typename T>
     Ptr<T> GetScript();
 

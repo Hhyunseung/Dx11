@@ -34,6 +34,15 @@ CPlayerScript::~CPlayerScript()
 {
 }
 
+void CPlayerScript::Init()
+{
+	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_JumpPower, L"JumpPower", true, 0.f);
+	AddScriptParam(SCRIPT_PARAM::PREFAB, &m_Missile, L"Missile", true, 0.f);
+	AddScriptParam(SCRIPT_PARAM::TEXTURE, &m_Tex, L"ChangeTex");
+
+	
+}
+
 
 void CPlayerScript::Begin()
 {
@@ -90,7 +99,7 @@ void CPlayerScript::Tick()
 	m_StateMachine->Tick();
 
 	//Move();
-	//Skill();
+	Skill();
 
 	//if (KEY_PRESSED(KEY::X))
 	//{
@@ -113,32 +122,38 @@ void CPlayerScript::Skill()
 {
 	if (KEY_TAP(KEY::SPACE))
 	{
-		GameObject* pObject = nullptr;
+		Vec3 vMyPos = Transform()->GetRelativePos();
+		Vec3 vMyScale = Transform()->GetRelativeScale();
+		Vec3 vRotation = Transform()->GetRelativeRot();
+		Vec3 vUp = Transform()->GetDir(DIR::UP);
+
+		Instantiate(m_Missile.Get(), 4, vMyPos + vMyScale * 0.5f * vUp);
 
 		// 미사일 생성
-		pObject = new GameObject;
-		pObject->SetName(L"Missile");
+		//GameObject* pObject = nullptr;
+		//pObject = new GameObject;
+		//pObject->SetName(L"Missile");
 
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CMeshRender);
-		pObject->AddComponent(new CCollider2D);
+		//pObject->AddComponent(new CTransform);
+		//pObject->AddComponent(new CMeshRender);
+		//pObject->AddComponent(new CCollider2D);
 
-		Ptr<CMissileScript> pMissileScript = new CMissileScript;
-		pMissileScript->SetTarget(m_Target);
-		pObject->AddComponent(pMissileScript.Get()); // 부모 포인터
+		//Ptr<CMissileScript> pMissileScript = new CMissileScript;
+		//pMissileScript->SetTarget(m_Target);
+		//pObject->AddComponent(pMissileScript.Get()); // 부모 포인터
 
-		Vec3 pPlayerPos = GetOwner()->Transform()->GetRelativePos();
-		Vec3 pPlayerScale = GetOwner()->Transform()->GetRelativeScale();
-		Vec3 pRight = GetOwner()->Transform()->GetDir(DIR::RIGHT);
+		//Vec3 pPlayerPos = GetOwner()->Transform()->GetRelativePos();
+		//Vec3 pPlayerScale = GetOwner()->Transform()->GetRelativeScale();
+		//Vec3 pRight = GetOwner()->Transform()->GetDir(DIR::RIGHT);
 
-		pObject->Transform()->SetRelativePos(pPlayerPos + pPlayerScale * 0.5f * pRight);
-		pObject->Transform()->SetRelativeRot(GetOwner()->Transform()->GetRelativeRot());
-		pObject->Transform()->SetRelativeScale(Vec3(70.f, 70.f, 1.f));
+		//pObject->Transform()->SetRelativePos(pPlayerPos + pPlayerScale * 0.5f * pRight);
+		//pObject->Transform()->SetRelativeRot(GetOwner()->Transform()->GetRelativeRot());
+		//pObject->Transform()->SetRelativeScale(Vec3(70.f, 70.f, 1.f));
 
-		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
+		//pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+		//pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
 
-		CreateObject(pObject, 4);
+		//CreateObject(pObject, 4);
 
 		// Player 와 Child 부모자식 연결
 		//GetOwner()->AddChild(pObject);

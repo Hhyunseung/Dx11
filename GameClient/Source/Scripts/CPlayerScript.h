@@ -38,6 +38,8 @@ class CPlayerScript :
 private:
     ///  어떤 물체를 가리키고 있는지 ... 는 GUID 같은 걸로 관리해서 찾는게
     Ptr<GameObject>		m_Target;
+	Ptr<ATexture>        m_Tex;
+	Ptr<APrefab>         m_Missile;
 
 	CCollider2D*		m_BodyCollider; // 충돌체 컴포넌트
 	CCollider2D*		m_FeetCollider; // 땅 체크용 충돌체 컴포넌트
@@ -76,6 +78,7 @@ public:
 	GET_SET(bool, IsDoubleJump);
 
 public:
+	virtual void Init() override;
 	void Begin() override;
     virtual void Tick() override;
 

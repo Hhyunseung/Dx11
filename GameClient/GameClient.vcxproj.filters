@@ -307,6 +307,12 @@
     <ClInclude Include="Source\Scripts\CDoubleJumpState.h">
       <Filter>Source\Scripts\02.Cookie\State\Jump</Filter>
     </ClInclude>
+    <ClInclude Include="ScriptUI.h">
+      <Filter>GameEngine\07.EditorUI\08.AssetUI\12.ScriptUI</Filter>
+    </ClInclude>
+    <ClInclude Include="APrefab.h">
+      <Filter>GameEngine\04.Asset\09.Prefab</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -565,6 +571,12 @@
     </Filter>
     <Filter Include="Source\Scripts\02.Cookie\State\Land">
       <UniqueIdentifier>{fa865398-a768-4c3a-94b8-b2ade79c77db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\07.EditorUI\08.AssetUI\12.ScriptUI">
+      <UniqueIdentifier>{33fc54f1-e65a-41b5-aeab-ff01ce8860f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\04.Asset\09.Prefab">
+      <UniqueIdentifier>{6dffe48c-ceae-4962-b020-60d4317385f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -846,6 +858,12 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CDoubleJumpState.cpp">
       <Filter>Source\Scripts\02.Cookie\State\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptUI.cpp">
+      <Filter>GameEngine\07.EditorUI\08.AssetUI\12.ScriptUI</Filter>
+    </ClCompile>
+    <ClCompile Include="APrefab.cpp">
+      <Filter>GameEngine\04.Asset\09.Prefab</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

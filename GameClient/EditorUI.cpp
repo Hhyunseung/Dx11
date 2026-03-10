@@ -83,7 +83,9 @@ void EditorUI::Tick()
 
 	else
 	{
-		ImGui::BeginChild(m_UIName.c_str(), m_SizeAsChild);
+		string StrKey = m_UIName + m_UIKey;
+
+		ImGui::BeginChild(StrKey.c_str(), m_SizeAsChild);
 
 		CheckFocus();
 

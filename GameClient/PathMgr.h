@@ -17,4 +17,4 @@ public:
 
 };
 
-#define CONTENT_PATH PathMgr::GetInst()->GetContentPath()
+#define CONTENT_PATH wstring(PathMgr::GetInst()->GetContentPath())

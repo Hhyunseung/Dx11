@@ -10,6 +10,7 @@ void AssetMgr::Init()
 	CreateEngineTexture();
 	CreateEngineMaterial();
 	CreateEngineSprite();
+	CreateEnginePrefab();
 }
 
 void AssetMgr::CreateEngineMesh()
@@ -655,4 +656,32 @@ void AssetMgr::CreateEngineSprite()
 	//	wstring FilePath = CONTENT_PATH + pair.first;
 	//	pair.second->Save(FilePath);
 	//}
+}
+
+#include "Source/Scripts/CMissileScript.h"
+void AssetMgr::CreateEnginePrefab()
+{
+	LOAD(APrefab, L"Prefab\\Missile.pref");
+
+	//// Missile 역할 프리팹 제작
+	//GameObject* pObject = new GameObject;
+	//pObject->SetName(L"Missile");
+	//
+	//pObject->AddComponent(new CTransform);
+	//pObject->AddComponent(new CMeshRender);
+	//pObject->AddComponent(new CCollider2D);	
+	//pObject->AddComponent(new CMissileScript);		
+	//
+	//pObject->Transform()->SetRelativeScale(Vec3(10.f, 30.f, 1.f));
+	//
+	//pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+	//pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
+	//
+	//// 미사일 오브젝트를 프리팹으로 등록
+	//Ptr<APrefab> pMissilePrefab = new APrefab;
+	//pMissilePrefab->SetObject(pObject);
+	//AddAsset(L"Prefab\\Missile.pref", pMissilePrefab.Get());
+	//
+	//wstring FilePath = CONTENT_PATH + L"Prefab\\Missile.pref";
+	//pMissilePrefab->Save(FilePath);
 }

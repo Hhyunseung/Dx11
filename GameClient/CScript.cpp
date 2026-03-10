@@ -2,6 +2,8 @@
 #include "CScript.h"
 
 #include "TaskMgr.h"
+#include "APrefab.h"
+
 
 CScript::CScript(int _ScriptType)
 	: Component(COMPONENT_TYPE::SCRIPT)
@@ -9,8 +11,26 @@ CScript::CScript(int _ScriptType)
 {
 }
 
+CScript::CScript(const CScript& _Origin)
+	: Component(_Origin)
+	, m_ScriptType(_Origin.m_ScriptType)
+{
+}
+
 CScript::~CScript()
 {
+}
+
+void CScript::Instantiate(APrefab* _Prefab, int _LayerIdx, Vec3 _WorldPos)
+{
+	if (nullptr == _Prefab)
+		return;
+
+	GameObject* pObject = _Prefab->Instantiate();
+
+	pObject->Transform()->SetRelativePos(_WorldPos);
+
+	CreateObject(pObject, _LayerIdx);
 }
 
 void CScript::Destroy()

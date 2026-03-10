@@ -29,6 +29,7 @@ private:
 	void CreateEngineTexture();
 	void CreateEngineMaterial();
 	void CreateEngineSprite();
+	void CreateEnginePrefab();
 
 public:
 	void AddAsset(const wstring& _Key, Ptr<Asset> _Asset);
@@ -69,6 +70,8 @@ ASSET_TYPE GetAssetType()
 		return ASSET_TYPE::TILEMAP;
 	else if constexpr (IsSameType<T, ALevel>)
 		return ASSET_TYPE::LEVEL;
+	else if constexpr (IsSameType<T, APrefab>)
+		return ASSET_TYPE::PREFAB;
 
 	//if (info.hash_code() == typeid(AMesh).hash_code())
 	//	Type = ASSET_TYPE::MESH;
