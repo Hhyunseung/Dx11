@@ -236,6 +236,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="single.h" />
     <ClInclude Include="SoundUI.h" />
     <ClInclude Include="Source\ScriptMgr.h" />
+    <ClInclude Include="Source\Scripts\CBGScrollScript.h" />
     <ClInclude Include="Source\Scripts\CCamMoveScript.h" />
     <ClInclude Include="Source\Scripts\CDoubleJumpState.h" />
     <ClInclude Include="Source\Scripts\CEnemy.h" />
@@ -243,9 +244,11 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CLycheeScript.h" />
     <ClInclude Include="Source\Scripts\CMissileScript.h" />
     <ClInclude Include="Source\Scripts\CMonsterScript.h" />
+    <ClInclude Include="Source\Scripts\CMovingPlatformScirpt.h" />
     <ClInclude Include="Source\Scripts\CPlayerScript.h" />
     <ClInclude Include="Source\Scripts\CJumpState.h" />
     <ClInclude Include="Source\Scripts\CRunState.h" />
+    <ClInclude Include="Source\Scripts\CScrollScript.h" />
     <ClInclude Include="Source\Scripts\CStateMachine.h" />
     <ClInclude Include="SpriteRenderUI.h" />
     <ClInclude Include="SpriteUI.h" />
@@ -336,6 +339,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="ScriptUI.cpp" />
     <ClCompile Include="SoundUI.cpp" />
     <ClCompile Include="Source\ScriptMgr.cpp" />
+    <ClCompile Include="Source\Scripts\CBGScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CCamMoveScript.cpp" />
     <ClCompile Include="Source\Scripts\CDoubleJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CEnemy.cpp" />
@@ -343,9 +347,11 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CLycheeScript.cpp" />
     <ClCompile Include="Source\Scripts\CMissileScript.cpp" />
     <ClCompile Include="Source\Scripts\CMonsterScript.cpp" />
+    <ClCompile Include="Source\Scripts\CMovingPlatformScirpt.cpp" />
     <ClCompile Include="Source\Scripts\CPlayerScript.cpp" />
     <ClCompile Include="Source\Scripts\CJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CRunState.cpp" />
+    <ClCompile Include="Source\Scripts\CScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CStateMachine.cpp" />
     <ClCompile Include="SpriteRenderUI.cpp" />
     <ClCompile Include="SpriteUI.cpp" />
@@ -369,6 +375,12 @@ call CodeGen.exe</Command>
     <None Include="SimpleMath.inl" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="bg_scroll.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="billboard.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>

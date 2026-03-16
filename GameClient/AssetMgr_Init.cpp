@@ -192,6 +192,21 @@ void AssetMgr::CreateEngineShader()
 	pShader->SetBSType(BS_TYPE::DEFAULT);
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
+
+
+	// ============= BGScrollShader ================//
+	pShader = new AGraphicShader;
+	pShader->SetName(L"BGScrollShader");
+	pShader->CreateVertexShader(L"Shader\\bg_scroll.fx", "VS_BGScroll2D");
+	pShader->CreatePixelShader(L"Shader\\bg_scroll.fx", "PS_BGScroll2D");
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+
+	pShader->AddShaderParam(SHADER_PARAM::FLOAT, 0, L"Speed");
+	pShader->AddShaderParam(SHADER_PARAM::TEX, 0, L"OutColor");
+
+	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
+
 	
 	//================== DbgShader 积己 ==============//
 	pShader = new AGraphicShader;
@@ -267,13 +282,14 @@ void AssetMgr::CreateEngineMaterial()
 
 	Load<AMaterial>(L"Material\\Default Material_0.mtrl", L"Material\\Default Material_0.mtrl");
 
+
 	// ================== 秦利 甘_1 积己 ==============//
 	pMtrl = new AMaterial;
 	pMtrl->SetName(L"BackGround_Ship_Stage1_1_Mtrl");
-	pMtrl->SetShader(FindAsset<AGraphicShader>(L"Std2DShader"));
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"BGScrollShader"));
 
 	// Parameter
-	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	pMtrl->SetScalar(VEC2_0, (0.f, 0.f));
 	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"BackGroundShipStage1_1"));
 
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_OPAQUE);
@@ -282,10 +298,10 @@ void AssetMgr::CreateEngineMaterial()
 
 	pMtrl = new AMaterial;
 	pMtrl->SetName(L"BackGround_Ship_Stage1_2_Mtrl");
-	pMtrl->SetShader(FindAsset<AGraphicShader>(L"Std2DShader"));
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"BGScrollShader"));
 
 	// Parameter
-	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	pMtrl->SetScalar(VEC2_0, (0.f, 0.f));
 	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"BackGroundShipStage1_2"));
 
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_OPAQUE);

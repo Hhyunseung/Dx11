@@ -148,19 +148,21 @@ bool IsValid(Ptr<GameObject>& _Object)
 #include "Device.h"
 #include "CollisionMgr.h"
 
-#include "Source\Scripts\CCamMoveScript.h"
-#include "Source\Scripts\CPlayerScript.h"
-#include "Source\Scripts\CMonsterScript.h"
-#include "Source\Scripts\CStateMachine.h"
+#include "Source/Scripts/CCamMoveScript.h"
+#include "Source/Scripts/CPlayerScript.h"
+#include "Source/Scripts/CMonsterScript.h"
+#include "Source/Scripts/CStateMachine.h"
+#include "Source/Scripts/CScrollScript.h"
+#include "Source/Scripts/CBGScrollScript.h"
 
 void CreateTestLevel()
 {
-	//{
-	//	Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
-	//	ChangeLevel(L"Level\\TestLevel.lv");
-	//}
+	{
+		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+		ChangeLevel(L"Level\\TestLevel.lv");
+	}
 
-	//return;
+	return;
 
 
 	// Level 생성
@@ -245,6 +247,7 @@ void CreateTestLevel()
 		pMonster->AddComponent(new CTransform);
 		pMonster->AddComponent(new CMeshRender);
 		pMonster->AddComponent(new CCollider2D);
+		pMonster->AddComponent(new CScrollScript);
 		pMonster->AddComponent(new CMonsterScript);
 
 		pMonster->Transform()->SetRelativePos(Vec3(300.f * (float)i, 0.f, 100.f));
@@ -341,45 +344,35 @@ void CreateTestLevel()
 	// Player(부모 오브젝트) 를 레벨에 추가
 	pLevel->AddObject(3, pObject);
 
-	// Back Ground - 가로로 반복
-	for (int i = 0; i < 3; ++i)  // 3개의 배경을 가로로 배치
-	{
-		pObject = new GameObject;
-		wchar_t nameBuff[50] = {};
-		swprintf_s(nameBuff, L"BackGround_1_%d", i);
-		pObject->SetName(nameBuff);
+	pObject = new GameObject;
+	pObject->SetName(L"BackGround_1_1");
 
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CMeshRender);
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CMeshRender);
+	pObject->AddComponent(new CBGScrollScript);
 
-		pObject->Transform()->SetRelativePos(Vec3(-50.f + (2066.f * i), 0.f, 900.f));  // 가로로 배치
-		pObject->Transform()->SetRelativeScale(Vec3(2066.f, 740.f, 1.f));
+	pObject->Transform()->SetRelativePos(Vec3(-50.f, 0.f, 900.f));  // 첫 배경 위치
+	pObject->Transform()->SetRelativeScale(Vec3(2066.f, 740.f, 1.f));
 
-		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"BackGround_Ship_Stage1_1_Mtrl"));
+	pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+	pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"BackGround_Ship_Stage1_1_Mtrl"));
 
-		pLevel->AddObject(1, pObject);
-	}
+	pLevel->AddObject(1, pObject);
 
-	// Back Ground - 가로로 반복
-	for (int i = 0; i < 3; ++i)  // 5개의 배경을 가로로 배치
-	{
-		pObject = new GameObject;
-		wchar_t nameBuff[50] = {};
-		swprintf_s(nameBuff, L"BackGround_2_%d", i);
-		pObject->SetName(nameBuff);
+	pObject = new GameObject;
+	pObject->SetName(L"BackGround_2_1");
 
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CMeshRender);
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CMeshRender);
+	pObject->AddComponent(new CBGScrollScript);
 
-		pObject->Transform()->SetRelativePos(Vec3(-50.f + (2066.f * i), 0.f, 800.f));  // 가로로 배치
-		pObject->Transform()->SetRelativeScale(Vec3(2066.f, 740.f, 1.f));
+	pObject->Transform()->SetRelativePos(Vec3(-50.f, 0.f, 800.f));  // 첫 배경 위치
+	pObject->Transform()->SetRelativeScale(Vec3(2066.f, 740.f, 1.f));
 
-		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"BackGround_Ship_Stage1_2_Mtrl"));
+	pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+	pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"BackGround_Ship_Stage1_2_Mtrl"));
 
-		pLevel->AddObject(1, pObject);
-	}
+	pLevel->AddObject(1, pObject);
 
 
 	for (int i = 0; i < 10; ++i)
@@ -392,8 +385,9 @@ void CreateTestLevel()
 		pObject->AddComponent(new CTransform);
 		pObject->AddComponent(new CMeshRender);
 		pObject->AddComponent(new CCollider2D);
+		pObject->AddComponent(new CScrollScript);
 
-		pObject->Transform()->SetRelativePos(Vec3(-100.f + (124.f * i), -200.f, 700.f));
+		pObject->Transform()->SetRelativePos(Vec3(-740.f + (124.f * i), -300.f, 700.f));
 		pObject->Transform()->SetRelativeScale(Vec3(124.f, 140.f, 1.f));
 
 		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));

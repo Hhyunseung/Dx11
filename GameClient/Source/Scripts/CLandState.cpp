@@ -43,5 +43,4 @@ void CLandState::Tick()
 
 void CLandState::Exit(PLAYER_STATE_ID _Next)
 {
-
 }

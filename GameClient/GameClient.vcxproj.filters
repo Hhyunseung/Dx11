@@ -313,6 +313,15 @@
     <ClInclude Include="APrefab.h">
       <Filter>GameEngine\04.Asset\09.Prefab</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CMovingPlatformScirpt.h">
+      <Filter>Source\Scripts\01.Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CScrollScript.h">
+      <Filter>Source\Scripts\03.Scroll</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CBGScrollScript.h">
+      <Filter>Source\Scripts\03.Scroll</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -577,6 +586,9 @@
     </Filter>
     <Filter Include="GameEngine\04.Asset\09.Prefab">
       <UniqueIdentifier>{6dffe48c-ceae-4962-b020-60d4317385f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\03.Scroll">
+      <UniqueIdentifier>{60183a4c-ec4d-4a80-a387-dd0cff19ff51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -865,6 +877,15 @@
     <ClCompile Include="APrefab.cpp">
       <Filter>GameEngine\04.Asset\09.Prefab</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scripts\CMovingPlatformScirpt.cpp">
+      <Filter>Source\Scripts\01.Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CScrollScript.cpp">
+      <Filter>Source\Scripts\03.Scroll</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CBGScrollScript.cpp">
+      <Filter>Source\Scripts\03.Scroll</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -898,6 +919,9 @@
     </FxCompile>
     <FxCompile Include="func.fx">
       <Filter>HLSL\1.Header</Filter>
+    </FxCompile>
+    <FxCompile Include="bg_scroll.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

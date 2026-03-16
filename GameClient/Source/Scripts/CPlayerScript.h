@@ -46,7 +46,7 @@ private:
 
 	Ptr<CStateMachine>	m_StateMachine; // 상태 머신
 
-	CCollider2D*		m_LandCollider; // 착지 하고 있는 땅 
+	vector<CCollider2D*> m_GroundColliders; // 발과 충돌 중인 모든 플랫폼들
 
 	float				m_PrevFeetY; // 땅 체크용 충돌체의 이전 y 좌표
 	float			    m_CurFeetY; // 땅 체크용 충돌체의 y 좌표

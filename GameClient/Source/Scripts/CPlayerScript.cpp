@@ -21,9 +21,10 @@ CPlayerScript::CPlayerScript()
 	, m_BodyCollider(nullptr)
 	, m_FeetCollider(nullptr)
 	, m_gravity(-980.f)
+	, m_VelY(0.f)
 	, m_JumpPower(800.f)
 	, m_DoubleJumpPower(600.f)
-	, m_IsLand(true)
+	, m_IsLand(false)
 	, m_IsJump(false)
 	, m_IsDoubleJump(false)
 {
@@ -212,19 +213,23 @@ void CPlayerScript::Slide()
 }
 
 
+// 충돌 체크용 충돌체
 void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
 }
 
+
+
+// 땅 체크용 충돌체
 void CPlayerScript::FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
 	if ((m_FeetCollider->GetBottomY() <= _OtherCollider->GetTopY())
-		&& (m_CurFeetY <= m_PrevFeetY) && !m_IsLand)
+		&& (m_CurFeetY <= m_PrevFeetY))
 	{
+		m_GroundColliders.push_back(_OtherCollider);
+
 		m_IsLand = true;
 		m_VelY = 0.f;
-
-		m_LandCollider = _OtherCollider;
 	}
 }
 
@@ -235,7 +240,17 @@ void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCo
 
 void CPlayerScript::FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
-	m_IsLand = false;
+	for (auto iter = m_GroundColliders.begin(); iter != m_GroundColliders.end(); ++iter)
+	{
+		if (*iter == _OtherCollider)
+		{
+			m_GroundColliders.erase(iter);
+			break;
+		}
+	}
+
+	if (m_GroundColliders.empty())
+		m_IsLand = false;
 }
 
 

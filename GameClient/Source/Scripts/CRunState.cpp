@@ -30,9 +30,6 @@ void CRunState::Enter(PLAYER_STATE_ID _prev)
 
 void CRunState::Tick()
 {
-
-
-
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 	Vec3 vScale = GetOwner()->Transform()->GetRelativeScale();
 	Vec3 vRotation = GetOwner()->Transform()->GetRelativeRot();
@@ -60,4 +57,5 @@ void CRunState::Tick()
 
 void CRunState::Exit(PLAYER_STATE_ID _Next)
 {
+
 }
