@@ -181,16 +181,16 @@ void CPlayerScript::Jump()
 	if (KEY_TAP(KEY::SPACE))
 	{
 		// 착지 상태에서 점프
-		if (m_IsLand)
+		if (m_IsLand && m_IsJump == false)
 		{
-			m_JumpPower = 800.f;
+			m_VelY = m_JumpPower;
 			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
 		}
 
 		// 더블 점프
-		else
+		else if (!m_IsLand && m_IsJump == true && m_IsDoubleJump == false)
 		{
-			m_JumpPower = 600.f;
+			m_VelY = m_DoubleJumpPower;
 			m_StateMachine->ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
 		}
 	}
@@ -200,8 +200,8 @@ void CPlayerScript::Jump()
 	{
 		Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 
-		m_JumpPower += m_gravity * 2 * DT;
-		vPos.y += m_JumpPower * DT;
+		m_VelY += m_gravity * 2 * DT;
+		vPos.y += m_VelY * DT;
 		
 		GetOwner()->Transform()->SetRelativePos(vPos);
 	}
@@ -221,7 +221,10 @@ void CPlayerScript::FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _Ot
 	if ((m_FeetCollider->GetBottomY() <= _OtherCollider->GetTopY())
 		&& (m_CurFeetY <= m_PrevFeetY) && !m_IsLand)
 	{
-		m_StateMachine->ChangeState(PLAYER_STATE_ID::LAND);
+		m_IsLand = true;
+		m_VelY = 0.f;
+
+		m_LandCollider = _OtherCollider;
 	}
 }
 

@@ -22,7 +22,6 @@ CDoubleJumpState::~CDoubleJumpState()
 void CDoubleJumpState::Enter(PLAYER_STATE_ID _prev)
 {
 	GetOwner()->SetIsLand(false);
-	GetOwner()->SetIsJump(true);
 	GetOwner()->SetIsDoubleJump(true);
 
 	GetOwner()->FlipbookRender()->Play(2, 8.f, 1);
@@ -38,4 +37,5 @@ void CDoubleJumpState::Tick()
 
 void CDoubleJumpState::Exit(PLAYER_STATE_ID _Next)
 {
+	GetOwner()->SetIsDoubleJump(false);
 }
