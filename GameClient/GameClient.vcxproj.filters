@@ -322,6 +322,9 @@
     <ClInclude Include="Source\Scripts\CBGScrollScript.h">
       <Filter>Source\Scripts\03.Scroll</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CSlideState.h">
+      <Filter>Source\Scripts\02.Cookie\State\Slide</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -589,6 +592,9 @@
     </Filter>
     <Filter Include="Source\Scripts\03.Scroll">
       <UniqueIdentifier>{60183a4c-ec4d-4a80-a387-dd0cff19ff51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\02.Cookie\State\Slide">
+      <UniqueIdentifier>{31363dd5-96c3-4483-8319-3127659bf244}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -885,6 +891,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CBGScrollScript.cpp">
       <Filter>Source\Scripts\03.Scroll</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CSlideState.cpp">
+      <Filter>Source\Scripts\02.Cookie\State\Slide</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -222,7 +222,6 @@ void AssetMgr::CreateEngineShader()
 void AssetMgr::CreateEngineTexture()
 {
 	// 이미지 한장 로딩해보기
-	Load<ATexture>(L"PlayerImage", L"Texture\\Character.png");
 	Load<ATexture>(L"Missile", L"Texture\\Missile.png");
 	Load<ATexture>(L"Enemy", L"Texture\\Enemy.png");
 	Load<ATexture>(L"Link", L"Texture\\link.png");
@@ -232,13 +231,29 @@ void AssetMgr::CreateEngineTexture()
 	// ==============================
 	// 리치드래곤 쿠키 애니메이션 텍스쳐
 	// ==============================
-	Load<ATexture>(L"DragonCookieIdle", L"Texture\\Lychee_Idle.png");
-	Load<ATexture>(L"DragonCookieJump", L"Texture\\Lychee_Jump.png");
-	Load<ATexture>(L"DragonCookieDoubleJump", L"Texture\\Lychee_DoubleJump.png");
-	Load<ATexture>(L"DragonCookieLand", L"Texture\\Lychee_Land.png");
+	Load<ATexture>(L"DragonCookieIdle", L"Texture\\Lychee\\Lychee_Idle.png");
+	Load<ATexture>(L"DragonCookieJump", L"Texture\\Lychee\\Lychee_Jump.png");
+	Load<ATexture>(L"DragonCookieDoubleJump", L"Texture\\Lychee\\Lychee_DoubleJump.png");
+	Load<ATexture>(L"DragonCookieLand", L"Texture\\Lychee\\Lychee_Land.png");
+	Load<ATexture>(L"DragonCookieHit", L"Texture\\Lychee\\Lychee_Hit.png");
+	Load<ATexture>(L"DragonCookieSlide", L"Texture\\Lychee\\Lychee_Slide.png");
+	Load<ATexture>(L"DragonCookieDead", L"Texture\\Lychee\\Lychee_Dead.png");
+	Load<ATexture>(L"DragonCookieHitDead", L"Texture\\Lychee\\Lychee_Hit_Dead.png");
 
-	Load<ATexture>(L"DragonCookiePetIdle", L"Texture\\Lycheye_Idle.png");
+	Load<ATexture>(L"DragonCookiePetIdle", L"Texture\\Lycheye\\Lycheye_Idle.png");
 
+
+	// ==============================
+	// 시간지기 쿠키 애니메이션 텍스쳐
+	// ==============================
+	Load<ATexture>(L"TimeKeeperCookieIdle", L"Texture\\TimeKeeper\\Timekeeper_Idle.png");
+	Load<ATexture>(L"TimeKeeperCookieJump", L"Texture\\TimeKeeper\\Timekeeper_Jump.png");
+	Load<ATexture>(L"TimeKeeperCookieDoubleJump", L"Texture\\TimeKeeper\\TimeKeeper_DoubleJump.png");
+	Load<ATexture>(L"TimeKeeperCookieLand", L"Texture\\TimeKeeper\\TimeKeeper_Land.png");
+	Load<ATexture>(L"TimeKeeperCookieHit", L"Texture\\TimeKeeper\\TimeKeeper_Hit.png");
+	Load<ATexture>(L"TimeKeeperCookieSlide", L"Texture\\TimeKeeper\\TimeKeeper_Slide.png");
+	Load<ATexture>(L"TimeKeeperCookieDead", L"Texture\\TimeKeeper\\TimeKeeper_Dead.png");
+	//Load<ATexture>(L"DragonCookieHitDead", L"Texture\\TimeKeeper\\TimeKeeper_Hit_Dead.png");
 
 
 	// ==========
@@ -582,16 +597,16 @@ void AssetMgr::CreateEngineSprite()
 	*/
 
  //추가할때 임시
-	//Ptr<ATexture> pAtlas = FIND(ATexture, L"DragonCookieLand");
+	//Ptr<ATexture> pAtlas = FIND(ATexture, L"TimeKeeperCookieIdle");
 	//float Width = pAtlas->GetWidth();
 	//float Height = pAtlas->GetHeight();
-	//Vec2 SlicePixel = Vec2(364.f, 364.f);
+	//Vec2 SlicePixel = Vec2(359.f, 359.f);
 	//
 	//Ptr<ASprite> pSprite = nullptr;
-	//for (int i = 0; i < 2; i++)
+	//for (int i = 0; i < 4; i++)
 	//{
 	//	wchar_t Buff[50] = {};
-	//	swprintf_s(Buff, L"Sprite\\DragonCookieLand_%d.sprite", i);
+	//	swprintf_s(Buff, L"Sprite\\TimeKeeperCookieIdle_%d.sprite", i);
 	//
 	//	pSprite = new ASprite;
 	//	pSprite->SetName(Buff);
@@ -602,12 +617,12 @@ void AssetMgr::CreateEngineSprite()
 	//}
 
 	//Ptr<AFlipbook> pFlipbook = new AFlipbook;
-	//pFlipbook->SetName(L"Flipbook\\DragonCookie_Land.flip");
+	//pFlipbook->SetName(L"Flipbook\\TimeKeeperCookie_Idle.flip");
 	//
-	//for (int i = 0; i < 2; ++i)
+	//for (int i = 0; i < 4; ++i)
 	//{
 	//	wchar_t Buff[50] = {};
-	//	swprintf_s(Buff, L"Sprite\\DragonCookieLand_%d.sprite", i);
+	//	swprintf_s(Buff, L"Sprite\\TimeKeeperCookieIdle_%d.sprite", i);
 	//	pFlipbook->AddSprite(LOAD(ASprite, Buff));
 	//}
 	//AddAsset(pFlipbook->GetName(), pFlipbook.Get());
@@ -666,7 +681,7 @@ void AssetMgr::CreateEngineSprite()
 	//	pair.second->Save(FilePath);
 	//}
 
-	////모든 Flipbook을 파일로 저장
+	//모든 Flipbook을 파일로 저장
 	//for (const auto& pair : m_mapAsset[(UINT)ASSET_TYPE::FLIPBOOK])
 	//{
 	//	wstring FilePath = CONTENT_PATH + pair.first;

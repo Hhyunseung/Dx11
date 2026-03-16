@@ -157,12 +157,12 @@ bool IsValid(Ptr<GameObject>& _Object)
 
 void CreateTestLevel()
 {
-	{
-		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
-		ChangeLevel(L"Level\\TestLevel.lv");
-	}
+	//{
+	//	Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+	//	ChangeLevel(L"Level\\TestLevel.lv");
+	//}
 
-	return;
+	//return;
 
 
 	// Level »ý¼º
@@ -276,7 +276,7 @@ void CreateTestLevel()
 	pObject->Collider2D()->SetOffset(Vec2(0.5f, 0.f));
 
 	//// Save ÈÄ Load
-	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Idle.flip"));
+	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\TimeKeeperCookie_Idle.flip"));
 	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Jump.flip"));
 	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_DoubleJump.flip"));
 	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Land.flip"));

@@ -14,6 +14,7 @@
 #include "Scripts/CPlayerScript.h"
 #include "Scripts/CRunState.h"
 #include "Scripts/CScrollScript.h"
+#include "Scripts/CSlideState.h"
 #include "Scripts/CStateMachine.h"
 
 void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
@@ -31,6 +32,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CRunState");
 	_vec.push_back(L"CScrollScript");
+	_vec.push_back(L"CSlideState");
 	_vec.push_back(L"CStateMachine");
 }
 
@@ -62,6 +64,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CRunState;
 	if (L"CScrollScript" == _strScriptName)
 		return new CScrollScript;
+	if (L"CSlideState" == _strScriptName)
+		return new CSlideState;
 	if (L"CStateMachine" == _strScriptName)
 		return new CStateMachine;
 	return nullptr;
@@ -109,6 +113,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::SCROLLSCRIPT:
 		return new CScrollScript;
+		break;
+	case (UINT)SCRIPT_TYPE::SLIDESTATE:
+		return new CSlideState;
 		break;
 	case (UINT)SCRIPT_TYPE::STATEMACHINE:
 		return new CStateMachine;
@@ -171,6 +178,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::SCROLLSCRIPT:
 		return L"CScrollScript";
+		break;
+
+	case SCRIPT_TYPE::SLIDESTATE:
+		return L"CSlideState";
 		break;
 
 	case SCRIPT_TYPE::STATEMACHINE:
