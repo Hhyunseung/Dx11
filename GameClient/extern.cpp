@@ -22,3 +22,19 @@ const char* ToString(ASSET_TYPE _Type)
 {
 	return ASSET_TYPE_STR[(UINT)_Type];
 }
+
+const char* PLAYER_STATE_STR[(UINT)PLAYER_STATE_ID::END] =
+{
+	"RUN",
+	"JUMP",
+	"DOUBLE_JUMP",
+	"LAND",
+	"SLIDE",
+	"HIT",
+	"DEAD",
+};
+
+const char* ToString(PLAYER_STATE_ID _Type)
+{
+	return PLAYER_STATE_STR[(UINT)_Type];
+}

@@ -38,7 +38,6 @@ void MeshRenderUI::Tick_UI()
 
 	ImGui::InputText("##MeshName", MeshKey.data(), MeshKey.length() + 1, ImGuiInputTextFlags_ReadOnly);
 
-
 	// 드랍 체크
 	// 특정 위젯에서 드래그가 발생했고, 해당 위젯 위에 마우스가 호버링 중이면 true
 	if (ImGui::BeginDragDropTarget())

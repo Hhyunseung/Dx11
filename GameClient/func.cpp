@@ -261,88 +261,102 @@ void CreateTestLevel()
 	}
 
 	// 플레이어 오브젝트 생성
-	pObject = new GameObject;
-	pObject->SetName(L"Player");
+	//
+	//pObject = new GameObject;
+	//pObject->SetName(L"Player");
 
-	pObject->AddComponent(new CTransform);
-	pObject->AddComponent(new CFlipbookRender);
-	pObject->AddComponent(new CCollider2D);
-	pObject->AddComponent(new CPlayerScript);
+	//pObject->AddComponent(new CTransform);
+	//pObject->AddComponent(new CFlipbookRender);
+	//pObject->AddComponent(new CCollider2D);
+	//pObject->AddComponent(new CPlayerScript);
 
-	pObject->Transform()->SetRelativePos(Vec3(0.f, 17.f, 100.f));
-	pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
+	//pObject->Transform()->SetRelativePos(Vec3(0.f, 17.f, 100.f));
+	//pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
 
-	pObject->Collider2D()->SetScale(Vec2(0.25f, 0.25f));
-	pObject->Collider2D()->SetOffset(Vec2(0.5f, 0.f));
+	//pObject->Collider2D()->SetScale(Vec2(0.25f, 0.25f));
+	//pObject->Collider2D()->SetOffset(Vec2(0.5f, 0.f));
 
-	//// Save 후 Load
-	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\TimeKeeperCookie_Idle.flip"));
-	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Jump.flip"));
-	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_DoubleJump.flip"));
-	pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Land.flip"));
-	
-	pObject->FlipbookRender()->Play(0, 8.f, -1);
-
-
-	// 자식 오브젝트 생성
-	//////// 펫은 자식 오브젝트로 설정안하고 따로 따라오게 해야할듯..
-	//////// 플레이어 뒤를 딜레이 주고 따라오는 느낌으로 만들어야
-	Ptr<GameObject> pChild = new GameObject;
-	pChild->SetName(L"CookiePet");
-
-	pChild->AddComponent(new CTransform);
-	pChild->AddComponent(new CFlipbookRender);
-
-	/// 부모의 상대적인 위치와 크기로 설정해야함
-	pChild->Transform()->SetRelativePos(Vec3(-80.f, -65.f, 0.f));
-	pChild->Transform()->SetRelativeScale(Vec3(150.f, 150.f, 1.f));
-	pChild->Transform()->SetIndependentScale(true);
-
-	pChild->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_PetIdle.flip"));
-	pChild->FlipbookRender()->Play(0, 8.f, -1);
+	////// Save 후 Load
+	//pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\TimeKeeperCookie_Idle.flip"));
+	//pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Jump.flip"));
+	//pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_DoubleJump.flip"));
+	//pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_Land.flip"));
+	//
+	//pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 
-	// Player 와 Child 부모자식 연결
-	pObject->AddChild(pChild);
+	//// 자식 오브젝트 생성
+	////////// 펫은 자식 오브젝트로 설정안하고 따로 따라오게 해야할듯..
+	////////// 플레이어 뒤를 딜레이 주고 따라오는 느낌으로 만들어야
+	//Ptr<GameObject> pChild = new GameObject;
+	//pChild->SetName(L"CookiePet");
 
-	// 발 센서 역할을 하는 자식 오브젝트
-	pChild = new GameObject;
-	pChild->SetName(L"FootSensor");
+	//pChild->AddComponent(new CTransform);
+	//pChild->AddComponent(new CFlipbookRender);
 
-	pChild->AddComponent(new CTransform);
-	pChild->AddComponent(new CCollider2D);
+	///// 부모의 상대적인 위치와 크기로 설정해야함
+	//pChild->Transform()->SetRelativePos(Vec3(-80.f, -65.f, 0.f));
+	//pChild->Transform()->SetRelativeScale(Vec3(150.f, 150.f, 1.f));
+	//pChild->Transform()->SetIndependentScale(true);
 
-	pChild->Transform()->SetRelativePos(Vec3(-5.f, -147.f, 0.f));
-	pChild->Transform()->SetRelativeScale(Vec3(60.f, 7.f, 1.f));
-	pChild->Transform()->SetIndependentScale(true);
-	
-	//Ptr<CPlayerScript> pPlayerScript = new CPlayerScript;
-	//pPlayerScript->SetFeetCollider(pChild);
-	//pObject->AddComponent(pPlayerScript.Get());
-
-
-	// Player 와 Child 부모자식 연결
-	pObject->AddChild(pChild);
+	//pChild->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\DragonCookie_PetIdle.flip"));
+	//pChild->FlipbookRender()->Play(0, 8.f, -1);
 
 
-	// 발 센서 역할을 하는 자식 오브젝트
-	pChild = new GameObject;
-	pChild->SetName(L"BodySensor");
+	//// Player 와 Child 부모자식 연결
+	//pObject->AddChild(pChild);
 
-	pChild->AddComponent(new CTransform);
-	pChild->AddComponent(new CCollider2D);
+	//// 발 센서 역할을 하는 자식 오브젝트
+	//pChild = new GameObject;
+	//pChild->SetName(L"FootSensor");
 
-	pChild->Transform()->SetRelativePos(Vec3(-5.f, -126.f, 0.f));
-	pChild->Transform()->SetRelativeScale(Vec3(60.f, 60.f, 1.f));
-	pChild->Transform()->SetIndependentScale(true);
-	
+	//pChild->AddComponent(new CTransform);
+	//pChild->AddComponent(new CCollider2D);
 
-	// Player 와 Child 부모자식 연결
-	pObject->AddChild(pChild);
+	//pChild->Transform()->SetRelativePos(Vec3(-5.f, -147.f, 0.f));
+	//pChild->Transform()->SetRelativeScale(Vec3(60.f, 7.f, 1.f));
+	//pChild->Transform()->SetIndependentScale(true);
+	//
+	////Ptr<CPlayerScript> pPlayerScript = new CPlayerScript;
+	////pPlayerScript->SetFeetCollider(pChild);
+	////pObject->AddComponent(pPlayerScript.Get());
 
 
-	// Player(부모 오브젝트) 를 레벨에 추가
-	pLevel->AddObject(3, pObject);
+	//// Player 와 Child 부모자식 연결
+	//pObject->AddChild(pChild);
+
+
+	//// 발 센서 역할을 하는 자식 오브젝트
+	//pChild = new GameObject;
+	//pChild->SetName(L"BodySensor");
+
+	//pChild->AddComponent(new CTransform);
+	//pChild->AddComponent(new CCollider2D);
+
+	//pChild->Transform()->SetRelativePos(Vec3(-5.f, -126.f, 0.f));
+	//pChild->Transform()->SetRelativeScale(Vec3(60.f, 60.f, 1.f));
+	//pChild->Transform()->SetIndependentScale(true);
+	//
+
+	//// Player 와 Child 부모자식 연결
+	//pObject->AddChild(pChild);
+
+
+	//// Player(부모 오브젝트) 를 레벨에 추가
+	//pLevel->AddObject(3, pObject);
+
+
+	// 플레이어 오브젝트를 레벨에 추가한 후, 프리팹으로 저장
+	//Ptr<APrefab> pCharacter = new APrefab;
+	//pCharacter->SetObject(pObject);
+	//AssetMgr::GetInst()->AddAsset(L"Prefab\\TimeKeeperCookie.pref", pCharacter.Get());
+	//
+	//wstring FilePath = CONTENT_PATH + L"Prefab\\TimeKeeperCookie.pref";
+	//pCharacter->Save(FilePath);
+
+	// 플레이어 오브젝트를 프리팹 불러오기
+	//Ptr<APrefab> pCharacter = LOAD(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+	//pObject = pCharacter->Instantiate();
 
 	pObject = new GameObject;
 	pObject->SetName(L"BackGround_1_1");

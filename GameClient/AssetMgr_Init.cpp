@@ -15,6 +15,7 @@ void AssetMgr::Init()
 
 	LoadAllSprite();
 	LoadAllFlipbook();
+	LoadAllPrefab();
 }
 
 void AssetMgr::CreateEngineMesh()
@@ -703,8 +704,6 @@ void AssetMgr::CreateEngineSprite()
 #include "Source/Scripts/CMissileScript.h"
 void AssetMgr::CreateEnginePrefab()
 {
-	LOAD(APrefab, L"Prefab\\Missile.pref");
-
 	//// Missile 역할 프리팹 제작
 	//GameObject* pObject = new GameObject;
 	//pObject->SetName(L"Missile");
@@ -782,4 +781,6 @@ void AssetMgr::LoadAllFlipbook()
 
 void AssetMgr::LoadAllPrefab()
 {
+	LOAD(APrefab, L"Prefab\\Missile.pref");
+	LOAD(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 }

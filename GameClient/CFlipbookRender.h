@@ -25,6 +25,7 @@ public:
 			m_vecFlipbook.resize(_Idx + 1);
 		m_vecFlipbook[_Idx] = _Flipbook;
 	}
+	vector<Ptr<AFlipbook>>& GetFlipbooks() { return m_vecFlipbook; }
 
 	void AddFlipbook(Ptr<AFlipbook> _Flipbook) { m_vecFlipbook.push_back(_Flipbook); }
 
@@ -36,6 +37,7 @@ public:
 		m_FPS = _FPS;
 		m_AccTime = 0.f;
 	}
+
 
 ///  UV 값의 정수부분을 버림 frac
 
