@@ -781,6 +781,26 @@ void AssetMgr::LoadAllFlipbook()
 
 void AssetMgr::LoadAllPrefab()
 {
-	LOAD(APrefab, L"Prefab\\Missile.pref");
-	LOAD(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+	wstring PrefabPath = CONTENT_PATH + L"Prefab\\";
+
+	if (!std::filesystem::exists(PrefabPath))
+		return;
+
+	for (const auto& pair : std::filesystem::directory_iterator(PrefabPath))
+	{
+		if (pair.is_regular_file() && pair.path().extension() == L".pref")
+		{
+			wstring fileName = L"Prefab\\" + pair.path().filename().wstring();
+			wstring relativePath = L"Prefab\\" + pair.path().filename().wstring();
+
+			if (FindAsset<APrefab>(fileName) == nullptr)
+			{
+				Ptr<APrefab> pPrefab = new APrefab;
+				if (S_OK == pPrefab->Load(pair.path().wstring()))
+				{
+					AddAsset(fileName, pPrefab.Get());
+				}
+			}
+		}
+	}
 }

@@ -157,12 +157,12 @@ bool IsValid(Ptr<GameObject>& _Object)
 
 void CreateTestLevel()
 {
-	//{
-	//	Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
-	//	ChangeLevel(L"Level\\TestLevel.lv");
-	//}
+	{
+		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+		ChangeLevel(L"Level\\TestLevel.lv");
+	}
 
-	//return;
+	return;
 
 
 	// Level »ý¼º
