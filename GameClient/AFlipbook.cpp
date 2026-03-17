@@ -41,6 +41,12 @@ int AFlipbook::Load(const wstring& _FilePath)
 	UINT SpriteCount = 0;
 	fread(&SpriteCount, sizeof(UINT), 1, pFile);
 
+	if (SpriteCount == 0)
+	{
+		fclose(pFile);
+		return 0;
+	}
+
 	// 가리키고 있던 Sprite 가 누군지 저장
 	for (UINT i = 0; i < SpriteCount; ++i)
 	{

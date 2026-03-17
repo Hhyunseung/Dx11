@@ -19,6 +19,8 @@ private:
 	Ptr<AssetUI> 	     m_arrAssetUI[(UINT)ASSET_TYPE::END];
 
 	char				 m_PrefabNameBuffer[256];
+	char				 m_ObjectNameBuffer[256];
+	GameObject*			 m_PrevTargetObject;
 
 public:
 	Ptr<GameObject> GetTargetObejct() { return m_TargetObject; }
@@ -29,6 +31,7 @@ public:
 
 	void SavePrefab();
 	void DeleteTargetObject();
+
 
 public:
 	virtual void Tick_UI() override;

@@ -13,8 +13,10 @@
 
 Inspector::Inspector()
 	: EditorUI("Inspector")
+	, m_PrevTargetObject(nullptr)
 {
 	memset(m_PrefabNameBuffer, 0, sizeof(m_PrefabNameBuffer));
+	memset(m_ObjectNameBuffer, 0, sizeof(m_ObjectNameBuffer));
 	CreateChildUI();
 
 	SetTargetObject(nullptr);
@@ -105,19 +107,37 @@ void Inspector::SetTargetAsset(Ptr<Asset> _Asset)
 	}
 }
 
-
 void Inspector::Tick_UI()
 {
 	if (m_TargetObject == nullptr)
 		return;
 
-	wstring Name = m_TargetObject->GetName();
-	string strName(string(Name.begin(), Name.end()));
+	// GameObject가 변경되었을 때만 버퍼 업데이트
+	if (m_PrevTargetObject != m_TargetObject.Get())
+	{
+		m_PrevTargetObject = m_TargetObject.Get();
+		wstring Name = m_TargetObject->GetName();
+		string strName(string(Name.begin(), Name.end()));
 
-	if (strName.empty())
-		strName = "No Name";
+		if (strName.empty())
+			strName = "No Name";
 
-	ImGui::Button(strName.c_str());
+		strcpy_s(m_ObjectNameBuffer, sizeof(m_ObjectNameBuffer), strName.c_str());
+	}
+
+	// 오브젝트 이름 편집 (InputText)
+	ImGui::Text("Name:");
+	ImGui::SameLine();
+
+	if (ImGui::InputText("##ObjectName", m_ObjectNameBuffer, sizeof(m_ObjectNameBuffer), ImGuiInputTextFlags_EnterReturnsTrue))
+	{
+		// Enter 키를 눌렀을 때 이름 변경
+		LevelMgr::GetInst()->GetCurrentLevel()->SetChanged();
+
+		wstring NewName = wstring(m_ObjectNameBuffer, m_ObjectNameBuffer + strlen(m_ObjectNameBuffer));
+		m_TargetObject->SetName(NewName);
+	}
+
 
 	ImGui::SameLine();
 	SavePrefab();
