@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AssetMgr.h"
 
+#include <filesystem>
 #include "PathMgr.h"
 
 void AssetMgr::Init()
@@ -11,6 +12,9 @@ void AssetMgr::Init()
 	CreateEngineMaterial();
 	CreateEngineSprite();
 	CreateEnginePrefab();
+
+	LoadAllSprite();
+	LoadAllFlipbook();
 }
 
 void AssetMgr::CreateEngineMesh()
@@ -358,6 +362,8 @@ void AssetMgr::CreateEngineMaterial()
 
 void AssetMgr::CreateEngineSprite()
 {
+
+
 	/*
 	Ptr<ATexture> pAtlas = FIND(ATexture, L"Link");
 	float Width = pAtlas->GetWidth();
@@ -417,6 +423,11 @@ void AssetMgr::CreateEngineSprite()
 		AddAsset(pSprite->GetName(), pSprite.Get());
 	}
 	*/
+	
+	Load<ASprite>(L"Sprite\\TimeKeeperCookieHit_0.sprite", L"Sprite\\TimeKeeperCookieHit_0.sprite");
+	Load<ASprite>(L"Sprite\\TimeKeeperCookieJump_0.sprite", L"Sprite\\TimeKeeperCookieJump_0.sprite");
+	Load<ASprite>(L"Sprite\\TimeKeeperCookieJump_1.sprite", L"Sprite\\TimeKeeperCookieJump_1.sprite");
+
 
 	/*
 	Ptr<AFlipbook> pFlipbook = nullptr;
@@ -715,4 +726,60 @@ void AssetMgr::CreateEnginePrefab()
 	//
 	//wstring FilePath = CONTENT_PATH + L"Prefab\\Missile.pref";
 	//pMissilePrefab->Save(FilePath);
+}
+
+void AssetMgr::LoadAllSprite()
+{
+	wstring spritePath = CONTENT_PATH + L"Sprite\\";
+
+	if (!std::filesystem::exists(spritePath))
+		return;
+
+	for (const auto& pair : std::filesystem::directory_iterator(spritePath))
+	{
+		if (pair.is_regular_file() && pair.path().extension() == L".sprite")
+		{
+			wstring fileName = L"Sprite\\" + pair.path().filename().wstring();
+			wstring relativePath = L"Sprite\\" + pair.path().filename().wstring();
+
+			if (FindAsset<ASprite>(fileName) == nullptr)
+			{
+				Ptr<ASprite> pSprite = new ASprite;
+				if (S_OK == pSprite->Load(pair.path().wstring()))
+				{
+					AddAsset(fileName, pSprite.Get());
+				}
+			}
+		}
+	}
+}
+
+void AssetMgr::LoadAllFlipbook()
+{
+	wstring FlipBookPath = CONTENT_PATH + L"Flipbook\\";
+
+	if (!std::filesystem::exists(FlipBookPath))
+		return;
+
+	for (const auto& pair : std::filesystem::directory_iterator(FlipBookPath))
+	{
+		if (pair.is_regular_file() && pair.path().extension() == L".flip")
+		{
+			wstring fileName = L"Flipbook\\" + pair.path().filename().wstring();
+			wstring relativePath = L"Flipbook\\" + pair.path().filename().wstring();
+
+			if (FindAsset<AFlipbook>(fileName) == nullptr)
+			{
+				Ptr<AFlipbook> pFlipbook = new AFlipbook;
+				if (S_OK == pFlipbook->Load(pair.path().wstring()))
+				{
+					AddAsset(fileName, pFlipbook.Get());
+				}
+			}
+		}
+	}
+}
+
+void AssetMgr::LoadAllPrefab()
+{
 }

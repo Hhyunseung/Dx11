@@ -31,6 +31,10 @@ private:
 	void CreateEngineSprite();
 	void CreateEnginePrefab();
 
+	void LoadAllSprite();
+	void LoadAllFlipbook();
+	void LoadAllPrefab();
+
 public:
 	void AddAsset(const wstring& _Key, Ptr<Asset> _Asset);
 
