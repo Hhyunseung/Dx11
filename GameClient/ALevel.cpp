@@ -19,6 +19,7 @@ ALevel::~ALevel()
 void ALevel::AddObject(int _LayerIdx, Ptr<GameObject> _Obj)
 {
 	m_arrLayer[_LayerIdx].AddObject(_Obj);
+	SetChanged();
 }
 
 void ALevel::Deregister()

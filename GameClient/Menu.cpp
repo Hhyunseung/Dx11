@@ -328,7 +328,7 @@ void Menu::Asset()
 			if (ImGui::MenuItem("Create Flipbook"))
 			{
 				Ptr<AFlipbook> pFlipbook = new AFlipbook;
-				wstring Key = GetAssetName(ASSET_TYPE::FLIPBOOK, L"Level\\Default Flipbook");
+				wstring Key = GetAssetName(ASSET_TYPE::FLIPBOOK, L"Flipbook\\Default Flipbook");
 				AssetMgr::GetInst()->AddAsset(Key, pFlipbook.Get());
 			}
 

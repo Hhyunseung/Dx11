@@ -6,7 +6,6 @@
 #include "AssetMgr.h"
 #include "LevelMgr.h"
 
-
 PrefabUI::PrefabUI()
 	: AssetUI(ASSET_TYPE::PREFAB)
 {
@@ -64,15 +63,15 @@ void PrefabUI::Tick_UI()
 		ImGui::Text("Components");
 		ImGui::Indent(20.f);
 
-		//for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
-		//{
-		//	CComponent* pCom = pProtoObj->GetComponent((COMPONENT_TYPE)i);
-		//	if (nullptr != pCom)
-		//	{
-		//		const char* ComName = ToString((COMPONENT_TYPE)i);
-		//		ImGui::BulletText("%s", ComName);
-		//	}
-		//}
+		for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+		{
+			Ptr<Component> pCom = pProtoObj->GetComponent((COMPONENT_TYPE)i);
+			if (nullptr != pCom)
+			{
+				const char* ComName = ToString((COMPONENT_TYPE)i);
+				ImGui::BulletText("%s", ComName);
+			} 
+		}
 
 		// Script 목록
 		const vector<Ptr<CScript>>& vecScripts = pProtoObj->GetScripts();
@@ -80,8 +79,9 @@ void PrefabUI::Tick_UI()
 		{
 			for (size_t i = 0; i < vecScripts.size(); ++i)
 			{
-				string ScriptName = string(vecScripts[i]->GetName().begin(), vecScripts[i]->GetName().end());
-				ImGui::BulletText("Script: %s", ScriptName.c_str());
+				const wchar_t* ScriptName = ScriptMgr::GetScriptName(vecScripts[i].Get());
+				string ScriptNameStr = string(ScriptName, ScriptName + wcslen(ScriptName));
+				ImGui::BulletText("Script: %s", ScriptNameStr.c_str());
 			}
 		}
 
@@ -172,17 +172,17 @@ void PrefabUI::ShowChildObject(GameObject* _Child, int _Depth)
 
 	if (bOpen)
 	{
-		//// 컴포넌트 목록 표시
-		//ImGui::Indent(10.f);
-		//for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
-		//{
-		//	CComponent* pCom = _Child->GetComponent((COMPONENT_TYPE)i);
-		//	if (nullptr != pCom)
-		//	{
-		//		const char* ComName = ToString((COMPONENT_TYPE)i);
-		//		ImGui::TextColored(ImVec4(0.7f, 0.7f, 0.7f, 1), "- %s", ComName);
-		//	}
-		//}
+		// 컴포넌트 목록 표시
+		ImGui::Indent(10.f);
+		for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+		{
+			Ptr<Component> pCom = _Child->GetComponent((COMPONENT_TYPE)i);
+			if (nullptr != pCom)
+			{
+				const char* ComName = ToString((COMPONENT_TYPE)i);
+				ImGui::TextColored(ImVec4(0.7f, 0.7f, 0.7f, 1), "- %s", ComName);
+			}
+		}
 
 		// Script 목록
 		const vector<Ptr<CScript>>& vecScripts = _Child->GetScripts();
