@@ -109,9 +109,22 @@ void Menu::Level()
 			ChangeLevelState(LEVEL_STATE::STOP);
 		}
 
+		ImGui::Separator();
+
+		// Collision Matrix 메뉴 항목
+		if (ImGui::MenuItem("Collision Matrix", nullptr, nullptr, HasLevel))
+		{
+			Ptr<EditorUI> pCollisionMatrixUI = EditorMgr::GetInst()->FindUI("Collision Matrix");
+			if (nullptr != pCollisionMatrixUI)
+			{
+				pCollisionMatrixUI->SetActive(true);
+			}
+		}
+
 		ImGui::EndMenu();
 	}
 }
+
 
 void Menu::View()
 {

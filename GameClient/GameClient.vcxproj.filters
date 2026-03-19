@@ -325,6 +325,7 @@
     <ClInclude Include="Source\Scripts\CSlideState.h">
       <Filter>Source\Scripts\02.Cookie\State\Slide</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionMatrixUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -895,6 +896,7 @@
     <ClCompile Include="Source\Scripts\CSlideState.cpp">
       <Filter>Source\Scripts\02.Cookie\State\Slide</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionMatrixUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

@@ -31,6 +31,8 @@ public:
 
 	void SavePrefab();
 	void DeleteTargetObject();
+	void ShowCollisionMatrix();
+	void SetLayerMatrix();
 
 
 public:

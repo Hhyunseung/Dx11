@@ -138,8 +138,34 @@ void Inspector::Tick_UI()
 		m_TargetObject->SetName(NewName);
 	}
 
-
+	// Layer Index 편집
+	int CurrentLayerIdx = m_TargetObject->GetLayerIdx();
+	ImGui::Text("Layer Idx:");
 	ImGui::SameLine();
+
+	if (ImGui::InputInt("##LayerIdx", &CurrentLayerIdx, 1, 10))
+	{
+		if (CurrentLayerIdx < -1)
+			CurrentLayerIdx = -1;
+
+		if (CurrentLayerIdx > MAX_LAYER)
+			CurrentLayerIdx = MAX_LAYER - 1;
+
+		if (CurrentLayerIdx != m_TargetObject->GetLayerIdx())
+		{
+			m_TargetObject->SetLayerIdx(CurrentLayerIdx);
+			LevelMgr::GetInst()->GetCurrentLevel()->SetChanged();
+		}
+	}
+
+	// 충돌 매트릭스 표시
+	if (CurrentLayerIdx >= 0 && CurrentLayerIdx < MAX_LAYER)
+	{
+		ShowCollisionMatrix();
+	}
+
+	ImGui::Spacing();
+
 	SavePrefab();
 
 	ImGui::SameLine();
@@ -300,4 +326,79 @@ void Inspector::DeleteTargetObject()
 
 		ImGui::EndPopup();
 	}
+}
+
+void Inspector::ShowCollisionMatrix()
+{
+	Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
+	if (nullptr == pCurLevel)
+		return;
+
+	int CurrentLayerIdx = m_TargetObject->GetLayerIdx();
+	if (CurrentLayerIdx < 0 || CurrentLayerIdx >= MAX_LAYER)
+		return;
+
+	UINT* pMatrix = pCurLevel->GetCollisionMatrix();
+
+	ImGui::Indent(10.f);
+	ImGui::Text("Collision Layers:");
+	ImGui::Spacing();
+
+	// 현재 레이어와 충돌 체크되는 레이어들 표시
+	bool HasCollision = false;
+
+	for (int i = 0; i < MAX_LAYER; ++i)
+	{
+		bool IsColliding = false;
+
+		// 비트 플래그 체크
+		if (CurrentLayerIdx <= i)
+		{
+			// CurrentLayerIdx가 Row인 경우
+			IsColliding = (pMatrix[CurrentLayerIdx] & (1 << i)) != 0;
+		}
+		else
+		{
+			// CurrentLayerIdx가 Col인 경우
+			IsColliding = (pMatrix[i] & (1 << CurrentLayerIdx)) != 0;
+		}
+
+		if (IsColliding)
+		{
+			HasCollision = true;
+
+			// 레이어 이름 가져오기
+			wstring LayerName = pCurLevel->GetLayer(i)->GetName();
+			string LayerNameStr;
+
+			if (LayerName.empty())
+			{
+				LayerNameStr = "Layer " + to_string(i);
+			}
+			else
+			{
+				LayerNameStr = string(LayerName.begin(), LayerName.end());
+			}
+
+			// 색상 박스로 표시
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.7f, 0.2f, 1.0f)); // 초록색
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.8f, 0.3f, 1.0f));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.6f, 0.1f, 1.0f));
+
+			ImGui::Button((LayerNameStr + " [" + to_string(i) + "]").c_str(), ImVec2(200, 0));
+
+			ImGui::PopStyleColor(3);
+
+			ImGui::SameLine();
+			ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1), "✓ Collision Enabled");
+		}
+	}
+
+	if (!HasCollision)
+	{
+		ImGui::TextColored(ImVec4(0.7f, 0.7f, 0.7f, 1), "No collision layers set");
+	}
+
+	ImGui::Unindent(10.f);
+	ImGui::Spacing();
 }

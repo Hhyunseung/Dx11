@@ -177,6 +177,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CLight2D.h" />
     <ClInclude Include="CMeshRender.h" />
     <ClInclude Include="Collider2DUI.h" />
+    <ClInclude Include="CollisionMatrixUI.h" />
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="components.h" />
@@ -287,6 +288,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CLight2D.cpp" />
     <ClCompile Include="CMeshRender.cpp" />
     <ClCompile Include="Collider2DUI.cpp" />
+    <ClCompile Include="CollisionMatrixUI.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentUI.cpp" />

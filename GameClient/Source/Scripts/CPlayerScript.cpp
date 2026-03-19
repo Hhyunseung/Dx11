@@ -15,6 +15,7 @@
 #include "CJumpState.h"
 #include "CDoubleJumpState.h"
 #include "CLandState.h"
+#include "CSlideState.h"
 
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
@@ -54,6 +55,7 @@ void CPlayerScript::Begin()
 	m_StateMachine->AddState(new CJumpState(this));
 	m_StateMachine->AddState(new CDoubleJumpState(this));
 	m_StateMachine->AddState(new CLandState(this));
+	m_StateMachine->AddState(new CSlideState(this));
 
 	m_StateMachine->StartState(PLAYER_STATE_ID::RUN);
 

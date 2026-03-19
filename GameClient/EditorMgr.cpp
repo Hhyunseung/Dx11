@@ -16,6 +16,7 @@
 #include "Outliner.h"
 #include "ListUI.h"
 #include "ContentUI.h"
+#include "CollisionMatrixUI.h"
 
 #include "CEditorCamMoveScript.h"
 
@@ -164,24 +165,28 @@ void EditorMgr::Render()
 
 void EditorMgr::CreateEditorUI()
 {
-    Ptr<EditorUI> pUI = nullptr;
+	Ptr<EditorUI> pUI = nullptr;
 
-    pUI = new Menu;
-    AddUI(pUI->GetUIName(), pUI);
+	pUI = new Menu;
+	AddUI(pUI->GetUIName(), pUI);
 
-    pUI = new Inspector;
-    AddUI(pUI->GetUIName(), pUI);
+	pUI = new Inspector;
+	AddUI(pUI->GetUIName(), pUI);
 
-    pUI = new Outliner;
-    AddUI(pUI->GetUIName(), pUI);
+	pUI = new Outliner;
+	AddUI(pUI->GetUIName(), pUI);
 
-    pUI = new ListUI;
-    pUI->SetModal(true);
-    pUI->SetActive(false);
-    AddUI(pUI->GetUIName(), pUI);
+	pUI = new ListUI;
+	pUI->SetModal(true);
+	pUI->SetActive(false);
+	AddUI(pUI->GetUIName(), pUI);
 
 	pUI = new ContentUI;
-    AddUI(pUI->GetUIName(), pUI);
+	AddUI(pUI->GetUIName(), pUI);
+
+	pUI = new CollisionMatrixUI;
+	pUI->SetActive(false);
+	AddUI(pUI->GetUIName(), pUI);
 }
 
 void EditorMgr::CreateEditorObject()

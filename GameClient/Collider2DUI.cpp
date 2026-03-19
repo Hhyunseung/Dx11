@@ -27,4 +27,5 @@ void Collider2DUI::Tick_UI()
 	Vec2 Scale = GetTarget()->Collider2D()->GetScale();
 	if (ImGui::DragFloat2("##Scale", Scale, 0.01f))
 		GetTarget()->Collider2D()->SetScale(Scale);
+
 }

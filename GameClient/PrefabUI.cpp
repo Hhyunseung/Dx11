@@ -8,6 +8,8 @@
 
 PrefabUI::PrefabUI()
 	: AssetUI(ASSET_TYPE::PREFAB)
+	, m_TargetLayer(0)
+	, m_TempInstantiatedObj(nullptr)
 {
 
 }
@@ -115,9 +117,12 @@ void PrefabUI::Tick_UI()
 				GameObject* pNewObj = pPrefab->Instantiate();
 				if (nullptr != pNewObj)
 				{
-					// 기본적으로 0번 레이어에 추가 (원하는 레이어로 변경 가능)
-					pCurLevel->AddObject(0, pNewObj);
-					ImGui::OpenPopup("Instantiate Success");
+					// 임시로 저장 (아직 레벨에 추가하지 않음!)
+					m_TempInstantiatedObj = pNewObj;
+					m_TargetLayer = 0; // 기본값
+
+					// 레이어 선택 팝업 열기
+					ImGui::OpenPopup("Prefab Layer");
 				}
 				else
 				{
@@ -126,11 +131,58 @@ void PrefabUI::Tick_UI()
 			}
 		}
 
+		// 레이어 선택 팝업 (버튼 블록 밖에서 체크)
+		if (ImGui::BeginPopupModal("Prefab Layer", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("Select Layer for Prefab Instance");
+			ImGui::Separator();
+			ImGui::Spacing();
+
+			ImGui::Text("Layer Index:");
+			ImGui::SameLine();
+			ImGui::InputInt("##LayerInput", &m_TargetLayer);
+
+			if (m_TargetLayer < 0)
+				m_TargetLayer = 0;
+
+			ImGui::Spacing();
+			ImGui::Spacing();
+
+			if (ImGui::Button("Add to Level", ImVec2(120, 0)))
+			{
+				Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
+				if (nullptr != pCurLevel && nullptr != m_TempInstantiatedObj)
+				{
+					pCurLevel->AddObject(m_TargetLayer, m_TempInstantiatedObj);
+					m_TempInstantiatedObj = nullptr;
+
+					ImGui::CloseCurrentPopup();
+					ImGui::OpenPopup("Instantiate Success");
+				}
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Button("Cancel", ImVec2(120, 0)))
+			{
+				// 취소 시 생성한 오브젝트 삭제
+				if (nullptr != m_TempInstantiatedObj)
+				{
+					delete m_TempInstantiatedObj;
+					m_TempInstantiatedObj = nullptr;
+				}
+
+				ImGui::CloseCurrentPopup();
+			}
+
+			ImGui::EndPopup();
+		}
+
 		// Instantiate 성공 팝업
 		if (ImGui::BeginPopupModal("Instantiate Success", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 		{
 			ImGui::Text("Prefab instantiated successfully!");
-			ImGui::Text("Added to Layer 0 of current level");
+			ImGui::Text("Added to Layer %d of current level", m_TargetLayer);
 			if (ImGui::Button("OK", ImVec2(120, 0)))
 			{
 				ImGui::CloseCurrentPopup();

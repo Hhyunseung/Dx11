@@ -60,6 +60,7 @@ private:
 	bool 			    m_IsLand; // 땅에 닿아있는지 여부
 	bool                m_IsJump; // 점프 중인지 여부
 	bool 			    m_IsDoubleJump; // 점프 중인지 여부
+	bool				m_IsSlide; // 슬라이드 중인지 여부
 
 public:
 	void SetTarget(Ptr<GameObject> _Target) { m_Target = _Target; }

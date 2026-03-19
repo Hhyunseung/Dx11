@@ -60,6 +60,7 @@ public:
     bool IsDead() { return m_Dead; }
     void Destroy();
 
+	int GetLayerIdx() { return m_LayerIdx; }
 	void SetLayerIdx(int _LayerIdx) { m_LayerIdx = _LayerIdx; }
 
     // GET_COMPONENT
