@@ -19,7 +19,6 @@
 
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
-	, m_BodyCollider(nullptr)
 	, m_FeetCollider(nullptr)
 	, m_gravity(-980.f)
 	, m_VelY(0.f)
@@ -71,11 +70,7 @@ void CPlayerScript::Begin()
 	m_FeetCollider->AddDynamicOverlap(this, (COLLISION_EVENT)&CPlayerScript::FeetOverlap);
 	m_FeetCollider->AddDynamicEndOverlap(this, (COLLISION_EVENT)&CPlayerScript::FeetEndOverlap);
 
-	pChild = GetOwner()->GetChild(2);
-	m_BodyCollider = pChild->Collider2D().Get();
-
-	m_BodyCollider->AddDynamicBeginOverlap(this, (COLLISION_EVENT)&CPlayerScript::BeginOverlap);
-	
+	GetOwner()->Collider2D()->AddDynamicBeginOverlap(this, (COLLISION_EVENT)&CPlayerScript::BeginOverlap);
 }
 
 void CPlayerScript::Tick()
@@ -217,6 +212,18 @@ void CPlayerScript::Skill()
 
 void CPlayerScript::Slide()
 {
+}
+
+void CPlayerScript::SetDefaultCollider()
+{
+	GetOwner()->Collider2D()->SetOffset(Vec2(-0.02f, -0.26f));
+	GetOwner()->Collider2D()->SetScale(Vec2(0.23f, 0.34f));
+}
+
+void CPlayerScript::SetSlideCollider()
+{
+	GetOwner()->Collider2D()->SetOffset(Vec2(-0.02f, -0.34f));
+	GetOwner()->Collider2D()->SetScale(Vec2(0.23f, 0.17f));
 }
 
 

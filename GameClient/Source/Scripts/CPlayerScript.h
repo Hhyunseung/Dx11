@@ -38,10 +38,10 @@ class CPlayerScript :
 private:
     ///  어떤 물체를 가리키고 있는지 ... 는 GUID 같은 걸로 관리해서 찾는게
     Ptr<GameObject>		m_Target;
-	Ptr<ATexture>        m_Tex;
-	Ptr<APrefab>         m_Missile;
+	Ptr<ATexture>       m_Tex;
+	Ptr<APrefab>        m_Missile;
 
-	CCollider2D*		m_BodyCollider; // 충돌체 컴포넌트
+	//CCollider2D*		m_BodyCollider; // 충돌체 컴포넌트
 	CCollider2D*		m_FeetCollider; // 땅 체크용 충돌체 컴포넌트
 
 	Ptr<CStateMachine>	m_StateMachine; // 상태 머신
@@ -64,7 +64,7 @@ private:
 
 public:
 	void SetTarget(Ptr<GameObject> _Target) { m_Target = _Target; }
-	void SetBodyCollider(CCollider2D* _Collider) { m_BodyCollider = _Collider; }
+	//void SetBodyCollider(CCollider2D* _Collider) { m_BodyCollider = _Collider; }
 	void SetFeetCollider(CCollider2D* _Collider) { m_FeetCollider = _Collider; }
 	void SetStateMachine(Ptr<CStateMachine> _StateMachine) { m_StateMachine = _StateMachine; }
 
@@ -75,6 +75,10 @@ public:
 	void FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 	void FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 	void FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
+
+public:
+	void SetDefaultCollider();
+	void SetSlideCollider();
 
 private:
 	void HandleJump();

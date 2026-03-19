@@ -20,6 +20,8 @@ CSlideState::~CSlideState()
 void CSlideState::Enter(PLAYER_STATE_ID _prev)
 {
 	GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::SLIDE, 8.f, -1);
+
+	GetOwner()->SetSlideCollider();
 }
 
 void CSlideState::Tick()
@@ -28,6 +30,6 @@ void CSlideState::Tick()
 
 void CSlideState::Exit(PLAYER_STATE_ID _Next)
 {
-
+	GetOwner()->SetDefaultCollider();
 }
 
