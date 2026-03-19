@@ -119,7 +119,7 @@ void PrefabUI::Tick_UI()
 				{
 					// 임시로 저장 (아직 레벨에 추가하지 않음!)
 					m_TempInstantiatedObj = pNewObj;
-					m_TargetLayer = 0; // 기본값
+					m_TargetLayer = pNewObj->GetLayerIdx(); // Prefab에 저장된 레이어 사용
 
 					// 레이어 선택 팝업 열기
 					ImGui::OpenPopup("Prefab Layer");
