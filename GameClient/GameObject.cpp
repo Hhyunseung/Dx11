@@ -342,6 +342,9 @@ void GameObject::SaveToLevelFile(FILE* _File)
 	{
 		Child->SaveToLevelFile(_File);
 	}
+
+	fwrite(&m_LayerIdx, sizeof(int), 1, _File);
+
 }
 
 void GameObject::LoadFromLevelFile(FILE* _File)
@@ -430,4 +433,6 @@ void GameObject::LoadFromLevelFile(FILE* _File)
 		AddChild(ChildObject);
 		ChildObject->LoadFromLevelFile(_File);
 	}
+
+	//fread(&m_LayerIdx, sizeof(int), 1, _File);
 }

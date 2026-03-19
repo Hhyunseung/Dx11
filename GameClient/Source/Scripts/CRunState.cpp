@@ -25,7 +25,7 @@ void CRunState::Enter(PLAYER_STATE_ID _prev)
 {
 
 
-	GetOwner()->FlipbookRender()->Play(0, 8.f, -1);
+	GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::RUN, 8.f, -1);
 }
 
 void CRunState::Tick()

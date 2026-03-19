@@ -76,6 +76,13 @@ public:
 	void FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 	void FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 
+private:
+	void HandleJump();
+	void HandleSlide();
+
+	void GravityAndMove();
+
+
 public:
 	GET_SET(bool, IsLand);
 	GET_SET(bool, IsJump);
@@ -87,8 +94,6 @@ public:
     virtual void Tick() override;
 
 private:
-    void Move();
-    void Jump();
     void Slide();
 
 public:

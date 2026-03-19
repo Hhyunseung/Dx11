@@ -82,26 +82,12 @@ void CPlayerScript::Tick()
 {
 	m_PrevFeetY = GetOwner()->Transform()->GetRelativePos().y;
 
-	//if (KEY_TAP(KEY::SPACE))
-	//{
-	//	if (!m_IsLand)
-	//	{
-	//		m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
-	//	}
-
-	//	else
-	//	{
-	//		m_IsLand = false;
-	//		m_IsJump = true;
-	//		m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
-	//	}
-	//}
-
-	Jump();
+	HandleJump();
+	HandleSlide();
+	GravityAndMove();
 
 	m_StateMachine->Tick();
 
-	//Move();
 	Skill();
 
 	//if (KEY_PRESSED(KEY::X))
@@ -116,9 +102,59 @@ void CPlayerScript::Tick()
 	m_CurFeetY = GetOwner()->Transform()->GetRelativePos().y;
 }
 
-void CPlayerScript::Move()
+// 점프 입력 처리
+void CPlayerScript::HandleJump()
 {
+	if (KEY_TAP(KEY::SPACE))
+	{
+		// 착지 상태에서 점프
+		if (m_IsLand && m_IsJump == false)
+		{
+			m_VelY = m_JumpPower;
+			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
+		}
 
+		// 더블 점프
+		else if (!m_IsLand && m_IsJump == true && m_IsDoubleJump == false)
+		{
+			m_VelY = m_DoubleJumpPower;
+			m_StateMachine->ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
+		}
+	}
+}
+
+// 슬라이드 입력 처리
+void CPlayerScript::HandleSlide()
+{
+	if (KEY_PRESSED(KEY::DOWN))
+	{
+		if (m_IsLand)
+		{
+			m_StateMachine->ChangeState(PLAYER_STATE_ID::SLIDE);
+		}
+	}
+
+	if (KEY_RELEASED(KEY::DOWN))
+	{
+		if (m_IsLand)
+		{
+			m_StateMachine->ChangeState(PLAYER_STATE_ID::RUN);
+		}
+	}
+}
+
+// 중력 적용 및 이동 처리
+void CPlayerScript::GravityAndMove()
+{
+	if (!m_IsLand)
+	{
+		Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
+
+		m_VelY += m_gravity * 2 * DT;
+		vPos.y += m_VelY * DT;
+
+		GetOwner()->Transform()->SetRelativePos(vPos);
+	}
 }
 
 void CPlayerScript::Skill()
@@ -179,37 +215,6 @@ void CPlayerScript::Skill()
 	}
 }
 
-void CPlayerScript::Jump()
-{
-	if (KEY_TAP(KEY::SPACE))
-	{
-		// 착지 상태에서 점프
-		if (m_IsLand && m_IsJump == false)
-		{
-			m_VelY = m_JumpPower;
-			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
-		}
-
-		// 더블 점프
-		else if (!m_IsLand && m_IsJump == true && m_IsDoubleJump == false)
-		{
-			m_VelY = m_DoubleJumpPower;
-			m_StateMachine->ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
-		}
-	}
-
-
-	if (!m_IsLand)
-	{
-		Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
-
-		m_VelY += m_gravity * 2 * DT;
-		vPos.y += m_VelY * DT;
-		
-		GetOwner()->Transform()->SetRelativePos(vPos);
-	}
-}
-
 void CPlayerScript::Slide()
 {
 }
@@ -254,7 +259,6 @@ void CPlayerScript::FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _Othe
 	if (m_GroundColliders.empty())
 		m_IsLand = false;
 }
-
 
 void CPlayerScript::SaveToLevelFile(FILE* _File)
 {
