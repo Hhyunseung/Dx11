@@ -325,7 +325,9 @@
     <ClInclude Include="Source\Scripts\CSlideState.h">
       <Filter>Source\Scripts\02.Cookie\State\Slide</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionMatrixUI.h" />
+    <ClInclude Include="CollisionMatrixUI.h">
+      <Filter>GameEngine\07.EditorUI\08.AssetUI\13.CollisionMatrixUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -596,6 +598,9 @@
     </Filter>
     <Filter Include="Source\Scripts\02.Cookie\State\Slide">
       <UniqueIdentifier>{31363dd5-96c3-4483-8319-3127659bf244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\07.EditorUI\08.AssetUI\13.CollisionMatrixUI">
+      <UniqueIdentifier>{f62a6b06-7800-4ae1-bdc4-c7c4f478a33f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -896,7 +901,9 @@
     <ClCompile Include="Source\Scripts\CSlideState.cpp">
       <Filter>Source\Scripts\02.Cookie\State\Slide</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionMatrixUI.cpp" />
+    <ClCompile Include="CollisionMatrixUI.cpp">
+      <Filter>GameEngine\07.EditorUI\08.AssetUI\13.CollisionMatrixUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
