@@ -235,6 +235,15 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Cookie", L"Texture\\Cookie.png");
 
 	// ==============================
+	// 젤리 텍스쳐
+	// ==============================
+	Load<ATexture>(L"JellyDefault", L"Texture\\Jelly\\jellybean_20.png");
+	Load<ATexture>(L"JellyCoin_1", L"Texture\\Jelly\\JellyCoin_1.png");
+	Load<ATexture>(L"JellyCoin_2", L"Texture\\Jelly\\JellyCoin_2.png");
+
+
+
+	// ==============================
 	// 리치드래곤 쿠키 애니메이션 텍스쳐
 	// ==============================
 	Load<ATexture>(L"DragonCookieIdle", L"Texture\\Lychee\\Lychee_Idle.png");
