@@ -84,8 +84,15 @@ void MeshRenderUI::Tick_UI()
 	ImGui::SameLine(120);
 
 	Ptr<AMaterial> pMtrl = pMeshRender->GetMaterial();
-	string MtrlKey = string(pMtrl->GetKey().begin(), pMtrl->GetKey().end());
-	ImGui::InputText("##MtrlName", MtrlKey.data(), MtrlKey.length() + 1, ImGuiInputTextFlags_ReadOnly);
+	if (pMtrl == nullptr)
+	{
+		ImGui::Text("None");
+	}
+	else
+	{
+		string MtrlKey = string(pMtrl->GetKey().begin(), pMtrl->GetKey().end());
+		ImGui::InputText("##MtrlName", MtrlKey.data(), MtrlKey.length() + 1, ImGuiInputTextFlags_ReadOnly);
+	}
 
 	// 드랍 체크
 	// 특정 위젯에서 드래그가 발생했고, 해당 위젯 위에 마우스가 호버링 중이면 true

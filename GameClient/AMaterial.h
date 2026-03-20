@@ -12,17 +12,21 @@ private:
     Ptr<ATexture>           m_Tex[TEX_END];
     MtrlConst               m_Const;
     RENDER_DOMAIN           m_Domain;
+    bool                    m_bChanged;
 
 public:
 	void SetShader(Ptr<AGraphicShader> _Shader) { m_Shader = _Shader; }
     Ptr<AGraphicShader> GetShader() { return m_Shader; }
 
 	GET_SET(RENDER_DOMAIN, Domain);
-    
-    void SetTexture(TEX_PARAM _Param, Ptr<ATexture> _Texture) { m_Tex[_Param] = _Texture;  }
-    Ptr<ATexture> GetTexture(TEX_PARAM _Param) { return m_Tex[_Param]; }
 
-    void Binding();
+	void SetTexture(TEX_PARAM _Param, Ptr<ATexture> _Texture) { m_Tex[_Param] = _Texture;  }
+	Ptr<ATexture> GetTexture(TEX_PARAM _Param) { return m_Tex[_Param]; }
+
+	void SetChanged() { m_bChanged = true; }
+	bool IsChanged() { return m_bChanged; }
+
+	void Binding();
     void Clear();
 
     template<typename T>

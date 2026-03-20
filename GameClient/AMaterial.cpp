@@ -8,6 +8,7 @@ AMaterial::AMaterial()
 	: Asset(ASSET_TYPE::MATERIAL)
 	, m_Const{}
 	, m_Domain(RENDER_DOMAIN::DOMAIN_NONE)
+	, m_bChanged(false)
 {
 
 }
@@ -18,6 +19,7 @@ AMaterial::AMaterial(const AMaterial& _Other)
 	, m_Tex{}
 	, m_Domain(_Other.m_Domain)
 	, m_Const(_Other.m_Const)
+	, m_bChanged(false)
 {
 	for (int i = 0; i < TEX_END; ++i)
 	{
@@ -96,6 +98,9 @@ int AMaterial::Save(const wstring& _FilePath)
 
 	fclose(pFile);
 
+	// 저장 성공 시 변경사항 플래그 리셋
+	m_bChanged = false;
+
 	return 0;
 }
 
@@ -122,6 +127,9 @@ int AMaterial::Load(const wstring& _FilePath)
 	fread(&m_Domain, sizeof(RENDER_DOMAIN), 1, pFile);
 
 	fclose(pFile);
+
+	// 로드 성공 시 변경사항 플래그 리셋
+	m_bChanged = false;
 
 	return 0;
 }

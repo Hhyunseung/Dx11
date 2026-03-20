@@ -48,7 +48,7 @@ void MaterialUI::Tick_UI()
 	// 특정 위젯에서 드래그가 발생했고, 해당 위젯 위에 마우스가 호버링 중인지
 	if (ImGui::BeginDragDropTarget())
 	{
-		const ImGuiPayload* PayLoad = ImGui::AcceptDragDropPayload("Content");
+		const ImGuiPayload* PayLoad = ImGui::AcceptDragDropPayload("ContentUI");
 		if (PayLoad)
 		{
 			DWORD_PTR data = *((DWORD_PTR*)PayLoad->Data);
@@ -57,6 +57,7 @@ void MaterialUI::Tick_UI()
 			if (ASSET_TYPE::GRAPHICSHADER == pAsset->GetType())
 			{
 				pMtrl->SetShader((AGraphicShader*)pAsset.Get());
+				pMtrl->SetChanged();
 			}
 		}
 
@@ -85,10 +86,34 @@ void MaterialUI::Tick_UI()
 
 	// Save Button
 	ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
-	if (ImGui::Button("Save##MtrlSaveBtn"))
+	ImGui::Separator();
+	ImGui::Spacing();
+
+	// 변경사항이 있으면 표시
+	if (pMtrl->IsChanged())
 	{
-		wstring FilePath = CONTENT_PATH + pMtrl->GetKey();
-		pMtrl->Save(FilePath);
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.f, 0.5f, 0.f, 1.f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.f, 0.6f, 0.2f, 1.f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(1.f, 0.4f, 0.f, 1.f));
+
+		if (ImGui::Button("Save (Modified)", ImVec2(200, 30)))
+		{
+			wstring FilePath = CONTENT_PATH + pMtrl->GetKey();
+			pMtrl->Save(FilePath);
+		}
+
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "* Unsaved changes");
+	}
+	else
+	{
+		if (ImGui::Button("Save", ImVec2(200, 30)))
+		{
+			wstring FilePath = CONTENT_PATH + pMtrl->GetKey();
+			pMtrl->Save(FilePath);
+		}
 	}
 }
 
@@ -117,11 +142,17 @@ void MaterialUI::ShaderParameter()
 		case SHADER_PARAM::VEC4: 
 		{
 			ImGui::Text(string(vecParam[i].Desc.begin(), vecParam[i].Desc.end()).c_str());
-			ImGui::SameLine();
+			ImGui::SameLine(150);
 
 			SCALAR_PARAM Param = (SCALAR_PARAM)((UINT)SCALAR_PARAM::VEC4_0 + vecParam[i].Index);
 			Vec4& Data = pMtrl->GetScalar<Vec4>(Param);
-			ImGui::InputFloat4("##InputFloat4", Data);
+
+			string Key = "##VEC4_" + to_string(i);
+			if (ImGui::DragFloat4(Key.c_str(), Data, 0.01f))
+			{
+				// 값이 변경되면 Material을 변경됨으로 표시
+				pMtrl->SetChanged();
+			}
 		}
 			break;
 		case SHADER_PARAM::MAT:
@@ -136,17 +167,22 @@ void MaterialUI::ShaderParameter()
 			if (nullptr != pTex)
 			{
 				SRV = pTex->GetSRV().Get();
+
+				// 텍스처 이름 표시
+				ImGui::SameLine(150);
+				string TexName = string(pTex->GetKey().begin(), pTex->GetKey().end());
+				ImGui::TextColored(ImVec4(0.f, 1.f, 1.f, 1.f), "%s", TexName.c_str());
 			}
 
 			// 이미지 샘플
-			ImGui::ImageWithBg(SRV, ImVec2(100, 100)
+			ImGui::ImageWithBg(SRV, ImVec2(150, 150)
 							, Vec2(0.f, 0.f), Vec2(1.f, 1.f)
 							, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
 
 			// 특정 위젯에서 드래그가 발생했고, 해당 위젯 위에 마우스가 호버링 중인지
 			if (ImGui::BeginDragDropTarget())
 			{
-				const ImGuiPayload* PayLoad = ImGui::AcceptDragDropPayload("Content");
+				const ImGuiPayload* PayLoad = ImGui::AcceptDragDropPayload("ContentUI");
 				if (PayLoad)
 				{
 					DWORD_PTR data = *((DWORD_PTR*)PayLoad->Data);
@@ -155,11 +191,26 @@ void MaterialUI::ShaderParameter()
 					if (ASSET_TYPE::TEXTURE == pAsset->GetType())
 					{
 						pMtrl->SetTexture((TEX_PARAM)vecParam[i].Index, (ATexture*)pAsset.Get());
+						pMtrl->SetChanged();
 					}
 				}
 
 				ImGui::EndDragDropTarget();
 			}
+
+			// 텍스처 제거 버튼
+			if (nullptr != pTex)
+			{
+				ImGui::SameLine();
+				string BtnKey = "Clear##Tex_" + to_string(i);
+				if (ImGui::Button(BtnKey.c_str()))
+				{
+					pMtrl->SetTexture((TEX_PARAM)vecParam[i].Index, nullptr);
+					pMtrl->SetChanged();
+				}
+			}
+
+			ImGui::Spacing();
 		}
 			break;
 		}

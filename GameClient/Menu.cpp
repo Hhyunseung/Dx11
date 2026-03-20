@@ -252,16 +252,25 @@ void Menu::GameObjectMenu()
 								//pComponent = new CLight3D;
 								break;
 							case COMPONENT_TYPE::MESHRENDER:
+							{
 								pComponent = new CMeshRender;
+								pComponent->Init();
+							}
 								break;
 							case COMPONENT_TYPE::BILLBOARD_RENDER:
 								pComponent = new CBillboardRender;
 								break;
 							case COMPONENT_TYPE::SPRITE_RENDER:
+							{
 								pComponent = new CSpriteRender;
+								pComponent->Init();
+							}
 								break;
 							case COMPONENT_TYPE::FLIPBOOK_RENDER:
+							{
 								pComponent = new CFlipbookRender;
+								pComponent->Init();
+							}
 								break;
 							case COMPONENT_TYPE::PARTICLE_RENDER:
 								//pComponent = new CParticleRender;

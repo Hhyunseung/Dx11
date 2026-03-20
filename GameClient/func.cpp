@@ -162,6 +162,23 @@ void CreateTestLevel()
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
 		Ptr<APrefab> pPrefab = LOAD(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
+		
+		
+		Ptr<GameObject> pObject = new GameObject;
+		pObject->SetName(L"Jelly");
+
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CMeshRender);
+		pObject->AddComponent(new CCollider2D);
+
+		pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+
+		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"MonsterMtrl"));
+
+		pLevel->AddObject(6, pObject);
+		
+		
 		ChangeLevel(L"Level\\TestLevel.lv");
 	}
 
