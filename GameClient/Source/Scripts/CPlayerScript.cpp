@@ -75,7 +75,8 @@ void CPlayerScript::Begin()
 
 void CPlayerScript::Tick()
 {
-	m_PrevFeetY = GetOwner()->Transform()->GetRelativePos().y;
+	//m_PrevFeetY = GetOwner()->Transform()->GetRelativePos().y;
+	m_PrevFeetY = GetOwner()->Collider2D()->GetBottomY();
 
 	HandleJump();
 	HandleSlide();
@@ -94,7 +95,8 @@ void CPlayerScript::Tick()
 	//	MeshRender()->GetMtrl()->SetScalar(INT_0, 0);
 	//}
 
-	m_CurFeetY = GetOwner()->Transform()->GetRelativePos().y;
+	//m_CurFeetY = GetOwner()->Transform()->GetRelativePos().y;
+	m_CurFeetY = GetOwner()->Collider2D()->GetBottomY();
 }
 
 // 점프 입력 처리

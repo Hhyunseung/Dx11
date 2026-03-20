@@ -328,6 +328,9 @@
     <ClInclude Include="CollisionMatrixUI.h">
       <Filter>GameEngine\07.EditorUI\08.AssetUI\13.CollisionMatrixUI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CJellyScript.h">
+      <Filter>Source\Scripts\04.Jelly</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -601,6 +604,9 @@
     </Filter>
     <Filter Include="GameEngine\07.EditorUI\08.AssetUI\13.CollisionMatrixUI">
       <UniqueIdentifier>{f62a6b06-7800-4ae1-bdc4-c7c4f478a33f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\04.Jelly">
+      <UniqueIdentifier>{73138ace-a045-4075-88d8-d9f9a6108a16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -903,6 +909,9 @@
     </ClCompile>
     <ClCompile Include="CollisionMatrixUI.cpp">
       <Filter>GameEngine\07.EditorUI\08.AssetUI\13.CollisionMatrixUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CJellyScript.cpp">
+      <Filter>Source\Scripts\04.Jelly</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
