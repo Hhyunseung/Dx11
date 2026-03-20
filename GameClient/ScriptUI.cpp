@@ -83,8 +83,33 @@ void ScriptUI::Tick_UI()
 		}
 			break;
 		case SCRIPT_PARAM::VEC2:
+		{
+			ImGui::Text(string(vecParam[i].Desc.begin(), vecParam[i].Desc.end()).c_str());
+			ImGui::SameLine(120);
+			string Key = "##VEC2";
+			Key += ID;
+			if (vecParam[i].IsInput)
+				ImGui::InputFloat2(Key.c_str(), (float*)vecParam[i].Data, "%.3f");
+			else
+				ImGui::DragFloat2(Key.c_str(), (float*)vecParam[i].Data, vecParam[i].Step);
+			AddItemHeight();
+		}
 			break;
 		case SCRIPT_PARAM::VEC4:
+		{
+			ImGui::Text(string(vecParam[i].Desc.begin(), vecParam[i].Desc.end()).c_str());
+			ImGui::SameLine(120);
+
+			string Key = "##VEC4";
+			Key += ID;
+
+			if (vecParam[i].IsInput)
+				ImGui::InputFloat4(Key.c_str(), (float*)vecParam[i].Data, "%.3f");
+			else
+				ImGui::DragFloat4(Key.c_str(), (float*)vecParam[i].Data, vecParam[i].Step);
+
+			AddItemHeight();
+		}
 			break;
 		case SCRIPT_PARAM::MATRIX:
 			break;

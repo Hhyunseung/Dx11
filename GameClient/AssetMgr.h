@@ -34,6 +34,7 @@ private:
 	void LoadAllSprite();
 	void LoadAllFlipbook();
 	void LoadAllPrefab();
+	void LoadAllLevel();
 
 public:
 	void AddAsset(const wstring& _Key, Ptr<Asset> _Asset);

@@ -16,6 +16,7 @@ void AssetMgr::Init()
 	LoadAllSprite();
 	LoadAllFlipbook();
 	LoadAllPrefab();
+	LoadAllLevel();
 }
 
 void AssetMgr::CreateEngineMesh()
@@ -803,4 +804,9 @@ void AssetMgr::LoadAllPrefab()
 			}
 		}
 	}
+}
+
+void AssetMgr::LoadAllLevel()
+{
+
 }

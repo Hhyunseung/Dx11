@@ -147,6 +147,7 @@ bool IsValid(Ptr<GameObject>& _Object)
 #include "AssetMgr.h"
 #include "Device.h"
 #include "CollisionMgr.h"
+#include "GamePlayMgr.h"
 
 #include "Source/Scripts/CCamMoveScript.h"
 #include "Source/Scripts/CPlayerScript.h"
@@ -159,6 +160,8 @@ void CreateTestLevel()
 {
 	{
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+		Ptr<APrefab> pPrefab = LOAD(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
 		ChangeLevel(L"Level\\TestLevel.lv");
 	}
 
