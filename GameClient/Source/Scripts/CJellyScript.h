@@ -14,6 +14,7 @@ public:
 	void BeginOverlap(CCollider2D* _This, CCollider2D* _Other);
 
 public:
+    virtual void Init() override;
     virtual void Begin() override;
     virtual void Tick() override;
 
