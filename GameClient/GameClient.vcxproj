@@ -166,6 +166,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="AssetMgr.h" />
     <ClInclude Include="assets.h" />
     <ClInclude Include="AssetUI.h" />
+    <ClInclude Include="AStageData.h" />
     <ClInclude Include="ATexture.h" />
     <ClInclude Include="ATileMap.h" />
     <ClInclude Include="CameraUI.h" />
@@ -254,9 +255,11 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CRunState.h" />
     <ClInclude Include="Source\Scripts\CScrollScript.h" />
     <ClInclude Include="Source\Scripts\CSlideState.h" />
+    <ClInclude Include="Source\Scripts\CStageGridScript.h" />
     <ClInclude Include="Source\Scripts\CStateMachine.h" />
     <ClInclude Include="SpriteRenderUI.h" />
     <ClInclude Include="SpriteUI.h" />
+    <ClInclude Include="StageDataUI.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="targetver.h" />
@@ -280,6 +283,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="AssetMgr.cpp" />
     <ClCompile Include="AssetMgr_Init.cpp" />
     <ClCompile Include="AssetUI.cpp" />
+    <ClCompile Include="AStageData.cpp" />
     <ClCompile Include="ATexture.cpp" />
     <ClCompile Include="ATileMap.cpp" />
     <ClCompile Include="CameraUI.cpp" />
@@ -362,9 +366,11 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CRunState.cpp" />
     <ClCompile Include="Source\Scripts\CScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CSlideState.cpp" />
+    <ClCompile Include="Source\Scripts\CStageGridScript.cpp" />
     <ClCompile Include="Source\Scripts\CStateMachine.cpp" />
     <ClCompile Include="SpriteRenderUI.cpp" />
     <ClCompile Include="SpriteUI.cpp" />
+    <ClCompile Include="StageDataUI.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="TaskMgr.cpp" />
     <ClCompile Include="TextureUI.cpp" />

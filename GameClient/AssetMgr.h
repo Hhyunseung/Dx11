@@ -78,6 +78,8 @@ ASSET_TYPE GetAssetType()
 		return ASSET_TYPE::LEVEL;
 	else if constexpr (IsSameType<T, APrefab>)
 		return ASSET_TYPE::PREFAB;
+	else if constexpr (IsSameType<T, AStageData>)
+		return ASSET_TYPE::STAGE_DATA;
 
 	//if (info.hash_code() == typeid(AMesh).hash_code())
 	//	Type = ASSET_TYPE::MESH;

@@ -96,4 +96,20 @@ struct GlobalData
 	float	EngineTime;		// 누적 시간 값 (Engine 기준)
 };
 
+struct FTileContent
+{
+	EObjectType Type = EObjectType::None;
+	int Data = 0;
+
+	// 점유 크기가 아니라, 에디터 표시/생성 기준용 정보
+	int VisualWidth = 1;
+	int VisualHeight = 1;
+
+	// anchor 기준 위치 보정
+	Vec2 SpawnOffset = Vec2(0.f, 0.f);
+
+	bool Spawned = false; // 이미 생성된 오브젝트인지 여부
+};
+
+
 extern GlobalData g_Global;

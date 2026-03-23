@@ -57,6 +57,7 @@ enum class ASSET_TYPE
 	FLIPBOOK,
 	TILEMAP,
 	PREFAB,
+	STAGE_DATA,
 
 	END,
 };
@@ -190,4 +191,41 @@ enum class LEVEL_STATE
 	PLAY,
 	PAUSE,
 	STOP,
+};
+
+
+enum class EObjectType
+{
+	None = 0,
+	Jelly,
+	Obstacle,
+	Item,
+};
+
+enum class JellyType
+{
+	Default,
+	Coin1,
+	Coin2,
+	
+	BearYellow,
+	BearPink,
+	BearBlue,
+	
+	BearBigYellow,
+	BearRainbow,
+
+	SpecialBonius,
+
+	END,
+};
+
+enum class ObstacleType
+{
+
+};
+
+enum class ItemType
+{
+
 };

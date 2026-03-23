@@ -9,6 +9,7 @@
 #include "ATilemap.h"
 #include "ALevel.h"
 #include "APrefab.h"
+#include "AStageData.h"
 #include "extern.h"
 
 

@@ -331,6 +331,21 @@
     <ClInclude Include="Source\Scripts\CJellyScript.h">
       <Filter>Source\Scripts\04.Jelly</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CGamePlaySpawnScript.h">
+      <Filter>Source\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="AStageData.h">
+      <Filter>GameEngine\04.Asset\10.StageData</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CStageGridScript.h">
+      <Filter>Source\Scripts\01.Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlayMgr.h">
+      <Filter>GameEngine\03.Manager\10.GamePlayMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="StageDataUI.h">
+      <Filter>GameEngine\07.EditorUI\08.AssetUI\14.StageDataUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -607,6 +622,15 @@
     </Filter>
     <Filter Include="Source\Scripts\04.Jelly">
       <UniqueIdentifier>{73138ace-a045-4075-88d8-d9f9a6108a16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\04.Asset\10.StageData">
+      <UniqueIdentifier>{370add23-15b3-440c-b40a-d1d23fac6d04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\03.Manager\10.GamePlayMgr">
+      <UniqueIdentifier>{30583cca-619e-4907-af93-942eb1d5acc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\07.EditorUI\08.AssetUI\14.StageDataUI">
+      <UniqueIdentifier>{79832a87-9af8-4155-b327-deee3f171da0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -912,6 +936,21 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CJellyScript.cpp">
       <Filter>Source\Scripts\04.Jelly</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CGamePlaySpawnScript.cpp">
+      <Filter>Source\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="AStageData.cpp">
+      <Filter>GameEngine\04.Asset\10.StageData</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CStageGridScript.cpp">
+      <Filter>Source\Scripts\01.Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePlayMgr.cpp">
+      <Filter>GameEngine\03.Manager\10.GamePlayMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="StageDataUI.cpp">
+      <Filter>GameEngine\07.EditorUI\08.AssetUI\14.StageDataUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
