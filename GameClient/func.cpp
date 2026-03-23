@@ -164,19 +164,26 @@ void CreateTestLevel()
 		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
 		
 		
+		//플레이어 오브젝트 생성
 		Ptr<GameObject> pObject = new GameObject;
-		pObject->SetName(L"Jelly");
+		pObject->SetName(L"FlipbookDefault");
 
 		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CMeshRender);
+		pObject->AddComponent(new CFlipbookRender);
+		pObject->AddComponent(new CScrollScript);
 		pObject->AddComponent(new CCollider2D);
 
-		pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+		pObject->Transform()->SetRelativePos(Vec3(0.f, 17.f, 100.f));
+		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
 
-		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"MonsterMtrl"));
+		pObject->Collider2D()->SetScale(Vec2(0.25f, 0.25f));
+		pObject->Collider2D()->SetOffset(Vec2(0.5f, 0.f));
 
-		pLevel->AddObject(6, pObject);
+		//// Save 후 Load
+		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Jelly_BearBig_z65.flip"));
+		pObject->FlipbookRender()->Play(0, 12.f, -1);
+
+		pLevel->AddObject(0, pObject);
 		
 		
 		ChangeLevel(L"Level\\TestLevel.lv");
