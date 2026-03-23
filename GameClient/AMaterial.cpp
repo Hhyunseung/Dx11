@@ -10,7 +10,9 @@ AMaterial::AMaterial()
 	, m_Domain(RENDER_DOMAIN::DOMAIN_NONE)
 	, m_bChanged(false)
 {
-
+	// 기본 TintColor (g_vec4_0) 를 흰색으로 초기화
+	// 셰이더에서 vColor *= TintColor 하므로 (1,1,1,1)이어야 원본 색상 유지
+	m_Const.v4Arr[0] = Vec4(1.f, 1.f, 1.f, 1.f);
 }
 
 AMaterial::AMaterial(const AMaterial& _Other)
@@ -46,7 +48,7 @@ void AMaterial::Binding()
 
 		/// 각 텍스쳐가 자신의 텍스쳐 레지스터에 바인딩 하도록 요청
 		m_Tex[i]->Binding(i);
-		m_Const.IsTex[0] = 1; // 텍스쳐가 있는 경우, 셰이더에서 해당 텍스쳐를 사용하도록 플래그 설정 
+		m_Const.IsTex[i] = 1; // 텍스쳐가 있는 경우, 셰이더에서 해당 텍스쳐를 사용하도록 플래그 설정
 	}
 
 	Device::GetInst()->GetCB(CB_TYPE::MATERIAL)->SetData(&m_Const);

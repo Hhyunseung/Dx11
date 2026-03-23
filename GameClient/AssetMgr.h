@@ -32,6 +32,7 @@ private:
 	void CreateEnginePrefab();
 
 	void LoadAllSprite();
+	void LoadAllMaterial();
 	void LoadAllFlipbook();
 	void LoadAllPrefab();
 	void LoadAllLevel();

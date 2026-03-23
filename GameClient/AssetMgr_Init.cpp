@@ -14,6 +14,7 @@ void AssetMgr::Init()
 	CreateEnginePrefab();
 
 	LoadAllSprite();
+	LoadAllMaterial();
 	LoadAllFlipbook();
 	LoadAllPrefab();
 	LoadAllLevel();
@@ -309,8 +310,6 @@ void AssetMgr::CreateEngineMaterial()
 
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 	AddAsset(pMtrl->GetName(), pMtrl.Get());
-
-	Load<AMaterial>(L"Material\\Default Material_0.mtrl", L"Material\\Default Material_0.mtrl");
 
 
 	// ================== ÇØÀû ¸Ê_1 »ý¼º ==============//
@@ -757,6 +756,32 @@ void AssetMgr::LoadAllSprite()
 				if (S_OK == pSprite->Load(pair.path().wstring()))
 				{
 					AddAsset(fileName, pSprite.Get());
+				}
+			}
+		}
+	}
+}
+
+void AssetMgr::LoadAllMaterial()
+{
+	wstring MaterialPath = CONTENT_PATH + L"Material\\";
+
+	if (!std::filesystem::exists(MaterialPath))
+		return;
+
+	for (const auto& pair : std::filesystem::directory_iterator(MaterialPath))
+	{
+		if (pair.is_regular_file() && pair.path().extension() == L".mtrl")
+		{
+			wstring fileName = L"Material\\" + pair.path().filename().wstring();
+			wstring relativePath = L"Material\\" + pair.path().filename().wstring();
+
+			if (FindAsset<AMaterial>(fileName) == nullptr)
+			{
+				Ptr<AMaterial> pMtrl = new AMaterial;
+				if (S_OK == pMtrl->Load(pair.path().wstring()))
+				{
+					AddAsset(fileName, pMtrl.Get());
 				}
 			}
 		}

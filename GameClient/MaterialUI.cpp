@@ -10,7 +10,9 @@
 
 MaterialUI::MaterialUI()
 	: AssetUI(ASSET_TYPE::MATERIAL)
+	, m_PrevMaterial(nullptr)
 {
+	memset(m_MaterialNameBuffer, 0, sizeof(m_MaterialNameBuffer));
 }
 
 MaterialUI::~MaterialUI()
@@ -23,11 +25,35 @@ void MaterialUI::Tick_UI()
 
 	Ptr<AMaterial> pMtrl = (AMaterial*)GetTargetAsset().Get();
 
-	string Key = string(pMtrl->GetKey().begin(), pMtrl->GetKey().end());
+	// Material이 변경되면 버퍼 업데이트
+	if (m_PrevMaterial != pMtrl.Get())
+	{
+		m_PrevMaterial = pMtrl.Get();
+
+		string Key = string(pMtrl->GetKey().begin(), pMtrl->GetKey().end());
+		strncpy_s(m_MaterialNameBuffer, Key.c_str(), sizeof(m_MaterialNameBuffer) - 1);
+	}
 
 	ImGui::Text("Name");
 	ImGui::SameLine(100);
-	ImGui::InputText("##MtrlName", Key.data(), Key.length() + 1, ImGuiInputTextFlags_ReadOnly);
+
+	// 이름 편집 가능하게 변경
+	if (ImGui::InputText("##MtrlName", m_MaterialNameBuffer, sizeof(m_MaterialNameBuffer), ImGuiInputTextFlags_EnterReturnsTrue))
+	{
+		// Enter 키를 누르면 Material 이름 변경
+		wstring NewName = wstring(m_MaterialNameBuffer, m_MaterialNameBuffer + strlen(m_MaterialNameBuffer));
+
+		// 빈 이름은 허용하지 않음
+		if (!NewName.empty())
+		{
+			// 기존 Material 이름과 다르면 변경
+			if (pMtrl->GetKey() != NewName)
+			{
+				pMtrl->SetName(NewName);
+				pMtrl->SetChanged();
+			}
+		}
+	}
 
 	// =======
 	// Shader
@@ -96,24 +122,87 @@ void MaterialUI::Tick_UI()
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.f, 0.6f, 0.2f, 1.f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(1.f, 0.4f, 0.f, 1.f));
 
-		if (ImGui::Button("Save (Modified)", ImVec2(200, 30)))
+		if (ImGui::Button("Save##MtrlSaveBtn"))
 		{
-			wstring FilePath = CONTENT_PATH + pMtrl->GetKey();
-			pMtrl->Save(FilePath);
+			// char* → string → wstring 안전한 변환
+			string fileNameStr(m_MaterialNameBuffer);
+			wstring FileName(fileNameStr.begin(), fileNameStr.end());
+
+			wstring FilePath = CONTENT_PATH;
+			FilePath += L"Material\\";
+			FilePath += FileName;
+			FilePath += L".mtrl";
+
+			if (pMtrl->Save(FilePath) == S_OK)
+			{
+				// 저장 성공 메시지
+				ImGui::OpenPopup("Save Success");
+			}
 		}
 
 		ImGui::PopStyleColor(3);
-
-		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "* Unsaved changes");
 	}
 	else
 	{
 		if (ImGui::Button("Save", ImVec2(200, 30)))
 		{
-			wstring FilePath = CONTENT_PATH + pMtrl->GetKey();
-			pMtrl->Save(FilePath);
+			wstring NewFilePath = CONTENT_PATH + pMtrl->GetKey();
+			pMtrl->Save(NewFilePath);
 		}
+	}
+
+	// 다른 이름으로 저장 버튼
+	ImGui::SameLine();
+	if (ImGui::Button("Save As...", ImVec2(120, 30)))
+	{
+		ImGui::OpenPopup("Save Material As");
+	}
+
+	// Save As 팝업
+	if (ImGui::BeginPopupModal("Save Material As", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Enter new material name:");
+		ImGui::Spacing();
+
+		static char newNameBuffer[256] = {};
+		if (ImGui::IsWindowAppearing())
+		{
+			strncpy_s(newNameBuffer, m_MaterialNameBuffer, sizeof(newNameBuffer) - 1);
+		}
+
+		ImGui::InputText("##NewMtrlName", newNameBuffer, sizeof(newNameBuffer));
+
+		ImGui::Spacing();
+		ImGui::Spacing();
+
+		if (ImGui::Button("Save##MtrlSaveBtn"))
+		{
+			// char* → string → wstring 안전한 변환
+			string fileNameStr(newNameBuffer);
+			wstring FileName(fileNameStr.begin(), fileNameStr.end());
+
+			wstring FilePath = CONTENT_PATH;
+			FilePath += L"Material\\";
+			FilePath += FileName;
+			FilePath += L".mtrl";
+
+			if (pMtrl->Save(FilePath) == S_OK)
+			{
+				// 저장 성공 시 Material 이름 업데이트
+				pMtrl->SetName(FileName);
+				strncpy_s(m_MaterialNameBuffer, newNameBuffer, sizeof(m_MaterialNameBuffer) - 1);
+				ImGui::CloseCurrentPopup();
+			}
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Cancel", ImVec2(120, 0)))
+		{
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
 	}
 }
 

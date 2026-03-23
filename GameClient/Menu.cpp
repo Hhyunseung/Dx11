@@ -330,6 +330,9 @@ void Menu::Asset()
 			{
 				Ptr<AMaterial> pMtrl = new AMaterial;
 				wstring Key = GetAssetName(ASSET_TYPE::MATERIAL, L"Material\\Default Material");
+				pMtrl->SetShader(AssetMgr::GetInst()->FindAsset<AGraphicShader>(L"Std2DShader"));
+				pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+				pMtrl->SetTexture(TEX_PARAM::TEX_0, nullptr);
 				AssetMgr::GetInst()->AddAsset(Key, pMtrl.Get());
 			}
 
