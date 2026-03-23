@@ -238,9 +238,15 @@ void AssetMgr::CreateEngineTexture()
 	// ==============================
 	// Á©¸® ÅØ½ºÃÄ
 	// ==============================
-	Load<ATexture>(L"JellyDefault", L"Texture\\Jelly\\jellybean_20.png");
+	Load<ATexture>(L"JellyDefault", L"Texture\\Jelly\\jellybean_31.png");
 	Load<ATexture>(L"JellyCoin_1", L"Texture\\Jelly\\JellyCoin_1.png");
 	Load<ATexture>(L"JellyCoin_2", L"Texture\\Jelly\\JellyCoin_2.png");
+	Load<ATexture>(L"Jelly_bearyellow_z65", L"Texture\\Jelly\\jelly_bearyellow_z65.png");
+	Load<ATexture>(L"Jelly_bearpink_z65", L"Texture\\Jelly\\jelly_bearpink_z65.png");
+	Load<ATexture>(L"Jelly_bearice_z65", L"Texture\\Jelly\\jelly_bearice_z65.png");
+	Load<ATexture>(L"Jelly_BearBig", L"Texture\\Jelly\\Jelly_BearBig.png");
+	Load<ATexture>(L"Jelly_BearRainbow_z65", L"Texture\\Jelly\\Jelly_BearRainbow_z65.png");
+
 
 
 
@@ -433,10 +439,6 @@ void AssetMgr::CreateEngineSprite()
 		AddAsset(pSprite->GetName(), pSprite.Get());
 	}
 	*/
-	
-	Load<ASprite>(L"Sprite\\TimeKeeperCookieHit_0.sprite", L"Sprite\\TimeKeeperCookieHit_0.sprite");
-	Load<ASprite>(L"Sprite\\TimeKeeperCookieJump_0.sprite", L"Sprite\\TimeKeeperCookieJump_0.sprite");
-	Load<ASprite>(L"Sprite\\TimeKeeperCookieJump_1.sprite", L"Sprite\\TimeKeeperCookieJump_1.sprite");
 
 
 	/*
