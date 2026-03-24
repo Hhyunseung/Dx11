@@ -34,5 +34,8 @@ public:
 	void SetStageData(Ptr<AStageData> _StageData) { m_StageData = _StageData; }
 	Ptr<AStageData> GetStageData() { return m_StageData; }
 	void CreateNewStageData();	// 새 StageData 생성
+
+	// ObjectID -> Prefab Key 변환
+	static wstring GetPrefabKey(int _ObjectID);
 };
 

@@ -162,7 +162,7 @@ void CreateTestLevel()
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
 		Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 
-		Ptr<AStageData> pStageData = new AStageData; //= LOAD(AStageData, L"StageData\\TestStageData.stg");
+		Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
 
 		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
 		GamePlayMgr::GetInst()->SetStageData(pStageData);
