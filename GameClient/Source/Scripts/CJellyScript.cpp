@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "CJellyScript.h"
 
+#include "GamePlayMgr.h"
 #include "GameObject.h"
+
 
 CJellyScript::CJellyScript()
 	: CScript(SCRIPT_TYPE::JELLYSCRIPT)
@@ -34,9 +36,6 @@ void CJellyScript::Begin()
 	}
 
 
-	// FlipbookRender 가 아니고 MeshRender 일 경우
-
-
 	ADD_DYNAMIC_BEGIN_OVERLAP(CJellyScript::BeginOverlap);
 }
 
@@ -49,7 +48,16 @@ void CJellyScript::Tick()
 
 void CJellyScript::BeginOverlap(CCollider2D* _This, CCollider2D* _Other)
 {
+	if (_Other->GetOwner() == GamePlayMgr::GetInst()->GetPlayerObject())
+	{
+		// 플레이어와 충돌했을 때의 처리
+		// 점수 추가
+		GamePlayMgr::GetInst()->AddScore(m_Score);
 
+		// ============== 오브젝트 풀링을 사용할 때는 Destroy 대신 비활성화 하는 방식으로 변경 ================
+		// 젤리 오브젝트 제거
+		GetOwner()->Destroy();
+	}
 }
 
 

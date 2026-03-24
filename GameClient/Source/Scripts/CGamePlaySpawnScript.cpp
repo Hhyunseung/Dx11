@@ -45,7 +45,7 @@ void CGamePlaySpawnScript::SpawnPlayer()
 	GameObject* pPlayer = pPrefab->Instantiate();
 	pPlayer->Transform()->SetRelativePos(Vec3(m_vecPlayerSpawnPos.x, m_vecPlayerSpawnPos.y, m_vecPlayerSpawnPos.z));
 
-	CreateObject(pPlayer, 4);
+	CreateObject(pPlayer, 0);
 }
 
 void CGamePlaySpawnScript::SpawnStageObjects()
