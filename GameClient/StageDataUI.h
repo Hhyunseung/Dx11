@@ -8,6 +8,7 @@ class StageDataUI :
 {
 private:
     int     m_SelectedObjectID;     // 선택된 오브젝트 ID
+    int     m_InputLayerIdx;        // 입력용 레이어 인덱스
     float   m_InputWorldPos[2];     // 입력용 월드 좌표
     float   m_InputScale[2];        // 입력용 스케일
     int     m_SelectedSpawnIdx;     // 선택된 SpawnInfo 인덱스

@@ -99,6 +99,8 @@ struct GlobalData
 struct FSpawnInfo
 {
 	int ObjectID; // 로드할 오브젝트의 ID
+	int LayerIdx;
+
 	Vec2 WorldPos;
 	Vec2 Scale;
 };

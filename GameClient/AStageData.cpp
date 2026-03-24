@@ -27,6 +27,7 @@ int AStageData::Save(const wstring& _FilePath)
 	for (const auto& Info : m_vecSpawnInfo)
 	{
 		fwrite(&Info.ObjectID, sizeof(int), 1, pFile);
+		fwrite(&Info.LayerIdx, sizeof(int), 1, pFile);
 		fwrite(&Info.WorldPos, sizeof(Vec2), 1, pFile);
 		fwrite(&Info.Scale, sizeof(Vec2), 1, pFile);
 	}
@@ -56,6 +57,7 @@ int AStageData::Load(const wstring& _FilePath)
 	for (UINT i = 0; i < SpawnInfoCount; ++i)
 	{
 		fread(&m_vecSpawnInfo[i].ObjectID, sizeof(int), 1, pFile);
+		fread(&m_vecSpawnInfo[i].LayerIdx, sizeof(int), 1, pFile);
 		fread(&m_vecSpawnInfo[i].WorldPos, sizeof(Vec2), 1, pFile);
 		fread(&m_vecSpawnInfo[i].Scale, sizeof(Vec2), 1, pFile);
 	}

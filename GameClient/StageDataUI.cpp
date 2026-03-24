@@ -10,6 +10,7 @@
 StageDataUI::StageDataUI()
     : EditorUI("StageDataUI")
     , m_SelectedObjectID((int)EObjectID::DefaultJelly)
+    , m_InputLayerIdx(0)
     , m_InputWorldPos{0.f, 0.f}
     , m_InputScale{100.f, 100.f}
     , m_SelectedSpawnIdx(-1)
@@ -85,8 +86,8 @@ void StageDataUI::DrawSpawnInfoList()
         // 선택 가능한 항목
         bool isSelected = (m_SelectedSpawnIdx == i);
         char label[128];
-        sprintf_s(label, "[%d] ID: %d, Pos: (%.1f, %.1f), Scale: (%.1f, %.1f)",
-            i, info.ObjectID, info.WorldPos.x, info.WorldPos.y, info.Scale.x, info.Scale.y);
+        sprintf_s(label, "[%d] ID: %d, Layer: %d, Pos: (%.1f, %.1f), Scale: (%.1f, %.1f)",
+            i, info.ObjectID, info.LayerIdx, info.WorldPos.x, info.WorldPos.y, info.Scale.x, info.Scale.y);
 
         if (ImGui::Selectable(label, isSelected))
         {
@@ -181,6 +182,11 @@ void StageDataUI::DrawAddSpawnInfo()
         m_SelectedObjectID = objectIDs[currentIdx];
     }
 
+    // Layer Index 입력
+    ImGui::Text("Layer Index");
+    ImGui::SameLine(120);
+    ImGui::InputInt("##LayerIdx", &m_InputLayerIdx);
+
     // World Position 입력
     ImGui::Text("World Pos");
     ImGui::SameLine(120);
@@ -196,6 +202,7 @@ void StageDataUI::DrawAddSpawnInfo()
     {
         FSpawnInfo newInfo;
         newInfo.ObjectID = m_SelectedObjectID;
+        newInfo.LayerIdx = m_InputLayerIdx;
         newInfo.WorldPos = Vec2(m_InputWorldPos[0], m_InputWorldPos[1]);
         newInfo.Scale = Vec2(m_InputScale[0], m_InputScale[1]);
 
@@ -310,7 +317,10 @@ void StageDataUI::DrawFetchFromTarget()
         m_InputScale[0] = worldScale.x;
         m_InputScale[1] = worldScale.y;
 
-        // 오브젝트 이름에서 ObjectID 추론
+        // 레이어 인덱스 설정
+        m_InputLayerIdx = pTargetObject->GetLayerIdx();
+
+        // 오브젝트 이름에서 ObjectID
         m_SelectedObjectID = GetObjectIDFromName(pTargetObject->GetName());
     }
 
@@ -324,6 +334,7 @@ void StageDataUI::DrawFetchFromTarget()
         {
             FSpawnInfo newInfo;
             newInfo.ObjectID = GetObjectIDFromName(pTargetObject->GetName());
+            newInfo.LayerIdx = pTargetObject->GetLayerIdx();
             newInfo.WorldPos = Vec2(worldPos.x, worldPos.y);
             newInfo.Scale = Vec2(worldScale.x, worldScale.y);
 
