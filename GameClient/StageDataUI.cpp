@@ -134,7 +134,8 @@ void StageDataUI::DrawAddSpawnInfo()
         "BearBlue",
         "BearBigYellow",
         "BearRainbow",
-        "SpecialBonus",
+        "SpecialBonus_1",
+        "SpecialBonus_2",
         "Item"
     };
 
@@ -148,7 +149,8 @@ void StageDataUI::DrawAddSpawnInfo()
         (int)EObjectID::BearBlue,
         (int)EObjectID::BearBigYellow,
         (int)EObjectID::BearRainbow,
-        (int)EObjectID::SpecialBonius,
+        (int)EObjectID::SpecialBonus_1,
+        (int)EObjectID::SpecialBonus_2,
         (int)EObjectID::Item
     };
 

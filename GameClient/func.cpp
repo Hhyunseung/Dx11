@@ -160,7 +160,7 @@ void CreateTestLevel()
 {
 	{
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
-		Ptr<APrefab> pPrefab = LOAD(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+		Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 
 		Ptr<AStageData> pStageData = new AStageData; //= LOAD(AStageData, L"StageData\\TestStageData.stg");
 

@@ -246,6 +246,9 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Jelly_bearice_z65", L"Texture\\Jelly\\jelly_bearice_z65.png");
 	Load<ATexture>(L"Jelly_BearBig", L"Texture\\Jelly\\Jelly_BearBig.png");
 	Load<ATexture>(L"Jelly_BearRainbow_z65", L"Texture\\Jelly\\Jelly_BearRainbow_z65.png");
+	Load<ATexture>(L"Jelly_BearRainbow_z65", L"Texture\\Jelly\\Jelly_BearRainbow_z65.png");
+	Load<ATexture>(L"Jelly_SpecialBonus_1", L"Texture\\Jelly\\Jelly_SpecialBonus_1.png");
+	Load<ATexture>(L"Jelly_SpecialBonus_2", L"Texture\\Jelly\\Jelly_SpecialBonus_2.png");
 
 
 

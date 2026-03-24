@@ -196,20 +196,21 @@ enum class LEVEL_STATE
 
 enum class EObjectID
 {
-	None = 0,
+	None			= 0,
 
-	DefaultJelly = 1001,
-	Coin1		 = 1002,
-	Coin2,
+	DefaultJelly	= 1001,
+	Coin1			= 1002,
+	Coin2			= 1003,
 
-	BearYellow,
-	BearPink,
-	BearBlue,
+	BearYellow		= 1004,
+	BearPink		= 1005,
+	BearBlue		= 1006,
 
-	BearBigYellow,
-	BearRainbow,
+	BearBigYellow	= 1007,
+	BearRainbow		= 1008,
 
-	SpecialBonius,
+	SpecialBonus_1 = 1009,
+	SpecialBonus_2 = 1010,
 
 	Item,
 };
