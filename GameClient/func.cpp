@@ -163,10 +163,9 @@ void CreateTestLevel()
 		Ptr<APrefab> pPrefab = LOAD(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 
 		Ptr<AStageData> pStageData = new AStageData; //= LOAD(AStageData, L"StageData\\TestStageData.stg");
-		pStageData->Create(20, 200, Vec2(32.f, 32.f), Vec2(-200.f, -200.f));
 
 		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
-		//GamePlayMgr::GetInst()->SetStageData(pStageData);
+		GamePlayMgr::GetInst()->SetStageData(pStageData);
 		
 		Ptr<GameObject> pObject = new GameObject;
 		pObject->SetName(L"FlipbookDefault");

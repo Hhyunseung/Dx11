@@ -17,6 +17,7 @@
 #include "ListUI.h"
 #include "ContentUI.h"
 #include "CollisionMatrixUI.h"
+#include "StageDataUI.h"
 
 #include "CEditorCamMoveScript.h"
 
@@ -186,6 +187,11 @@ void EditorMgr::CreateEditorUI()
 
 	pUI = new CollisionMatrixUI;
 	pUI->SetActive(false);
+	AddUI(pUI->GetUIName(), pUI);
+
+	// StageDataUI - 독립 창으로 등록
+	pUI = new StageDataUI;
+	pUI->SetActive(false);	// 기본적으로 비활성화
 	AddUI(pUI->GetUIName(), pUI);
 }
 

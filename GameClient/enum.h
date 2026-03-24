@@ -194,38 +194,22 @@ enum class LEVEL_STATE
 };
 
 
-enum class EObjectType
+enum class EObjectID
 {
 	None = 0,
-	Jelly,
-	Obstacle,
-	Item,
-};
 
-enum class JellyType
-{
-	Default,
-	Coin1,
+	DefaultJelly = 1001,
+	Coin1		 = 1002,
 	Coin2,
-	
+
 	BearYellow,
 	BearPink,
 	BearBlue,
-	
+
 	BearBigYellow,
 	BearRainbow,
 
 	SpecialBonius,
 
-	END,
-};
-
-enum class ObstacleType
-{
-
-};
-
-enum class ItemType
-{
-
+	Item,
 };

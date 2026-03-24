@@ -155,6 +155,17 @@ void Menu::View()
 			pOutliner->SetActive(OutlinerActive);
 		}
 
+		// StageData Editor
+		Ptr<EditorUI> pStageDataUI = EditorMgr::GetInst()->FindUI("StageDataUI");
+		if (pStageDataUI != nullptr)
+		{
+			bool StageDataActive = pStageDataUI->IsActive();
+			if (ImGui::MenuItem("StageData Editor", nullptr, &StageDataActive))
+			{
+				pStageDataUI->SetActive(StageDataActive);
+			}
+		}
+
 		ImGui::EndMenu();
 	}
 }

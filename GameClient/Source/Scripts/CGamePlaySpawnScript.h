@@ -6,7 +6,12 @@ class CGamePlaySpawnScript :
     public CScript
 {
 private:
-	Vec4 m_vecSpawnPos;
+	Vec4 m_vecPlayerSpawnPos;
+
+	std::map<EObjectID, Ptr<APrefab>> m_mapSpawnPrefabs; // SpawnInfo ID에 따른 Prefab 매핑
+
+public:
+	Ptr<APrefab> GetSpawnPrefab(EObjectID _ID);
 
 public:
     virtual void Init() override;

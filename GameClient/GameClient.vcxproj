@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -255,7 +255,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CRunState.h" />
     <ClInclude Include="Source\Scripts\CScrollScript.h" />
     <ClInclude Include="Source\Scripts\CSlideState.h" />
-    <ClInclude Include="Source\Scripts\CStageGridScript.h" />
+    
     <ClInclude Include="Source\Scripts\CStateMachine.h" />
     <ClInclude Include="SpriteRenderUI.h" />
     <ClInclude Include="SpriteUI.h" />
@@ -366,7 +366,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CRunState.cpp" />
     <ClCompile Include="Source\Scripts\CScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CSlideState.cpp" />
-    <ClCompile Include="Source\Scripts\CStageGridScript.cpp" />
+    
     <ClCompile Include="Source\Scripts\CStateMachine.cpp" />
     <ClCompile Include="SpriteRenderUI.cpp" />
     <ClCompile Include="SpriteUI.cpp" />
