@@ -4,6 +4,8 @@
 #include "PathMgr.h"
 #include "AStageData.h"
 #include "GamePlayMgr.h"
+#include "EditorMgr.h"
+#include "Inspector.h"
 
 StageDataUI::StageDataUI()
     : EditorUI("StageDataUI")
@@ -42,6 +44,13 @@ void StageDataUI::Tick_UI()
 
     // SpawnInfo 목록 출력
     DrawSpawnInfoList();
+
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    // 선택된 TargetObject에서 정보 가져오기
+    DrawFetchFromTarget();
 
     ImGui::Spacing();
     ImGui::Separator();
@@ -251,4 +260,104 @@ void StageDataUI::DrawSaveButton()
         }
         ImGui::EndPopup();
     }
+}
+
+void StageDataUI::DrawFetchFromTarget()
+{
+    ImGui::Text("Fetch From Target Object");
+
+    // Inspector에서 현재 선택된 TargetObject 가져오기
+    Ptr<Inspector> pInspector = (Inspector*)EditorMgr::GetInst()->FindUI("Inspector").Get();
+    if (nullptr == pInspector)
+    {
+        ImGui::TextColored(ImVec4(1, 0, 0, 1), "Inspector not found!");
+        return;
+    }
+
+    Ptr<GameObject> pTargetObject = pInspector->GetTargetObejct();
+    if (nullptr == pTargetObject)
+    {
+        ImGui::TextColored(ImVec4(1, 1, 0, 1), "No object selected in Inspector");
+        return;
+    }
+
+    // 선택된 오브젝트 정보 표시
+    string objName = string(pTargetObject->GetName().begin(), pTargetObject->GetName().end());
+    ImGui::Text("Selected: %s", objName.c_str());
+
+    // Transform 컴포넌트에서 위치와 스케일 가져오기
+    Ptr<CTransform> pTransform = pTargetObject->Transform();
+    if (nullptr == pTransform)
+    {
+        ImGui::TextColored(ImVec4(1, 0, 0, 1), "No Transform component!");
+        return;
+    }
+
+    Vec3 worldPos = pTransform->GetWorldPos();
+    Vec3 worldScale = pTransform->GetWorldScale();
+
+    ImGui::Text("Position: (%.1f, %.1f)", worldPos.x, worldPos.y);
+    ImGui::Text("Scale: (%.1f, %.1f)", worldScale.x, worldScale.y);
+
+    // 가져오기 버튼
+    if (ImGui::Button("Fetch to Input Fields", ImVec2(200, 30)))
+    {
+        // 위치 설정
+        m_InputWorldPos[0] = worldPos.x;
+        m_InputWorldPos[1] = worldPos.y;
+
+        // 스케일 설정
+        m_InputScale[0] = worldScale.x;
+        m_InputScale[1] = worldScale.y;
+
+        // 오브젝트 이름에서 ObjectID 추론
+        m_SelectedObjectID = GetObjectIDFromName(pTargetObject->GetName());
+    }
+
+    ImGui::SameLine();
+
+    // 바로 추가 버튼
+    if (ImGui::Button("Add Directly", ImVec2(150, 30)))
+    {
+        Ptr<AStageData> pStageData = GamePlayMgr::GetInst()->GetStageData();
+        if (nullptr != pStageData)
+        {
+            FSpawnInfo newInfo;
+            newInfo.ObjectID = GetObjectIDFromName(pTargetObject->GetName());
+            newInfo.WorldPos = Vec2(worldPos.x, worldPos.y);
+            newInfo.Scale = Vec2(worldScale.x, worldScale.y);
+
+            pStageData->AddSpawnInfo(newInfo);
+        }
+    }
+}
+
+int StageDataUI::GetObjectIDFromName(const wstring& _Name)
+{
+    // 오브젝트 이름(키값)을 기반으로 ObjectID 추론 (정확한 일치)
+    if (_Name == L"Jelly_Default")
+        return (int)EObjectID::DefaultJelly;
+    if (_Name == L"Jelly_CoinGold")
+        return (int)EObjectID::Coin1;
+    if (_Name == L"Jelly_CoinSilver")
+        return (int)EObjectID::Coin2;
+    if (_Name == L"Jelly_Bearbig")
+        return (int)EObjectID::BearBigYellow;
+    if (_Name == L"Jelly_BearRainbow")
+        return (int)EObjectID::BearRainbow;
+    if (_Name == L"Jelly_Bearyellow")
+        return (int)EObjectID::BearYellow;
+    if (_Name == L"Jelly_Bearpink")
+        return (int)EObjectID::BearPink;
+    if (_Name == L"Jelly_Bearice")
+        return (int)EObjectID::BearBlue;
+    if (_Name == L"Jelly_SpecialBonus_1")
+        return (int)EObjectID::SpecialBonus_1;
+    if (_Name == L"Jelly_SpecialBonus_2")
+        return (int)EObjectID::SpecialBonus_2;
+    if (_Name == L"Item")
+        return (int)EObjectID::Item;
+
+    // 기본값
+    return (int)EObjectID::None;
 }

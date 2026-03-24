@@ -20,6 +20,9 @@ private:
     void DrawSpawnInfoList();       // SpawnInfo 목록 출력
     void DrawAddSpawnInfo();        // SpawnInfo 추가 UI
     void DrawSaveButton();          // 저장 버튼
+    void DrawFetchFromTarget();     // TargetObject에서 정보 가져오기
+
+    int GetObjectIDFromName(const wstring& _Name);  // 이름으로 ObjectID 추론
 
 public:
     StageDataUI();

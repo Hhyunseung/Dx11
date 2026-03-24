@@ -51,5 +51,4 @@ void Inspector::CreateChildUI()
 	ADD_ASSET_UI(ASSET_TYPE::FLIPBOOK, FlipbookUI);
 	ADD_ASSET_UI(ASSET_TYPE::TILEMAP, TileMapUI);
 	ADD_ASSET_UI(ASSET_TYPE::PREFAB, PrefabUI);
-	// StageDataUI는 독립 UI로 EditorMgr에서 등록
 }

@@ -39,6 +39,10 @@ void ContentUI::Renew()
 	// 에셋 종류별로 Tree 에 추가하기
 	for (UINT i = 0; i < (UINT)ASSET_TYPE::END; ++i)
 	{
+		// StageData는 StageDataUI에서 별도로 관리하므로 제외
+		if ((ASSET_TYPE)i == ASSET_TYPE::STAGE_DATA)
+			continue;
+
 		// 에셋의 이름에 해당하는 노드를 추가 (enum 타입을 문자열로 바꿔서 추가)
 		Ptr<TreeNode> pNode = m_Tree->AddItem(nullptr, ToString((ASSET_TYPE)i));
 		pNode->SetFramed(true);

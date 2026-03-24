@@ -175,14 +175,14 @@ void CreateTestLevel()
 		pObject->AddComponent(new CScrollScript);
 		pObject->AddComponent(new CCollider2D);
 
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 17.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
+		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+		pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 
-		pObject->Collider2D()->SetScale(Vec2(0.25f, 0.25f));
-		pObject->Collider2D()->SetOffset(Vec2(0.5f, 0.f));
+		pObject->Collider2D()->SetScale(Vec2(1.f, 1.f));
+		pObject->Collider2D()->SetOffset(Vec2(0.f, 0.f));
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Jelly_BearBig_z65.flip"));
+		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\JellySilverCoin.flip"));
 		pObject->FlipbookRender()->Play(0, 12.f, -1);
 
 		pLevel->AddObject(0, pObject);
