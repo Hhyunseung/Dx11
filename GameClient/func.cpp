@@ -172,16 +172,16 @@ void CreateTestLevel()
 
 		pObject->AddComponent(new CTransform);
 		pObject->AddComponent(new CFlipbookRender);
-		pObject->AddComponent(new CCollider2D);
+		//pObject->AddComponent(new CCollider2D);
 
 		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
 		pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 
-		pObject->Collider2D()->SetScale(Vec2(1.f, 1.f));
-		pObject->Collider2D()->SetOffset(Vec2(0.f, 0.f));
+		//pObject->Collider2D()->SetScale(Vec2(1.f, 1.f));
+		//pObject->Collider2D()->SetOffset(Vec2(0.f, 0.f));
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Jelly_BearRainbow_z65.flip"));
+		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Effect_Obstruct_Break.flip"));
 		pObject->FlipbookRender()->Play(0, 12.f, -1);
 
 		pLevel->AddObject(0, pObject);

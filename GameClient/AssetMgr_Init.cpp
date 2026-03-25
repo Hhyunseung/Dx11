@@ -307,6 +307,12 @@ void AssetMgr::CreateEngineTexture()
 	// 이펙트 텍스쳐
 	// ==============
 	Load<ATexture>(L"Effect_JellyCollect", L"Texture\\Effect\\Effect_JellyCollect.png");
+
+
+
+
+
+	Load<ATexture>(L"Effect_Obstruct", L"Texture\\Obstruct.png");
 }
 
 void AssetMgr::CreateEngineMaterial()
