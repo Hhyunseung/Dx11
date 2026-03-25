@@ -214,6 +214,19 @@ void AssetMgr::CreateEngineShader()
 
 	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
 
+	// ============== EffectShader 积己 ==============//
+	pShader = new AGraphicShader;
+	pShader->SetName(L"EffectShader");
+	pShader->CreateVertexShader(L"Shader\\effect.fx", "VS_Effect");
+	pShader->CreatePixelShader(L"Shader\\effect.fx", "PS_Effect");
+	pShader->SetBSType(BS_TYPE::ALPHABLEND);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+
+	pShader->AddShaderParam(SHADER_PARAM::FLOAT, 0, L"Speed");
+	pShader->AddShaderParam(SHADER_PARAM::TEX, 0, L"OutColor");
+
+	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
+
 	
 	//================== DbgShader 积己 ==============//
 	pShader = new AGraphicShader;
@@ -289,6 +302,11 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"TileShipStage1_1", L"Texture\\ovenbreak_tm001_tb.png");
 	Load<ATexture>(L"TileShipStage1_2", L"Texture\\ovenbreak_tm001_fh.png");
 
+
+	// ==============
+	// 捞棋飘 咆胶媚
+	// ==============
+	Load<ATexture>(L"Effect_JellyCollect", L"Texture\\Effect\\Effect_JellyCollect.png");
 }
 
 void AssetMgr::CreateEngineMaterial()
@@ -320,6 +338,17 @@ void AssetMgr::CreateEngineMaterial()
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 	AddAsset(pMtrl->GetName(), pMtrl.Get());
 
+	//================== EffectMtrl 积己 ==============//
+	pMtrl = new AMaterial;
+	pMtrl->SetName(L"EffectMtrl");
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"EffectShader"));
+
+	// Parameter
+	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"Effect_JellyCollect"));
+
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_TRANSPARENT);
+	AddAsset(pMtrl->GetName(), pMtrl.Get());
 
 	// ================== 秦利 甘_1 积己 ==============//
 	pMtrl = new AMaterial;

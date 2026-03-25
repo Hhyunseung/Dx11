@@ -337,15 +337,16 @@
     <ClInclude Include="AStageData.h">
       <Filter>GameEngine\04.Asset\10.StageData</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scripts\CStageGridScript.h">
-      <Filter>Source\Scripts\01.Tile</Filter>
-    </ClInclude>
     <ClInclude Include="GamePlayMgr.h">
       <Filter>GameEngine\03.Manager\10.GamePlayMgr</Filter>
     </ClInclude>
     <ClInclude Include="StageDataUI.h">
       <Filter>GameEngine\07.EditorUI\08.AssetUI\14.StageDataUI</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="ObjectPoolMgr.h" />
+    <ClInclude Include="Source\Scripts\CEffectScript.h" />
+    <ClInclude Include="Source\Scripts\CWorldScrollScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -943,15 +944,16 @@
     <ClCompile Include="AStageData.cpp">
       <Filter>GameEngine\04.Asset\10.StageData</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\CStageGridScript.cpp">
-      <Filter>Source\Scripts\01.Tile</Filter>
-    </ClCompile>
     <ClCompile Include="GamePlayMgr.cpp">
       <Filter>GameEngine\03.Manager\10.GamePlayMgr</Filter>
     </ClCompile>
     <ClCompile Include="StageDataUI.cpp">
       <Filter>GameEngine\07.EditorUI\08.AssetUI\14.StageDataUI</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="ObjectPoolMgr.cpp" />
+    <ClCompile Include="Source\Scripts\CEffectScript.cpp" />
+    <ClCompile Include="Source\Scripts\CWorldScrollScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -987,6 +989,9 @@
       <Filter>HLSL\1.Header</Filter>
     </FxCompile>
     <FxCompile Include="bg_scroll.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="effect.fx">
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
   </ItemGroup>
