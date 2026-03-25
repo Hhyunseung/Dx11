@@ -65,7 +65,8 @@ void CEffectScript::Tick()
 		Transform()->SetRelativePos(pos);
 	}
 
-	if (m_IsAlphaEffect)
+	// 플립북이 아닐 경우, 알파값을 점점 줄여서 페이드 아웃 효과
+	if (m_IsAlphaEffect && (GetOwner()->FlipbookRender().Get() == nullptr))
 	{
 		// 페이드 아웃: 1.0 -> 0.0 으로 점점 투명해짐
 		float alpha = m_InitialAlpha - (m_AccTime / m_Duration);
