@@ -79,10 +79,14 @@ void CEffectScript::Tick()
 
 void CEffectScript::SaveToLevelFile(FILE* _File)
 {
+	fwrite(&m_IsAlphaEffect, sizeof(bool), 1, _File);
+	fwrite(&m_InitialAlpha, sizeof(float), 1, _File);
 	fwrite(&m_Duration, sizeof(float), 1, _File);
 }
 
 void CEffectScript::LoadFromLevelFile(FILE* _File)
 {
+	fread(&m_IsAlphaEffect, sizeof(bool), 1, _File);
+	fread(&m_InitialAlpha, sizeof(float), 1, _File);
 	fread(&m_Duration, sizeof(float), 1, _File);
 }

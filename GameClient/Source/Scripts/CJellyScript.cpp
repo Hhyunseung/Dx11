@@ -64,7 +64,7 @@ void CJellyScript::BeginOverlap(CCollider2D* _This, CCollider2D* _Other)
 void CJellyScript::SpawnCollectEffect()
 {
 	Vec3 pos = Transform()->GetRelativePos();
-	ObjectPoolMgr::GetInst()->SpawnEffect(L"prefab\\Effect_JellyCollect.pref", pos);
+	ObjectPoolMgr::GetInst()->SpawnEffect(L"Prefab\\Effect_JellyCollect.pref", pos);
 }
 
 void CJellyScript::ReturnToPool()

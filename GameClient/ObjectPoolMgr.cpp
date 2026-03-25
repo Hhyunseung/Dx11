@@ -22,8 +22,8 @@ void ObjectPoolMgr::Init()
 	// ============================================
 
 	 //젤리 풀 (예시)
-	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 50, 9);
-	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 50, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 30, 9);
+	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 30, 9);
 	 //CreatePool(L"Prefab\\Jelly_Bearpink.pref", 50, 9);
 	 //CreatePool(L"Prefab\\Jelly_Bearyellow.pref", 50, 9);
 
@@ -31,7 +31,7 @@ void ObjectPoolMgr::Init()
 	// CreatePool(L"Prefab\\Obstacle_Box.pref", 30, 0);
 
 	// 이펙트 풀 (예시)
-	// CreatePool(L"Prefab\\Effect_JellyCollect.pref", 20, 0);
+	CreatePool(L"Prefab\\Effect_JellyCollect.pref", 20, 0);
 }
 
 void ObjectPoolMgr::Clear()
