@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GamePlayMgr.h"
+#include "ObjectPoolMgr.h"
 
 GamePlayMgr::GamePlayMgr()
 	: m_PlayerObject(nullptr)
@@ -22,6 +23,9 @@ void GamePlayMgr::Init()
 	{
 		CreateNewStageData();
 	}
+
+	// 오브젝트 풀 초기화
+	ObjectPoolMgr::GetInst()->Init();
 }
 
 void GamePlayMgr::Clear()

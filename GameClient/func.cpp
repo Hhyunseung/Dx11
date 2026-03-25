@@ -172,7 +172,6 @@ void CreateTestLevel()
 
 		pObject->AddComponent(new CTransform);
 		pObject->AddComponent(new CFlipbookRender);
-		pObject->AddComponent(new CScrollScript);
 		pObject->AddComponent(new CCollider2D);
 
 		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
@@ -182,7 +181,7 @@ void CreateTestLevel()
 		pObject->Collider2D()->SetOffset(Vec2(0.f, 0.f));
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\JellySilverCoin.flip"));
+		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Jelly_BearRainbow_z65.flip"));
 		pObject->FlipbookRender()->Play(0, 12.f, -1);
 
 		pLevel->AddObject(0, pObject);

@@ -28,7 +28,7 @@ void CGamePlaySpawnScript::Begin()
 	SpawnPlayer();
 
 	// StageData 기반 오브젝트 스폰
-	SpawnStageObjects();
+	// SpawnStageObjects();
 }
 
 void CGamePlaySpawnScript::Tick()

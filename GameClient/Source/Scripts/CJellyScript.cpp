@@ -12,7 +12,7 @@ CJellyScript::CJellyScript()
 	, m_Magnet(true)
 	, m_MagnetRange(300.f)
 	, m_MagnetSpeed(200.f)
-	, m_ObjectID(EObjectID::None)
+	, m_ObjectID(EObjectID::DefaultJelly)
 {
 
 }
@@ -82,6 +82,6 @@ void CJellyScript::SaveToLevelFile(FILE* _File)
 
 void CJellyScript::LoadFromLevelFile(FILE* _File)
 {
-	//fread(&m_Score, sizeof(int), 1, _File);
-	//fread(&m_ObjectID, sizeof(EObjectID), 1, _File);
+	fread(&m_Score, sizeof(int), 1, _File);
+	fread(&m_ObjectID, sizeof(EObjectID), 1, _File);
 }
