@@ -3,6 +3,7 @@
 
 #include "TimeMgr.h"
 #include "ObjectPoolMgr.h"
+#include "GamePlayMgr.h"
 #include "GameObject.h"
 #include "CMeshRender.h"
 
@@ -12,6 +13,7 @@ CEffectScript::CEffectScript()
 	, m_AccTime(0.f)
 	, m_IsAlphaEffect(true)
 	, m_InitialAlpha(1.f)
+	, m_IsScrolling(false)
 {
 }
 
@@ -21,9 +23,10 @@ CEffectScript::~CEffectScript()
 
 void CEffectScript::Init()
 {
-	AddScriptParam(SCRIPT_PARAM::BOOL, &m_IsAlphaEffect, L"IsAlphaEffect", true);
+	AddScriptParam(SCRIPT_PARAM::BOOL, &m_IsAlphaEffect, L"IsAlphaEffect");
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_InitialAlpha, L"InitialAlpha", true, 0.f);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_Duration, L"Duration", true, 0.f);
+	AddScriptParam(SCRIPT_PARAM::BOOL, &m_IsScrolling, L"IsScrolling");
 }
 
 void CEffectScript::Begin()
@@ -52,6 +55,15 @@ void CEffectScript::OnSpawn()
 void CEffectScript::Tick()
 {
 	m_AccTime += DT;
+
+	// 월드 스크롤과 함께 이동 (GamePlayMgr에서 속도 읽기)
+	if (m_IsScrolling)
+	{
+		float scrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
+		Vec3 pos = Transform()->GetRelativePos();
+		pos.x -= scrollSpeed * DT;
+		Transform()->SetRelativePos(pos);
+	}
 
 	if (m_IsAlphaEffect)
 	{

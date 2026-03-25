@@ -66,6 +66,9 @@ void CWorldScrollScript::Reset()
 void CWorldScrollScript::UpdateScroll()
 {
 	m_WorldOffset += m_ScrollSpeed * DT;
+
+	// 전역 스크롤 속도 동기화 (이펙트 등에서 사용)
+	GamePlayMgr::GetInst()->SetScrollSpeed(m_ScrollSpeed);
 }
 
 void CWorldScrollScript::SpawnObjects()

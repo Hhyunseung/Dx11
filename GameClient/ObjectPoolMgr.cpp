@@ -3,6 +3,7 @@
 
 #include "AssetMgr.h"
 #include "GamePlayMgr.h"
+#include "Source/Scripts/CEffectScript.h"
 
 ObjectPoolMgr::ObjectPoolMgr()
 {
@@ -22,8 +23,8 @@ void ObjectPoolMgr::Init()
 	// ============================================
 
 	 //젤리 풀 (예시)
-	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 30, 9);
-	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 30, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 10, 9);
 	 //CreatePool(L"Prefab\\Jelly_Bearpink.pref", 50, 9);
 	 //CreatePool(L"Prefab\\Jelly_Bearyellow.pref", 50, 9);
 
@@ -31,7 +32,7 @@ void ObjectPoolMgr::Init()
 	// CreatePool(L"Prefab\\Obstacle_Box.pref", 30, 0);
 
 	// 이펙트 풀 (예시)
-	CreatePool(L"Prefab\\Effect_JellyCollect.pref", 20, 0);
+	CreatePool(L"Prefab\\Effect_JellyCollect.pref", 3, 0);
 }
 
 void ObjectPoolMgr::Clear()
@@ -111,13 +112,21 @@ void ObjectPoolMgr::ReturnAll()
 	}
 }
 
-GameObject* ObjectPoolMgr::SpawnEffect(const wstring& _EffectKey, Vec3 _Pos)
+GameObject* ObjectPoolMgr::SpawnEffect(const wstring& _EffectKey, Vec3 _Pos, bool _IsScrolling)
 {
 	GameObject* pEffect = Get(_EffectKey);
 	if (pEffect == nullptr)
 		return nullptr;
 
 	pEffect->Transform()->SetRelativePos(_Pos);
+
+	// 스크롤 여부 설정 (속도는 GamePlayMgr에서 자동으로 읽음)
+	Ptr<CEffectScript> pEffectScript = pEffect->GetScript<CEffectScript>();
+	if (pEffectScript != nullptr)
+	{
+		pEffectScript->SetScrolling(_IsScrolling);
+	}
+
 	return pEffect;
 }
 

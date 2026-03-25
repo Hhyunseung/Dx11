@@ -17,6 +17,8 @@ private:
 
 	Ptr<AStageData> m_StageData;	// 현재 편집중인 StageData
 
+	float m_ScrollSpeed;			// 현재 월드 스크롤 속도
+
 public:
 	void Init();
 	void Clear();
@@ -34,6 +36,10 @@ public:
 	void SetStageData(Ptr<AStageData> _StageData) { m_StageData = _StageData; }
 	Ptr<AStageData> GetStageData() { return m_StageData; }
 	void CreateNewStageData();	// 새 StageData 생성
+
+	// 스크롤 속도 (전역 접근용)
+	void SetScrollSpeed(float _Speed) { m_ScrollSpeed = _Speed; }
+	float GetScrollSpeed() const { return m_ScrollSpeed; }
 
 	// ObjectID -> Prefab Key 변환
 	static wstring GetPrefabKey(int _ObjectID);

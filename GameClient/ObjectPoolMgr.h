@@ -27,7 +27,7 @@ public:
 	void ReturnAll();
 
 	// 이펙트 전용 (편의 함수)
-	GameObject* SpawnEffect(const wstring& _EffectKey, Vec3 _Pos);
+	GameObject* SpawnEffect(const wstring& _EffectKey, Vec3 _Pos, bool _IsScrolling = true);
 
 	bool HasPool(const wstring& _PrefabKey) const;
 };

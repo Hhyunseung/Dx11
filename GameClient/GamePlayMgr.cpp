@@ -17,6 +17,7 @@ void GamePlayMgr::Init()
 {
 	m_PlayerObject = nullptr;
 	m_Score = 0;
+	m_ScrollSpeed = 300.f;	// 기본 스크롤 속도
 
 	// 기본 StageData 생성
 	if (nullptr == m_StageData)
