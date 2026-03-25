@@ -4,9 +4,12 @@
 class CEffectScript : public CScript
 {
 private:
-	float		m_Duration;		// 이펙트 지속 시간
-	float		m_AccTime;		// 경과 시간
-	wstring		m_PoolKey;		// 풀 반환용 키
+	float		m_Duration;			// 이펙트 지속 시간
+	float		m_AccTime;			// 경과 시간
+	bool		m_IsAlphaEffect;    // 점점 투명해지는 효과 여부
+	float		m_InitialAlpha;		// 시작 시 알파값 (예: 1.0f) /// 1.0 -> 0.0
+
+	wstring		m_PoolKey;			// 풀 반환용 키
 
 public:
 	void SetDuration(float _Duration) { m_Duration = _Duration; }

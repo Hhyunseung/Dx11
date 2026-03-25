@@ -80,6 +80,19 @@ void ScriptUI::Tick_UI()
 			AddItemHeight();
 		}
 			break;
+		case SCRIPT_PARAM::BOOL:
+		{
+			ImGui::Text(string(vecParam[i].Desc.begin(), vecParam[i].Desc.end()).c_str());
+			ImGui::SameLine(120);
+
+			string Key = "##Bool";
+			Key += ID;
+
+			ImGui::Checkbox(Key.c_str(), (bool*)vecParam[i].Data);
+
+			AddItemHeight();
+		}
+			break;
 		case SCRIPT_PARAM::FLOAT:
 		{
 			ImGui::Text(string(vecParam[i].Desc.begin(), vecParam[i].Desc.end()).c_str());

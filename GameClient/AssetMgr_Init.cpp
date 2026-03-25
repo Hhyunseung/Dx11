@@ -222,7 +222,7 @@ void AssetMgr::CreateEngineShader()
 	pShader->SetBSType(BS_TYPE::ALPHABLEND);
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 
-	pShader->AddShaderParam(SHADER_PARAM::FLOAT, 0, L"Speed");
+	pShader->AddShaderParam(SHADER_PARAM::FLOAT, 0, L"AlphaValue");
 	pShader->AddShaderParam(SHADER_PARAM::TEX, 0, L"OutColor");
 
 	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
@@ -344,7 +344,7 @@ void AssetMgr::CreateEngineMaterial()
 	pMtrl->SetShader(FindAsset<AGraphicShader>(L"EffectShader"));
 
 	// Parameter
-	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	pMtrl->SetScalar(FLOAT_0, 1.0f);
 	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"Effect_JellyCollect"));
 
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_TRANSPARENT);

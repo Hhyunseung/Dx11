@@ -3,9 +3,8 @@
 
 #include "value.fx"
 
+#define AlphaValue  g_float_0
 #define AtlasTex    g_tex_0
-#define LeftTopUV   g_vec2_0
-#define SliceUV     g_vec2_1
 
 
 struct VS_IN
@@ -40,6 +39,8 @@ VS_OUT VS_Effect(VS_IN _input)
 float4 PS_Effect(VS_OUT _input) : SV_Target
 {
     float4 vColor = g_tex_0.Sample(g_sam_1, _input.vUV);
+    
+    vColor.a *= AlphaValue;
     
     if (vColor.a < 0.01f)
         discard;
