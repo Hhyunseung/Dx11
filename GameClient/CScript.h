@@ -14,6 +14,8 @@ enum class SCRIPT_PARAM
     TEXTURE,
     MATERIAL,
     PREFAB,
+
+    EObjectID,
 };
 
 struct tScriptParam

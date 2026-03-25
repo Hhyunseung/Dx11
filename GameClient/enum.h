@@ -213,4 +213,54 @@ enum class EObjectID
 	SpecialBonus_2 = 1010,
 
 	Item,
+
+	END,
 };
+
+// EObjectID 이름 변환 헬퍼 함수
+inline const char* EObjectIDToString(EObjectID _ID)
+{
+	switch (_ID)
+	{
+	case EObjectID::None:			return "None";
+	case EObjectID::DefaultJelly:	return "DefaultJelly";
+	case EObjectID::Coin1:			return "Coin1";
+	case EObjectID::Coin2:			return "Coin2";
+	case EObjectID::BearYellow:		return "BearYellow";
+	case EObjectID::BearPink:		return "BearPink";
+	case EObjectID::BearBlue:		return "BearBlue";
+	case EObjectID::BearBigYellow:	return "BearBigYellow";
+	case EObjectID::BearRainbow:	return "BearRainbow";
+	case EObjectID::SpecialBonus_1:	return "SpecialBonus_1";
+	case EObjectID::SpecialBonus_2:	return "SpecialBonus_2";
+	case EObjectID::Item:			return "Item";
+	default:						return "Unknown";
+	}
+}
+
+// 콤보박스용 EObjectID 배열 및 개수
+constexpr int g_ObjectIDCount = 12;
+
+inline EObjectID GetObjectIDByIndex(int _Idx)
+{
+	static const EObjectID arr[] = 
+	{
+		EObjectID::None,
+		EObjectID::DefaultJelly,
+		EObjectID::Coin1,
+		EObjectID::Coin2,
+		EObjectID::BearYellow,
+		EObjectID::BearPink,
+		EObjectID::BearBlue,
+		EObjectID::BearBigYellow,
+		EObjectID::BearRainbow,
+		EObjectID::SpecialBonus_1,
+		EObjectID::SpecialBonus_2,
+		EObjectID::Item,
+	};
+
+	if (_Idx < 0 || _Idx >= g_ObjectIDCount)
+		return EObjectID::None;
+
+	return arr[_Idx];
+}

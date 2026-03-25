@@ -209,6 +209,47 @@ void ScriptUI::Tick_UI()
 			AddItemHeight();
 		}
 			break;
+		case SCRIPT_PARAM::EObjectID:
+		{
+			ImGui::Text(string(vecParam[i].Desc.begin(), vecParam[i].Desc.end()).c_str());
+			ImGui::SameLine(120);
+
+			string Key = "##EObjectID";
+			Key += ID;
+
+			EObjectID* pObjectID = (EObjectID*)vecParam[i].Data;
+
+			// 현재 선택된 항목의 인덱스 찾기
+			int currentIdx = 0;
+			for (int j = 0; j < g_ObjectIDCount; ++j)
+			{
+				if (GetObjectIDByIndex(j) == *pObjectID)
+				{
+					currentIdx = j;
+					break;
+				}
+			}
+
+			// 콤보박스 표시
+			if (ImGui::BeginCombo(Key.c_str(), EObjectIDToString(*pObjectID)))
+			{
+				for (int j = 0; j < g_ObjectIDCount; ++j)
+				{
+					bool isSelected = (currentIdx == j);
+					if (ImGui::Selectable(EObjectIDToString(GetObjectIDByIndex(j)), isSelected))
+					{
+						*pObjectID = GetObjectIDByIndex(j);
+					}
+
+					if (isSelected)
+						ImGui::SetItemDefaultFocus();
+				}
+				ImGui::EndCombo();
+			}
+
+			AddItemHeight();
+		}
+			break;
 		default:
 			break;
 		}

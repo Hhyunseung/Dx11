@@ -4,6 +4,7 @@
 #include "Scripts/CBGScrollScript.h"
 #include "Scripts/CCamMoveScript.h"
 #include "Scripts/CDoubleJumpState.h"
+#include "Scripts/CEffectScript.h"
 #include "Scripts/CEnemy.h"
 #include "Scripts/CGamePlaySpawnScript.h"
 #include "Scripts/CJellyScript.h"
@@ -18,12 +19,14 @@
 #include "Scripts/CScrollScript.h"
 #include "Scripts/CSlideState.h"
 #include "Scripts/CStateMachine.h"
+#include "Scripts/CWorldScrollScript.h"
 
 void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CBGScrollScript");
 	_vec.push_back(L"CCamMoveScript");
 	_vec.push_back(L"CDoubleJumpState");
+	_vec.push_back(L"CEffectScript");
 	_vec.push_back(L"CEnemy");
 	_vec.push_back(L"CGamePlaySpawnScript");
 	_vec.push_back(L"CJellyScript");
@@ -38,6 +41,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CScrollScript");
 	_vec.push_back(L"CSlideState");
 	_vec.push_back(L"CStateMachine");
+	_vec.push_back(L"CWorldScrollScript");
 }
 
 CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
@@ -48,6 +52,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CCamMoveScript;
 	if (L"CDoubleJumpState" == _strScriptName)
 		return new CDoubleJumpState;
+	if (L"CEffectScript" == _strScriptName)
+		return new CEffectScript;
 	if (L"CEnemy" == _strScriptName)
 		return new CEnemy;
 	if (L"CGamePlaySpawnScript" == _strScriptName)
@@ -76,6 +82,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CSlideState;
 	if (L"CStateMachine" == _strScriptName)
 		return new CStateMachine;
+	if (L"CWorldScrollScript" == _strScriptName)
+		return new CWorldScrollScript;
 	return nullptr;
 }
 
@@ -91,6 +99,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::DOUBLEJUMPSTATE:
 		return new CDoubleJumpState;
+		break;
+	case (UINT)SCRIPT_TYPE::EFFECTSCRIPT:
+		return new CEffectScript;
 		break;
 	case (UINT)SCRIPT_TYPE::ENEMY:
 		return new CEnemy;
@@ -134,6 +145,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::STATEMACHINE:
 		return new CStateMachine;
 		break;
+	case (UINT)SCRIPT_TYPE::WORLDSCROLLSCRIPT:
+		return new CWorldScrollScript;
+		break;
 	}
 	return nullptr;
 }
@@ -152,6 +166,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::DOUBLEJUMPSTATE:
 		return L"CDoubleJumpState";
+		break;
+
+	case SCRIPT_TYPE::EFFECTSCRIPT:
+		return L"CEffectScript";
 		break;
 
 	case SCRIPT_TYPE::ENEMY:
@@ -208,6 +226,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::STATEMACHINE:
 		return L"CStateMachine";
+		break;
+
+	case SCRIPT_TYPE::WORLDSCROLLSCRIPT:
+		return L"CWorldScrollScript";
 		break;
 
 	}

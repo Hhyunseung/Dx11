@@ -23,6 +23,7 @@ private:
     // -1 인 경우, 어떤 레이어에도 속하지 않는다 == 레벨안에 있지 않은 오브젝트
     int                     m_LayerIdx; 
     bool 				    m_Dead;
+    bool                    m_Active;   // 활성화 상태 (오브젝트 풀링용)
 
 public:
     void Begin();
@@ -57,8 +58,11 @@ public:
 	Ptr<GameObject> GetChild(int _idx) { return m_vecChild[_idx]; }
 	const vector<Ptr<GameObject>>& GetChild() { return m_vecChild; }
 
-    bool IsDead() { return m_Dead; }
-    void Destroy();
+	bool IsDead() { return m_Dead; }
+	void Destroy();
+
+	bool IsActive() { return m_Active; }
+	void SetActive(bool _Active) { m_Active = _Active; }
 
 	int GetLayerIdx() { return m_LayerIdx; }
 	void SetLayerIdx(int _LayerIdx) { m_LayerIdx = _LayerIdx; }

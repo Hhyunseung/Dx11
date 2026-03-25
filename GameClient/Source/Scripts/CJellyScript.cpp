@@ -2,6 +2,7 @@
 #include "CJellyScript.h"
 
 #include "GamePlayMgr.h"
+#include "ObjectPoolMgr.h"
 #include "GameObject.h"
 
 
@@ -11,6 +12,7 @@ CJellyScript::CJellyScript()
 	, m_Magnet(true)
 	, m_MagnetRange(300.f)
 	, m_MagnetSpeed(200.f)
+	, m_ObjectID(EObjectID::None)
 {
 
 }
@@ -23,7 +25,7 @@ CJellyScript::~CJellyScript()
 void CJellyScript::Init()
 {
 	AddScriptParam(SCRIPT_PARAM::INT, &m_Score, L"Score", true, 0.f);
-	//AddScriptParam(SCRIPT_PARAM::PREFAB, &m_Missile, L"Missile", true, 0.f);
+	AddScriptParam(SCRIPT_PARAM::EObjectID, &m_ObjectID, L"ObjectID", true, 0.f);
 	//AddScriptParam(SCRIPT_PARAM::TEXTURE, &m_Tex, L"ChangeTex");
 }
 
@@ -48,23 +50,38 @@ void CJellyScript::Tick()
 
 void CJellyScript::BeginOverlap(CCollider2D* _This, CCollider2D* _Other)
 {
-	if (_Other->GetOwner() == GamePlayMgr::GetInst()->GetPlayerObject())
-	{
-		// 플레이어와 충돌했을 때의 처리
-		// 점수 추가
-		GamePlayMgr::GetInst()->AddScore(m_Score);
+	// 플레이어와 충돌했을 때의 처리
+	// 점수 추가
+	GamePlayMgr::GetInst()->AddScore(m_Score);
 
-		// ============== 오브젝트 풀링을 사용할 때는 Destroy 대신 비활성화 하는 방식으로 변경 ================
-		// 젤리 오브젝트 제거
-		GetOwner()->Destroy();
-	}
+	// 이펙트 생성
+	SpawnCollectEffect();
+
+	// 오브젝트 풀에 반환 (비활성화)
+	ReturnToPool();
+}
+
+void CJellyScript::SpawnCollectEffect()
+{
+	Vec3 pos = Transform()->GetRelativePos();
+	ObjectPoolMgr::GetInst()->SpawnEffect(L"prefab\\Effect_JellyCollect.pref", pos);
+}
+
+void CJellyScript::ReturnToPool()
+{
+	// 풀에 반환
+	ObjectPoolMgr::GetInst()->Return(m_ObjectID, GetOwner());
 }
 
 
 void CJellyScript::SaveToLevelFile(FILE* _File)
 {
+	fwrite(&m_Score, sizeof(int), 1, _File);
+	fwrite(&m_ObjectID, sizeof(EObjectID), 1, _File);
 }
 
 void CJellyScript::LoadFromLevelFile(FILE* _File)
 {
+	//fread(&m_Score, sizeof(int), 1, _File);
+	//fread(&m_ObjectID, sizeof(EObjectID), 1, _File);
 }

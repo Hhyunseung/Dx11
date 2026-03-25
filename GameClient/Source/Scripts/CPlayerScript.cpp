@@ -58,6 +58,7 @@ void CPlayerScript::Begin()
 
 	m_StateMachine->StartState(PLAYER_STATE_ID::RUN);
 
+	GetOwner()->SetLayerIdx(3); // Player ·¹ÀÌ¾î
 
 	Ptr<GameObject> pChild = nullptr;
 	

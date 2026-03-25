@@ -2,29 +2,35 @@
 #include "CScript.h"
 
 class CJellyScript :
-    public CScript
+	public CScript
 {
 private:
-    int     m_Score;
-    bool    m_Magnet;
-    float   m_MagnetRange;
-    float   m_MagnetSpeed;
+	int         m_Score;
+	bool        m_Magnet;
+	float       m_MagnetRange;
+	float       m_MagnetSpeed;
+	EObjectID   m_ObjectID;     // 풀링용 ID
 
 public:
+	void SetObjectID(EObjectID _ID) { m_ObjectID = _ID; }
 	void BeginOverlap(CCollider2D* _This, CCollider2D* _Other);
 
-public:
-    virtual void Init() override;
-    virtual void Begin() override;
-    virtual void Tick() override;
-
-    // 저장 불러오기
-    virtual void SaveToLevelFile(FILE* _File) override;
-    virtual void LoadFromLevelFile(FILE* _File) override;
-
-    CLONE(CJellyScript);
+private:
+	void SpawnCollectEffect();
+	void ReturnToPool();
 
 public:
-    CJellyScript();
-    virtual ~CJellyScript();
+	virtual void Init() override;
+	virtual void Begin() override;
+	virtual void Tick() override;
+
+	// 저장 불러오기
+	virtual void SaveToLevelFile(FILE* _File) override;
+	virtual void LoadFromLevelFile(FILE* _File) override;
+
+	CLONE(CJellyScript);
+
+public:
+	CJellyScript();
+	virtual ~CJellyScript();
 };

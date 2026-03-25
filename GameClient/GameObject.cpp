@@ -13,6 +13,7 @@ GameObject::GameObject()
 	, m_Parent(nullptr)
 	, m_LayerIdx(-1)
 	, m_Dead(false)
+	, m_Active(true)
 {
 }
 
@@ -22,6 +23,7 @@ GameObject::GameObject(const GameObject& _Origin)
 	, m_Parent(nullptr)
 	, m_LayerIdx(-1)
 	, m_Dead(false)
+	, m_Active(true)
 {
 	// 원본 오브젝트와 동일한 세팅의 컴포넌트를 복사해서 나한테 넣어준다
 	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
@@ -71,6 +73,10 @@ void GameObject::Begin()
 
 void GameObject::Tick()
 {
+	// 비활성화 상태면 Tick 스킵
+	if (!m_Active)
+		return;
+
 	//// 다운 캐스팅 /// 안정성을 체크해야함 
 	//Ptr<CTransform> pTrans = nullptr;
 	//if (COMPONENT_TYPE::TRANSFORM == m_Com[(UINT)COMPONENT_TYPE::TRANSFORM]->GetType())
@@ -98,6 +104,10 @@ void GameObject::Tick()
 
 void GameObject::FinalTick()
 {
+	// 비활성화 상태면 FinalTick 스킵
+	if (!m_Active)
+		return;
+
 	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
 	{
 		if (m_Com[i] != nullptr)

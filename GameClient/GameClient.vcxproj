@@ -227,6 +227,8 @@ call CodeGen.exe</Command>
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MeshRenderUI.h" />
     <ClInclude Include="MeshUI.h" />
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="ObjectPoolMgr.h" />
     <ClInclude Include="Outliner.h" />
     <ClInclude Include="PathMgr.h" />
     <ClInclude Include="pch.h" />
@@ -242,6 +244,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CBGScrollScript.h" />
     <ClInclude Include="Source\Scripts\CCamMoveScript.h" />
     <ClInclude Include="Source\Scripts\CDoubleJumpState.h" />
+    <ClInclude Include="Source\Scripts\CEffectScript.h" />
     <ClInclude Include="Source\Scripts\CEnemy.h" />
     <ClInclude Include="Source\Scripts\CGamePlaySpawnScript.h" />
     <ClInclude Include="Source\Scripts\CJellyScript.h" />
@@ -255,8 +258,8 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CRunState.h" />
     <ClInclude Include="Source\Scripts\CScrollScript.h" />
     <ClInclude Include="Source\Scripts\CSlideState.h" />
-    
     <ClInclude Include="Source\Scripts\CStateMachine.h" />
+    <ClInclude Include="Source\Scripts\CWorldScrollScript.h" />
     <ClInclude Include="SpriteRenderUI.h" />
     <ClInclude Include="SpriteUI.h" />
     <ClInclude Include="StageDataUI.h" />
@@ -340,6 +343,8 @@ call CodeGen.exe</Command>
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MeshRenderUI.cpp" />
     <ClCompile Include="MeshUI.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="ObjectPoolMgr.cpp" />
     <ClCompile Include="Outliner.cpp" />
     <ClCompile Include="PathMgr.cpp" />
     <ClCompile Include="pch.cpp">
@@ -353,6 +358,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CBGScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CCamMoveScript.cpp" />
     <ClCompile Include="Source\Scripts\CDoubleJumpState.cpp" />
+    <ClCompile Include="Source\Scripts\CEffectScript.cpp" />
     <ClCompile Include="Source\Scripts\CEnemy.cpp" />
     <ClCompile Include="Source\Scripts\CGamePlaySpawnScript.cpp" />
     <ClCompile Include="Source\Scripts\CJellyScript.cpp" />
@@ -366,8 +372,8 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CRunState.cpp" />
     <ClCompile Include="Source\Scripts\CScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CSlideState.cpp" />
-    
     <ClCompile Include="Source\Scripts\CStateMachine.cpp" />
+    <ClCompile Include="Source\Scripts\CWorldScrollScript.cpp" />
     <ClCompile Include="SpriteRenderUI.cpp" />
     <ClCompile Include="SpriteUI.cpp" />
     <ClCompile Include="StageDataUI.cpp" />
