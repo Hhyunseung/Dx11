@@ -260,6 +260,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CScrollScript.h" />
     <ClInclude Include="Source\Scripts\CSlideState.h" />
     <ClInclude Include="Source\Scripts\CStateMachine.h" />
+    <ClInclude Include="Source\Scripts\CStaticObstacle.h" />
     <ClInclude Include="Source\Scripts\CWorldScrollScript.h" />
     <ClInclude Include="SpriteRenderUI.h" />
     <ClInclude Include="SpriteUI.h" />
@@ -375,6 +376,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CSlideState.cpp" />
     <ClCompile Include="Source\Scripts\CStateMachine.cpp" />
+    <ClCompile Include="Source\Scripts\CStaticObstacle.cpp" />
     <ClCompile Include="Source\Scripts\CWorldScrollScript.cpp" />
     <ClCompile Include="SpriteRenderUI.cpp" />
     <ClCompile Include="SpriteUI.cpp" />

@@ -20,6 +20,7 @@
 #include "Scripts/CScrollScript.h"
 #include "Scripts/CSlideState.h"
 #include "Scripts/CStateMachine.h"
+#include "Scripts/CStaticObstacle.h"
 #include "Scripts/CWorldScrollScript.h"
 
 void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
@@ -43,6 +44,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CScrollScript");
 	_vec.push_back(L"CSlideState");
 	_vec.push_back(L"CStateMachine");
+	_vec.push_back(L"CStaticObstacle");
 	_vec.push_back(L"CWorldScrollScript");
 }
 
@@ -86,6 +88,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CSlideState;
 	if (L"CStateMachine" == _strScriptName)
 		return new CStateMachine;
+	if (L"CStaticObstacle" == _strScriptName)
+		return new CStaticObstacle;
 	if (L"CWorldScrollScript" == _strScriptName)
 		return new CWorldScrollScript;
 	return nullptr;
@@ -151,6 +155,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::STATEMACHINE:
 		return new CStateMachine;
+		break;
+	case (UINT)SCRIPT_TYPE::STATICOBSTACLE:
+		return new CStaticObstacle;
 		break;
 	case (UINT)SCRIPT_TYPE::WORLDSCROLLSCRIPT:
 		return new CWorldScrollScript;
@@ -237,6 +244,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::STATEMACHINE:
 		return L"CStateMachine";
+		break;
+
+	case SCRIPT_TYPE::STATICOBSTACLE:
+		return L"CStaticObstacle";
 		break;
 
 	case SCRIPT_TYPE::WORLDSCROLLSCRIPT:
