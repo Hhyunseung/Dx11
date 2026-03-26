@@ -187,7 +187,7 @@ void AssetMgr::CreateEngineShader()
 	pShader->SetName(L"FlipbookShader");
 	pShader->CreateVertexShader(L"Shader\\flipbook.fx", "VS_Flipbook");
 	pShader->CreatePixelShader(L"Shader\\flipbook.fx", "PS_Flipbook");
-	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetBSType(BS_TYPE::ALPHABLEND);
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
 

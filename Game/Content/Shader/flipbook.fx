@@ -8,6 +8,7 @@
 #define SliceUV         g_vec2_1
 #define BackgroundUV    g_vec2_2
 #define OffsetUV        g_vec2_3
+#define Alpha           g_float_0
 
 struct VS_IN
 {
@@ -80,8 +81,13 @@ float4 PS_Flipbook(VS_OUT _input) : SV_Target
     
     // 물체의 색상에, 자신이 받는 최종빛 총량을 곱한다
     vColor.rgb *= LightColor;
-    
-    
+
+    // 무적 상태 알파 깜빡임 적용
+    if (Alpha > 0.f)
+    {
+        vColor.a *= Alpha;
+    }
+
     return vColor;
 }
 

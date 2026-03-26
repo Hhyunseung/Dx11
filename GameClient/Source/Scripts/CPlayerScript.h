@@ -62,6 +62,7 @@ private:
 	float			    m_DoubleJumpPower; // 더블 점프 힘
 	float 			    m_InvincibleTime; // 무적 지속 시간
 	float               m_InvincibleTimer; // 무적 경과 시간
+	float				m_BlinkTime; // 깜빡임 주파수 (초당 깜빡임 횟수)
 
 	bool 			    m_IsLand; // 땅에 닿아있는지 여부
 	bool                m_IsJump; // 점프 중인지 여부

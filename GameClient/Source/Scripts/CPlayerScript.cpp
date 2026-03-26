@@ -27,6 +27,7 @@ CPlayerScript::CPlayerScript()
 	, m_DoubleJumpPower(600.f)
 	, m_InvincibleTime(2.f)
 	, m_InvincibleTimer(0.f)
+	, m_BlinkTime(0.2f)
 	, m_IsLand(false)
 	, m_IsJump(false)
 	, m_IsDoubleJump(false)
@@ -82,6 +83,11 @@ void CPlayerScript::Begin()
 
 
 	// 임시
+	// 플레이어 전용 머티리얼 생성
+	FlipbookRender()->CreateDynamicMaterial();
+	// 초기 알파는 0 (셰이더에서 적용 안 함)
+	FlipbookRender()->GetMaterial()->SetScalar(FLOAT_0, 0.f);
+
 	m_CurrentHP = 100;
 }
 
@@ -178,10 +184,18 @@ void CPlayerScript::UpdateInvincibility()
 
 	m_InvincibleTimer += DT;
 
+    // 깜빡임 알파값
+	// m_BlinkTime초 주기로 0.5와 1을 오가도록 설정 (토글)
+	int phase = (int)(m_InvincibleTimer / m_BlinkTime) % 2; // 0 또는 1
+	float blinkAlpha = (phase == 0) ? 0.8f : 0.6f;
+	FlipbookRender()->GetMaterial()->SetScalar(FLOAT_0, blinkAlpha);
+
 	if (m_InvincibleTimer >= m_InvincibleTime)
 	{
 		m_IsInvincible = false;
 		m_InvincibleTimer = 0.f;
+		// 알파값 초기화 (0이면 셰이더에서 적용 안 함)
+		FlipbookRender()->GetMaterial()->SetScalar(FLOAT_0, 0.f);
 	}
 }
 
@@ -195,7 +209,7 @@ void CPlayerScript::TakeDamage(int _Damage)
 
  	int HP = m_CurrentHP;
 
-	ChangeState(PLAYER_STATE_ID::HIT);
+	//ChangeState(PLAYER_STATE_ID::HIT);
 
 	m_IsInvincible = true;
 	m_InvincibleTimer = 0.f;
