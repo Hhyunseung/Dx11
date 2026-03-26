@@ -24,6 +24,8 @@ CPlayerScript::CPlayerScript()
 	, m_VelY(0.f)
 	, m_JumpPower(800.f)
 	, m_DoubleJumpPower(600.f)
+	, m_InvincibleTime(2.f)
+	, m_InvincibleTimer(0.f)
 	, m_IsLand(false)
 	, m_IsJump(false)
 	, m_IsDoubleJump(false)
@@ -72,6 +74,10 @@ void CPlayerScript::Begin()
 	m_FeetCollider->AddDynamicEndOverlap(this, (COLLISION_EVENT)&CPlayerScript::FeetEndOverlap);
 
 	GetOwner()->Collider2D()->AddDynamicBeginOverlap(this, (COLLISION_EVENT)&CPlayerScript::BeginOverlap);
+
+
+	// 임시
+	m_CurrentHP = 100;
 }
 
 void CPlayerScript::Tick()
@@ -82,6 +88,7 @@ void CPlayerScript::Tick()
 	HandleJump();
 	HandleSlide();
 	GravityAndMove();
+	UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
 
 	m_StateMachine->Tick();
 
@@ -109,14 +116,14 @@ void CPlayerScript::HandleJump()
 		if (m_IsLand && m_IsJump == false)
 		{
 			m_VelY = m_JumpPower;
-			m_StateMachine->ChangeState(PLAYER_STATE_ID::JUMP);
+			ChangeState(PLAYER_STATE_ID::JUMP);
 		}
 
 		// 더블 점프
 		else if (!m_IsLand && m_IsJump == true && m_IsDoubleJump == false)
 		{
 			m_VelY = m_DoubleJumpPower;
-			m_StateMachine->ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
+			ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
 		}
 	}
 }
@@ -128,7 +135,7 @@ void CPlayerScript::HandleSlide()
 	{
 		if (m_IsLand)
 		{
-			m_StateMachine->ChangeState(PLAYER_STATE_ID::SLIDE);
+			ChangeState(PLAYER_STATE_ID::SLIDE);
 		}
 	}
 
@@ -136,9 +143,13 @@ void CPlayerScript::HandleSlide()
 	{
 		if (m_IsLand)
 		{
-			m_StateMachine->ChangeState(PLAYER_STATE_ID::RUN);
+			ChangeState(PLAYER_STATE_ID::RUN);
 		}
 	}
+}
+
+void CPlayerScript::HandleHit()
+{
 }
 
 // 중력 적용 및 이동 처리
@@ -152,6 +163,41 @@ void CPlayerScript::GravityAndMove()
 		vPos.y += m_VelY * DT;
 
 		GetOwner()->Transform()->SetRelativePos(vPos);
+	}
+}
+
+void CPlayerScript::UpdateInvincibility()
+{
+	if (!m_IsInvincible)
+		return;
+
+	m_InvincibleTimer += DT;
+
+	if (m_InvincibleTimer >= m_InvincibleTime)
+	{
+		m_IsInvincible = false;
+		m_InvincibleTimer = 0.f;
+	}
+}
+
+void CPlayerScript::TakeDamage(int _Damage)
+{
+	// 무적 상태면 무시
+	if (m_IsInvincible) 
+		return;
+
+	m_CurrentHP -= _Damage;
+
+	ChangeState(PLAYER_STATE_ID::HIT);
+
+	m_IsInvincible = true;
+	m_InvincibleTimer = 0.f;
+
+	// 사망 체크
+	if (m_CurrentHP <= 0)
+	{
+		// TODO: DIE 상태로 전환
+		// ChangeState(PLAYER_STATE_ID::DIE);
 	}
 }
 

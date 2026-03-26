@@ -5,8 +5,11 @@
 #include "GamePlayMgr.h"
 #include "GameObject.h"
 
+#include "CPlayerScript.h"
+
 CObstructScript::CObstructScript(SCRIPT_TYPE _Type)
 	: CScript(_Type)
+	, m_Damage(30)
 {
 }
 
@@ -17,6 +20,17 @@ CObstructScript::CObstructScript()
 
 CObstructScript::~CObstructScript()
 {
+}
+
+void CObstructScript::Begin()
+{
+	ADD_DYNAMIC_BEGIN_OVERLAP(CObstructScript::BeginOverlap);
+}
+
+void CObstructScript::Tick()
+{
+	// 자식의 Move() 호출
+	Move();
 }
 
 void CObstructScript::OnSpawn()
@@ -39,11 +53,13 @@ void CObstructScript::ApplyWorldScroll()
 	Transform()->SetRelativePos(pos);
 }
 
-void CObstructScript::Tick()
+
+void CObstructScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
-	// 자식의 Move() 호출
-	Move();
+	GamePlayMgr::GetInst()->GetPlayerObject()->GetScript<CPlayerScript>()->TakeDamage(m_Damage);
+
 }
+
 
 void CObstructScript::SaveToLevelFile(FILE* _File)
 {

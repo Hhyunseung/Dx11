@@ -48,6 +48,10 @@ private:
 
 	vector<CCollider2D*> m_GroundColliders; // 발과 충돌 중인 모든 플랫폼들
 
+	int 				m_HP; // 체력
+	int					m_CurrentHP; // 현재 체력
+	int 				m_Damage; // 피격 시 받는 피해량
+
 	float				m_PrevFeetY; // 땅 체크용 충돌체의 이전 y 좌표
 	float			    m_CurFeetY; // 땅 체크용 충돌체의 y 좌표
 
@@ -56,11 +60,14 @@ private:
 	float				m_VelY; // 수직 속도
 	float 			    m_JumpPower; // 점프 힘
 	float			    m_DoubleJumpPower; // 더블 점프 힘
+	float 			    m_InvincibleTime; // 무적 지속 시간
+	float               m_InvincibleTimer; // 무적 경과 시간
 
 	bool 			    m_IsLand; // 땅에 닿아있는지 여부
 	bool                m_IsJump; // 점프 중인지 여부
 	bool 			    m_IsDoubleJump; // 점프 중인지 여부
 	bool				m_IsSlide; // 슬라이드 중인지 여부
+	bool				m_IsInvincible; // 무적 상태인지 여부
 
 public:
 	void SetTarget(Ptr<GameObject> _Target) { m_Target = _Target; }
@@ -83,9 +90,13 @@ public:
 private:
 	void HandleJump();
 	void HandleSlide();
+	void HandleHit();
 
 	void GravityAndMove();
+	void UpdateInvincibility();  // 이름 변경
 
+public:
+	void TakeDamage(int _Damage);  // 외부에서 호출 가능
 
 public:
 	GET_SET(bool, IsLand);

@@ -307,12 +307,17 @@ void AssetMgr::CreateEngineTexture()
 	// 이펙트 텍스쳐
 	// ==============
 	Load<ATexture>(L"Effect_JellyCollect", L"Texture\\Effect\\Effect_JellyCollect.png");
+	Load<ATexture>(L"Effect_Obstruct", L"Texture\\Obstacle\\Obstruct.png");
 
 
 
 
-
-	Load<ATexture>(L"Effect_Obstruct", L"Texture\\Obstruct.png");
+	// ==============================
+	// 장애물 텍스쳐
+	// ==============================
+	Load<ATexture>(L"Obstacle_bl1_crash", L"Texture\\Obstacle\\bl1_crash.png");
+	Load<ATexture>(L"Obstacle_bl1_ing", L"Texture\\Obstacle\\bl1_ing.png");
+	Load<ATexture>(L"Obstacle_cb2_open", L"Texture\\Obstacle\\cb2_open.png");
 }
 
 void AssetMgr::CreateEngineMaterial()

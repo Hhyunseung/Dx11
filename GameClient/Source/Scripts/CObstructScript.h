@@ -5,10 +5,16 @@ class CObstructScript : public CScript
 {
 private:
 	wstring m_PoolKey;
+	int	m_Damage;
 
 public:
 	void SetPoolKey(const wstring& _Key) { m_PoolKey = _Key; }
 	const wstring& GetPoolKey() const { return m_PoolKey; }
+
+	void SetDamage(int _Damage) { m_Damage = _Damage; }
+	int	 GetDamage() const { return m_Damage; }
+
+	void BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 
 	// 스폰 시 호출 (자식에서 오버라이드 가능)
 	virtual void OnSpawn();
@@ -21,6 +27,7 @@ protected:
 	void ApplyWorldScroll();
 
 public:
+	virtual void Begin() override;
 	virtual void Tick() override;
 
 	virtual void SaveToLevelFile(FILE* _File) override;
