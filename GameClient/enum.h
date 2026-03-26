@@ -209,10 +209,14 @@ enum class EObjectID
 	BearBigYellow	= 1007,
 	BearRainbow		= 1008,
 
-	SpecialBonus_1 = 1009,
-	SpecialBonus_2 = 1010,
+	SpecialBonus_1	= 1009,
+	SpecialBonus_2	= 1010,
 
 	Item,
+
+	// 장애물
+	Obstacle_bl1	= 2001,
+	Obstacle_cb2	= 2002,
 
 	END,
 };
@@ -234,12 +238,14 @@ inline const char* EObjectIDToString(EObjectID _ID)
 	case EObjectID::SpecialBonus_1:	return "SpecialBonus_1";
 	case EObjectID::SpecialBonus_2:	return "SpecialBonus_2";
 	case EObjectID::Item:			return "Item";
+	case EObjectID::Obstacle_bl1:	return "Obstacle_bl1";
+	case EObjectID::Obstacle_cb2:	return "Obstacle_cb2";
 	default:						return "Unknown";
 	}
 }
 
 // 콤보박스용 EObjectID 배열 및 개수
-constexpr int g_ObjectIDCount = 12;
+constexpr int g_ObjectIDCount = 14;
 
 inline EObjectID GetObjectIDByIndex(int _Idx)
 {
@@ -257,6 +263,8 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
 		EObjectID::SpecialBonus_1,
 		EObjectID::SpecialBonus_2,
 		EObjectID::Item,
+		EObjectID::Obstacle_bl1,
+		EObjectID::Obstacle_cb2,
 	};
 
 	if (_Idx < 0 || _Idx >= g_ObjectIDCount)

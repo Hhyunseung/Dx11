@@ -49,9 +49,10 @@ public:
     const vector<tScriptParam>& GetScriptParam() { return m_vecScriptParam; }
 
 public:
-    virtual void Tick() = 0;
+	virtual void Tick() = 0;
 	virtual void FinalTick() final {}; // final : 자식 클래스에서 재정의 금지
-    
+	virtual void OnSpawn() {}  // 풀에서 꺼낼 때 호출 (자식에서 오버라이드)
+
 public:
 
 

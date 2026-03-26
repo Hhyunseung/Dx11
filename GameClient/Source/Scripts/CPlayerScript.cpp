@@ -7,6 +7,7 @@
 #include "LevelMgr.h"
 #include "RenderMgr.h"
 #include "TaskMgr.h"
+#include "GamePlayMgr.h"
 #include "CStateMachine.h"
 
 #include "GameObject.h"
@@ -59,6 +60,10 @@ void CPlayerScript::Begin()
 	m_StateMachine->AddState(new CSlideState(this));
 
 	m_StateMachine->StartState(PLAYER_STATE_ID::RUN);
+
+	// GamePlayMgr에 플레이어 등록
+	GamePlayMgr::GetInst()->SetPlayerObject(GetOwner());
+	GamePlayMgr::GetInst()->SetPlayerScript(this);
 
 	GetOwner()->SetLayerIdx(3); // Player 레이어
 
@@ -187,6 +192,8 @@ void CPlayerScript::TakeDamage(int _Damage)
 		return;
 
 	m_CurrentHP -= _Damage;
+
+ 	int HP = m_CurrentHP;
 
 	ChangeState(PLAYER_STATE_ID::HIT);
 

@@ -2,6 +2,7 @@
 
 #include "APrefab.h"
 #include "AStageData.h"
+#include "Source/Scripts/CPlayerScript.h"
 
 class GamePlayMgr
 	: public singleton<GamePlayMgr>
@@ -12,6 +13,7 @@ private:
 	Ptr<APrefab> m_SeletectedCharacterPrefab;
 
 	GameObject*  m_PlayerObject;
+	CPlayerScript* m_PlayerScript;
 
 	int m_Score;
 
@@ -28,6 +30,9 @@ public:
 
 	void SetPlayerObject(GameObject* _PlayerObject) { m_PlayerObject = _PlayerObject; }
 	GameObject* GetPlayerObject() { return m_PlayerObject; }
+
+	void SetPlayerScript(CPlayerScript* _PlayerScript) { m_PlayerScript = _PlayerScript; }
+	CPlayerScript* GetPlayerScript() { return m_PlayerScript; }
 
 	void AddScore(int _Score) { m_Score += _Score; }
 	int GetScore() const { return m_Score; }

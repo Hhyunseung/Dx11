@@ -3,6 +3,7 @@
 
 #include "APrefab.h"
 #include "LevelMgr.h"
+#include "CScript.h"
 
 void ObjectPool::Init(Ptr<APrefab> _Prefab, int _InitSize, int _LayerIdx)
 {
@@ -38,6 +39,14 @@ GameObject* ObjectPool::Get()
 	}
 
 	pObject->SetActive(true);
+
+	// 모든 스크립트의 OnSpawn() 호출
+	vector<Ptr<CScript>> vecScripts = pObject->GetScripts();
+	for (size_t i = 0; i < vecScripts.size(); ++i)
+	{
+		vecScripts[i]->OnSpawn();
+	}
+
 	return pObject;
 }
 

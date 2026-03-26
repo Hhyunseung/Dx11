@@ -4,12 +4,12 @@
 class CObstructScript : public CScript
 {
 private:
-	wstring m_PoolKey;
+	EObjectID m_ObjectID;
 	int	m_Damage;
 
 public:
-	void SetPoolKey(const wstring& _Key) { m_PoolKey = _Key; }
-	const wstring& GetPoolKey() const { return m_PoolKey; }
+	void SetObjectID(EObjectID& _ID) { m_ObjectID = _ID; }
+	const EObjectID& GetPoolKey() const { return m_ObjectID; }
 
 	void SetDamage(int _Damage) { m_Damage = _Damage; }
 	int	 GetDamage() const { return m_Damage; }
@@ -27,6 +27,7 @@ protected:
 	void ApplyWorldScroll();
 
 public:
+	virtual void Init() override;
 	virtual void Begin() override;
 	virtual void Tick() override;
 

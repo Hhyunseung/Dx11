@@ -43,6 +43,13 @@ void CJellyScript::Begin()
 
 void CJellyScript::Tick()
 {
+	// 첫 Tick에서 스폰 초기화 (Begin이 호출 안 됐을 수 있음)
+	if (!m_bSpawned)
+	{
+		OnSpawn();
+		m_bSpawned = true;
+	}
+
 	// 위아래로 움직이는 젤리
 
 	// 플레이어가 자석 상태일 때, 플레이어가 범위 안에 있으면 젤리가 플레이어를 향해서 움직이는 코드
@@ -59,6 +66,10 @@ void CJellyScript::BeginOverlap(CCollider2D* _This, CCollider2D* _Other)
 
 	// 오브젝트 풀에 반환 (비활성화)
 	ReturnToPool();
+}
+
+void CJellyScript::OnSpawn()
+{
 }
 
 void CJellyScript::SpawnCollectEffect()

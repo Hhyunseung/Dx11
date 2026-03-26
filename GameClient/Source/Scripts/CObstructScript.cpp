@@ -22,9 +22,17 @@ CObstructScript::~CObstructScript()
 {
 }
 
+void CObstructScript::Init()
+{
+	AddScriptParam(SCRIPT_PARAM::INT, &m_Damage, L"Damage", true, 0.f);
+	AddScriptParam(SCRIPT_PARAM::EObjectID, &m_ObjectID, L"ObjectID", true, 0.f);
+
+}
+
 void CObstructScript::Begin()
 {
-	ADD_DYNAMIC_BEGIN_OVERLAP(CObstructScript::BeginOverlap);
+	// Begin은 레벨에 추가 시 호출됨 (풀에서는 호출 안 될 수 있음)
+	// 충돌 콜백은 OnSpawn()에서 등록
 }
 
 void CObstructScript::Tick()
@@ -35,7 +43,9 @@ void CObstructScript::Tick()
 
 void CObstructScript::OnSpawn()
 {
-	// 기본 구현: 자식에서 오버라이드 가능
+	// 스폰될 때마다 재설정해야하는 부분들
+	// 충돌 콜백 등록 (풀에서 재사용될 때도 호출해야 함)
+	ADD_DYNAMIC_BEGIN_OVERLAP(CObstructScript::BeginOverlap);
 }
 
 void CObstructScript::Move()
@@ -56,8 +66,7 @@ void CObstructScript::ApplyWorldScroll()
 
 void CObstructScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
-	GamePlayMgr::GetInst()->GetPlayerObject()->GetScript<CPlayerScript>()->TakeDamage(m_Damage);
-
+	GamePlayMgr::GetInst()->GetPlayerScript()->TakeDamage(m_Damage);
 }
 
 

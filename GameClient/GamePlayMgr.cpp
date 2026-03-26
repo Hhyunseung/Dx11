@@ -56,6 +56,8 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 	case EObjectID::SpecialBonus_1:	return L"Prefab\\Jelly_SpecialBonus_1.pref";
 	case EObjectID::SpecialBonus_2:	return L"Prefab\\Jelly_SpecialBonus_2.pref";
 	case EObjectID::Item:			return L"Prefab\\Item.pref";
+	case EObjectID::Obstacle_bl1:	return L"Prefab\\Obstacle_bl1.pref";
+	case EObjectID::Obstacle_cb2:	return L"Prefab\\Obstacle_cb2.pref";
 	default:						return L"";
 	}
 }
