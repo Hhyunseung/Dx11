@@ -277,9 +277,6 @@
     <ClInclude Include="Source\Scripts\CCamMoveScript.h">
       <Filter>Source\Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scripts\CEnemy.h">
-      <Filter>Source\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scripts\CMissileScript.h">
       <Filter>Source\Scripts</Filter>
     </ClInclude>
@@ -343,10 +340,24 @@
     <ClInclude Include="StageDataUI.h">
       <Filter>GameEngine\07.EditorUI\08.AssetUI\14.StageDataUI</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPool.h" />
-    <ClInclude Include="ObjectPoolMgr.h" />
-    <ClInclude Include="Source\Scripts\CEffectScript.h" />
-    <ClInclude Include="Source\Scripts\CWorldScrollScript.h" />
+    <ClInclude Include="ObjectPoolMgr.h">
+      <Filter>GameEngine\03.Manager\11.ObjectPoolMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>GameEngine\03.Manager\11.ObjectPoolMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CWorldScrollScript.h">
+      <Filter>Source\Scripts\03.Scroll</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CEffectScript.h">
+      <Filter>Source\Scripts\05.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CEnemy.h">
+      <Filter>Source\Scripts\06.Obstruct</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CObstructScript.h">
+      <Filter>Source\Scripts\06.Obstruct</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -633,6 +644,15 @@
     <Filter Include="GameEngine\07.EditorUI\08.AssetUI\14.StageDataUI">
       <UniqueIdentifier>{79832a87-9af8-4155-b327-deee3f171da0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\03.Manager\11.ObjectPoolMgr">
+      <UniqueIdentifier>{bb31ad74-95c9-4d7b-ab64-ccfe1b00805e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\05.Effect">
+      <UniqueIdentifier>{99460dc9-bbba-4ccb-91e9-9678d43c116b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\06.Obstruct">
+      <UniqueIdentifier>{4f27977b-1743-4d11-abba-68b866ec8bdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -884,9 +904,6 @@
     <ClCompile Include="Source\Scripts\CCamMoveScript.cpp">
       <Filter>Source\Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\CEnemy.cpp">
-      <Filter>Source\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scripts\CMissileScript.cpp">
       <Filter>Source\Scripts</Filter>
     </ClCompile>
@@ -950,10 +967,24 @@
     <ClCompile Include="StageDataUI.cpp">
       <Filter>GameEngine\07.EditorUI\08.AssetUI\14.StageDataUI</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp" />
-    <ClCompile Include="ObjectPoolMgr.cpp" />
-    <ClCompile Include="Source\Scripts\CEffectScript.cpp" />
-    <ClCompile Include="Source\Scripts\CWorldScrollScript.cpp" />
+    <ClCompile Include="ObjectPoolMgr.cpp">
+      <Filter>GameEngine\03.Manager\11.ObjectPoolMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>GameEngine\03.Manager\11.ObjectPoolMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CWorldScrollScript.cpp">
+      <Filter>Source\Scripts\03.Scroll</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CEffectScript.cpp">
+      <Filter>Source\Scripts\05.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CEnemy.cpp">
+      <Filter>Source\Scripts\06.Obstruct</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CObstructScript.cpp">
+      <Filter>Source\Scripts\06.Obstruct</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

@@ -253,6 +253,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CMissileScript.h" />
     <ClInclude Include="Source\Scripts\CMonsterScript.h" />
     <ClInclude Include="Source\Scripts\CMovingPlatformScirpt.h" />
+    <ClInclude Include="Source\Scripts\CObstructScript.h" />
     <ClInclude Include="Source\Scripts\CPlayerScript.h" />
     <ClInclude Include="Source\Scripts\CJumpState.h" />
     <ClInclude Include="Source\Scripts\CRunState.h" />
@@ -367,6 +368,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CMissileScript.cpp" />
     <ClCompile Include="Source\Scripts\CMonsterScript.cpp" />
     <ClCompile Include="Source\Scripts\CMovingPlatformScirpt.cpp" />
+    <ClCompile Include="Source\Scripts\CObstructScript.cpp" />
     <ClCompile Include="Source\Scripts\CPlayerScript.cpp" />
     <ClCompile Include="Source\Scripts\CJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CRunState.cpp" />
