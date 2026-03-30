@@ -361,6 +361,9 @@
     <ClInclude Include="Source\Scripts\CStaticObstacle.h">
       <Filter>Source\Scripts\06.Obstruct\1.Static</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CHitState.h">
+      <Filter>Source\Scripts\02.Cookie\State\Hit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -658,6 +661,9 @@
     </Filter>
     <Filter Include="Source\Scripts\06.Obstruct\1.Static">
       <UniqueIdentifier>{527ee274-cff9-4347-81d6-d08feb2b3d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\02.Cookie\State\Hit">
+      <UniqueIdentifier>{06ce0b97-0381-49e4-81af-67956f5878d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -993,6 +999,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CStaticObstacle.cpp">
       <Filter>Source\Scripts\06.Obstruct\1.Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CHitState.cpp">
+      <Filter>Source\Scripts\02.Cookie\State\Hit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

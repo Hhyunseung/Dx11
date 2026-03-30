@@ -103,6 +103,7 @@ public:
 	GET_SET(bool, IsLand);
 	GET_SET(bool, IsJump);
 	GET_SET(bool, IsDoubleJump);
+	GET_SET(bool, IsInvincible);
 
 public:
 	virtual void Init() override;

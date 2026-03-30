@@ -113,7 +113,9 @@ bool CFlipbookRender::CheckFinish()
 			return true;
 		}
 	}
+    return false;
 }
+
 
 void CFlipbookRender::SaveToLevelFile(FILE* _File)
 {

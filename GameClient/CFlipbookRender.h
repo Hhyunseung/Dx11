@@ -4,14 +4,14 @@
 #include "AFlipbook.h"
 
 class CFlipbookRender :
-    public CRenderComponent
+	public CRenderComponent
 {
 private:
 	vector<Ptr<AFlipbook>>    m_vecFlipbook;
 
 	int						  m_CurFlipbook;
 	int						  m_CurSprite;
-	
+
 	int						  m_RepeatCount; // -1 : 반복재생, 1 이상이면 재생 횟수
 	bool 					  m_Finish;
 	float 					  m_FPS;
@@ -27,7 +27,19 @@ public:
 	}
 	vector<Ptr<AFlipbook>>& GetFlipbooks() { return m_vecFlipbook; }
 
-	void AddFlipbook(Ptr<AFlipbook> _Flipbook) { m_vecFlipbook.push_back(_Flipbook); }
+	void AddFlipbook(Ptr<AFlipbook> _Flipbook)
+	{
+		for (size_t i = 0; i < m_vecFlipbook.size(); ++i)
+		{
+			if (m_vecFlipbook[i] == nullptr)
+			{
+				m_vecFlipbook[i] = _Flipbook;
+				return;
+			}
+		}
+
+		m_vecFlipbook.push_back(_Flipbook);
+	}
 
 	void Play(int _FlipbookIdx, float _FPS, int _RepeatCount)
 	{
@@ -37,6 +49,11 @@ public:
 		m_FPS = _FPS;
 		m_AccTime = 0.f;
 	}
+
+	int GetCurFlipbook() const { return m_CurFlipbook; }
+	int GetCurSprite() const { return m_CurSprite; }
+
+	bool IsAnimationComplete() const { return m_Finish && m_RepeatCount == 0; }
 
 
 ///  UV 값의 정수부분을 버림 frac

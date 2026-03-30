@@ -17,6 +17,7 @@
 #include "CDoubleJumpState.h"
 #include "CLandState.h"
 #include "CSlideState.h"
+#include "CHitState.h"
 
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
@@ -59,6 +60,7 @@ void CPlayerScript::Begin()
 	m_StateMachine->AddState(new CDoubleJumpState(this));
 	m_StateMachine->AddState(new CLandState(this));
 	m_StateMachine->AddState(new CSlideState(this));
+	m_StateMachine->AddState(new CHitState(this));
 
 	m_StateMachine->StartState(PLAYER_STATE_ID::RUN);
 
@@ -209,9 +211,8 @@ void CPlayerScript::TakeDamage(int _Damage)
 
  	int HP = m_CurrentHP;
 
-	//ChangeState(PLAYER_STATE_ID::HIT);
+	ChangeState(PLAYER_STATE_ID::HIT);
 
-	m_IsInvincible = true;
 	m_InvincibleTimer = 0.f;
 
 	// »ç¸Á Ã¼Å©
@@ -221,6 +222,7 @@ void CPlayerScript::TakeDamage(int _Damage)
 		// ChangeState(PLAYER_STATE_ID::DIE);
 	}
 }
+
 
 void CPlayerScript::Skill()
 {
