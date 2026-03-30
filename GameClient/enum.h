@@ -217,7 +217,8 @@ enum class EObjectID
 	// Àå¾Ö¹°
 	Obstacle_bl1	= 2001,
 	Obstacle_cb2	= 2002,
-	Obstacle_tm001	= 2003,
+    Obstacle_tm001	= 2003,
+	Obstacle_jp1down	= 2004,
 
 	END,
 };
@@ -241,7 +242,8 @@ inline const char* EObjectIDToString(EObjectID _ID)
 	case EObjectID::Item:			return "Item";
 	case EObjectID::Obstacle_bl1:	return "Obstacle_bl1";
 	case EObjectID::Obstacle_cb2:	return "Obstacle_cb2";
-	case EObjectID::Obstacle_tm001:	return "Obstacle_tm001";
+    case EObjectID::Obstacle_tm001:	return "Obstacle_tm001";
+	case EObjectID::Obstacle_jp1down: return "Obstacle_jp1down";
 	default:						return "Unknown";
 	}
 }
@@ -267,7 +269,8 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
 		EObjectID::Item,
 		EObjectID::Obstacle_bl1,
 		EObjectID::Obstacle_cb2,
-		EObjectID::Obstacle_tm001,
+      EObjectID::Obstacle_tm001,
+		EObjectID::Obstacle_jp1down,
 	};
 
 	if (_Idx < 0 || _Idx >= g_ObjectIDCount)

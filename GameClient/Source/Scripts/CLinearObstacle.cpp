@@ -65,7 +65,6 @@ void CLinearObstacle::Init()
 
 void CLinearObstacle::Move()
 {
-	float scrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
 	Vec3 pos = Transform()->GetRelativePos();
 
 	if (m_IsGroundedX)
@@ -93,9 +92,6 @@ void CLinearObstacle::Move()
 			GetOwner()->FlipbookRender()->Play(1, 4.f, 1);
 		}
 	}
-
-	// always apply world scroll
-	pos.x -= scrollSpeed * DT;
 
 	Transform()->SetRelativePos(pos);
 }

@@ -28,11 +28,11 @@ void CStaticObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 
 void CStaticObstacle::Move()
 {
-	// 공통 유틸리티: 월드 스크롤 적용
-	float scrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
-	Vec3 pos = Transform()->GetRelativePos();
-	pos.x -= scrollSpeed * DT;
-	Transform()->SetRelativePos(pos);
+	//// 공통 유틸리티: 월드 스크롤 적용
+	//float scrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
+	//Vec3 pos = Transform()->GetRelativePos();
+	//pos.x -= scrollSpeed * DT;
+	//Transform()->SetRelativePos(pos);
 }
 
 void CStaticObstacle::SaveToLevelFile(FILE* _File)

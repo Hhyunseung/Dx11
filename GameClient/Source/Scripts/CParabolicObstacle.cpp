@@ -67,15 +67,13 @@ void CParabolicObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 void CParabolicObstacle::Move()
 {
 	// 월드 스크롤 + 포물선 이동
-	float scrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
 	Vec3 pos = Transform()->GetRelativePos();
-
-	// 월드 스크롤 적용
-	pos.x -= (scrollSpeed + m_Speed) * DT;
 
 	// 바닥에 닿지 않았을 때만 Y 이동
 	if (!m_IsGrounded)
 	{
+		pos.x -= m_Speed * DT;
+
 		// 중력 적용
 		m_CurrentVelocityY -= m_Gravity * DT;
 		pos.y += m_CurrentVelocityY * DT;

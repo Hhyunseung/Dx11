@@ -58,7 +58,8 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 	case EObjectID::Item:			return L"Prefab\\Item.pref";
 	case EObjectID::Obstacle_bl1:	return L"Prefab\\Obstacle_bl1.pref";
 	case EObjectID::Obstacle_cb2:	return L"Prefab\\Obstacle_cb2.pref";
- case EObjectID::Obstacle_tm001:	return L"Prefab\\Obstacle_tm001.pref";
+  case EObjectID::Obstacle_tm001:	return L"Prefab\\Obstacle_tm001.pref";
+	case EObjectID::Obstacle_jp1down: 	return L"Prefab\\Obstacle_jp1down.pref";
 	default:						return L"";
 	}
 }

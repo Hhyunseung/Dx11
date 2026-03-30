@@ -31,6 +31,7 @@ void ObjectPoolMgr::Init()
 	// 장애물 풀 (예시)
 	CreatePool(L"Prefab\\Obstacle_bl1.pref", 10, 8);
 	CreatePool(L"Prefab\\Obstacle_tm001.pref", 10, 8);
+	CreatePool(L"Prefab\\Obstacle_jp1down.pref", 10, 8);
 
 	// 이펙트 풀 (예시)
 	CreatePool(L"Prefab\\Effect_JellyCollect.pref", 3, 0);
