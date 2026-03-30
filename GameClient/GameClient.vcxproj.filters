@@ -671,6 +671,9 @@
     <Filter Include="Source\Scripts\06.Obstruct\2.Parabolic">
       <UniqueIdentifier>{f20d9027-391b-4ac9-ab4c-8a3fcae25498}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Scripts\06.Obstruct\3.Linear">
+      <UniqueIdentifier>{adb8e0d4-4509-4884-8e03-a610dffc239b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">

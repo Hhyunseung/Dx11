@@ -4,9 +4,6 @@
 class CStaticObstacle 
     : public CObstructScript
 {
-private:
-	float        m_Speed;
-
 public:
     // 순수 가상 함수 구현
     virtual void Move() override;
