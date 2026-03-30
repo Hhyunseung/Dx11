@@ -22,10 +22,6 @@ public:
 	// 이동 처리 (자식에서 오버라이드 가능, 기본은 월드 스크롤만)
 	virtual void Move();
 
-protected:
-	// 공통 유틸리티: 월드 스크롤 적용
-	void ApplyWorldScroll();
-
 public:
 	virtual void Init() override;
 	virtual void Begin() override;

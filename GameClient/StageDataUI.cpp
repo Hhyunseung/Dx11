@@ -148,7 +148,8 @@ void StageDataUI::DrawAddSpawnInfo()
         "SpecialBonus_2",
         "Item",
         "Obstacle_bl1",
-        "Obstacle_cb2"
+        "Obstacle_cb2",
+        "Obstacle_tm001"
     };
 
     int objectIDs[] = {
@@ -165,7 +166,8 @@ void StageDataUI::DrawAddSpawnInfo()
         (int)EObjectID::SpecialBonus_2,
         (int)EObjectID::Item,
         (int)EObjectID::Obstacle_bl1,
-        (int)EObjectID::Obstacle_cb2
+        (int)EObjectID::Obstacle_cb2,
+        (int)EObjectID::Obstacle_tm001
     };
 
     // 현재 선택된 ID에 해당하는 인덱스 찾기
@@ -376,6 +378,8 @@ int StageDataUI::GetObjectIDFromName(const wstring& _Name)
         return (int)EObjectID::Obstacle_bl1;
     if (_Name == L"Obstacle_cb2")
         return (int)EObjectID::Obstacle_cb2;
+    if (_Name == L"Obstacle_tm001")
+        return (int)EObjectID::Obstacle_tm001;
 
     // 기본값
     return (int)EObjectID::None;

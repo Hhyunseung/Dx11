@@ -16,6 +16,7 @@
 #include "Scripts/CMonsterScript.h"
 #include "Scripts/CMovingPlatformScirpt.h"
 #include "Scripts/CObstructScript.h"
+#include "Scripts/CParabolicObstacle.h"
 #include "Scripts/CPlayerScript.h"
 #include "Scripts/CRunState.h"
 #include "Scripts/CScrollScript.h"
@@ -41,6 +42,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CMonsterScript");
 	_vec.push_back(L"CMovingPlatformScirpt");
 	_vec.push_back(L"CObstructScript");
+	_vec.push_back(L"CParabolicObstacle");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CRunState");
 	_vec.push_back(L"CScrollScript");
@@ -82,6 +84,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CMovingPlatformScirpt;
 	if (L"CObstructScript" == _strScriptName)
 		return new CObstructScript;
+	if (L"CParabolicObstacle" == _strScriptName)
+		return new CParabolicObstacle;
 	if (L"CPlayerScript" == _strScriptName)
 		return new CPlayerScript;
 	if (L"CRunState" == _strScriptName)
@@ -147,6 +151,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::OBSTRUCTSCRIPT:
 		return new CObstructScript;
+		break;
+	case (UINT)SCRIPT_TYPE::PARABOLICOBSTACLE:
+		return new CParabolicObstacle;
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT:
 		return new CPlayerScript;
@@ -235,6 +242,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::OBSTRUCTSCRIPT:
 		return L"CObstructScript";
+		break;
+
+	case SCRIPT_TYPE::PARABOLICOBSTACLE:
+		return L"CParabolicObstacle";
 		break;
 
 	case SCRIPT_TYPE::PLAYERSCRIPT:

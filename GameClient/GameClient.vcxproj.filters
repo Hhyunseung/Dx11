@@ -355,14 +355,17 @@
     <ClInclude Include="Source\Scripts\CEnemy.h">
       <Filter>Source\Scripts\06.Obstruct</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scripts\CObstructScript.h">
-      <Filter>Source\Scripts\06.Obstruct</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scripts\CStaticObstacle.h">
       <Filter>Source\Scripts\06.Obstruct\1.Static</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scripts\CHitState.h">
       <Filter>Source\Scripts\02.Cookie\State\Hit</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CParabolicObstacle.h">
+      <Filter>Source\Scripts\06.Obstruct\2.Parabolic</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CObstructScript.h">
+      <Filter>Source\Scripts\06.Obstruct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -664,6 +667,9 @@
     </Filter>
     <Filter Include="Source\Scripts\02.Cookie\State\Hit">
       <UniqueIdentifier>{06ce0b97-0381-49e4-81af-67956f5878d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\06.Obstruct\2.Parabolic">
+      <UniqueIdentifier>{f20d9027-391b-4ac9-ab4c-8a3fcae25498}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -994,14 +1000,17 @@
     <ClCompile Include="Source\Scripts\CEnemy.cpp">
       <Filter>Source\Scripts\06.Obstruct</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\CObstructScript.cpp">
-      <Filter>Source\Scripts\06.Obstruct</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scripts\CStaticObstacle.cpp">
       <Filter>Source\Scripts\06.Obstruct\1.Static</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scripts\CHitState.cpp">
       <Filter>Source\Scripts\02.Cookie\State\Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CParabolicObstacle.cpp">
+      <Filter>Source\Scripts\06.Obstruct\2.Parabolic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CObstructScript.cpp">
+      <Filter>Source\Scripts\06.Obstruct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

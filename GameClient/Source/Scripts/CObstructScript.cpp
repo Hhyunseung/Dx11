@@ -33,6 +33,7 @@ void CObstructScript::Begin()
 {
 	// Begin은 레벨에 추가 시 호출됨 (풀에서는 호출 안 될 수 있음)
 	// 충돌 콜백은 OnSpawn()에서 등록
+
 }
 
 void CObstructScript::Tick()
@@ -43,6 +44,12 @@ void CObstructScript::Tick()
 
 void CObstructScript::OnSpawn()
 {
+	// MeshRender와 FlipbookRender가 있는지 먼저 확인
+	if (GetOwner()->FlipbookRender() != nullptr)
+	{
+		GetOwner()->FlipbookRender()->Play(0, 12.f, -1);
+	}
+
 	// 스폰될 때마다 재설정해야하는 부분들
 	// 충돌 콜백 등록 (풀에서 재사용될 때도 호출해야 함)
 	ADD_DYNAMIC_BEGIN_OVERLAP(CObstructScript::BeginOverlap);
@@ -51,16 +58,7 @@ void CObstructScript::OnSpawn()
 void CObstructScript::Move()
 {
 	// 기본 구현: 월드 스크롤만 적용
-	ApplyWorldScroll();
-}
-
-void CObstructScript::ApplyWorldScroll()
-{
-	// 공통 유틸리티: 월드 스크롤 적용
-	float scrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
-	Vec3 pos = Transform()->GetRelativePos();
-	pos.x -= scrollSpeed * DT;
-	Transform()->SetRelativePos(pos);
+	// ApplyWorldScroll();
 }
 
 

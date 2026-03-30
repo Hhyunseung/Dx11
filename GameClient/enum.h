@@ -196,7 +196,7 @@ enum class LEVEL_STATE
 
 enum class EObjectID
 {
-	None			= 0,
+    None			= 0,
 
 	DefaultJelly	= 1001,
 	Coin1			= 1002,
@@ -217,6 +217,7 @@ enum class EObjectID
 	// 장애물
 	Obstacle_bl1	= 2001,
 	Obstacle_cb2	= 2002,
+	Obstacle_tm001	= 2003,
 
 	END,
 };
@@ -240,12 +241,13 @@ inline const char* EObjectIDToString(EObjectID _ID)
 	case EObjectID::Item:			return "Item";
 	case EObjectID::Obstacle_bl1:	return "Obstacle_bl1";
 	case EObjectID::Obstacle_cb2:	return "Obstacle_cb2";
+	case EObjectID::Obstacle_tm001:	return "Obstacle_tm001";
 	default:						return "Unknown";
 	}
 }
 
 // 콤보박스용 EObjectID 배열 및 개수
-constexpr int g_ObjectIDCount = 14;
+constexpr int g_ObjectIDCount = 15;
 
 inline EObjectID GetObjectIDByIndex(int _Idx)
 {
@@ -265,6 +267,7 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
 		EObjectID::Item,
 		EObjectID::Obstacle_bl1,
 		EObjectID::Obstacle_cb2,
+		EObjectID::Obstacle_tm001,
 	};
 
 	if (_Idx < 0 || _Idx >= g_ObjectIDCount)
