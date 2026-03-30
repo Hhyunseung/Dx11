@@ -11,6 +11,7 @@
 #include "Scripts/CJellyScript.h"
 #include "Scripts/CJumpState.h"
 #include "Scripts/CLandState.h"
+#include "Scripts/CLinearObstacle.h"
 #include "Scripts/CLycheeScript.h"
 #include "Scripts/CMissileScript.h"
 #include "Scripts/CMonsterScript.h"
@@ -37,6 +38,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CJellyScript");
 	_vec.push_back(L"CJumpState");
 	_vec.push_back(L"CLandState");
+	_vec.push_back(L"CLinearObstacle");
 	_vec.push_back(L"CLycheeScript");
 	_vec.push_back(L"CMissileScript");
 	_vec.push_back(L"CMonsterScript");
@@ -74,6 +76,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CJumpState;
 	if (L"CLandState" == _strScriptName)
 		return new CLandState;
+	if (L"CLinearObstacle" == _strScriptName)
+		return new CLinearObstacle;
 	if (L"CLycheeScript" == _strScriptName)
 		return new CLycheeScript;
 	if (L"CMissileScript" == _strScriptName)
@@ -136,6 +140,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::LANDSTATE:
 		return new CLandState;
+		break;
+	case (UINT)SCRIPT_TYPE::LINEAROBSTACLE:
+		return new CLinearObstacle;
 		break;
 	case (UINT)SCRIPT_TYPE::LYCHEESCRIPT:
 		return new CLycheeScript;
@@ -222,6 +229,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::LANDSTATE:
 		return L"CLandState";
+		break;
+
+	case SCRIPT_TYPE::LINEAROBSTACLE:
+		return L"CLinearObstacle";
 		break;
 
 	case SCRIPT_TYPE::LYCHEESCRIPT:

@@ -100,7 +100,7 @@ void CParabolicObstacle::SaveToLevelFile(FILE* _File)
 	fwrite(&m_StopOnGround, sizeof(bool), 1, _File);
 	fwrite(&m_InitialVelocityY, sizeof(float), 1, _File);
 	fwrite(&m_Gravity, sizeof(float), 1, _File);
- fwrite(&m_GroundY, sizeof(float), 1, _File);
+	fwrite(&m_GroundY, sizeof(float), 1, _File);
 	fwrite(&m_Speed, sizeof(float), 1, _File);
 }
 
@@ -109,6 +109,6 @@ void CParabolicObstacle::LoadFromLevelFile(FILE* _File)
 	fread(&m_StopOnGround, sizeof(bool), 1, _File);
 	fread(&m_InitialVelocityY, sizeof(float), 1, _File);
 	fread(&m_Gravity, sizeof(float), 1, _File);
-  fread(&m_GroundY, sizeof(float), 1, _File);
+	fread(&m_GroundY, sizeof(float), 1, _File);
 	fread(&m_Speed, sizeof(float), 1, _File);
 }

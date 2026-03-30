@@ -181,7 +181,7 @@ void CreateTestLevel()
 		pObject->Collider2D()->SetOffset(Vec2(0.f, 0.f));
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Obstacle_tm001_ing.flip"));
+		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Obstacle_jp1down_ing.flip"));
 		pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 		pLevel->AddObject(0, pObject);

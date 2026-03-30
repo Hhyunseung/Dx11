@@ -367,6 +367,9 @@
     <ClInclude Include="Source\Scripts\CObstructScript.h">
       <Filter>Source\Scripts\06.Obstruct</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CLinearObstacle.h">
+      <Filter>Source\Scripts\06.Obstruct\3.Linear</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -1014,6 +1017,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CObstructScript.cpp">
       <Filter>Source\Scripts\06.Obstruct</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CLinearObstacle.cpp">
+      <Filter>Source\Scripts\06.Obstruct\3.Linear</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -250,6 +250,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CHitState.h" />
     <ClInclude Include="Source\Scripts\CJellyScript.h" />
     <ClInclude Include="Source\Scripts\CLandState.h" />
+    <ClInclude Include="Source\Scripts\CLinearObstacle.h" />
     <ClInclude Include="Source\Scripts\CLycheeScript.h" />
     <ClInclude Include="Source\Scripts\CMissileScript.h" />
     <ClInclude Include="Source\Scripts\CMonsterScript.h" />
@@ -368,6 +369,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CHitState.cpp" />
     <ClCompile Include="Source\Scripts\CJellyScript.cpp" />
     <ClCompile Include="Source\Scripts\CLandState.cpp" />
+    <ClCompile Include="Source\Scripts\CLinearObstacle.cpp" />
     <ClCompile Include="Source\Scripts\CLycheeScript.cpp" />
     <ClCompile Include="Source\Scripts\CMissileScript.cpp" />
     <ClCompile Include="Source\Scripts\CMonsterScript.cpp" />
