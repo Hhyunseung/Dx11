@@ -103,6 +103,11 @@ struct FSpawnInfo
 
 	Vec2 WorldPos;
 	Vec2 Scale;
+
+	// 커스텀 변수
+	map<std::string, float> FloatParams; 
+	map<std::string, int>	IntParams; 
+	map<std::string, bool>	BoolParams; 
 };
 
 extern GlobalData g_Global;

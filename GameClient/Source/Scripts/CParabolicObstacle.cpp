@@ -35,9 +35,33 @@ void CParabolicObstacle::Init()
 void CParabolicObstacle::OnSpawn()
 {
 	CObstructScript::OnSpawn();
-
 	m_IsGrounded = false;
 	m_CurrentVelocityY = m_InitialVelocityY;
+}
+
+void CParabolicObstacle::ApplySpawnInfo(const FSpawnInfo& info)
+{
+	// float params
+	auto itF = info.FloatParams.find("Speed");
+	if (itF != info.FloatParams.end())
+		m_Speed = itF->second;
+
+	itF = info.FloatParams.find("CurrentVelocityY");
+	if (itF != info.FloatParams.end())
+		m_CurrentVelocityY = itF->second;
+
+	itF = info.FloatParams.find("Gravity");
+	if (itF != info.FloatParams.end())
+		m_Gravity = itF->second;
+
+	itF = info.FloatParams.find("GroundY");
+	if (itF != info.FloatParams.end())
+		m_GroundY = itF->second;
+
+	// bool params
+	auto itB = info.BoolParams.find("StopOnGround");
+	if (itB != info.BoolParams.end())
+		m_StopOnGround = itB->second;
 }
 
 void CParabolicObstacle::Move()
@@ -76,7 +100,7 @@ void CParabolicObstacle::SaveToLevelFile(FILE* _File)
 	fwrite(&m_StopOnGround, sizeof(bool), 1, _File);
 	fwrite(&m_InitialVelocityY, sizeof(float), 1, _File);
 	fwrite(&m_Gravity, sizeof(float), 1, _File);
-	fwrite(&m_GroundY, sizeof(bool), 1, _File);
+ fwrite(&m_GroundY, sizeof(float), 1, _File);
 	fwrite(&m_Speed, sizeof(float), 1, _File);
 }
 
@@ -85,6 +109,6 @@ void CParabolicObstacle::LoadFromLevelFile(FILE* _File)
 	fread(&m_StopOnGround, sizeof(bool), 1, _File);
 	fread(&m_InitialVelocityY, sizeof(float), 1, _File);
 	fread(&m_Gravity, sizeof(float), 1, _File);
-	fread(&m_GroundY, sizeof(bool), 1, _File);
+  fread(&m_GroundY, sizeof(float), 1, _File);
 	fread(&m_Speed, sizeof(float), 1, _File);
 }

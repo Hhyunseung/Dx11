@@ -18,6 +18,13 @@ void CStaticObstacle::Init()
 	CObstructScript::Init(); // 부모 클래스의 Init() 호출
 }
 
+void CStaticObstacle::ApplySpawnInfo(const FSpawnInfo& info)
+{
+	auto itF = info.FloatParams.find("Speed");
+	if (itF != info.FloatParams.end())
+		m_Speed = itF->second;
+}
+
 
 void CStaticObstacle::Move()
 {

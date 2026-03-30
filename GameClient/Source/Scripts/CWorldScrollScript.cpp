@@ -99,11 +99,20 @@ void CWorldScrollScript::SpawnObjects()
 			pObject->Transform()->SetRelativePos(Vec3(screenX, info.WorldPos.y, 700.f));
 			pObject->Transform()->SetRelativeScale(Vec3(info.Scale.x, info.Scale.y, 1.f));
 
-			// 활성 목록에 추가
+            // 활성 목록에 추가
 			FActiveSpawnInfo activeInfo;
 			activeInfo.SpawnIndex = m_NextSpawnIndex;
 			activeInfo.ObjectID = (EObjectID)info.ObjectID;
 			activeInfo.Object = pObject;
+
+			// Apply spawn-time overrides to all scripts attached to this object.
+			// Use the const 'info' directly; no const_cast is necessary.
+			for (Ptr<CScript>& pScript : pObject->GetScripts())
+			{
+				if (pScript != nullptr)
+					pScript->ApplySpawnInfo(info);
+			}
+
 			m_listActiveObjects.push_back(activeInfo);
 		}
 

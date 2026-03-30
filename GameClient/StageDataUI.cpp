@@ -16,6 +16,8 @@ StageDataUI::StageDataUI()
     , m_SelectedSpawnIdx(-1)
 {
     memset(m_FileNameBuffer, 0, sizeof(m_FileNameBuffer));
+    m_LastFetchedTarget = nullptr;
+    m_LastEditedSpawnIdx = -1;
 }
 
 StageDataUI::~StageDataUI()
@@ -92,6 +94,25 @@ void StageDataUI::DrawSpawnInfoList()
         if (ImGui::Selectable(label, isSelected))
         {
             m_SelectedSpawnIdx = i;
+
+            // Load selected spawn's params into temp maps for editing
+            m_TempFloatParams.clear();
+            m_TempIntParams.clear();
+            m_TempBoolParams.clear();
+
+            const vector<FSpawnInfo>& vecSpawnInfo = GamePlayMgr::GetInst()->GetStageData()->GetSpawnInfo();
+            if (i >= 0 && i < (int)vecSpawnInfo.size())
+            {
+                const FSpawnInfo& sel = vecSpawnInfo[i];
+                for (const auto& kv : sel.FloatParams)
+                    m_TempFloatParams[kv.first] = kv.second;
+                for (const auto& kv : sel.IntParams)
+                    m_TempIntParams[kv.first] = kv.second;
+                for (const auto& kv : sel.BoolParams)
+                    m_TempBoolParams[kv.first] = kv.second;
+
+                m_LastEditedSpawnIdx = i;
+            }
         }
 
         // 우클릭 컨텍스트 메뉴
@@ -212,7 +233,36 @@ void StageDataUI::DrawAddSpawnInfo()
         newInfo.WorldPos = Vec2(m_InputWorldPos[0], m_InputWorldPos[1]);
         newInfo.Scale = Vec2(m_InputScale[0], m_InputScale[1]);
 
-        pStageData->AddSpawnInfo(newInfo);
+        // If there are any temporary params collected from the Inspector fetch,
+        // copy them into the new spawn info so they are saved.
+        for (const auto& kv : m_TempFloatParams)
+        {
+            size_t pos = kv.first.find('_');
+            std::string descKey = (pos != std::string::npos) ? kv.first.substr(pos + 1) : kv.first;
+            newInfo.FloatParams[descKey] = kv.second;
+        }
+        for (const auto& kv : m_TempIntParams)
+        {
+            size_t pos = kv.first.find('_');
+            std::string descKey = (pos != std::string::npos) ? kv.first.substr(pos + 1) : kv.first;
+            newInfo.IntParams[descKey] = kv.second;
+        }
+        for (const auto& kv : m_TempBoolParams)
+        {
+            size_t pos = kv.first.find('_');
+            std::string descKey = (pos != std::string::npos) ? kv.first.substr(pos + 1) : kv.first;
+            newInfo.BoolParams[descKey] = kv.second;
+        }
+
+        if (m_LastEditedSpawnIdx >= 0 && m_LastEditedSpawnIdx < pStageData->GetSpawnInfoCount())
+        {
+            // update existing
+            pStageData->UpdateSpawnInfo(m_LastEditedSpawnIdx, newInfo);
+        }
+        else
+        {
+            pStageData->AddSpawnInfo(newInfo);
+        }
     }
 }
 
@@ -332,6 +382,66 @@ void StageDataUI::DrawFetchFromTarget()
 
     ImGui::SameLine();
 
+    if (m_LastFetchedTarget != pTargetObject.Get())
+    {
+        m_TempFloatParams.clear();
+        m_TempIntParams.clear();
+        m_TempBoolParams.clear();
+
+        const vector<Ptr<CScript>>& vecScripts = pTargetObject->GetScripts();
+        for (const auto& pScript : vecScripts)
+        {
+            const vector<tScriptParam>& params = pScript->GetScriptParam();
+            for (const auto& sp : params)
+            {
+                if (!sp.IsInput) continue;
+
+                char keyBuf[256];
+                sprintf_s(keyBuf, "%d_%S", pScript->GetScriptType(), sp.Desc.c_str());
+
+                switch (sp.Param)
+                {
+                case SCRIPT_PARAM::FLOAT:
+                    m_TempFloatParams[keyBuf] = *(float*)(sp.Data);
+                    break;
+                case SCRIPT_PARAM::INT:
+                    m_TempIntParams[keyBuf] = *(int*)(sp.Data);
+                    break;
+                case SCRIPT_PARAM::BOOL:
+                    m_TempBoolParams[keyBuf] = *(bool*)(sp.Data);
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
+        m_LastFetchedTarget = pTargetObject.Get();
+    }
+
+    ImGui::Separator();
+    ImGui::Text("Script Params (from selected target)");
+    for (auto& kv : m_TempFloatParams)
+    {
+        float v = kv.second;
+        if (ImGui::InputFloat(kv.first.c_str(), &v))
+            kv.second = v;
+    }
+    for (auto& kv : m_TempIntParams)
+    {
+        int v = kv.second;
+        if (ImGui::InputInt(kv.first.c_str(), &v))
+            kv.second = v;
+    }
+    for (auto& kv : m_TempBoolParams)
+    {
+        bool v = kv.second;
+        if (ImGui::Checkbox(kv.first.c_str(), &v))
+            kv.second = v;
+    }
+
+    ImGui::SameLine();
+
     // 바로 추가 버튼
     if (ImGui::Button("Add Directly", ImVec2(150, 30)))
     {
@@ -343,6 +453,28 @@ void StageDataUI::DrawFetchFromTarget()
             newInfo.LayerIdx = pTargetObject->GetLayerIdx();
             newInfo.WorldPos = Vec2(worldPos.x, worldPos.y);
             newInfo.Scale = Vec2(worldScale.x, worldScale.y);
+
+            for (const auto& kv : m_TempFloatParams)
+            {
+                std::string fullKey = kv.first;
+                size_t pos = fullKey.find('_');
+                std::string descKey = (pos != std::string::npos) ? fullKey.substr(pos + 1) : fullKey;
+                newInfo.FloatParams[descKey] = kv.second;
+            }
+            for (const auto& kv : m_TempIntParams)
+            {
+                std::string fullKey = kv.first;
+                size_t pos = fullKey.find('_');
+                std::string descKey = (pos != std::string::npos) ? fullKey.substr(pos + 1) : fullKey;
+                newInfo.IntParams[descKey] = kv.second;
+            }
+            for (const auto& kv : m_TempBoolParams)
+            {
+                std::string fullKey = kv.first;
+                size_t pos = fullKey.find('_');
+                std::string descKey = (pos != std::string::npos) ? fullKey.substr(pos + 1) : fullKey;
+                newInfo.BoolParams[descKey] = kv.second;
+            }
 
             pStageData->AddSpawnInfo(newInfo);
         }

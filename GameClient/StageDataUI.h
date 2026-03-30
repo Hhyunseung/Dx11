@@ -14,6 +14,17 @@ private:
     int     m_SelectedSpawnIdx;     // 선택된 SpawnInfo 인덱스
     char    m_FileNameBuffer[256];  // 저장할 파일명 버퍼
 
+    // Temporary parameter storage for dynamic script params from Inspector target
+    std::map<std::string, float> m_TempFloatParams;
+    std::map<std::string, int>   m_TempIntParams;
+    std::map<std::string, bool>  m_TempBoolParams;
+
+    // Last fetched target to determine when to refresh temp params
+    GameObject* m_LastFetchedTarget;
+
+    // Track last edited spawn index so we can load/save params for existing SpawnInfo
+    int m_LastEditedSpawnIdx;
+
 public:
     virtual void Tick_UI() override;
 

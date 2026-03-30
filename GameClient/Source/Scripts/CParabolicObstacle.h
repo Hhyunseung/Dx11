@@ -20,6 +20,8 @@ public:
     virtual void OnSpawn() override;
     virtual void Move() override;
 
+    virtual void ApplySpawnInfo(const FSpawnInfo& info) override;
+
     virtual void Init() override;
 
     virtual void SaveToLevelFile(FILE* _File) override;

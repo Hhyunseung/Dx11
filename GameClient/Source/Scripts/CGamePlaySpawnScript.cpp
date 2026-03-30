@@ -75,6 +75,14 @@ void CGamePlaySpawnScript::SpawnStageObjects()
 		pObject->Transform()->SetRelativePos(Vec3(info.WorldPos.x, info.WorldPos.y, 700.f));
 		pObject->Transform()->SetRelativeScale(Vec3(info.Scale.x, info.Scale.y, 1.f));
 
+
+		const_cast<FSpawnInfo&>(info); // keep const correctness
+		vector<Ptr<CScript>> vecScripts = pObject->GetScripts();
+		for (auto& pScript : vecScripts)
+		{
+			pScript->ApplySpawnInfo(info);
+		}
+
 		// 레벨에 추가 (StageData에 저장된 LayerIdx 사용)
 		CreateObject(pObject, info.LayerIdx);
 	}

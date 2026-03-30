@@ -13,6 +13,20 @@ CObstructScript::CObstructScript(SCRIPT_TYPE _Type)
 {
 }
 
+void CObstructScript::ApplySpawnInfo(const FSpawnInfo& info)
+{
+	// 기본적으로 CObstructScript는 Damage 및 ObjectID를 적용할 수 있음
+	auto itInt = info.IntParams.find("Damage");
+	if (itInt != info.IntParams.end())
+		m_Damage = itInt->second;
+
+	// ObjectID는 int로 저장됨
+	if (info.FloatParams.find("ObjectID") != info.FloatParams.end())
+	{
+		m_ObjectID = (EObjectID)(int)info.FloatParams.at("ObjectID");
+	}
+}
+
 CObstructScript::CObstructScript()
 	: CScript(SCRIPT_TYPE::OBSTRUCTSCRIPT)
 {

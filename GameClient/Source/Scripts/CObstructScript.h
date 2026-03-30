@@ -16,8 +16,11 @@ public:
 
 	void BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
 
-	// 스폰 시 호출 (자식에서 오버라이드 가능)
+    // 스폰 시 호출 (자식에서 오버라이드 가능)
 	virtual void OnSpawn();
+
+	// Apply spawn-time overrides
+	virtual void ApplySpawnInfo(const FSpawnInfo& info) override;
 
 	// 이동 처리 (자식에서 오버라이드 가능, 기본은 월드 스크롤만)
 	virtual void Move();

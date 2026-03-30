@@ -17,6 +17,11 @@ public:
 	}
 	void ClearSpawnInfo() { m_vecSpawnInfo.clear(); }
 	int GetSpawnInfoCount() const { return (int)m_vecSpawnInfo.size(); }
+	void UpdateSpawnInfo(int _Idx, const FSpawnInfo& _Info)
+	{
+		if (_Idx >= 0 && _Idx < (int)m_vecSpawnInfo.size())
+			m_vecSpawnInfo[_Idx] = _Info;
+	}
 
 
 public:
