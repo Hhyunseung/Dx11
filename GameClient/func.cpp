@@ -186,15 +186,15 @@ void CreateTestLevel()
 
 		pLevel->AddObject(0, pObject);
 
-		pObject = new GameObject;
-		pObject->SetName(L"Default");
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CMeshRender);
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
-		pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-		pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"MonsterMtrl"));
-		pLevel->AddObject(0, pObject);
+		//pObject = new GameObject;
+		//pObject->SetName(L"Obstacle_tm001_sdswing");
+		//pObject->AddComponent(new CTransform);
+		//pObject->AddComponent(new CMeshRender);
+		//pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+		//pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+		//pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
+		//pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Material\\Obstacle_tm001_sdswing.mtrl"));
+		//pLevel->AddObject(0, pObject);
 
 		
 		ChangeLevel(L"Level\\TestLevel.lv");

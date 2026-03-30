@@ -370,6 +370,9 @@
     <ClInclude Include="Source\Scripts\CLinearObstacle.h">
       <Filter>Source\Scripts\06.Obstruct\3.Linear</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CPendulumObstacle.h">
+      <Filter>Source\Scripts\06.Obstruct\4.Parabolic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -676,6 +679,9 @@
     </Filter>
     <Filter Include="Source\Scripts\06.Obstruct\3.Linear">
       <UniqueIdentifier>{adb8e0d4-4509-4884-8e03-a610dffc239b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\06.Obstruct\4.Parabolic">
+      <UniqueIdentifier>{84f1f6cd-7e64-46f1-94d5-9a16fe5dadef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1020,6 +1026,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CLinearObstacle.cpp">
       <Filter>Source\Scripts\06.Obstruct\3.Linear</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CPendulumObstacle.cpp">
+      <Filter>Source\Scripts\06.Obstruct\4.Parabolic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
