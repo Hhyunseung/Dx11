@@ -5,8 +5,7 @@ class CPendulumObstacle :
     public CObstructScript
 {
 private:
-	Vec3    m_PivotPos;
-	Vec3    m_PivotToCenter; 
+	Vec3    m_LocalCenterOffset;
 	
 	float   m_AccTime; // 누적 시간 (진동 계산용)
 	float   m_MaxAngle; // 진자의 최대 회전 각도 
@@ -16,6 +15,8 @@ private:
     bool    m_OneMove; // 한번만 움직일거면 ture
     bool    m_IsStopped;
 	float   m_OneMoveTime; // 한번만 움직이는 경우, 움직인 시간 기록
+
+	GameObject* m_pBody; // 진자 몸체 (회전 중심에서 떨어진 부분)
 
 public:
     virtual void Init() override;

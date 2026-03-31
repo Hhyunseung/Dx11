@@ -105,13 +105,26 @@ void CWorldScrollScript::SpawnObjects()
 			activeInfo.ObjectID = (EObjectID)info.ObjectID;
 			activeInfo.Object = pObject;
 
-			// Apply spawn-time overrides to all scripts attached to this object.
-			// Use the const 'info' directly; no const_cast is necessary.
 			for (Ptr<CScript>& pScript : pObject->GetScripts())
 			{
 				if (pScript != nullptr)
 					pScript->ApplySpawnInfo(info);
 			}
+
+      const vector<Ptr<GameObject>>& children = pObject->GetChild();
+		for (const Ptr<GameObject>& child : children)
+		{
+			if (child == nullptr)
+				continue;
+
+			// Apply spawn info to each script attached to the child object
+			const vector<Ptr<CScript>>& childScripts = child->GetScripts();
+			for (const Ptr<CScript>& pChildScript : childScripts)
+			{
+				if (pChildScript != nullptr)
+					pChildScript->ApplySpawnInfo(info);
+			}
+		}
 
 			m_listActiveObjects.push_back(activeInfo);
 		}
