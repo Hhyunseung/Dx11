@@ -154,50 +154,22 @@ void StageDataUI::DrawAddSpawnInfo()
 
     ImGui::Text("Add New SpawnInfo");
 
-    // Object ID 선택 (콤보박스)
-    const char* objectNames[] = {
-        "None",
-        "DefaultJelly",
-        "Coin1",
-        "Coin2",
-        "BearYellow",
-        "BearPink",
-        "BearBlue",
-        "BearBigYellow",
-        "BearRainbow",
-        "SpecialBonus_1",
-        "SpecialBonus_2",
-        "Item",
-        "Obstacle_bl1",
-        "Obstacle_cb2",
-        "Obstacle_tm001",
-        "Obstacle_jp1down",
-        "Obstacle_tm001_sdswing"
-    };
+    // Object ID 선택 (콤보박스) - EObjectID 열거에서 동적으로 목록 생성
+    std::vector<std::string> objectNames;
+    std::vector<int> objectIDs;
+    objectNames.reserve(g_ObjectIDCount);
+    objectIDs.reserve(g_ObjectIDCount);
 
-    int objectIDs[] = {
-        (int)EObjectID::None,
-        (int)EObjectID::DefaultJelly,
-        (int)EObjectID::Coin1,
-        (int)EObjectID::Coin2,
-        (int)EObjectID::BearYellow,
-        (int)EObjectID::BearPink,
-        (int)EObjectID::BearBlue,
-        (int)EObjectID::BearBigYellow,
-        (int)EObjectID::BearRainbow,
-        (int)EObjectID::SpecialBonus_1,
-        (int)EObjectID::SpecialBonus_2,
-        (int)EObjectID::Item,
-        (int)EObjectID::Obstacle_bl1,
-        (int)EObjectID::Obstacle_cb2,
-        (int)EObjectID::Obstacle_tm001,
-        (int)EObjectID::Obstacle_jp1down,
-        (int)EObjectID::Obstacle_tm001_sdswing
-    };
+    for (int i = 0; i < g_ObjectIDCount; ++i)
+    {
+        EObjectID id = GetObjectIDByIndex(i);
+        objectIDs.push_back((int)id);
+        objectNames.push_back(std::string(EObjectIDToString(id)));
+    }
 
     // 현재 선택된 ID에 해당하는 인덱스 찾기
     int currentIdx = 0;
-    for (int i = 0; i < IM_ARRAYSIZE(objectIDs); ++i)
+    for (int i = 0; i < (int)objectIDs.size(); ++i)
     {
         if (objectIDs[i] == m_SelectedObjectID)
         {
@@ -208,7 +180,14 @@ void StageDataUI::DrawAddSpawnInfo()
 
     ImGui::Text("Object Type");
     ImGui::SameLine(120);
-    if (ImGui::Combo("##ObjectType", &currentIdx, objectNames, IM_ARRAYSIZE(objectNames)))
+
+    // ImGui용 const char* 배열 준비
+    std::vector<const char*> itemPtrs;
+    itemPtrs.reserve(objectNames.size());
+    for (auto &s : objectNames)
+        itemPtrs.push_back(s.c_str());
+
+    if (ImGui::Combo("##ObjectType", &currentIdx, itemPtrs.data(), (int)itemPtrs.size()))
     {
         m_SelectedObjectID = objectIDs[currentIdx];
     }
@@ -487,40 +466,25 @@ void StageDataUI::DrawFetchFromTarget()
 
 int StageDataUI::GetObjectIDFromName(const wstring& _Name)
 {
-    // 오브젝트 이름(키값)을 기반으로 ObjectID 추론 (정확한 일치)
-    if (_Name == L"Jelly_Default")
-        return (int)EObjectID::DefaultJelly;
-    if (_Name == L"Jelly_CoinGold")
-        return (int)EObjectID::Coin1;
-    if (_Name == L"Jelly_CoinSilver")
-        return (int)EObjectID::Coin2;
-    if (_Name == L"Jelly_Bearbig")
-        return (int)EObjectID::BearBigYellow;
-    if (_Name == L"Jelly_BearRainbow")
-        return (int)EObjectID::BearRainbow;
-    if (_Name == L"Jelly_Bearyellow")
-        return (int)EObjectID::BearYellow;
-    if (_Name == L"Jelly_Bearpink")
-        return (int)EObjectID::BearPink;
-    if (_Name == L"Jelly_Bearice")
-        return (int)EObjectID::BearBlue;
-    if (_Name == L"Jelly_SpecialBonus_1")
-        return (int)EObjectID::SpecialBonus_1;
-    if (_Name == L"Jelly_SpecialBonus_2")
-        return (int)EObjectID::SpecialBonus_2;
-    if (_Name == L"Item")
-        return (int)EObjectID::Item;
-    if (_Name == L"Obstacle_bl1")
-        return (int)EObjectID::Obstacle_bl1;
-    if (_Name == L"Obstacle_cb2")
-        return (int)EObjectID::Obstacle_cb2;
-    if (_Name == L"Obstacle_tm001")
-        return (int)EObjectID::Obstacle_tm001;
-    if (_Name == L"Obstacle_jp1down")
-        return (int)EObjectID::Obstacle_jp1down;
-    if (_Name == L"Obstacle_tm001_sdswing")
-        return (int)EObjectID::Obstacle_tm001_sdswing;
+    // Normalize input to narrow string for comparison
+    std::string nameStr(_Name.begin(), _Name.end());
 
-    // 기본값
+    // Try direct mapping using EObjectIDToString values
+    for (int i = 0; i < g_ObjectIDCount; ++i)
+    {
+        EObjectID id = GetObjectIDByIndex(i);
+        std::string idName = EObjectIDToString(id);
+        if (nameStr == idName)
+            return (int)id;
+    }
+
+    for (int i = 0; i < g_ObjectIDCount; ++i)
+    {
+        EObjectID id = GetObjectIDByIndex(i);
+        std::string idName = EObjectIDToString(id);
+        if (nameStr.find(idName) != std::string::npos)
+            return (int)id;
+    }
+
     return (int)EObjectID::None;
 }

@@ -7,11 +7,12 @@
 
 CPendulumObstacle::CPendulumObstacle()
 	: CObstructScript(SCRIPT_TYPE::PENDULUMOBSTACLE)
-	, m_LocalCenterOffset(0.f, -200.f, 0.f)
+	, m_LocalCenterOffsetX(0.f)
+	, m_LocalCenterOffsetY(0.f)
 	, m_AccTime(0.f)
 	, m_MaxAngle(30.f) // 최대 각도 (예시: 30도)
 	, m_Frequency(1.f) // 진동 주파수 (예시: 1Hz)
-	, m_PendulumLength(100.f) 
+	, m_PendulumLength(100.f)
 	, m_OneMove(false)
 	, m_IsStopped(false)
 	, m_OneMoveTime(0.5f)
@@ -27,8 +28,9 @@ CPendulumObstacle::~CPendulumObstacle()
 void CPendulumObstacle::Init()
 {
 	CObstructScript::Init(); // 부모 클래스의 Init() 호출
-
-	AddScriptParam(SCRIPT_PARAM::VEC4,	&m_LocalCenterOffset,	L"LocalCenterOffset", true, 0.f);
+	// store X/Y separately so StageData can save them independently
+	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_LocalCenterOffsetX, L"LocalCenterOffsetX", true, 0.f);
+	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_LocalCenterOffsetY, L"LocalCenterOffsetY", true, 0.f);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_MaxAngle,			L"MaxAngle", true, 0.f);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_Frequency,			L"Frequency", true, 0.f);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_PendulumLength,		L"PendulumLength", true, 0.f);
@@ -41,10 +43,38 @@ void CPendulumObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 	m_AccTime = 0.f;
 	m_IsStopped = false;
 
+	auto itF = info.FloatParams.find("LocalCenterOffsetX");
+	if (itF != info.FloatParams.end())
+		m_LocalCenterOffsetX = itF->second;
 
-	GetOwner()->Transform()->SetRelativePos(m_LocalCenterOffset);
+	itF = info.FloatParams.find("LocalCenterOffsetY");
+	if (itF != info.FloatParams.end())
+		m_LocalCenterOffsetY = itF->second;
 
-	Vec3 rot = GetOwner()->Transform()->GetRelativeRot();
+	itF = info.FloatParams.find("MaxAngle");
+	if (itF != info.FloatParams.end())
+		m_MaxAngle = itF->second;
+
+	itF = info.FloatParams.find("Frequency");
+	if (itF != info.FloatParams.end())
+		m_Frequency = itF->second;
+
+	itF = info.FloatParams.find("PendulumLength");
+	if (itF != info.FloatParams.end())
+		m_PendulumLength = itF->second;
+
+	itF = info.FloatParams.find("OneMoveTime");
+	if (itF != info.FloatParams.end())
+		m_OneMoveTime = itF->second;
+
+	// bool params: support specific X/Y flags or generic IsGrounded
+	auto itBX = info.BoolParams.find("OneMove");
+	if (itBX != info.BoolParams.end())
+		m_OneMove = itBX->second;
+
+
+
+    Vec3 rot = GetOwner()->Transform()->GetRelativeRot();
 	rot.z = 0.f;
 	GetOwner()->Transform()->SetRelativeRot(rot);
 
@@ -55,9 +85,10 @@ void CPendulumObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 	}
 
 	// Body는 Pivot 아래쪽에 고정
-	if (m_pBody)
+    if (m_pBody)
 	{
-		m_pBody->Transform()->SetRelativePos(m_LocalCenterOffset);
+		// Position the pendulum body relative to the pivot once on spawn.
+		//m_pBody->Transform()->SetRelativePos(Vec3(m_LocalCenterOffsetX, m_LocalCenterOffsetY, 0.f));
 
 		Vec3 bodyRot = m_pBody->Transform()->GetRelativeRot();
 		bodyRot.z = 0.f;
@@ -100,9 +131,9 @@ void CPendulumObstacle::Move()
 	rot.z = currentAngle; // Z-axis rotation
 	GetOwner()->Transform()->SetRelativeRot(rot);
 
-	if (m_pBody)
+    if (m_pBody)
 	{
-		m_pBody->Transform()->SetRelativePos(m_LocalCenterOffset);
+		//m_pBody->Transform()->SetRelativePos(Vec3(m_LocalCenterOffsetX, m_LocalCenterOffsetY, 0.f));
 	}
 }
 

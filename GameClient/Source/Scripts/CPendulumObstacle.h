@@ -5,8 +5,10 @@ class CPendulumObstacle :
     public CObstructScript
 {
 private:
-	Vec3    m_LocalCenterOffset;
-	
+    // Store Local Center Offset as separate X/Y floats to persist separately
+    float   m_LocalCenterOffsetX;
+    float   m_LocalCenterOffsetY;
+
 	float   m_AccTime; // 누적 시간 (진동 계산용)
 	float   m_MaxAngle; // 진자의 최대 회전 각도 
 	float   m_Frequency; // 진자의 진동 주파수
