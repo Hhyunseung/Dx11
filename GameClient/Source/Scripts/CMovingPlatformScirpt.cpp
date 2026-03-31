@@ -34,6 +34,10 @@ void CMovingPlatformScirpt::Init()
 
 void CMovingPlatformScirpt::OnSpawn()
 {
+	m_StartPos = GetOwner()->Transform()->GetRelativePos();
+	m_EndPos = Vec3(m_EndPosX, m_EndPosY, 0.f) + m_StartPos;
+	m_PrevPos = m_StartPos;
+	m_FrameDelta = Vec3(0.f, 0.f, 0.f);
 }
 
 void CMovingPlatformScirpt::ApplySpawnInfo(const FSpawnInfo& info)
@@ -46,14 +50,14 @@ void CMovingPlatformScirpt::ApplySpawnInfo(const FSpawnInfo& info)
 	if (itF != info.FloatParams.end())
 		m_EndPosY = itF->second;
 
+	itF = info.FloatParams.find("Speed");
+	if (itF != info.FloatParams.end())
+		m_Speed = itF->second;
 }
 
 void CMovingPlatformScirpt::Begin()
 {
-	m_StartPos = GetOwner()->Transform()->GetRelativePos();
-	m_EndPos = Vec3(m_EndPosX, m_EndPosY, 0.f) + m_StartPos;
-	m_PrevPos = m_StartPos;
-	m_FrameDelta = Vec3(0.f, 0.f, 0.f);
+
 }
 
 void CMovingPlatformScirpt::Tick()
