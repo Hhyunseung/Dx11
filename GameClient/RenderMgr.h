@@ -12,6 +12,7 @@ class RenderMgr
 private:
 	Ptr<CCamera>		m_MainCam;
 	Ptr<CCamera>		m_EditorCam;
+	Ptr<CCamera>		m_UICam;				// UI 렌더링 전용 카메라
 
 	/// Level 안에 있는 GameObject 가 아님
 	/// 렌더 매니저 전용으로 들고 있는 (오로지 디버그 렌더링 용도의) 게임 오브젝트
@@ -26,6 +27,7 @@ private:
 public:
 	void RegisterCamera(Ptr<CCamera> _Cam) { m_MainCam = _Cam; }
 	void RegisterEditorCamera(Ptr<CCamera> _Cam) { m_EditorCam = _Cam; }
+	void RegisterUICamera(Ptr<CCamera> _Cam) { m_UICam = _Cam; }
 	Ptr<CCamera> GetMainCam() { return m_MainCam; }
 	void AddDebugInfo(const DbgInfo& _Info) { if (m_bDebugRender) m_DbgInfoList.push_back(_Info); }
 	void RegisterLight2D(Ptr<CLight2D> _Light2D) { m_vecLight2D.push_back(_Light2D); }	

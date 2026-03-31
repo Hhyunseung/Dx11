@@ -41,13 +41,17 @@ void RenderMgr::Progress()
 	// Level 의 상태가 Play 상태면 등록된 mainCam 으로 렌더링
 	if (LevelMgr::GetInst()->GetLevelState() == LEVEL_STATE::PLAY)
 	{
-		// 카메라 기반 렌더링
-		if (m_MainCam == nullptr)
-			return;
+		if (m_MainCam != nullptr)
+		{
+			m_MainCam->SortObject();
+			m_MainCam->Render();
+		}
 
-		// 카메라를 이용해서 레벨 안에 있는 물체들을 렌더링
-		m_MainCam->SortObject();
-		m_MainCam->Render();
+		if (m_UICam != nullptr)
+		{
+			m_UICam->SortObject();
+			m_UICam->Render();
+		}
 	}
 
 	// Level 의 상태가 Pause, Stop 상태면 등록된 EditorCam 으로 렌더링
@@ -77,7 +81,6 @@ void RenderMgr::Render_Start()
 
 	// 렌더타겟 클리어
 	Device::GetInst()->ClearTarget();
-
 
 	// 등록받은 Light2D 의 광원 정보를 구조화 버퍼에 담는다
 	// 구조화버퍼를 특정 t 레지스터에 바인딩 한다

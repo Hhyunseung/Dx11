@@ -9,12 +9,18 @@ enum class PROJ_TYPE
     PERSPECTIVE,    // 원근 투영
 };
 
+enum class CAMERA_RENDER_TYPE
+{
+    WORLD,
+    UI,
+};
 
 class CCamera :
     public Component
 {
 private:
     UINT                    m_LayerCheck;   // 어떤 레이어만 화면에 렌더링 할 것인지 비트 체크
+	CAMERA_RENDER_TYPE      m_RenderType;    // 카메라 렌더링 타입 (월드, UI)
     PROJ_TYPE               m_ProjType;     // 투영 방식
 
     float 	                m_Far;		    // 카메라 시야 최대거리
@@ -39,6 +45,9 @@ public:
     GET_SET(float, Width);
     GET_SET(float, AspectRatio);
     GET_SET(float, OrthoScale);
+
+    void SetRenderType(CAMERA_RENDER_TYPE _Type) { m_RenderType = _Type; }
+    CAMERA_RENDER_TYPE GetRenderType() const { return m_RenderType; }
 
     UINT GetLayerCheck() { return m_LayerCheck; }
 
