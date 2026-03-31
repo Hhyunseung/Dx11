@@ -39,20 +39,20 @@ void CEditorCamMoveScript::MovePespective()
 		vPos -= vFront * 10.f;
 
 	if (KEY_PRESSED(KEY::W))
-		vPos += 500.f * vFront * DT;
+		vPos += 500.f * vFront * E_DT;
 	if (KEY_PRESSED(KEY::S))
-		vPos -= 500.f * vFront * DT;
+		vPos -= 500.f * vFront * E_DT;
 	if (KEY_PRESSED(KEY::A))
-		vPos -= 500.f * vRight * DT;
+		vPos -= 500.f * vRight * E_DT;
 	if (KEY_PRESSED(KEY::D))
-		vPos += 500.f * vRight * DT;
+		vPos += 500.f * vRight * E_DT;
 
 	if (KEY_PRESSED(KEY::RBTN))
 	{
 		Vec2 vMouseDir = KeyMgr::GetInst()->GetMouseDir();
 
-		vRot.y += vMouseDir.x * XM_2PI * DT;
-		vRot.x += vMouseDir.y * XM_2PI * DT;
+		vRot.y += vMouseDir.x * XM_2PI * E_DT;
+		vRot.x += vMouseDir.y * XM_2PI * E_DT;
 	}
 
 	Transform()->SetRelativePos(vPos);
@@ -61,17 +61,22 @@ void CEditorCamMoveScript::MovePespective()
 
 void CEditorCamMoveScript::MoveOrthographic()
 {
-	Vec3 vPos = Transform()->GetRelativePos();
+   Vec3 vPos = Transform()->GetRelativePos();
 
-	if (KEY_PRESSED(KEY::W))
-		vPos.y += 500.f * DT;
-	if (KEY_PRESSED(KEY::S))
-		vPos.y -= 500.f * DT;
-	if (KEY_PRESSED(KEY::A))
-		vPos.x -= 500.f * DT;
-	if (KEY_PRESSED(KEY::D))
-		vPos.x += 500.f * DT;
+   float Speed = m_Speed;
+   if (KEY_PRESSED(KEY::LSHIFT))
+      Speed *= 3.f;
 
-	Transform()->SetRelativePos(vPos);
-	Transform()->SetRelativeRot(Vec3(0.f, 0.f, 0.f));
+
+   if (KEY_PRESSED(KEY::W))
+      vPos.y += E_DT * Speed;
+   if (KEY_PRESSED(KEY::S))
+      vPos.y -= E_DT * Speed;
+   if (KEY_PRESSED(KEY::A))
+      vPos.x -= E_DT * Speed;
+   if (KEY_PRESSED(KEY::D))
+      vPos.x += E_DT * Speed;
+
+   Transform()->SetRelativePos(vPos);
+   Transform()->SetRelativeRot(Vec3(0.f, 0.f, 0.f));
 }
