@@ -283,9 +283,6 @@
     <ClInclude Include="Source\Scripts\CMonsterScript.h">
       <Filter>Source\Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scripts\CPlayerScript.h">
-      <Filter>Source\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scripts\CJumpState.h">
       <Filter>Source\Scripts\02.Cookie\State\Jump</Filter>
     </ClInclude>
@@ -372,6 +369,9 @@
     </ClInclude>
     <ClInclude Include="Source\Scripts\CPendulumObstacle.h">
       <Filter>Source\Scripts\06.Obstruct\4.Parabolic</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CPlayerScript.h">
+      <Filter>Source\Scripts\02.Cookie</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -940,9 +940,6 @@
     <ClCompile Include="Source\Scripts\CMonsterScript.cpp">
       <Filter>Source\Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\CPlayerScript.cpp">
-      <Filter>Source\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scripts\CJumpState.cpp">
       <Filter>Source\Scripts\02.Cookie\State\Jump</Filter>
     </ClCompile>
@@ -1029,6 +1026,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CPendulumObstacle.cpp">
       <Filter>Source\Scripts\06.Obstruct\4.Parabolic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CPlayerScript.cpp">
+      <Filter>Source\Scripts\02.Cookie</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

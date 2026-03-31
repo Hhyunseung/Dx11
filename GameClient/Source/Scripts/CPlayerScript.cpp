@@ -19,9 +19,13 @@
 #include "CSlideState.h"
 #include "CHitState.h"
 
+#include "CMovingPlatformScirpt.h"
+
+
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
 	, m_FeetCollider(nullptr)
+	, m_CurrentMovingPlatform(nullptr)
 	, m_gravity(-980.f)
 	, m_VelY(0.f)
 	, m_JumpPower(800.f)
@@ -98,13 +102,14 @@ void CPlayerScript::Tick()
 	//m_PrevFeetY = GetOwner()->Transform()->GetRelativePos().y;
 	m_PrevFeetY = GetOwner()->Collider2D()->GetBottomY();
 
+	ApllyMovingPlatform();
+
 	HandleJump();
 	HandleSlide();
 	GravityAndMove();
 	UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
 
 	m_StateMachine->Tick();
-
 	Skill();
 
 	//if (KEY_PRESSED(KEY::X))
@@ -163,6 +168,16 @@ void CPlayerScript::HandleSlide()
 
 void CPlayerScript::HandleHit()
 {
+}
+
+void CPlayerScript::ApllyMovingPlatform()
+{
+	if (nullptr == m_CurrentMovingPlatform)
+		return;
+
+	Vec3 vPos = Transform()->GetRelativePos();
+	//vPos += m_CurrentMovingPlatform->GetFrameDelta();
+	Transform()->SetRelativePos(vPos);
 }
 
 // 중력 적용 및 이동 처리
@@ -312,10 +327,32 @@ void CPlayerScript::FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _Ot
 	if ((m_FeetCollider->GetBottomY() <= _OtherCollider->GetTopY())
 		&& (m_CurFeetY <= m_PrevFeetY))
 	{
-		m_GroundColliders.push_back(_OtherCollider);
+		// 여기
+		bool bExist = false;
+		for (auto pCol : m_GroundColliders)
+		{
+			if (pCol == _OtherCollider)
+			{
+				bExist = true;
+				break;
+			}
+		}
+
+		if (!bExist)
+			m_GroundColliders.push_back(_OtherCollider);
 
 		m_IsLand = true;
 		m_VelY = 0.f;
+
+		GameObject* pOtherObj = _OtherCollider->GetOwner();
+		if (pOtherObj != nullptr)
+		{
+			CMovingPlatformScirpt* pPlatform = pOtherObj->GetScript<CMovingPlatformScirpt>().Get();
+			if (pPlatform != nullptr)
+			{
+				m_CurrentMovingPlatform = pPlatform;
+			}
+		}
 	}
 }
 
@@ -332,6 +369,16 @@ void CPlayerScript::FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _Othe
 		{
 			m_GroundColliders.erase(iter);
 			break;
+		}
+	}
+
+	GameObject* pOtherObj = _OtherCollider->GetOwner();
+	if (pOtherObj != nullptr)
+	{
+		CMovingPlatformScirpt* pPlatform = pOtherObj->GetScript<CMovingPlatformScirpt>().Get();
+		if (pPlatform != nullptr && m_CurrentMovingPlatform == pPlatform)
+		{
+			m_CurrentMovingPlatform = nullptr;
 		}
 	}
 

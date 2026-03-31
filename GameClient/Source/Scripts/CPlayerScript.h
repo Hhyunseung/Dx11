@@ -4,6 +4,8 @@
 #include "CMissileScript.h"
 #include "CStateMachine.h"
 
+class CMovingPlatformScirpt;
+
 
 class CPlayerScript;
 
@@ -30,8 +32,6 @@ public:
 
 
 
-
-
 class CPlayerScript :
     public CScript
 {
@@ -47,6 +47,7 @@ private:
 	Ptr<CStateMachine>	m_StateMachine; // 상태 머신
 
 	vector<CCollider2D*> m_GroundColliders; // 발과 충돌 중인 모든 플랫폼들
+	CMovingPlatformScirpt* m_CurrentMovingPlatform; // 현재 타고 있는 이동 플랫폼 스크립트 (없으면 nullptr)
 
 	int 				m_HP; // 체력
 	int					m_CurrentHP; // 현재 체력
@@ -93,6 +94,7 @@ private:
 	void HandleSlide();
 	void HandleHit();
 
+	void ApllyMovingPlatform();
 	void GravityAndMove();
 	void UpdateInvincibility();  // 이름 변경
 

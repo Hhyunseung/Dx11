@@ -218,8 +218,12 @@ enum class EObjectID
 	Obstacle_bl1	= 2001,
 	Obstacle_cb2	= 2002,
     Obstacle_tm001	= 2003,
- Obstacle_jp1down	= 2004,
+	Obstacle_jp1down	= 2004,
 	Obstacle_tm001_sdswing	= 2005,
+
+
+	// ÇÃ·§Æû
+	TileShipeStage_1_fh_m = 3001,
 
 	END,
 };
@@ -246,12 +250,13 @@ inline const char* EObjectIDToString(EObjectID _ID)
     case EObjectID::Obstacle_tm001:	return "Obstacle_tm001";
 	case EObjectID::Obstacle_jp1down: return "Obstacle_jp1down";
 	case EObjectID::Obstacle_tm001_sdswing: return "Obstacle_tm001_sdswing";
+	case EObjectID::TileShipeStage_1_fh_m: return "TileShipeStage_1_fh_m";
 	default:						return "Unknown";
 	}
 }
 
 // ÄÞº¸¹Ú½º¿ë EObjectID ¹è¿­ ¹× °³¼ö
-constexpr int g_ObjectIDCount = 17;
+constexpr int g_ObjectIDCount = 18;
 
 inline EObjectID GetObjectIDByIndex(int _Idx)
 {
@@ -274,6 +279,7 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
         EObjectID::Obstacle_tm001,
 		EObjectID::Obstacle_jp1down,
 		EObjectID::Obstacle_tm001_sdswing,
+		EObjectID::TileShipeStage_1_fh_m,
 	};
 
 	if (_Idx < 0 || _Idx >= g_ObjectIDCount)

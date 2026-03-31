@@ -34,6 +34,11 @@ void ObjectPoolMgr::Init()
 	CreatePool(L"Prefab\\Obstacle_jp1down.pref", 10, 8);
 	CreatePool(L"Prefab\\Obstacle_tm001_sdswing.pref", 10, 8);
 
+	// 아이템 풀 (예시)
+
+	// 플랫폼 풀 (예시)
+	CreatePool(L"Prefab\\TileShipeStage_1_fh_m.pref", 10, 2);
+
 	// 이펙트 풀 (예시)
 	CreatePool(L"Prefab\\Effect_JellyCollect.pref", 3, 0);
 }
