@@ -323,6 +323,16 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Obstacle_jp1down", L"Texture\\Obstacle\\jp1down.png");
 	Load<ATexture>(L"Obstacle_jp1down_ing", L"Texture\\Obstacle\\jp1down_ing.png");
 	Load<ATexture>(L"Obstacle_tm001_sdswing", L"Texture\\Obstacle\\tm001_sdswing.png");
+
+
+	// ==============================
+	// UI 텍스쳐
+	// ==============================
+	Load<ATexture>(L"btn_jump", L"Texture\\UI\\btn_jump.png");
+	Load<ATexture>(L"btn_jump_dim", L"Texture\\UI\\btn_jump_dim.png");
+	Load<ATexture>(L"btn_slide", L"Texture\\UI\\btn_slide.png");
+	Load<ATexture>(L"btn_slide_dim", L"Texture\\UI\\btn_slide_dim.png");
+
 }
 
 void AssetMgr::CreateEngineMaterial()
@@ -412,6 +422,25 @@ void AssetMgr::CreateEngineMaterial()
 	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"TileShipStage1_2"));
 
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_OPAQUE);
+	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
+	// ================== UIButtonMtrl 생성 ==============//
+	pMtrl = new AMaterial;
+	pMtrl->SetName(L"UI_JumpButtonMtrl");
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"ButtonShader"));
+
+	// 상태
+	pMtrl->SetScalar(INT_0, 0); // Normal
+
+	// Tint
+	pMtrl->SetScalar(VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+
+	// 텍스처 2개만 사용
+	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"btn_jump"));
+	pMtrl->SetTexture(TEX_1, FindAsset<ATexture>(L"btn_jump_dim"));
+
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_TRANSPARENT);
+
 	AddAsset(pMtrl->GetName(), pMtrl.Get());
 
 	//================== DbgMtrl 생성 ==============//
