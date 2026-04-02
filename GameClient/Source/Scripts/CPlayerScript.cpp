@@ -33,6 +33,8 @@ CPlayerScript::CPlayerScript()
 	, m_InvincibleTime(2.f)
 	, m_InvincibleTimer(0.f)
 	, m_BlinkTime(0.2f)
+	, m_JumpCount(0)
+	, m_MaxJumpCount(2)
 	, m_IsLand(false)
 	, m_IsJump(false)
 	, m_IsDoubleJump(false)
@@ -131,16 +133,30 @@ void CPlayerScript::HandleJump()
 	if (KEY_TAP(KEY::SPACE))
 	{
 		// 착지 상태에서 점프
-		if (m_IsLand && m_IsJump == false)
+		if (m_JumpCount == 0)
 		{
+			m_IsLand = false;
+			m_IsJump = true;
+			m_IsDoubleJump = false;
+
 			m_VelY = m_JumpPower;
+			m_JumpCount = 1;
+
+			m_CurrentMovingPlatform = nullptr;
 			ChangeState(PLAYER_STATE_ID::JUMP);
 		}
 
 		// 더블 점프
-		else if (!m_IsLand && m_IsJump == true && m_IsDoubleJump == false)
+		else if (m_JumpCount == 1)
 		{
+			m_IsLand = false;
+			m_IsJump = false;
+			m_IsDoubleJump = true;
+
 			m_VelY = m_DoubleJumpPower;
+			m_JumpCount = 2;
+
+			m_CurrentMovingPlatform = nullptr;
 			ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
 		}
 	}
@@ -387,8 +403,7 @@ void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCo
 
 		// 착지 상태 갱신
 		m_IsLand = true;
-		m_IsJump = false;
-		m_IsDoubleJump = false;
+		m_JumpCount = 0;
 		m_VelY = 0.f;
 
 		// 현재 닿은 바닥이 moving platform이면 저장
