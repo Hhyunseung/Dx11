@@ -120,7 +120,7 @@ void CPlayerScript::Tick()
 	//{
 	//	MeshRender()->GetMtrl()->SetScalar(INT_0, 0);
 	//}
-
+	 
 	//m_CurFeetY = GetOwner()->Transform()->GetRelativePos().y;
 	m_CurFeetY = GetOwner()->Collider2D()->GetBottomY();
 }
@@ -170,6 +170,7 @@ void CPlayerScript::HandleHit()
 {
 }
 
+// 플랫폼 이동 적용
 void CPlayerScript::ApllyMovingPlatform()
 {
 	if (nullptr == m_CurrentMovingPlatform)
@@ -183,15 +184,15 @@ void CPlayerScript::ApllyMovingPlatform()
 // 중력 적용 및 이동 처리
 void CPlayerScript::GravityAndMove()
 {
-	if (!m_IsLand)
-	{
-		Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
+	if (m_IsLand)
+		return;
 
-		m_VelY += m_gravity * 2 * DT;
-		vPos.y += m_VelY * DT;
+	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 
-		GetOwner()->Transform()->SetRelativePos(vPos);
-	}
+	m_VelY += m_gravity * 2 * DT;
+	vPos.y += m_VelY * DT;
+
+	GetOwner()->Transform()->SetRelativePos(vPos);
 }
 
 void CPlayerScript::UpdateInvincibility()
@@ -214,6 +215,20 @@ void CPlayerScript::UpdateInvincibility()
 		// 알파값 초기화 (0이면 셰이더에서 적용 안 함)
 		FlipbookRender()->GetMaterial()->SetScalar(FLOAT_0, 0.f);
 	}
+}
+
+bool CPlayerScript::HasGroundCollider(CCollider2D* _Collider)
+{
+	if (_Collider == nullptr)
+		return false;
+
+	for (CCollider2D* pCol : m_GroundColliders)
+	{
+		if (pCol == _Collider)
+			return true;
+	}
+
+	return false;
 }
 
 void CPlayerScript::TakeDamage(int _Damage)
@@ -324,52 +339,85 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherC
 // 땅 체크용 충돌체
 void CPlayerScript::FeetBeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
-	if ((m_FeetCollider->GetBottomY() <= _OtherCollider->GetTopY())
-		&& (m_CurFeetY <= m_PrevFeetY))
+	if (_OtherCollider == nullptr)
+		return;
+
+	// 목록에 없으면 추가
+	if (!HasGroundCollider(_OtherCollider))
 	{
-		// 여기
-		bool bExist = false;
-		for (auto pCol : m_GroundColliders)
+		m_GroundColliders.push_back(_OtherCollider);
+	}
+
+	// 이동 플랫폼 위에 올라탄 경우, 현재 타고 있는 플랫폼 정보 업데이트
+	GameObject* pOtherObj = _OtherCollider->GetOwner();
+	if (pOtherObj != nullptr)
+	{
+		CMovingPlatformScirpt* pPlatform = pOtherObj->GetScript<CMovingPlatformScirpt>().Get();
+		if (pPlatform != nullptr)
 		{
-			if (pCol == _OtherCollider)
-			{
-				bExist = true;
-				break;
-			}
-		}
-
-		if (!bExist)
-			m_GroundColliders.push_back(_OtherCollider);
-
-		m_IsLand = true;
-		m_VelY = 0.f;
-
-		GameObject* pOtherObj = _OtherCollider->GetOwner();
-		if (pOtherObj != nullptr)
-		{
-			CMovingPlatformScirpt* pPlatform = pOtherObj->GetScript<CMovingPlatformScirpt>().Get();
-			if (pPlatform != nullptr)
-			{
-				m_CurrentMovingPlatform = pPlatform;
-			}
+			m_CurrentMovingPlatform = pPlatform;
 		}
 	}
 }
 
 void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
+	if (_OtherCollider == nullptr)
+		return;
 
+	const float platformTopY = _OtherCollider->GetTopY();
+	const float feetBottomY = m_FeetCollider->GetBottomY();
+
+	float prevFeetY = m_PrevFeetY;
+	float curFeetY = m_FeetCollider->GetBottomY(); // 여기서 직접 가져옴
+
+	if (!m_IsLand
+		&& m_VelY <= 0.f // 내려오는 중인지 체크
+		&& feetBottomY <= platformTopY
+		&& m_PrevFeetY >= platformTopY
+		&& curFeetY <= platformTopY)
+	{
+		// 플레이어 위치를 플랫폼 위로 보정
+		Vec3 playerPos = GetOwner()->Transform()->GetRelativePos();
+
+		float offsetY = platformTopY - feetBottomY;
+		playerPos.y += offsetY;
+
+		GetOwner()->Transform()->SetRelativePos(playerPos);
+
+		// 착지 상태 갱신
+		m_IsLand = true;
+		m_IsJump = false;
+		m_IsDoubleJump = false;
+		m_VelY = 0.f;
+
+		// 현재 닿은 바닥이 moving platform이면 저장
+		GameObject* pOtherObj = _OtherCollider->GetOwner();
+		if (pOtherObj != nullptr)
+		{
+			m_CurrentMovingPlatform = pOtherObj->GetScript<CMovingPlatformScirpt>().Get();
+		}
+		else
+		{
+			m_CurrentMovingPlatform = nullptr;
+		}
+
+		m_StateMachine->ChangeState(PLAYER_STATE_ID::LAND);
+	}
 }
 
 void CPlayerScript::FeetEndOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
-	for (auto iter = m_GroundColliders.begin(); iter != m_GroundColliders.end(); ++iter)
+	if (_OtherCollider == nullptr)
+		return;
+
+
+	for (auto iter = m_GroundColliders.begin(); iter != m_GroundColliders.end();)
 	{
 		if (*iter == _OtherCollider)
-		{
-			m_GroundColliders.erase(iter);
-			break;
-		}
+			iter = m_GroundColliders.erase(iter);
+		else
+			++iter;
 	}
 
 	GameObject* pOtherObj = _OtherCollider->GetOwner();

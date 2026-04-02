@@ -37,7 +37,7 @@ void ObjectPoolMgr::Init()
 	// 아이템 풀 (예시)
 
 	// 플랫폼 풀 (예시)
-	CreatePool(L"Prefab\\TileShipeStage_1_fh_m.pref", 10, 2);
+	CreatePool(L"Prefab\\TileShipeStage_1_fh_m.pref", 20, 2);
 	CreatePool(L"Prefab\\TileShipeStage_1_tb_s.pref", 10, 2);
 
 	// 이펙트 풀 (예시)

@@ -46,8 +46,8 @@ private:
 
 	Ptr<CStateMachine>	m_StateMachine; // 상태 머신
 
-	vector<CCollider2D*> m_GroundColliders; // 발과 충돌 중인 모든 플랫폼들
-	CMovingPlatformScirpt* m_CurrentMovingPlatform; // 현재 타고 있는 이동 플랫폼 스크립트 (없으면 nullptr)
+	vector<CCollider2D*>	m_GroundColliders;			// 발과 충돌 중인 모든 플랫폼들
+	CMovingPlatformScirpt*	m_CurrentMovingPlatform;	// 현재 타고 있는 이동 플랫폼 스크립트 (없으면 nullptr)
 
 	int 				m_HP; // 체력
 	int					m_CurrentHP; // 현재 체력
@@ -97,6 +97,9 @@ private:
 	void ApllyMovingPlatform();
 	void GravityAndMove();
 	void UpdateInvincibility();  // 이름 변경
+
+private:
+	bool HasGroundCollider(CCollider2D* _Collider);
 
 public:
 	void TakeDamage(int _Damage);  // 외부에서 호출 가능

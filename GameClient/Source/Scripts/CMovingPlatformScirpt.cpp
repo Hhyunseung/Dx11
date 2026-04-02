@@ -12,7 +12,7 @@ CMovingPlatformScirpt::CMovingPlatformScirpt()
 	, m_FrameDelta(Vec3(0.f, 0.f, 0.f))
 	, m_EndPosX(300.f)
 	, m_EndPosY(0.f)
-	, m_Speed(300.f)
+	, m_Speed(100.f)
 	, m_IsMovingToEnd(true)
 	, m_ObjectID(EObjectID::TileShipeStage_1_fh_m)
 {

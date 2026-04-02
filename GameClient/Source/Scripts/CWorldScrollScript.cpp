@@ -33,6 +33,13 @@ void CWorldScrollScript::Begin()
 {
 	// GamePlayMgr에서 StageData 가져오기
 	m_StageData = GamePlayMgr::GetInst()->GetStageData();
+
+	std::sort(m_vecSpawnInfo.begin(), m_vecSpawnInfo.end(),
+		[](const FSpawnInfo& a, const FSpawnInfo& b)
+		{
+			return a.WorldPos.x < b.WorldPos.x;
+		});
+
 	Reset();
 }
 
@@ -96,7 +103,6 @@ void CWorldScrollScript::SpawnObjects()
 		{
             // 화면상 위치 계산
 			float screenX = WorldToScreenX(info.WorldPos.x);
-			// Preserve the prefab's original Z instead of hardcoding 700.f
 			float prefabZ = pObject->Transform()->GetRelativePos().z;
 			pObject->Transform()->SetRelativePos(Vec3(screenX, info.WorldPos.y, prefabZ));
 			pObject->Transform()->SetRelativeScale(Vec3(info.Scale.x, info.Scale.y, 1.f));

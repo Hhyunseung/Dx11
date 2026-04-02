@@ -167,6 +167,21 @@ void CreateTestLevel()
 		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
 		GamePlayMgr::GetInst()->SetStageData(pStageData);
 		
+		Ptr<GameObject> pPlatform = LOAD(APrefab, L"Prefab\\TileShipeStage_1_fh_m.pref")->Instantiate();
+
+		//for (int i = 0; i < 10; ++i)
+		//{
+		//	Ptr<GameObject> pClone = pPlatform->Clone();
+		//	pClone->Transform()->SetRelativePos(Vec3(-240.f + i * 125.f, -50.f, 100.f));
+		//	pLevel->AddObject(2, pClone);
+		//}
+
+		//for (int i = 0; i < 10; ++i)
+		//{
+		//	Ptr<GameObject> pClone = pPlatform->Clone();
+		//	pClone->Transform()->SetRelativePos(Vec3(-240.f + i * 125.f, -200.f, 100.f));
+		//	pLevel->AddObject(2, pClone);
+		//}
 
 		//Ptr<GameObject> pObject = new GameObject;
 		//pObject->SetName(L"FlipbookDefault");
