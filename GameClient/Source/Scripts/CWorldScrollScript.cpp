@@ -11,7 +11,7 @@ CWorldScrollScript::CWorldScrollScript()
 	, m_ScrollSpeed(300.f)
 	, m_WorldOffset(0.f)
 	, m_SpawnDistance(800.f)		// 화면 오른쪽 밖
-	, m_DespawnDistance(-200.f)		// 화면 왼쪽 밖
+	, m_DespawnDistance(-500.f)		// 화면 왼쪽 밖
 	, m_PlayerPosX(-650.f)			// 플레이어 고정 X 위치
 	, m_NextSpawnIndex(0)
 {
@@ -94,9 +94,11 @@ void CWorldScrollScript::SpawnObjects()
 		GameObject* pObject = ObjectPoolMgr::GetInst()->Get((EObjectID)info.ObjectID);
 		if (pObject != nullptr)
 		{
-			// 화면상 위치 계산
+            // 화면상 위치 계산
 			float screenX = WorldToScreenX(info.WorldPos.x);
-			pObject->Transform()->SetRelativePos(Vec3(screenX, info.WorldPos.y, 700.f));
+			// Preserve the prefab's original Z instead of hardcoding 700.f
+			float prefabZ = pObject->Transform()->GetRelativePos().z;
+			pObject->Transform()->SetRelativePos(Vec3(screenX, info.WorldPos.y, prefabZ));
 			pObject->Transform()->SetRelativeScale(Vec3(info.Scale.x, info.Scale.y, 1.f));
 
             // 활성 목록에 추가

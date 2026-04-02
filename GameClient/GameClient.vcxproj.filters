@@ -373,6 +373,9 @@
     <ClInclude Include="Source\Scripts\CPlayerScript.h">
       <Filter>Source\Scripts\02.Cookie</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CStaticPlatformScript.h">
+      <Filter>Source\Scripts\01.Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -1029,6 +1032,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CPlayerScript.cpp">
       <Filter>Source\Scripts\02.Cookie</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CStaticPlatformScript.cpp">
+      <Filter>Source\Scripts\01.Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

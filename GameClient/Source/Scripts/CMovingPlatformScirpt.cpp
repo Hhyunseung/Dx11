@@ -29,15 +29,13 @@ void CMovingPlatformScirpt::Init()
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_EndPosX, L"EndPosX", true, 0.f);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_EndPosY, L"EndPosY", true, 0.f);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_Speed, L"Speed", true, 0.f);
-	
+
+
 }
 
 void CMovingPlatformScirpt::OnSpawn()
 {
-	m_StartPos = GetOwner()->Transform()->GetRelativePos();
-	m_EndPos = Vec3(m_EndPosX, m_EndPosY, 0.f) + m_StartPos;
-	m_PrevPos = m_StartPos;
-	m_FrameDelta = Vec3(0.f, 0.f, 0.f);
+
 }
 
 void CMovingPlatformScirpt::ApplySpawnInfo(const FSpawnInfo& info)
@@ -53,6 +51,11 @@ void CMovingPlatformScirpt::ApplySpawnInfo(const FSpawnInfo& info)
 	itF = info.FloatParams.find("Speed");
 	if (itF != info.FloatParams.end())
 		m_Speed = itF->second;
+
+	m_StartPos = GetOwner()->Transform()->GetRelativePos();
+	m_EndPos = Vec3(m_EndPosX, m_EndPosY, 100.f) + m_StartPos;
+	m_PrevPos = m_StartPos;
+	m_FrameDelta = Vec3(0.f, 0.f, 0.f);
 }
 
 void CMovingPlatformScirpt::Begin()
@@ -66,24 +69,15 @@ void CMovingPlatformScirpt::Tick()
 	Vec3 vTarget = m_IsMovingToEnd ? m_EndPos : m_StartPos;
 
 	Vec3 vDir = vTarget - vPos;
-	float dist = vDir.Length();
 
-	if (dist <= 1.f)
-	{
-		vPos = vTarget;
-		m_IsMovingToEnd = !m_IsMovingToEnd; 
 
-	}
-	else
-	{
-		vDir.Normalize();
-		Vec3 vNext = vPos + vDir * m_Speed * DT;
+	vDir.Normalize();
+	Vec3 vNext = vPos + vDir * m_Speed * DT;
 
-		if ((vTarget - vPos).Length() < m_Speed * DT)
-			vNext = vTarget;
+	if ((vTarget - vPos).Length() < m_Speed * DT)
+		vNext = vTarget;
 
-		vPos = vNext;
-	}
+	vPos = vNext;
 
 	Transform()->SetRelativePos(vPos);
 

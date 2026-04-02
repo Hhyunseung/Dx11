@@ -62,6 +62,7 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 	case EObjectID::Obstacle_jp1down:	return L"Prefab\\Obstacle_jp1down.pref";
 	case EObjectID::Obstacle_tm001_sdswing:	return L"Prefab\\Obstacle_tm001_sdswing.pref";
 	case EObjectID::TileShipeStage_1_fh_m:	return L"Prefab\\TileShipeStage_1_fh_m.pref";
+ case EObjectID::TileShipeStage_1_tb_s:	return L"Prefab\\TileShipeStage_1_tb_s.pref";
 	default:						return L"";
 	}
 }

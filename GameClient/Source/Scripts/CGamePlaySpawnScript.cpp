@@ -71,8 +71,11 @@ void CGamePlaySpawnScript::SpawnStageObjects()
 		// 프리팹 인스턴스화
 		GameObject* pObject = pPrefab->Instantiate();
 
-		// 위치와 스케일 설정
-		pObject->Transform()->SetRelativePos(Vec3(info.WorldPos.x, info.WorldPos.y, 700.f));
+        // 위치와 스케일 설정
+		// 이전에는 Z를 하드코딩(700.f)하여 생성되어 항상 700으로 배치되었음.
+		// 대신 프리팹 인스턴스의 기본 Z 값을 유지하도록 변경.
+		float prefabZ = pObject->Transform()->GetRelativePos().z;
+		pObject->Transform()->SetRelativePos(Vec3(info.WorldPos.x, info.WorldPos.y, prefabZ));
 		pObject->Transform()->SetRelativeScale(Vec3(info.Scale.x, info.Scale.y, 1.f));
 
 

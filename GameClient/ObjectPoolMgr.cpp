@@ -38,6 +38,7 @@ void ObjectPoolMgr::Init()
 
 	// 플랫폼 풀 (예시)
 	CreatePool(L"Prefab\\TileShipeStage_1_fh_m.pref", 10, 2);
+	CreatePool(L"Prefab\\TileShipeStage_1_tb_s.pref", 10, 2);
 
 	// 이펙트 풀 (예시)
 	CreatePool(L"Prefab\\Effect_JellyCollect.pref", 3, 0);
