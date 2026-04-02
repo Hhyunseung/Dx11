@@ -23,6 +23,7 @@ public:
 			m_vecSpawnInfo[_Idx] = _Info;
 	}
 
+	void Finalize();
 
 public:
 	virtual int Save(const wstring& _FilePath);

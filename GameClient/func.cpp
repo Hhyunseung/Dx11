@@ -164,6 +164,8 @@ void CreateTestLevel()
 
 		Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
 
+
+
 		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
 		GamePlayMgr::GetInst()->SetStageData(pStageData);
 		

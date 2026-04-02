@@ -33,12 +33,7 @@ void CWorldScrollScript::Begin()
 {
 	// GamePlayMgr에서 StageData 가져오기
 	m_StageData = GamePlayMgr::GetInst()->GetStageData();
-
-	std::sort(m_vecSpawnInfo.begin(), m_vecSpawnInfo.end(),
-		[](const FSpawnInfo& a, const FSpawnInfo& b)
-		{
-			return a.WorldPos.x < b.WorldPos.x;
-		});
+	m_StageData->Finalize(); // x 좌표 기준으로 정렬
 
 	Reset();
 }
@@ -84,12 +79,18 @@ void CWorldScrollScript::SpawnObjects()
 		return;
 
 	const vector<FSpawnInfo>& vecSpawnInfo = m_StageData->GetSpawnInfo();
+	if (vecSpawnInfo.empty())
+		return;
 
 	// 스폰 기준점: 플레이어 위치 + 스폰 거리 + 월드 오프셋
 	float spawnThreshold = m_PlayerPosX + m_SpawnDistance + m_WorldOffset;
 
+	// 한 프레임에 너무 많이 스폰되는 것을 방지하기 위해 최대 10개까지만 스폰
+	const int MaxSpawnsPerFrame = 10;
+	int spawnedThisFrame = 0;
+
 	// 스폰해야 할 오브젝트들 확인
-	while (m_NextSpawnIndex < (int)vecSpawnInfo.size())
+	while (m_NextSpawnIndex < (int)vecSpawnInfo.size() && spawnedThisFrame < MaxSpawnsPerFrame)
 	{
 		const FSpawnInfo& info = vecSpawnInfo[m_NextSpawnIndex];
 
@@ -102,7 +103,8 @@ void CWorldScrollScript::SpawnObjects()
 		if (pObject != nullptr)
 		{
             // 화면상 위치 계산
-			float screenX = WorldToScreenX(info.WorldPos.x);
+			const float screenX = WorldToScreenX(info.WorldPos.x);
+
 			float prefabZ = pObject->Transform()->GetRelativePos().z;
 			pObject->Transform()->SetRelativePos(Vec3(screenX, info.WorldPos.y, prefabZ));
 			pObject->Transform()->SetRelativeScale(Vec3(info.Scale.x, info.Scale.y, 1.f));
@@ -119,7 +121,7 @@ void CWorldScrollScript::SpawnObjects()
 					pScript->ApplySpawnInfo(info);
 			}
 
-      const vector<Ptr<GameObject>>& children = pObject->GetChild();
+		const vector<Ptr<GameObject>>& children = pObject->GetChild();
 		for (const Ptr<GameObject>& child : children)
 		{
 			if (child == nullptr)
@@ -138,6 +140,7 @@ void CWorldScrollScript::SpawnObjects()
 		}
 
 		++m_NextSpawnIndex;
+		++spawnedThisFrame;
 	}
 }
 

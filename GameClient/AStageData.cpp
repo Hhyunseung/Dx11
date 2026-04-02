@@ -11,6 +11,15 @@ AStageData::~AStageData()
 }
 
 
+void AStageData::Finalize()
+{
+	std::sort(m_vecSpawnInfo.begin(), m_vecSpawnInfo.end(),
+		[](const FSpawnInfo& a, const FSpawnInfo& b)
+		{
+			return a.WorldPos.x < b.WorldPos.x;
+		});
+}
+
 int AStageData::Save(const wstring& _FilePath)
 {
 	FILE* pFile = nullptr;
