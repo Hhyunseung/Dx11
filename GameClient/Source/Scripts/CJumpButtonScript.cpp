@@ -6,6 +6,7 @@
 #include "KeyMgr.h"
 
 CJumpButtonScript::CJumpButtonScript()
+	: CUIButtonScript(SCRIPT_TYPE::JUMPBUTTONSCRIPT)
 {
 }
 
@@ -20,29 +21,25 @@ void CJumpButtonScript::Tick()
 
 	if (KEY_TAP(KEY::SPACE))
 	{
-		m_PressDuration = 0.15f;
+		OnButtonClick();
 	}
 
-	if (m_PressDuration > 0.f)
+	if (GetPressed() || KEY_PRESSED(KEY::SPACE))
 	{
-		m_PressDuration -= DT;
 		SetPressed(true);
 	}
 	else
 	{
-		if (!GetPressed())
-			SetPressed(false);
+		SetPressed(false);
 	}
 }
 
-void CJumpButtonScript::OnButtonClick()
+void CJumpButtonScript::OnButtonDown()
 {
 	CPlayerScript* pPlayer = GamePlayMgr::GetInst()->GetPlayerScript();
 	if (pPlayer == nullptr)
 		return;
 
 	pPlayer->RequestJump();
-
-	m_PressDuration = 0.15f;
 }
 

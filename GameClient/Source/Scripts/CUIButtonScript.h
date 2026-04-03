@@ -40,6 +40,8 @@ public:
 	CLONE(CUIButtonScript);
 
 public:
+	// 자식 클래스용 생성자
+	CUIButtonScript(SCRIPT_TYPE _Type);
 	CUIButtonScript();
 	virtual ~CUIButtonScript();
 };

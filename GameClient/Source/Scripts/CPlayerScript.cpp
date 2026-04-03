@@ -108,21 +108,15 @@ void CPlayerScript::Tick()
 
 	HandleJump();
 	HandleSlide();
+
+	ProcessJump();
+
 	GravityAndMove();
 	UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
 
 	m_StateMachine->Tick();
 	Skill();
 
-	//if (KEY_PRESSED(KEY::X))
-	//{
-	//	MeshRender()->GetMtrl()->SetScalar(INT_0, 1);
-	//}
-	//else
-	//{
-	//	MeshRender()->GetMtrl()->SetScalar(INT_0, 0);
-	//}
-	 
 	//m_CurFeetY = GetOwner()->Transform()->GetRelativePos().y;
 	m_CurFeetY = GetOwner()->Collider2D()->GetBottomY();
 }
@@ -130,7 +124,7 @@ void CPlayerScript::Tick()
 // 점프 입력 처리
 void CPlayerScript::HandleJump()
 {
-	if (KEY_PRESSED(KEY::SPACE))
+	if (KEY_TAP(KEY::SPACE))
 	{
 		m_JumpRequest = true;
 	}

@@ -6,7 +6,7 @@ class CJumpButtonScript :
 public:
 	virtual void Tick() override;
 
-	virtual void OnButtonClick();
+	virtual void OnButtonDown();
 
 public:
 	// 저장 불러오기

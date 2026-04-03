@@ -9,9 +9,18 @@
 #include "CMeshRender.h"
 #include "CTransform.h"
 
+CUIButtonScript::CUIButtonScript(SCRIPT_TYPE _Type)
+	: CScript(_Type)
+	, m_IsPressed(false)
+	, m_PressDuration(0.f)
+	, m_Size(Vec2(100.f, 50.f))
+{
+}
+
 CUIButtonScript::CUIButtonScript()
 	: CScript(SCRIPT_TYPE::UIBUTTONSCRIPT)
 	, m_IsPressed(false)
+	, m_PressDuration(0.f)
 	, m_Size(Vec2(100.f, 50.f))
 {
 }
@@ -67,15 +76,25 @@ void CUIButtonScript::Tick()
 	if (mouseOver && KEY_TAP(KEY::LBTN))
 	{
 		m_IsPressed = true;
+		SetPressed(true);
+		OnButtonDown();
+	}
+
+	if (m_IsPressed && KEY_PRESSED(KEY::LBTN))
+	{
+		SetPressed(true);
 	}
 
 	if (m_IsPressed && KEY_RELEASED(KEY::LBTN))
 	{
+		SetPressed(false);
+
 		if (mouseOver)
 		{
 			OnButtonClick();
 		}
 
+		OnButtonUp();
 		m_IsPressed = false;
 	}
 }
