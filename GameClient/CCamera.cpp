@@ -32,7 +32,14 @@ void CCamera::Begin()
 	// 레벨이 시작될 때 호출됨
 	// RenderMgr 에 카메라(본인)를 등록
 
-	RenderMgr::GetInst()->RegisterCamera(this);
+	if (m_RenderType == CAMERA_RENDER_TYPE::UI)
+	{
+		RenderMgr::GetInst()->RegisterUICamera(this);
+	}
+	else
+	{
+		RenderMgr::GetInst()->RegisterCamera(this);
+	}
 }
 
 void CCamera::FinalTick()
