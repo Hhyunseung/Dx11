@@ -227,6 +227,23 @@ void AssetMgr::CreateEngineShader()
 
 	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
 
+	// ============== ButtonShader 持失 ==============//
+	pShader = new AGraphicShader;
+	pShader->SetName(L"ButtonShader");
+	pShader->CreateVertexShader(L"Shader\\Button.fx", "VS_Button");
+	pShader->CreatePixelShader(L"Shader\\Button.fx", "PS_Button");
+	pShader->SetBSType(BS_TYPE::ALPHABLEND);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+
+	pShader->AddShaderParam(SHADER_PARAM::INT, 0, L"ButtonState");
+
+	pShader->AddShaderParam(SHADER_PARAM::VEC4, 0, L"TintColor");
+
+	pShader->AddShaderParam(SHADER_PARAM::TEX, 0, L"NormalTex");
+	pShader->AddShaderParam(SHADER_PARAM::TEX, 1, L"PressedTex");
+
+	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
 	
 	//================== DbgShader 持失 ==============//
 	pShader = new AGraphicShader;
@@ -426,7 +443,7 @@ void AssetMgr::CreateEngineMaterial()
 
 	// ================== UIButtonMtrl 持失 ==============//
 	pMtrl = new AMaterial;
-	pMtrl->SetName(L"UI_JumpButtonMtrl");
+	pMtrl->SetName(L"UIButtonMtrl");
 	pMtrl->SetShader(FindAsset<AGraphicShader>(L"ButtonShader"));
 
 	// 雌殿

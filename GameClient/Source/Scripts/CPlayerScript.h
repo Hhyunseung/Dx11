@@ -68,6 +68,8 @@ private:
 	int 				m_JumpCount; // 현재 점프 횟수
 	const int			m_MaxJumpCount; // 최대 점프 횟수 (2)
 
+	bool				m_JumpRequest; // 점프 입력이 들어왔는지 여부
+
 	bool 			    m_IsLand; // 땅에 닿아있는지 여부
 	bool                m_IsJump; // 점프 중인지 여부
 	bool 			    m_IsDoubleJump; // 점프 중인지 여부
@@ -94,6 +96,8 @@ public:
 
 private:
 	void HandleJump();
+	void ProcessJump();
+	
 	void HandleSlide();
 	void HandleHit();
 
@@ -112,6 +116,8 @@ public:
 	GET_SET(bool, IsJump);
 	GET_SET(bool, IsDoubleJump);
 	GET_SET(bool, IsInvincible);
+
+	void RequestJump() { m_JumpRequest = true; }
 
 public:
 	virtual void Init() override;

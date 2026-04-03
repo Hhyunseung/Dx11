@@ -48,15 +48,13 @@ float4 SampleButtonTex(float2 _uv)
     if (g_btex_0)
         return g_tex_0.Sample(g_sam_1, _uv);
     
-    return float4(1.f, 0.f, 1.f, 1.f);
+    return float4(1.f, 1.f, 1.f, 1.f);
 }
 
 float4 PS_Button(VS_OUT _input) : SV_Target
 {
     float4 vColor = SampleButtonTex(_input.vUV);
     
-    vColor *= TintColor;
-    vColor *= _input.vColor;
     
     if (vColor.a == 0.f)
     {

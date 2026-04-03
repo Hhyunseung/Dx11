@@ -12,11 +12,17 @@ class CUIButtonScript :
 {
 private:
 	Vec2 m_Size;
+
+protected:
+	bool m_IsPressed;		// 버튼이 눌린 상태인지 여부
+	float m_PressDuration;  // 버튼이 눌린 상태로 유지된 시간
 	
-	bool m_IsPressed;
 
 public:
-	void SetPressed(bool _Pressed) { m_IsPressed = _Pressed; }
+	bool GetPressed() const { return m_IsPressed; }
+	void SetPressed(bool _Pressed);
+
+	bool IsMouseOver();
 
 public:
 	virtual void Tick() override;

@@ -130,37 +130,49 @@ void CPlayerScript::Tick()
 // 점프 입력 처리
 void CPlayerScript::HandleJump()
 {
-	if (KEY_TAP(KEY::SPACE))
+	if (KEY_PRESSED(KEY::SPACE))
 	{
-		// 착지 상태에서 점프
-		if (m_JumpCount == 0)
-		{
-			m_IsLand = false;
-			m_IsJump = true;
-			m_IsDoubleJump = false;
-
-			m_VelY = m_JumpPower;
-			m_JumpCount = 1;
-
-			m_CurrentMovingPlatform = nullptr;
-			ChangeState(PLAYER_STATE_ID::JUMP);
-		}
-
-		// 더블 점프
-		else if (m_JumpCount == 1)
-		{
-			m_IsLand = false;
-			m_IsJump = false;
-			m_IsDoubleJump = true;
-
-			m_VelY = m_DoubleJumpPower;
-			m_JumpCount = 2;
-
-			m_CurrentMovingPlatform = nullptr;
-			ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
-		}
+		m_JumpRequest = true;
 	}
 }
+
+// 점처리 (중력과 별개로 점프 입력이 들어왔을 때 수직 속도 설정)
+void CPlayerScript::ProcessJump()
+{
+	if (!m_JumpRequest)
+		return;
+
+	m_JumpRequest = false;
+
+	// 착지 상태에서 점프
+	if (m_JumpCount == 0)
+	{
+		m_IsLand = false;
+		m_IsJump = true;
+		m_IsDoubleJump = false;
+
+		m_VelY = m_JumpPower;
+		m_JumpCount = 1;
+
+		m_CurrentMovingPlatform = nullptr;
+		ChangeState(PLAYER_STATE_ID::JUMP);
+	}
+
+	// 더블 점프
+	else if (m_JumpCount == 1)
+	{
+		m_IsLand = false;
+		m_IsJump = false;
+		m_IsDoubleJump = true;
+
+		m_VelY = m_DoubleJumpPower;
+		m_JumpCount = 2;
+
+		m_CurrentMovingPlatform = nullptr;
+		ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
+	}
+}
+
 
 // 슬라이드 입력 처리
 void CPlayerScript::HandleSlide()
