@@ -376,11 +376,17 @@
     <ClInclude Include="Source\Scripts\CStaticPlatformScript.h">
       <Filter>Source\Scripts\01.Tile</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scripts\CUIButtonScript.h">
-      <Filter>Source\Scripts\07.UI\01.Button</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scripts\CJumpButtonScript.h">
-      <Filter>Source\Scripts\07.UI\01.Button\Jump</Filter>
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CUIButtonScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CSlideButtonScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Slide</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CGamePlayUIScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -695,11 +701,17 @@
     <Filter Include="Source\Scripts\07.UI">
       <UniqueIdentifier>{01f5b568-fb65-4621-9a68-5b44be36f1f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scripts\07.UI\01.Button">
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI">
+      <UniqueIdentifier>{02ecd674-2df3-4845-8e89-3d4d382a09ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\01.Button">
       <UniqueIdentifier>{94d4b9a7-94b6-4725-bdb1-8e3aea6fdc30}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scripts\07.UI\01.Button\Jump">
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\01.Button\Jump">
       <UniqueIdentifier>{cbd34df2-5536-49d1-9a01-a50dffef3478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\01.Button\Slide">
+      <UniqueIdentifier>{622d585b-347f-4d34-b006-06e762a9dc0e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1051,11 +1063,17 @@
     <ClCompile Include="Source\Scripts\CStaticPlatformScript.cpp">
       <Filter>Source\Scripts\01.Tile</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\CUIButtonScript.cpp">
-      <Filter>Source\Scripts\07.UI\01.Button</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scripts\CJumpButtonScript.cpp">
-      <Filter>Source\Scripts\07.UI\01.Button\Jump</Filter>
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CUIButtonScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CSlideButtonScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Slide</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CGamePlayUIScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -124,19 +124,56 @@ void CPlayerScript::Tick()
 // 점프 입력 처리
 void CPlayerScript::HandleJump()
 {
-	if (KEY_TAP(KEY::SPACE))
+	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
+	if (pUI == nullptr)
+		return;
+
+	if (pUI->ConsumeJumpReqeust())
 	{
 		m_JumpRequest = true;
 	}
 }
 
-// 점처리 (중력과 별개로 점프 입력이 들어왔을 때 수직 속도 설정)
+// 슬라이드 입력 처리
+void CPlayerScript::HandleSlide()
+{
+	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
+	if (pUI == nullptr)
+		return;
+
+	bool bSlideHeld = pUI->IsSlideHeld();
+
+	if (bSlideHeld)
+	{
+		if (m_IsLand)
+		{
+			ChangeState(PLAYER_STATE_ID::SLIDE);
+			SetSlideCollider();
+		}
+	}
+	else
+	{
+		if (m_IsLand)
+		{
+			ChangeState(PLAYER_STATE_ID::RUN);
+			SetDefaultCollider();
+		}
+	}
+}
+
+void CPlayerScript::HandleHit()
+{
+}
+
+// 점프처리 (중력과 별개로 점프 입력이 들어왔을 때 수직 속도 설정)
 void CPlayerScript::ProcessJump()
 {
 	if (!m_JumpRequest)
 		return;
 
 	m_JumpRequest = false;
+
+	SetDefaultCollider();
 
 	// 착지 상태에서 점프
 	if (m_JumpCount == 0)
@@ -168,29 +205,6 @@ void CPlayerScript::ProcessJump()
 }
 
 
-// 슬라이드 입력 처리
-void CPlayerScript::HandleSlide()
-{
-	if (KEY_PRESSED(KEY::DOWN))
-	{
-		if (m_IsLand)
-		{
-			ChangeState(PLAYER_STATE_ID::SLIDE);
-		}
-	}
-
-	if (KEY_RELEASED(KEY::DOWN))
-	{
-		if (m_IsLand)
-		{
-			ChangeState(PLAYER_STATE_ID::RUN);
-		}
-	}
-}
-
-void CPlayerScript::HandleHit()
-{
-}
 
 // 플랫폼 이동 적용
 void CPlayerScript::ApllyMovingPlatform()

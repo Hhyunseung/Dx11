@@ -7,6 +7,7 @@
 #include "Scripts/CEffectScript.h"
 #include "Scripts/CEnemy.h"
 #include "Scripts/CGamePlaySpawnScript.h"
+#include "Scripts/CGamePlayUIScript.h"
 #include "Scripts/CHitState.h"
 #include "Scripts/CJellyScript.h"
 #include "Scripts/CJumpButtonScript.h"
@@ -23,6 +24,7 @@
 #include "Scripts/CPlayerScript.h"
 #include "Scripts/CRunState.h"
 #include "Scripts/CScrollScript.h"
+#include "Scripts/CSlideButtonScript.h"
 #include "Scripts/CSlideState.h"
 #include "Scripts/CStateMachine.h"
 #include "Scripts/CStaticObstacle.h"
@@ -38,6 +40,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CEffectScript");
 	_vec.push_back(L"CEnemy");
 	_vec.push_back(L"CGamePlaySpawnScript");
+	_vec.push_back(L"CGamePlayUIScript");
 	_vec.push_back(L"CHitState");
 	_vec.push_back(L"CJellyScript");
 	_vec.push_back(L"CJumpButtonScript");
@@ -54,6 +57,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CRunState");
 	_vec.push_back(L"CScrollScript");
+	_vec.push_back(L"CSlideButtonScript");
 	_vec.push_back(L"CSlideState");
 	_vec.push_back(L"CStateMachine");
 	_vec.push_back(L"CStaticObstacle");
@@ -76,6 +80,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CEnemy;
 	if (L"CGamePlaySpawnScript" == _strScriptName)
 		return new CGamePlaySpawnScript;
+	if (L"CGamePlayUIScript" == _strScriptName)
+		return new CGamePlayUIScript;
 	if (L"CHitState" == _strScriptName)
 		return new CHitState;
 	if (L"CJellyScript" == _strScriptName)
@@ -108,6 +114,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CRunState;
 	if (L"CScrollScript" == _strScriptName)
 		return new CScrollScript;
+	if (L"CSlideButtonScript" == _strScriptName)
+		return new CSlideButtonScript;
 	if (L"CSlideState" == _strScriptName)
 		return new CSlideState;
 	if (L"CStateMachine" == _strScriptName)
@@ -144,6 +152,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::GAMEPLAYSPAWNSCRIPT:
 		return new CGamePlaySpawnScript;
+		break;
+	case (UINT)SCRIPT_TYPE::GAMEPLAYUISCRIPT:
+		return new CGamePlayUIScript;
 		break;
 	case (UINT)SCRIPT_TYPE::HITSTATE:
 		return new CHitState;
@@ -193,6 +204,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::SCROLLSCRIPT:
 		return new CScrollScript;
 		break;
+	case (UINT)SCRIPT_TYPE::SLIDEBUTTONSCRIPT:
+		return new CSlideButtonScript;
+		break;
 	case (UINT)SCRIPT_TYPE::SLIDESTATE:
 		return new CSlideState;
 		break;
@@ -241,6 +255,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::GAMEPLAYSPAWNSCRIPT:
 		return L"CGamePlaySpawnScript";
+		break;
+
+	case SCRIPT_TYPE::GAMEPLAYUISCRIPT:
+		return L"CGamePlayUIScript";
 		break;
 
 	case SCRIPT_TYPE::HITSTATE:
@@ -305,6 +323,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::SCROLLSCRIPT:
 		return L"CScrollScript";
+		break;
+
+	case SCRIPT_TYPE::SLIDEBUTTONSCRIPT:
+		return L"CSlideButtonScript";
 		break;
 
 	case SCRIPT_TYPE::SLIDESTATE:

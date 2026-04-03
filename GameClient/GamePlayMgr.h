@@ -3,6 +3,7 @@
 #include "APrefab.h"
 #include "AStageData.h"
 #include "Source/Scripts/CPlayerScript.h"
+#include "Source/Scripts/CGamePlayUIScript.h"
 
 class GamePlayMgr
 	: public singleton<GamePlayMgr>
@@ -10,20 +11,23 @@ class GamePlayMgr
 	SINGLE(GamePlayMgr);
 
 private:
-	Ptr<APrefab> m_SeletectedCharacterPrefab;
+	CGamePlayUIScript* m_GamePlayUI;
 
+	Ptr<APrefab> m_SeletectedCharacterPrefab;
 	GameObject*  m_PlayerObject;
 	CPlayerScript* m_PlayerScript;
 
-	int m_Score;
-
 	Ptr<AStageData> m_StageData;	// 현재 편집중인 StageData
-
+	
+	int m_Score;
 	float m_ScrollSpeed;			// 현재 월드 스크롤 속도
 
 public:
 	void Init();
 	void Clear();
+
+	void SetGamePlayUIScript(CGamePlayUIScript* _pUI) { m_GamePlayUI = _pUI; }
+	CGamePlayUIScript* GetGamePlayUIScript() { return m_GamePlayUI; }
 
 	void SetSelectedCharacterPrefab(Ptr<APrefab> _Prefab) { m_SeletectedCharacterPrefab = _Prefab; }
 	Ptr<APrefab> GetSelectedCharacterPrefab() { return m_SeletectedCharacterPrefab; }

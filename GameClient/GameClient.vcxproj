@@ -247,6 +247,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CEffectScript.h" />
     <ClInclude Include="Source\Scripts\CEnemy.h" />
     <ClInclude Include="Source\Scripts\CGamePlaySpawnScript.h" />
+    <ClInclude Include="Source\Scripts\CGamePlayUIScript.h" />
     <ClInclude Include="Source\Scripts\CHitState.h" />
     <ClInclude Include="Source\Scripts\CJellyScript.h" />
     <ClInclude Include="Source\Scripts\CJumpButtonScript.h" />
@@ -263,6 +264,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CJumpState.h" />
     <ClInclude Include="Source\Scripts\CRunState.h" />
     <ClInclude Include="Source\Scripts\CScrollScript.h" />
+    <ClInclude Include="Source\Scripts\CSlideButtonScript.h" />
     <ClInclude Include="Source\Scripts\CSlideState.h" />
     <ClInclude Include="Source\Scripts\CStateMachine.h" />
     <ClInclude Include="Source\Scripts\CStaticObstacle.h" />
@@ -370,6 +372,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CEffectScript.cpp" />
     <ClCompile Include="Source\Scripts\CEnemy.cpp" />
     <ClCompile Include="Source\Scripts\CGamePlaySpawnScript.cpp" />
+    <ClCompile Include="Source\Scripts\CGamePlayUIScript.cpp" />
     <ClCompile Include="Source\Scripts\CHitState.cpp" />
     <ClCompile Include="Source\Scripts\CJellyScript.cpp" />
     <ClCompile Include="Source\Scripts\CJumpButtonScript.cpp" />
@@ -386,6 +389,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CRunState.cpp" />
     <ClCompile Include="Source\Scripts\CScrollScript.cpp" />
+    <ClCompile Include="Source\Scripts\CSlideButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CSlideState.cpp" />
     <ClCompile Include="Source\Scripts\CStateMachine.cpp" />
     <ClCompile Include="Source\Scripts\CStaticObstacle.cpp" />

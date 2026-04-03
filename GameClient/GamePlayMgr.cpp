@@ -15,7 +15,10 @@ GamePlayMgr::~GamePlayMgr()
 
 void GamePlayMgr::Init()
 {
+	m_GamePlayUI = nullptr;
+	m_PlayerScript = nullptr;
 	m_PlayerObject = nullptr;
+
 	m_Score = 0;
 	m_ScrollSpeed = 300.f;	// 기본 스크롤 속도
 
@@ -31,6 +34,8 @@ void GamePlayMgr::Init()
 
 void GamePlayMgr::Clear()
 {
+	m_GamePlayUI = nullptr;
+	m_PlayerScript = nullptr;
 	m_SeletectedCharacterPrefab = nullptr;
 	m_PlayerObject = nullptr;
 	m_Score = 0;

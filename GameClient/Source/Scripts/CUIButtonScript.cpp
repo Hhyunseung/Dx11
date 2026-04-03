@@ -75,7 +75,6 @@ void CUIButtonScript::Tick()
 
 	if (mouseOver && KEY_TAP(KEY::LBTN))
 	{
-		m_IsPressed = true;
 		SetPressed(true);
 		OnButtonDown();
 	}
@@ -95,6 +94,5 @@ void CUIButtonScript::Tick()
 		}
 
 		OnButtonUp();
-		m_IsPressed = false;
 	}
 }
