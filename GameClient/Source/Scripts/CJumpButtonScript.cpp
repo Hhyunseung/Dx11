@@ -26,6 +26,8 @@ void CJumpButtonScript::Tick()
 
 void CJumpButtonScript::OnButtonDown()
 {
+	// 노트북 커밋 확인 용 주석
+
 	m_MouseHolding = true;
 	m_Clicked = true;
 	SetPressed(true);
