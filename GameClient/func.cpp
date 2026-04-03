@@ -162,56 +162,10 @@ void CreateTestLevel()
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
 		Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 
-
-		Ptr<GameObject> pObject = nullptr;
-
-		// 카메라 역할 오브젝트
-		pObject = new GameObject;
-		pObject->SetName(L"UICamera");
-
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CCamera);
-
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, -10.f));
-
-		pObject->Camera()->SetRenderType(CAMERA_RENDER_TYPE::UI);
-		pObject->Camera()->LayerCheck(31); // 31 -> UI 레이어
-		pObject->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
-		pObject->Camera()->SetFar(10000.f);
-		pObject->Camera()->SetFOV(90.f);
-		pObject->Camera()->SetOrthoScale(1.f);
-		Vec2 vResolution = Device::GetInst()->GetRenderResolution();
-		pObject->Camera()->SetAspectRatio(vResolution.x / vResolution.y); // 종횡비(AspectRatio)
-		pObject->Camera()->SetWidth(vResolution.x); // 직교 투영 가로 길이
-
-		pLevel->AddObject(0, pObject);
-
-		// 카메라 역할 오브젝트
-		pObject = new GameObject;
-		pObject->SetName(L"MainCamera");
-
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CCamera);
-		pObject->AddComponent(new CCamMoveScript);
-
-		pObject->Camera()->LayerCheckAll();
-		//pObject->Camera()->LayerCheck(31); // 31 -> UI 레이어
-
-		pObject->Camera()->SetRenderType(CAMERA_RENDER_TYPE::WORLD);
-		pObject->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
-		pObject->Camera()->SetFar(10000.f);
-		pObject->Camera()->SetFOV(90.f);
-		pObject->Camera()->SetOrthoScale(1.f);
-		vResolution = Device::GetInst()->GetRenderResolution();
-		pObject->Camera()->SetAspectRatio(vResolution.x / vResolution.y); // 종횡비(AspectRatio)
-		pObject->Camera()->SetWidth(vResolution.x); // 직교 투영 가로 길이
-
-		pLevel->AddObject(0, pObject);
-
-
 		Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
 		Ptr<GameObject> pUI = pPrefabUI->Instantiate();
-		pLevel->AddObject(31, pUI);
+		pLevel->AddObject(31, pUI); // UI 레이어
+
 
 		Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
 
@@ -319,6 +273,7 @@ void CreateTestLevel()
 	pObject->Camera()->LayerCheckAll();
 	//pObject->Camera()->LayerCheck(31); // 31 -> UI 레이어
 
+	pObject->Camera()->SetRenderType(CAMERA_RENDER_TYPE::WORLD);
 	pObject->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 	pObject->Camera()->SetFar(10000.f);
 	pObject->Camera()->SetFOV(90.f);

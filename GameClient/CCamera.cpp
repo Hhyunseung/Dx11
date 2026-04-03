@@ -205,6 +205,7 @@ void CCamera::LayerCheck(int _Idx)
 
 void CCamera::SaveToLevelFile(FILE* _File)
 {
+	fwrite(&m_RenderType, sizeof(CAMERA_RENDER_TYPE), 1, _File);
 	fwrite(&m_LayerCheck, sizeof(UINT), 1, _File);
 	fwrite(&m_ProjType, sizeof(PROJ_TYPE), 1, _File); 
 	fwrite(&m_Far, sizeof(float), 1, _File);		   
@@ -216,6 +217,7 @@ void CCamera::SaveToLevelFile(FILE* _File)
 
 void CCamera::LoadFromLevelFile(FILE* _File)
 {
+	fread(&m_RenderType, sizeof(CAMERA_RENDER_TYPE), 1, _File);
 	fread(&m_LayerCheck, sizeof(UINT), 1, _File);
 	fread(&m_ProjType, sizeof(PROJ_TYPE), 1, _File);
 	fread(&m_Far, sizeof(float), 1, _File);
