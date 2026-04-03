@@ -269,6 +269,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CStateMachine.h" />
     <ClInclude Include="Source\Scripts\CStaticObstacle.h" />
     <ClInclude Include="Source\Scripts\CStaticPlatformScript.h" />
+    <ClInclude Include="Source\Scripts\CTimeKeeperScript.h" />
     <ClInclude Include="Source\Scripts\CUIButtonScript.h" />
     <ClInclude Include="Source\Scripts\CWorldScrollScript.h" />
     <ClInclude Include="SpriteRenderUI.h" />
@@ -394,6 +395,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CStateMachine.cpp" />
     <ClCompile Include="Source\Scripts\CStaticObstacle.cpp" />
     <ClCompile Include="Source\Scripts\CStaticPlatformScript.cpp" />
+    <ClCompile Include="Source\Scripts\CTimeKeeperScript.cpp" />
     <ClCompile Include="Source\Scripts\CUIButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CWorldScrollScript.cpp" />
     <ClCompile Include="SpriteRenderUI.cpp" />

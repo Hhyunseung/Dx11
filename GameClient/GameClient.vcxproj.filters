@@ -292,9 +292,6 @@
     <ClInclude Include="Source\Scripts\CStateMachine.h">
       <Filter>Source\Scripts\02.Cookie\State</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scripts\CLycheeScript.h">
-      <Filter>Source\Scripts\02.Cookie</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scripts\CLandState.h">
       <Filter>Source\Scripts\02.Cookie\State\Land</Filter>
     </ClInclude>
@@ -387,6 +384,12 @@
     </ClInclude>
     <ClInclude Include="Source\Scripts\CGamePlayUIScript.h">
       <Filter>Source\Scripts\07.UI\GamePlayUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CLycheeScript.h">
+      <Filter>Source\Scripts\02.Cookie\Character\CLychee</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CTimeKeeperScript.h">
+      <Filter>Source\Scripts\02.Cookie\Character\TimeKeeper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -713,6 +716,15 @@
     <Filter Include="Source\Scripts\07.UI\GamePlayUI\01.Button\Slide">
       <UniqueIdentifier>{622d585b-347f-4d34-b006-06e762a9dc0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Scripts\02.Cookie\Character">
+      <UniqueIdentifier>{f40522c1-3d37-45b0-bd3d-4413f0e5c127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\02.Cookie\Character\CLychee">
+      <UniqueIdentifier>{c4ddfde7-c1fc-4eda-919e-0ba1e5d0e8ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\02.Cookie\Character\TimeKeeper">
+      <UniqueIdentifier>{34775c9e-1e3e-4e5c-85d8-e758bc69e276}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -979,9 +991,6 @@
     <ClCompile Include="Source\Scripts\CStateMachine.cpp">
       <Filter>Source\Scripts\02.Cookie\State</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\CLycheeScript.cpp">
-      <Filter>Source\Scripts\02.Cookie</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scripts\CLandState.cpp">
       <Filter>Source\Scripts\02.Cookie\State\Land</Filter>
     </ClCompile>
@@ -1074,6 +1083,12 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CGamePlayUIScript.cpp">
       <Filter>Source\Scripts\07.UI\GamePlayUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CLycheeScript.cpp">
+      <Filter>Source\Scripts\02.Cookie\Character\CLychee</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CTimeKeeperScript.cpp">
+      <Filter>Source\Scripts\02.Cookie\Character\TimeKeeper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

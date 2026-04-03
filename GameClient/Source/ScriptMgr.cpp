@@ -29,6 +29,7 @@
 #include "Scripts/CStateMachine.h"
 #include "Scripts/CStaticObstacle.h"
 #include "Scripts/CStaticPlatformScript.h"
+#include "Scripts/CTimeKeeperScript.h"
 #include "Scripts/CUIButtonScript.h"
 #include "Scripts/CWorldScrollScript.h"
 
@@ -62,6 +63,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CStateMachine");
 	_vec.push_back(L"CStaticObstacle");
 	_vec.push_back(L"CStaticPlatformScript");
+	_vec.push_back(L"CTimeKeeperScript");
 	_vec.push_back(L"CUIButtonScript");
 	_vec.push_back(L"CWorldScrollScript");
 }
@@ -124,6 +126,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CStaticObstacle;
 	if (L"CStaticPlatformScript" == _strScriptName)
 		return new CStaticPlatformScript;
+	if (L"CTimeKeeperScript" == _strScriptName)
+		return new CTimeKeeperScript;
 	if (L"CUIButtonScript" == _strScriptName)
 		return new CUIButtonScript;
 	if (L"CWorldScrollScript" == _strScriptName)
@@ -218,6 +222,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::STATICPLATFORMSCRIPT:
 		return new CStaticPlatformScript;
+		break;
+	case (UINT)SCRIPT_TYPE::TIMEKEEPERSCRIPT:
+		return new CTimeKeeperScript;
 		break;
 	case (UINT)SCRIPT_TYPE::UIBUTTONSCRIPT:
 		return new CUIButtonScript;
@@ -343,6 +350,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::STATICPLATFORMSCRIPT:
 		return L"CStaticPlatformScript";
+		break;
+
+	case SCRIPT_TYPE::TIMEKEEPERSCRIPT:
+		return L"CTimeKeeperScript";
 		break;
 
 	case SCRIPT_TYPE::UIBUTTONSCRIPT:
