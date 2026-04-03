@@ -249,6 +249,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CGamePlaySpawnScript.h" />
     <ClInclude Include="Source\Scripts\CHitState.h" />
     <ClInclude Include="Source\Scripts\CJellyScript.h" />
+    <ClInclude Include="Source\Scripts\CJumpButtonScript.h" />
     <ClInclude Include="Source\Scripts\CLandState.h" />
     <ClInclude Include="Source\Scripts\CLinearObstacle.h" />
     <ClInclude Include="Source\Scripts\CLycheeScript.h" />
@@ -266,6 +267,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CStateMachine.h" />
     <ClInclude Include="Source\Scripts\CStaticObstacle.h" />
     <ClInclude Include="Source\Scripts\CStaticPlatformScript.h" />
+    <ClInclude Include="Source\Scripts\CUIButtonScript.h" />
     <ClInclude Include="Source\Scripts\CWorldScrollScript.h" />
     <ClInclude Include="SpriteRenderUI.h" />
     <ClInclude Include="SpriteUI.h" />
@@ -370,6 +372,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CGamePlaySpawnScript.cpp" />
     <ClCompile Include="Source\Scripts\CHitState.cpp" />
     <ClCompile Include="Source\Scripts\CJellyScript.cpp" />
+    <ClCompile Include="Source\Scripts\CJumpButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CLandState.cpp" />
     <ClCompile Include="Source\Scripts\CLinearObstacle.cpp" />
     <ClCompile Include="Source\Scripts\CLycheeScript.cpp" />
@@ -387,6 +390,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CStateMachine.cpp" />
     <ClCompile Include="Source\Scripts\CStaticObstacle.cpp" />
     <ClCompile Include="Source\Scripts\CStaticPlatformScript.cpp" />
+    <ClCompile Include="Source\Scripts\CUIButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CWorldScrollScript.cpp" />
     <ClCompile Include="SpriteRenderUI.cpp" />
     <ClCompile Include="SpriteUI.cpp" />

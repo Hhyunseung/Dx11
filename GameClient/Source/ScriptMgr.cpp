@@ -9,6 +9,7 @@
 #include "Scripts/CGamePlaySpawnScript.h"
 #include "Scripts/CHitState.h"
 #include "Scripts/CJellyScript.h"
+#include "Scripts/CJumpButtonScript.h"
 #include "Scripts/CJumpState.h"
 #include "Scripts/CLandState.h"
 #include "Scripts/CLinearObstacle.h"
@@ -26,6 +27,7 @@
 #include "Scripts/CStateMachine.h"
 #include "Scripts/CStaticObstacle.h"
 #include "Scripts/CStaticPlatformScript.h"
+#include "Scripts/CUIButtonScript.h"
 #include "Scripts/CWorldScrollScript.h"
 
 void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
@@ -38,6 +40,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CGamePlaySpawnScript");
 	_vec.push_back(L"CHitState");
 	_vec.push_back(L"CJellyScript");
+	_vec.push_back(L"CJumpButtonScript");
 	_vec.push_back(L"CJumpState");
 	_vec.push_back(L"CLandState");
 	_vec.push_back(L"CLinearObstacle");
@@ -55,6 +58,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CStateMachine");
 	_vec.push_back(L"CStaticObstacle");
 	_vec.push_back(L"CStaticPlatformScript");
+	_vec.push_back(L"CUIButtonScript");
 	_vec.push_back(L"CWorldScrollScript");
 }
 
@@ -76,6 +80,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CHitState;
 	if (L"CJellyScript" == _strScriptName)
 		return new CJellyScript;
+	if (L"CJumpButtonScript" == _strScriptName)
+		return new CJumpButtonScript;
 	if (L"CJumpState" == _strScriptName)
 		return new CJumpState;
 	if (L"CLandState" == _strScriptName)
@@ -110,6 +116,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CStaticObstacle;
 	if (L"CStaticPlatformScript" == _strScriptName)
 		return new CStaticPlatformScript;
+	if (L"CUIButtonScript" == _strScriptName)
+		return new CUIButtonScript;
 	if (L"CWorldScrollScript" == _strScriptName)
 		return new CWorldScrollScript;
 	return nullptr;
@@ -142,6 +150,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::JELLYSCRIPT:
 		return new CJellyScript;
+		break;
+	case (UINT)SCRIPT_TYPE::JUMPBUTTONSCRIPT:
+		return new CJumpButtonScript;
 		break;
 	case (UINT)SCRIPT_TYPE::JUMPSTATE:
 		return new CJumpState;
@@ -194,6 +205,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::STATICPLATFORMSCRIPT:
 		return new CStaticPlatformScript;
 		break;
+	case (UINT)SCRIPT_TYPE::UIBUTTONSCRIPT:
+		return new CUIButtonScript;
+		break;
 	case (UINT)SCRIPT_TYPE::WORLDSCROLLSCRIPT:
 		return new CWorldScrollScript;
 		break;
@@ -235,6 +249,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::JELLYSCRIPT:
 		return L"CJellyScript";
+		break;
+
+	case SCRIPT_TYPE::JUMPBUTTONSCRIPT:
+		return L"CJumpButtonScript";
 		break;
 
 	case SCRIPT_TYPE::JUMPSTATE:
@@ -303,6 +321,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::STATICPLATFORMSCRIPT:
 		return L"CStaticPlatformScript";
+		break;
+
+	case SCRIPT_TYPE::UIBUTTONSCRIPT:
+		return L"CUIButtonScript";
 		break;
 
 	case SCRIPT_TYPE::WORLDSCROLLSCRIPT:

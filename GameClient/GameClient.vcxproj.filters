@@ -376,6 +376,12 @@
     <ClInclude Include="Source\Scripts\CStaticPlatformScript.h">
       <Filter>Source\Scripts\01.Tile</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CUIButtonScript.h">
+      <Filter>Source\Scripts\07.UI\01.Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CJumpButtonScript.h">
+      <Filter>Source\Scripts\07.UI\01.Button\Jump</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -685,6 +691,15 @@
     </Filter>
     <Filter Include="Source\Scripts\06.Obstruct\4.Parabolic">
       <UniqueIdentifier>{84f1f6cd-7e64-46f1-94d5-9a16fe5dadef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI">
+      <UniqueIdentifier>{01f5b568-fb65-4621-9a68-5b44be36f1f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\01.Button">
+      <UniqueIdentifier>{94d4b9a7-94b6-4725-bdb1-8e3aea6fdc30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\01.Button\Jump">
+      <UniqueIdentifier>{cbd34df2-5536-49d1-9a01-a50dffef3478}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1036,6 +1051,12 @@
     <ClCompile Include="Source\Scripts\CStaticPlatformScript.cpp">
       <Filter>Source\Scripts\01.Tile</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scripts\CUIButtonScript.cpp">
+      <Filter>Source\Scripts\07.UI\01.Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CJumpButtonScript.cpp">
+      <Filter>Source\Scripts\07.UI\01.Button\Jump</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -1074,6 +1095,9 @@
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
     <FxCompile Include="effect.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="Button.fx">
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
   </ItemGroup>
