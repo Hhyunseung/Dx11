@@ -48,6 +48,9 @@ public:
     template<typename T>
     Ptr<T> GetScript();
 
+	template<typename T>
+	GameObject* FindChildByScript();
+
     void AddChild(Ptr<GameObject> _Child);
 	void DisconnectWithParent();
 	void DeregisterAsParent();
@@ -115,5 +118,22 @@ inline Ptr<T> GameObject::GetScript()
         return pScript;
     }
 
+    return nullptr;
+}
+
+template<typename T>
+GameObject* GameObject::FindChildByScript()
+{
+    for (const Ptr<GameObject>& childPtr : m_vecChild)
+    {
+        GameObject* child = childPtr.Get();
+
+        if (child->GetScript<T>() != nullptr)
+            return child;
+
+        GameObject* found = child->FindChildByScript<T>();
+        if (found != nullptr)
+            return found;
+    }
     return nullptr;
 }

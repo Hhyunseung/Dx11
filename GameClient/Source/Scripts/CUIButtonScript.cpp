@@ -31,6 +31,8 @@ CUIButtonScript::~CUIButtonScript()
 
 void CUIButtonScript::SetPressed(bool _Pressed)
 {
+	m_IsPressed = _Pressed;
+
 	CMeshRender* pMR = MeshRender();
 	if (pMR == nullptr)
 		return;

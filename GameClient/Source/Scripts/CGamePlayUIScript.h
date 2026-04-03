@@ -8,19 +8,17 @@ class CGamePlayUIScript :
     public CScript
 {
 private:
-	Ptr<CJumpButtonScript>		m_JumpBtn;
-	Ptr<CSlideButtonScript>		m_SlideBtn;
+	CJumpButtonScript*		m_JumpBtn;
+	CSlideButtonScript*		m_SlideBtn;
 
 	bool m_JumpRequest;
 	bool m_SlideRequest;
 
 public:
-	void SetJumpButton(Ptr<CJumpButtonScript> _Btn) { m_JumpBtn = _Btn; }
-	void SetSlideButton(Ptr<CSlideButtonScript> _Btn) { m_SlideBtn = _Btn; }
-
-public:
-	bool ConsumeJumpReqeust();
-	bool IsSlideHeld() const { return m_SlideRequest; }
+	CJumpButtonScript* GetJumpButton() const { return m_JumpBtn; }
+	void SetJumpButton(CJumpButtonScript* _Btn) { m_JumpBtn = _Btn; }
+	CSlideButtonScript* GetSlideButton() const { return m_SlideBtn; }
+	void SetSlideButton(CSlideButtonScript* _Btn) { m_SlideBtn = _Btn; }
 
 public:
 	virtual void Begin() override;

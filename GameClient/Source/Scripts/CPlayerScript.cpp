@@ -21,6 +21,9 @@
 
 #include "CMovingPlatformScirpt.h"
 
+#include "CGamePlayUIScript.h"
+#include "CJumpButtonScript.h"
+#include "CSlideButtonScript.h"
 
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
@@ -124,11 +127,17 @@ void CPlayerScript::Tick()
 // 점프 입력 처리
 void CPlayerScript::HandleJump()
 {
-	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
-	if (pUI == nullptr)
-		return;
+	bool bKeyboardJump = KEY_TAP(KEY::SPACE);
+	bool bUIJump = false;
 
-	if (pUI->ConsumeJumpReqeust())
+	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
+	if (pUI != nullptr && pUI->GetSlideButton() != nullptr)
+	{
+		bUIJump = pUI->GetJumpButton()->ConsumeClick();
+	}
+
+
+	if (bKeyboardJump || bUIJump)
 	{
 		m_JumpRequest = true;
 	}
@@ -137,11 +146,16 @@ void CPlayerScript::HandleJump()
 // 슬라이드 입력 처리
 void CPlayerScript::HandleSlide()
 {
-	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
-	if (pUI == nullptr)
-		return;
+	bool bKeyboardSlide = KEY_PRESSED(KEY::DOWN);
+	bool bUISlide = false;
 
-	bool bSlideHeld = pUI->IsSlideHeld();
+	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
+	if (pUI != nullptr && pUI->GetSlideButton() != nullptr)
+	{
+		bUISlide = pUI->GetSlideButton()->GetPressed();
+	}
+
+	bool bSlideHeld = (bKeyboardSlide || bUISlide);
 
 	if (bSlideHeld)
 	{
