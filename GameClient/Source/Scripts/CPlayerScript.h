@@ -101,6 +101,7 @@ private:
 	void HandleSlide();
 	void HandleHit();
 
+	void UpdateUIButton();
 	void ApllyMovingPlatform();
 	void GravityAndMove();
 	void UpdateInvincibility();  // 이름 변경

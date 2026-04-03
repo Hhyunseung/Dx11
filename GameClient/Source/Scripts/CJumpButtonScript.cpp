@@ -6,7 +6,7 @@
 
 CJumpButtonScript::CJumpButtonScript()
 	: CUIButtonScript(SCRIPT_TYPE::JUMPBUTTONSCRIPT)
-	, m_MouseHolding(false)
+	, m_Clicked(false)
 {
 }
 
@@ -18,25 +18,16 @@ CJumpButtonScript::~CJumpButtonScript()
 void CJumpButtonScript::Tick()
 {
 	CUIButtonScript::Tick();
-
-	bool bKeyboardJumpHold = KEY_PRESSED(KEY::SPACE);
-
-	SetPressed(m_MouseHolding || bKeyboardJumpHold);
 }
 
 void CJumpButtonScript::OnButtonDown()
 {
-	// 노트북 커밋 확인 용 주석
-
-	m_MouseHolding = true;
 	m_Clicked = true;
-	SetPressed(true);
 }
 
 void CJumpButtonScript::OnButtonUp()
 {
-	m_MouseHolding = false;
-	SetPressed(false);
+
 }
 
 

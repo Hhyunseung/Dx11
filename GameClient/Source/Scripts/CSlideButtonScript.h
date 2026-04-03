@@ -3,9 +3,6 @@
 class CSlideButtonScript :
     public CUIButtonScript
 {
-private:
-	bool m_MouseHolding; // 마우스 버튼이 눌린 상태인지 여부
-
 public:
 	virtual void Tick() override;
 	virtual void OnButtonDown();

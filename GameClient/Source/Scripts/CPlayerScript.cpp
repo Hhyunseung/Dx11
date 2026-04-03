@@ -29,6 +29,11 @@ CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
 	, m_FeetCollider(nullptr)
 	, m_CurrentMovingPlatform(nullptr)
+	, m_HP(100)
+	, m_CurrentHP(100)
+	, m_Damage(10)
+	, m_PrevFeetY(0.f)
+	, m_CurFeetY(0.f)
 	, m_gravity(-980.f)
 	, m_VelY(0.f)
 	, m_JumpPower(800.f)
@@ -38,9 +43,12 @@ CPlayerScript::CPlayerScript()
 	, m_BlinkTime(0.2f)
 	, m_JumpCount(0)
 	, m_MaxJumpCount(2)
+	, m_JumpRequest(false)
 	, m_IsLand(false)
 	, m_IsJump(false)
 	, m_IsDoubleJump(false)
+	, m_IsSlide(false)
+	, m_IsInvincible(false)
 {
 
 }
@@ -111,6 +119,7 @@ void CPlayerScript::Tick()
 
 	HandleJump();
 	HandleSlide();
+	UpdateUIButton();
 
 	ProcessJump();
 
@@ -131,7 +140,7 @@ void CPlayerScript::HandleJump()
 	bool bUIJump = false;
 
 	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
-	if (pUI != nullptr && pUI->GetSlideButton() != nullptr)
+	if (pUI != nullptr && pUI->GetJumpButton() != nullptr)
 	{
 		bUIJump = pUI->GetJumpButton()->ConsumeClick();
 	}
@@ -161,12 +170,15 @@ void CPlayerScript::HandleSlide()
 	{
 		if (m_IsLand)
 		{
+			m_IsSlide = true;
 			ChangeState(PLAYER_STATE_ID::SLIDE);
 			SetSlideCollider();
 		}
 	}
 	else
 	{
+		m_IsSlide = false;
+
 		if (m_IsLand)
 		{
 			ChangeState(PLAYER_STATE_ID::RUN);
@@ -184,8 +196,6 @@ void CPlayerScript::ProcessJump()
 {
 	if (!m_JumpRequest)
 		return;
-
-	m_JumpRequest = false;
 
 	SetDefaultCollider();
 
@@ -216,9 +226,34 @@ void CPlayerScript::ProcessJump()
 		m_CurrentMovingPlatform = nullptr;
 		ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
 	}
+
+	m_JumpRequest = false;
 }
 
 
+
+void CPlayerScript::UpdateUIButton()
+{
+	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
+	if (pUI == nullptr)
+		return;
+
+	if (pUI->GetJumpButton() != nullptr)
+	{
+		bool bJumpHeld = KEY_PRESSED(KEY::SPACE)
+			|| pUI->GetJumpButton()->IsMouseHolding();
+
+		pUI->GetJumpButton()->SetPressed(bJumpHeld);
+	}
+
+	if (pUI->GetSlideButton() != nullptr)
+	{
+		bool bSlideHeld = KEY_PRESSED(KEY::DOWN)
+			|| pUI->GetSlideButton()->IsMouseHolding();
+
+		pUI->GetSlideButton()->SetPressed(bSlideHeld);
+	}
+}
 
 // ÇÃ·§Æû ÀÌµ¿ Àû¿כ
 void CPlayerScript::ApllyMovingPlatform()

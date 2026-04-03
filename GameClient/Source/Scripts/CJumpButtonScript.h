@@ -4,7 +4,6 @@ class CJumpButtonScript :
     public CUIButtonScript
 {
 private:
-	bool m_MouseHolding; // 마우스 버튼이 눌린 상태인지 여부
 	bool m_Clicked; // 버튼이 클릭된 상태인지 여부
 
 public:
