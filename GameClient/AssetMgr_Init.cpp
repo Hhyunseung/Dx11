@@ -357,7 +357,9 @@ void AssetMgr::CreateEngineTexture()
 
 	Load<ATexture>(L"Icon_heartLife", L"Texture\\UI\\Icon_heartLife.png");
 	Load<ATexture>(L"Icon_heart_orange", L"Texture\\UI\\Icon_heart_orange.png");
+	Load<ATexture>(L"Icon_heart_green", L"Texture\\UI\\Icon_heart_green.png");
 	Load<ATexture>(L"Icon_heart_bg", L"Texture\\UI\\Icon_heart_bg.png");
+	Load<ATexture>(L"Icon_heartLife_bg", L"Texture\\UI\\gaugebg_heart01.png");
 
 
 }
