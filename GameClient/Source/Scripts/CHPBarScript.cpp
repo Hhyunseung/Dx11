@@ -37,6 +37,14 @@ void CHPBarScript::SetHP(int _CurHP, int _MaxHP)
 	if (m_HPBarFill == nullptr)
 		return;
 
+	Ptr<CMeshRender> pMR = m_HPBarFill->MeshRender();
+	if (pMR == nullptr)
+		return;
+
+	Ptr<AMaterial> pMtrl = pMR->GetMaterial();
+	if (pMtrl == nullptr)
+		return;
+
 	float ratio = 0.f;
 
 	if (_MaxHP > 0)
@@ -46,21 +54,7 @@ void CHPBarScript::SetHP(int _CurHP, int _MaxHP)
 	if (ratio < 0.f) ratio = 0.f;
 	if (ratio > 1.f) ratio = 1.f;
 
-	// 새로운 너비 계산
-	float newWidth = m_OriginWidth * ratio;
-
-	// ⭐ 왼쪽 고정을 위한 위치 보정
-	float offsetX = (m_OriginWidth - newWidth) * 0.5f;
-
-	// 스케일 적용
-	Vec3 scale = m_OriginScale;
-	scale.x = newWidth;
-	m_HPBarFill->Transform()->SetRelativeScale(scale);
-
-	// 위치 적용 (왼쪽 기준 유지)
-	Vec3 pos = m_OriginPos;
-	pos.x = m_OriginPos.x - offsetX;
-	m_HPBarFill->Transform()->SetRelativePos(pos);
+	pMtrl->SetScalar(FLOAT_0, ratio); // 셰이더에서 이 값을 받아서 HPBarFill의 텍스처 좌표를 조절하도록 설정
 }
 
 

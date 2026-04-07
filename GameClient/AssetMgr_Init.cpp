@@ -244,6 +244,15 @@ void AssetMgr::CreateEngineShader()
 	pShader->AddShaderParam(SHADER_PARAM::TEX, 1, L"PressedTex");
 
 	AssetMgr::GetInst()->AddAsset(pShader->GetName(), pShader.Get());
+
+	// ============== HPBarShader 积己 ==============//
+	pShader = new AGraphicShader;
+	pShader->SetName(L"ButtonShader");
+	pShader->CreateVertexShader(L"Shader\\HPBar.fx", "VS_HPBar");
+	pShader->CreatePixelShader(L"Shader\\HPBar.fx", "PS_HPBar");
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	AddAsset(L"HPBarShader", pShader.Get());
 	
 	//================== DbgShader 积己 ==============//
 	pShader = new AGraphicShader;
@@ -472,10 +481,21 @@ void AssetMgr::CreateEngineMaterial()
 
 	AddAsset(pMtrl->GetName(), pMtrl.Get());
 
+	// ================== HPBarMtrl 积己 ==============//
+	pMtrl = new AMaterial;
+	pMtrl->SetName(L"HPBarMtrl");
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"HPBarShader"));
+
+	pMtrl->SetScalar(FLOAT_0, 1.0f); // 贸澜俊绰 啊垫 蛮 惑怕
+	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"Icon_heart_orange"));
+
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
+	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
 	//================== DbgMtrl 积己 ==============//
 	pMtrl = new AMaterial;
 	pMtrl->SetName(L"DbgMtrl");
-	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_DEBUG);
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_MASKED);
 	pMtrl->SetShader(FindAsset<AGraphicShader>(L"DbgShader"));
 
 
