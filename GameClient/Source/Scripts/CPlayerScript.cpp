@@ -349,6 +349,7 @@ void CPlayerScript::SetIsSkillMoveMode(bool _Value)
 		m_IsJump = false;
 		m_IsDoubleJump = false;
 		m_VelY = 0.f;
+		m_JumpCount = 0;
 
 		SetDefaultCollider();
 	}

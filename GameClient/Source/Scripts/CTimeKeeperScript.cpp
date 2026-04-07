@@ -12,8 +12,8 @@ CTimeKeeperScript::CTimeKeeperScript()
 	: CCookieSkillScript(SCRIPT_TYPE::TIMEKEEPERSCRIPT)
 	, m_Duration(10.f)           // 스킬 활성 시간
 	, m_RemainDuration(0.f)
-	, m_UpSpeed(500.f)
-	, m_DownSpeed(500.f)
+	, m_UpSpeed(300.f)
+	, m_DownSpeed(300.f)
 	, m_InitSkillPos(false)
 	, m_StartY(0.f)
 	, m_MaxUpOffset(250.f)
@@ -61,7 +61,7 @@ void CTimeKeeperScript::UseSkill()
 	if (!CanAutoUseSkill())
 		return;
 
-	m_IsUsingSkill = true;
+ 	m_IsUsingSkill = true;
 	m_RemainDuration = m_Duration;
 
 	m_InitSkillPos = false;
@@ -72,13 +72,10 @@ void CTimeKeeperScript::UseSkill()
 
 	m_bEndReserved = false;
 
-	// 스킬 시작 애니메이션
-	//GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_1, 12.f, 1);
+	EnterSkillMode();
 
 	// 스킬 시작 연출(1회)
-	//ChangeSkillState(ETimeKeeperSkillState::Start);
-
-	EnterSkillMode();
+	ChangeSkillState(ETimeKeeperSkillState::Start);
 }
 
 void CTimeKeeperScript::EndSkill()
@@ -95,7 +92,7 @@ void CTimeKeeperScript::EndSkill()
 	m_ScoreTickAcc = 0.f;
 	m_ScoreTickCount = 0;
 
-	//m_SkillState = ETimeKeeperSkillState::None;
+	m_SkillState = ETimeKeeperSkillState::None;
 	m_bEndReserved = false;
 
 	ExitSkillMode();
@@ -124,8 +121,7 @@ void CTimeKeeperScript::TickSkill()
 		}
 	}
 
-	if (m_SkillState == ETimeKeeperSkillState::Start
-		|| m_SkillState == ETimeKeeperSkillState::Loop
+	if ( m_SkillState == ETimeKeeperSkillState::Loop
 		|| m_SkillState == ETimeKeeperSkillState::Slide)
 	{
 		UpdateSkillMove();
@@ -327,7 +323,7 @@ void CTimeKeeperScript::PlaySkillAnim(ETimeKeeperSkillState _AnimState)
 	{
 	case ETimeKeeperSkillState::Start:
 		// 스킬 시작 Flipbook(1) : 1회 재생
-		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_1, 12.f, 1);
+		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_1, 12.f, 0);
 		break;
 
 	case ETimeKeeperSkillState::Loop:
@@ -342,7 +338,7 @@ void CTimeKeeperScript::PlaySkillAnim(ETimeKeeperSkillState _AnimState)
 
 	case ETimeKeeperSkillState::End:
 		// 스킬 종료 Flipbook(4) : 1회 재생
-		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_4, 12.f, 1);
+		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_4, 12.f, 0);
 		break;
 
 	default:
