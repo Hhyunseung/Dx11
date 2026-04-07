@@ -8,6 +8,7 @@
 
 #include "CJumpButtonScript.h"
 #include "CSlideButtonScript.h"
+#include "CHPBarScript.h"
 
 CGamePlayUIScript::CGamePlayUIScript()
 	: CScript(SCRIPT_TYPE::GAMEPLAYUISCRIPT)
@@ -15,6 +16,7 @@ CGamePlayUIScript::CGamePlayUIScript()
 	, m_SlideBtn(nullptr)
 	, m_JumpRequest(false)
 	, m_SlideRequest(false)
+	, m_HPBar(nullptr)
 {
 }
 
@@ -38,6 +40,12 @@ void CGamePlayUIScript::Begin()
 	if (pSlideObj != nullptr)
 	{
 		m_SlideBtn = pSlideObj->GetScript<CSlideButtonScript>().Get();
+	}
+
+	GameObject* pHPBarObj = GetOwner()->FindChildByScript<CHPBarScript>();
+	if (pSlideObj != nullptr)
+	{
+		m_HPBar = pHPBarObj->GetScript<CHPBarScript>().Get();
 	}
 }
 
