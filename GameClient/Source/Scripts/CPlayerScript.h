@@ -86,6 +86,8 @@ public:
 	//void SetBodyCollider(CCollider2D* _Collider) { m_BodyCollider = _Collider; }
 	void SetFeetCollider(CCollider2D* _Collider) { m_FeetCollider = _Collider; }
 	void SetStateMachine(Ptr<CStateMachine> _StateMachine) { m_StateMachine = _StateMachine; }
+	CStateMachine* GetStateMachine() const { return m_StateMachine.Get(); }
+
 	void SetSkillScript(CCookieSkillScript* _Skill)
 	{
 		m_CookieSkill = _Skill;
@@ -95,7 +97,6 @@ public:
 			m_CookieSkill->OnEquip();
 		}
 	}
-
 	CCookieSkillScript* GetSkillScript() const { return m_CookieSkill; }
 
 	void ChangeState(PLAYER_STATE_ID _NextId) { m_StateMachine->ChangeState(_NextId); }
@@ -126,10 +127,12 @@ private:
 	bool HasGroundCollider(CCollider2D* _Collider);
 
 public:
+	void SetIsSkillMoveMode(bool _Value);
+	bool GetIsSkillMoveMode() const { return m_IsSkillMoveMode; }
+
 	void TakeDamage(int _Damage);  // 외부에서 호출 가능
 
 public:
-	GET_SET(bool, IsSkillMoveMode);
 	GET_SET(bool, IsTimeKeeperSkillAnim2);
 
 	GET_SET(bool, IsLand);
@@ -148,7 +151,6 @@ private:
     void Slide();
 
 public:
-    virtual void UpdateSkillAnimationState();
 
 	// 저장 불러오기
 	virtual void SaveToLevelFile(FILE* _File) override;

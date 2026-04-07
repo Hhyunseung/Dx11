@@ -182,6 +182,11 @@ enum class PLAYER_STATE_ID
 	HIT,
 	DEAD,
 
+	Skill_1,
+	Skill_2,
+	Skill_3,
+	Skill_4,
+
 	END,
 };
 

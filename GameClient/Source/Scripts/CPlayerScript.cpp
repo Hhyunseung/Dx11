@@ -132,20 +132,20 @@ void CPlayerScript::Tick()
 		UpdateUIButton();
 
 		ProcessJump();
-
 		GravityAndMove();
 		UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
+
+		if (m_StateMachine != nullptr)
+			m_StateMachine->Tick();
 	}
 	else
 	{
 		// 시간지기 스킬 활성 상태
 		// 일반 점프/슬라이드/중력 처리 막기
 		// 상하 이동은 CTimeKeeperSkillScript가 처리
+		UpdateUIButton();
+		UpdateInvincibility();
 	}
-
-	UpdateSkillAnimationState();
-
-	m_StateMachine->Tick();
 
 	//m_CurFeetY = GetOwner()->Transform()->GetRelativePos().y;
 	m_CurFeetY = GetOwner()->Collider2D()->GetBottomY();
@@ -334,6 +334,39 @@ bool CPlayerScript::HasGroundCollider(CCollider2D* _Collider)
 	return false;
 }
 
+void CPlayerScript::SetIsSkillMoveMode(bool _Value)
+{
+	if (m_IsSkillMoveMode == _Value)
+		return;
+
+	m_IsSkillMoveMode = _Value;
+
+	if (m_IsSkillMoveMode)
+	{
+		// 스킬 이동 모드 진입 시 처리
+		m_JumpRequest = false;
+		m_IsSlide = false;
+		m_IsJump = false;
+		m_IsDoubleJump = false;
+		m_VelY = 0.f;
+
+		SetDefaultCollider();
+	}
+	else
+	{
+		// 스킬 이동 모드 종료 시 처리
+		m_IsSlide = false;
+		m_IsTimeKeeperSkillAnim2 = false;
+
+		SetDefaultCollider();
+
+		if (m_IsLand && m_StateMachine != nullptr)
+		{
+			ChangeState(PLAYER_STATE_ID::RUN);
+		}
+	}
+}
+
 void CPlayerScript::TakeDamage(int _Damage)
 {
 	// 무적 상태면 무시
@@ -357,32 +390,29 @@ void CPlayerScript::TakeDamage(int _Damage)
 }
 
 
-void CPlayerScript::UpdateSkillAnimationState()
-{
-	//if (KEY_TAP(KEY::SPACE))
-	//{
-	//	Vec3 vMyPos = Transform()->GetRelativePos();
-	//	Vec3 vMyScale = Transform()->GetRelativeScale();
-	//	Vec3 vRotation = Transform()->GetRelativeRot();
-	//	Vec3 vUp = Transform()->GetDir(DIR::UP);
-
-	//	//Instantiate(m_Missile.Get(), 4, vMyPos + vMyScale * 0.5f * vUp);
-
-	//	//LevelMgr::GetInst()->GetCurrentLevel()->AddObject(0, pObject);
-	//} 
-
-	if (!m_IsSkillMoveMode)
-		return;
-
-	if (m_IsTimeKeeperSkillAnim2)
-	{
-		ChangeState(PLAYER_STATE_ID::HIT);
-	}
-	else
-	{
-		ChangeState(PLAYER_STATE_ID::HIT);
-	}
-}
+//void CPlayerScript::UpdateSkillAnimationState()
+//{
+//	//if (KEY_TAP(KEY::SPACE))
+//	//{
+//	//	Vec3 vMyPos = Transform()->GetRelativePos();
+//	//	Vec3 vMyScale = Transform()->GetRelativeScale();
+//	//	Vec3 vRotation = Transform()->GetRelativeRot();
+//	//	Vec3 vUp = Transform()->GetDir(DIR::UP);
+//
+//	//	//Instantiate(m_Missile.Get(), 4, vMyPos + vMyScale * 0.5f * vUp);
+//
+//	//	//LevelMgr::GetInst()->GetCurrentLevel()->AddObject(0, pObject);
+//	//} 
+//
+//	//if (m_IsTimeKeeperSkillAnim2)
+//	//{
+//	//	GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_2, 12.f, 1);
+//	//}
+//	//else
+//	//{
+//	//	GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_3, 12.f, -1);
+//	//}
+//}
 
 void CPlayerScript::Slide()
 {

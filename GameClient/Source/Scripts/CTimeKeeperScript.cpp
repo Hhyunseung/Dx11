@@ -25,6 +25,8 @@ CTimeKeeperScript::CTimeKeeperScript()
 	, m_ScorePerTick(30000)
 {
 	m_WaitTime = 3.f; // 자동 발동 대기시간 15초
+
+
 }
 
 
@@ -35,6 +37,7 @@ CTimeKeeperScript::~CTimeKeeperScript()
 // 스킬 장착 시 호출
 void CTimeKeeperScript::OnEquip()
 {
+	//m_Player->GetStateMachine()->AddState(new CRunState(m_Player));
 }
 
 // 스킬 해제 시 호출
@@ -67,6 +70,14 @@ void CTimeKeeperScript::UseSkill()
 	m_ScoreTickAcc = 0.f;
 	m_ScoreTickCount = 0;
 
+	m_bEndReserved = false;
+
+	// 스킬 시작 애니메이션
+	//GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_1, 12.f, 1);
+
+	// 스킬 시작 연출(1회)
+	//ChangeSkillState(ETimeKeeperSkillState::Start);
+
 	EnterSkillMode();
 }
 
@@ -78,8 +89,14 @@ void CTimeKeeperScript::EndSkill()
 	m_IsUsingSkill = false;
 	m_RemainDuration = 0.f;
 
+	m_InitSkillPos = false;
 	m_IsChargeMotion = false;
+
 	m_ScoreTickAcc = 0.f;
+	m_ScoreTickCount = 0;
+
+	//m_SkillState = ETimeKeeperSkillState::None;
+	m_bEndReserved = false;
 
 	ExitSkillMode();
 }
@@ -93,11 +110,29 @@ void CTimeKeeperScript::TickSkill()
 		return;
 	}
 
-	m_RemainDuration -= DT;
+	if (!m_bEndReserved)
+	{
+		m_RemainDuration -= DT;
 
-	UpdateSkillMove();
+		// 종료 예약
+		if (m_RemainDuration <= 0.f)
+		{
+			m_RemainDuration = 0.f;
+			m_bEndReserved = true;
+
+			ChangeSkillState(ETimeKeeperSkillState::End);
+		}
+	}
+
+	if (m_SkillState == ETimeKeeperSkillState::Start
+		|| m_SkillState == ETimeKeeperSkillState::Loop
+		|| m_SkillState == ETimeKeeperSkillState::Slide)
+	{
+		UpdateSkillMove();
+		UpdateSkillScore();
+	}
+
 	UpdateSkillAnimState();
-	UpdateSkillScore();
 }
 
 
@@ -163,20 +198,9 @@ void CTimeKeeperScript::UpdateSkillMove()
 	pObj->Transform()->SetRelativePos(vPos);
 }
 
-void CTimeKeeperScript::UpdateSkillAnimState()
-{
-	if (m_Player == nullptr)
-		return;
-
-	bool bSlidePressed = KEY_PRESSED(KEY::DOWN);
-
-	m_IsChargeMotion = bSlidePressed;
-	m_Player->SetIsTimeKeeperSkillAnim2(bSlidePressed);
-}
-
 void CTimeKeeperScript::UpdateSkillScore()
 {
-	if (!m_IsChargeMotion)
+	if (m_SkillState != ETimeKeeperSkillState::Slide)
 	{
 		m_ScoreTickAcc = 0.f;
 		return;
@@ -194,5 +218,134 @@ void CTimeKeeperScript::UpdateSkillScore()
 		// 점수 획득 처리 (예: 플레이어 점수 증가)
 
 		GamePlayMgr::GetInst()->AddScore(m_ScorePerTick);
+	}
+}
+
+
+
+// 스킬 애니메이션 상태 업데이트
+void CTimeKeeperScript::UpdateSkillAnimState()
+{
+	bool bSlidePressed = KEY_PRESSED(KEY::DOWN);
+
+	switch (m_SkillState)
+	{
+	case ETimeKeeperSkillState::Start:
+	{
+		// 시작 연출이 끝나면
+		// DOWN 누르고 있으면 Slide, 아니면 Loop
+		if (GetOwner()->FlipbookRender()->IsAnimationComplete())
+		{
+			if (bSlidePressed)
+				ChangeSkillState(ETimeKeeperSkillState::Slide);
+			else
+				ChangeSkillState(ETimeKeeperSkillState::Loop);
+		}
+	}
+	break;
+
+	case ETimeKeeperSkillState::Loop:
+	{
+		// DOWN 홀드 시작 시 Slide 진입
+		if (bSlidePressed)
+		{
+			ChangeSkillState(ETimeKeeperSkillState::Slide);
+		}
+	}
+	break;
+
+	case ETimeKeeperSkillState::Slide:
+	{
+		// DOWN 누르고 있는 동안 계속 Slide 유지
+		// 떼면 다시 Loop
+		if (!bSlidePressed)
+		{
+			ChangeSkillState(ETimeKeeperSkillState::Loop);
+		}
+	}
+	break;
+
+	case ETimeKeeperSkillState::End:
+	{
+		// 종료 연출 끝나면 스킬 완전 종료
+		if (GetOwner()->FlipbookRender()->IsAnimationComplete())
+		{
+			EndSkill();
+		}
+	}
+	break;
+
+	default:
+		break;
+	}
+}
+
+void CTimeKeeperScript::ChangeSkillState(ETimeKeeperSkillState _NextState)
+{
+	if (m_SkillState == _NextState)
+		return;
+
+	m_SkillState = _NextState;
+	PlaySkillAnim(_NextState);
+
+	if (m_Player == nullptr)
+		return;
+
+	switch (_NextState)
+	{
+	case ETimeKeeperSkillState::Start:
+		m_IsChargeMotion = false;
+		m_Player->SetIsTimeKeeperSkillAnim2(false);
+		break;
+
+	case ETimeKeeperSkillState::Loop:
+		m_IsChargeMotion = false;
+		m_Player->SetIsTimeKeeperSkillAnim2(false);
+		break;
+
+	case ETimeKeeperSkillState::Slide:
+		m_IsChargeMotion = true;
+		m_Player->SetIsTimeKeeperSkillAnim2(true);
+		break;
+
+	case ETimeKeeperSkillState::End:
+		m_IsChargeMotion = false;
+		m_Player->SetIsTimeKeeperSkillAnim2(false);
+		break;
+
+	default:
+		break;
+	}
+}
+
+void CTimeKeeperScript::PlaySkillAnim(ETimeKeeperSkillState _AnimState)
+{
+	if (GetOwner() == nullptr || GetOwner()->FlipbookRender() == nullptr)
+		return;
+
+	switch (_AnimState)
+	{
+	case ETimeKeeperSkillState::Start:
+		// 스킬 시작 Flipbook(1) : 1회 재생
+		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_1, 12.f, 1);
+		break;
+
+	case ETimeKeeperSkillState::Loop:
+		// 스킬 진행 Flipbook(2) : 반복 재생
+		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_2, 12.f, -1);
+		break;
+
+	case ETimeKeeperSkillState::Slide:
+		// 스킬 슬라이드 Flipbook(3) : DOWN 홀드 동안 유지되어야 하므로 반복 재생
+		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_3, 12.f, -1);
+		break;
+
+	case ETimeKeeperSkillState::End:
+		// 스킬 종료 Flipbook(4) : 1회 재생
+		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_4, 12.f, 1);
+		break;
+
+	default:
+		break;
 	}
 }
