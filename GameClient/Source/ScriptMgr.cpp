@@ -25,6 +25,7 @@
 #include "Scripts/CPendulumObstacle.h"
 #include "Scripts/CPlayerScript.h"
 #include "Scripts/CRunState.h"
+#include "Scripts/CScoreUIScript.h"
 #include "Scripts/CScrollScript.h"
 #include "Scripts/CSlideButtonScript.h"
 #include "Scripts/CSlideState.h"
@@ -61,6 +62,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPendulumObstacle");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CRunState");
+	_vec.push_back(L"CScoreUIScript");
 	_vec.push_back(L"CScrollScript");
 	_vec.push_back(L"CSlideButtonScript");
 	_vec.push_back(L"CSlideState");
@@ -122,6 +124,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlayerScript;
 	if (L"CRunState" == _strScriptName)
 		return new CRunState;
+	if (L"CScoreUIScript" == _strScriptName)
+		return new CScoreUIScript;
 	if (L"CScrollScript" == _strScriptName)
 		return new CScrollScript;
 	if (L"CSlideButtonScript" == _strScriptName)
@@ -218,6 +222,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::RUNSTATE:
 		return new CRunState;
+		break;
+	case (UINT)SCRIPT_TYPE::SCOREUISCRIPT:
+		return new CScoreUIScript;
 		break;
 	case (UINT)SCRIPT_TYPE::SCROLLSCRIPT:
 		return new CScrollScript;
@@ -348,6 +355,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::RUNSTATE:
 		return L"CRunState";
+		break;
+
+	case SCRIPT_TYPE::SCOREUISCRIPT:
+		return L"CScoreUIScript";
 		break;
 
 	case SCRIPT_TYPE::SCROLLSCRIPT:

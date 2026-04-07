@@ -370,6 +370,7 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Icon_heart_bg", L"Texture\\UI\\Icon_heart_bg.png");
 	Load<ATexture>(L"Icon_heartLife_bg", L"Texture\\UI\\gaugebg_heart01.png");
 
+	Load<ATexture>(L"Icon_jellybean0001_big", L"Texture\\UI\\jellybean0001_big.png");
 
 }
 

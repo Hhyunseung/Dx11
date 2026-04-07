@@ -400,6 +400,9 @@
     <ClInclude Include="Source\Scripts\CCookieSkillScript.h">
       <Filter>Source\Scripts\02.Cookie\Character</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CScoreUIScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\03.Score</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -739,6 +742,9 @@
     </Filter>
     <Filter Include="Source\Scripts\07.UI\GamePlayUI\02.HP">
       <UniqueIdentifier>{36de6782-aa37-4779-957b-fd47004e13a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\03.Score">
+      <UniqueIdentifier>{30fad3dc-2784-4df0-8107-a01f0b80bc92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1113,6 +1119,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scripts\CCookieSkillScript.cpp">
       <Filter>Source\Scripts\02.Cookie\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CScoreUIScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\03.Score</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
