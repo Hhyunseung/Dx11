@@ -8,6 +8,7 @@
 #include "AssetMgr.h"
 #include "LevelMgr.h"
 #include "RenderMgr.h"
+#include "FontMgr.h"
 #include "EditorMgr.h"
 
 LRESULT CALLBACK  WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -115,6 +116,9 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height, bool _EditorMode)
 
     // 렌더링 매니저 초기화
     RenderMgr::GetInst()->Init();
+
+	// 폰트 매니저 초기화
+	FontMgr::GetInst()->Init();
 
     // 에디터 매니저 초기화
     if (m_EditorMode)

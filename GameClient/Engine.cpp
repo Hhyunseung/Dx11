@@ -37,6 +37,10 @@ int Engine::Progress()
 	// RenderMgr ·»´õ¸µ
 	RenderMgr::GetInst()->Progress();
 
+	// FPS Render
+	TimeMgr::GetInst()->Render();
+
+
 	if (m_EditorMode)
 	{
 		// EditorMgr 

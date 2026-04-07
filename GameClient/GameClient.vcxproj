@@ -201,6 +201,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="extern.h" />
     <ClInclude Include="FlipbookRenderUI.h" />
     <ClInclude Include="FlipbookUI.h" />
+    <ClInclude Include="FontMgr.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="GameClient.h" />
@@ -333,6 +334,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="FlipbookRenderUI.cpp" />
     <ClCompile Include="FlipbookUI.cpp" />
+    <ClCompile Include="FontMgr.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GamePlayMgr.cpp" />

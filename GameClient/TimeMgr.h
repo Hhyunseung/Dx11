@@ -14,9 +14,12 @@ private:
 	float 			m_DeltaTime;	// 1 프레임 간격 시간
 	float			m_Time;			// 게임이 켜진 이후로 흐른 시간(누적시간)
 
+	wstring			m_strFPS;
+
 public:
 	void Init();
 	void Tick();
+	void Render();
 
 public:
 	float GetDeltaTime() { return m_DeltaTime; }

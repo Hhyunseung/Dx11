@@ -2,6 +2,7 @@
 #include "TimeMgr.h"
 #include "Engine.h"
 
+#include "FontMgr.h"
 #include "LevelMgr.h"
 
 TimeMgr::TimeMgr()
@@ -54,6 +55,9 @@ void TimeMgr::Tick()
 		swprintf_s(buff, 255, L"DeltaTime : %f, FPS : %d", m_DeltaTime, m_FPS);
 		SetWindowText(Engine::GetInst()->GetMainWndHwnd(), buff);
 
+		m_strFPS = buff;
+		SetWindowText(Engine::GetInst()->GetMainWndHwnd(), buff);
+
 		m_FPS = 0;
 		m_Time -= 1.f;
 	}
@@ -76,4 +80,9 @@ void TimeMgr::Tick()
 		g_Global.DeltaTime = m_DeltaTime;
 		g_Global.Time += m_DeltaTime;
 	}
+}
+
+void TimeMgr::Render()
+{
+	FontMgr::GetInst()->DrawFont(m_strFPS.c_str(), 10, 30, 24, FONT_RGBA(200, 20, 20, 255));
 }
