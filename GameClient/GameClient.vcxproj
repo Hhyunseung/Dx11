@@ -243,6 +243,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\ScriptMgr.h" />
     <ClInclude Include="Source\Scripts\CBGScrollScript.h" />
     <ClInclude Include="Source\Scripts\CCamMoveScript.h" />
+    <ClInclude Include="Source\Scripts\CCookieSkillScript.h" />
     <ClInclude Include="Source\Scripts\CDoubleJumpState.h" />
     <ClInclude Include="Source\Scripts\CEffectScript.h" />
     <ClInclude Include="Source\Scripts\CEnemy.h" />
@@ -369,6 +370,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\ScriptMgr.cpp" />
     <ClCompile Include="Source\Scripts\CBGScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CCamMoveScript.cpp" />
+    <ClCompile Include="Source\Scripts\CCookieSkillScript.cpp" />
     <ClCompile Include="Source\Scripts\CDoubleJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CEffectScript.cpp" />
     <ClCompile Include="Source\Scripts\CEnemy.cpp" />

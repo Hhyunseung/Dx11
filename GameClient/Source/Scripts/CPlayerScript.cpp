@@ -20,6 +20,7 @@
 #include "CHitState.h"
 
 #include "CMovingPlatformScirpt.h"
+#include "CCookieSkillScript.h"
 
 #include "CGamePlayUIScript.h"
 #include "CJumpButtonScript.h"
@@ -29,6 +30,7 @@ CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
 	, m_FeetCollider(nullptr)
 	, m_CurrentMovingPlatform(nullptr)
+	, m_CookieSkill(nullptr)
 	, m_HP(100)
 	, m_CurrentHP(100)
 	, m_Damage(10)
@@ -43,6 +45,8 @@ CPlayerScript::CPlayerScript()
 	, m_BlinkTime(0.2f)
 	, m_JumpCount(0)
 	, m_MaxJumpCount(2)
+	, m_IsSkillMoveMode(false)
+	, m_IsTimeKeeperSkillAnim2(false)
 	, m_JumpRequest(false)
 	, m_IsLand(false)
 	, m_IsJump(false)
@@ -85,6 +89,10 @@ void CPlayerScript::Begin()
 	GamePlayMgr::GetInst()->SetPlayerObject(GetOwner());
 	GamePlayMgr::GetInst()->SetPlayerScript(this);
 
+	// 플레이어에게 스킬 적용 (임시)
+	GamePlayMgr::GetInst()->ApplySkillToPlayer();
+
+
 	GetOwner()->SetLayerIdx(3); // Player 레이어
 
 	Ptr<GameObject> pChild = nullptr;
@@ -117,17 +125,27 @@ void CPlayerScript::Tick()
 
 	ApllyMovingPlatform();
 
-	HandleJump();
-	HandleSlide();
-	UpdateUIButton();
+	if (!m_IsSkillMoveMode)
+	{
+		HandleJump();
+		HandleSlide();
+		UpdateUIButton();
 
-	ProcessJump();
+		ProcessJump();
 
-	GravityAndMove();
-	UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
+		GravityAndMove();
+		UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
+	}
+	else
+	{
+		// 시간지기 스킬 활성 상태
+		// 일반 점프/슬라이드/중력 처리 막기
+		// 상하 이동은 CTimeKeeperSkillScript가 처리
+	}
+
+	UpdateSkillAnimationState();
 
 	m_StateMachine->Tick();
-	Skill();
 
 	//m_CurFeetY = GetOwner()->Transform()->GetRelativePos().y;
 	m_CurFeetY = GetOwner()->Collider2D()->GetBottomY();
@@ -339,61 +357,30 @@ void CPlayerScript::TakeDamage(int _Damage)
 }
 
 
-void CPlayerScript::Skill()
+void CPlayerScript::UpdateSkillAnimationState()
 {
-	if (KEY_TAP(KEY::SPACE))
+	//if (KEY_TAP(KEY::SPACE))
+	//{
+	//	Vec3 vMyPos = Transform()->GetRelativePos();
+	//	Vec3 vMyScale = Transform()->GetRelativeScale();
+	//	Vec3 vRotation = Transform()->GetRelativeRot();
+	//	Vec3 vUp = Transform()->GetDir(DIR::UP);
+
+	//	//Instantiate(m_Missile.Get(), 4, vMyPos + vMyScale * 0.5f * vUp);
+
+	//	//LevelMgr::GetInst()->GetCurrentLevel()->AddObject(0, pObject);
+	//} 
+
+	if (!m_IsSkillMoveMode)
+		return;
+
+	if (m_IsTimeKeeperSkillAnim2)
 	{
-		Vec3 vMyPos = Transform()->GetRelativePos();
-		Vec3 vMyScale = Transform()->GetRelativeScale();
-		Vec3 vRotation = Transform()->GetRelativeRot();
-		Vec3 vUp = Transform()->GetDir(DIR::UP);
-
-		Instantiate(m_Missile.Get(), 4, vMyPos + vMyScale * 0.5f * vUp);
-
-		// 미사일 생성
-		//GameObject* pObject = nullptr;
-		//pObject = new GameObject;
-		//pObject->SetName(L"Missile");
-
-		//pObject->AddComponent(new CTransform);
-		//pObject->AddComponent(new CMeshRender);
-		//pObject->AddComponent(new CCollider2D);
-
-		//Ptr<CMissileScript> pMissileScript = new CMissileScript;
-		//pMissileScript->SetTarget(m_Target);
-		//pObject->AddComponent(pMissileScript.Get()); // 부모 포인터
-
-		//Vec3 pPlayerPos = GetOwner()->Transform()->GetRelativePos();
-		//Vec3 pPlayerScale = GetOwner()->Transform()->GetRelativeScale();
-		//Vec3 pRight = GetOwner()->Transform()->GetDir(DIR::RIGHT);
-
-		//pObject->Transform()->SetRelativePos(pPlayerPos + pPlayerScale * 0.5f * pRight);
-		//pObject->Transform()->SetRelativeRot(GetOwner()->Transform()->GetRelativeRot());
-		//pObject->Transform()->SetRelativeScale(Vec3(70.f, 70.f, 1.f));
-
-		//pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-		//pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Std2DMtrl"));
-
-		//CreateObject(pObject, 4);
-
-		// Player 와 Child 부모자식 연결
-		//GetOwner()->AddChild(pObject);
-
-	/*	TaskInfo info = {};
-		info.Type = TASK_TYPE::DESTROY_OBJECT;
-		info.Param_0 = (DWORD_PTR)pObject;
-		TaskMgr::GetInst()->AddTask(info);*/
-
-		//LevelMgr::GetInst()->GetCurrentLevel()->AddObject(0, pObject);
-	} /// pObject 가 소멸되는 시점 /// 미사일 레퍼런스 카운트를 0으로 만들어서 미사일이 사라짐
-	/// 전달되는 과정에서 오브젝트가 지워지게 되는 상황
-	/// info.Param_0 에서 스마트 포인터로 받았으면 TaskMgr 가 pObject 를 가지고 있는 상황이 되니까 지워지지 않음
-	/// 하지만 일반 포인터로 받으면 delete 도 안될거고 ~ 
-
-
-	if (KEY_TAP(KEY::Z))
+		ChangeState(PLAYER_STATE_ID::HIT);
+	}
+	else
 	{
-		Destroy();
+		ChangeState(PLAYER_STATE_ID::HIT);
 	}
 }
 

@@ -3,6 +3,7 @@
 
 #include "Scripts/CBGScrollScript.h"
 #include "Scripts/CCamMoveScript.h"
+#include "Scripts/CCookieSkillScript.h"
 #include "Scripts/CDoubleJumpState.h"
 #include "Scripts/CEffectScript.h"
 #include "Scripts/CEnemy.h"
@@ -37,6 +38,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CBGScrollScript");
 	_vec.push_back(L"CCamMoveScript");
+	_vec.push_back(L"CCookieSkillScript");
 	_vec.push_back(L"CDoubleJumpState");
 	_vec.push_back(L"CEffectScript");
 	_vec.push_back(L"CEnemy");
@@ -74,6 +76,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CBGScrollScript;
 	if (L"CCamMoveScript" == _strScriptName)
 		return new CCamMoveScript;
+	if (L"CCookieSkillScript" == _strScriptName)
+		return new CCookieSkillScript;
 	if (L"CDoubleJumpState" == _strScriptName)
 		return new CDoubleJumpState;
 	if (L"CEffectScript" == _strScriptName)
@@ -144,6 +148,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::CAMMOVESCRIPT:
 		return new CCamMoveScript;
+		break;
+	case (UINT)SCRIPT_TYPE::COOKIESKILLSCRIPT:
+		return new CCookieSkillScript;
 		break;
 	case (UINT)SCRIPT_TYPE::DOUBLEJUMPSTATE:
 		return new CDoubleJumpState;
@@ -246,6 +253,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::CAMMOVESCRIPT:
 		return L"CCamMoveScript";
+		break;
+
+	case SCRIPT_TYPE::COOKIESKILLSCRIPT:
+		return L"CCookieSkillScript";
 		break;
 
 	case SCRIPT_TYPE::DOUBLEJUMPSTATE:

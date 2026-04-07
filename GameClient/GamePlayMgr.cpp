@@ -2,6 +2,10 @@
 #include "GamePlayMgr.h"
 #include "ObjectPoolMgr.h"
 
+#include "..\GameClient\Source\Scripts\CPlayerScript.h"
+#include "..\GameClient\Source\Scripts\CCookieSkillScript.h"
+#include "..\GameClient\Source\Scripts\CTimeKeeperScript.h"
+
 GamePlayMgr::GamePlayMgr()
 	: m_PlayerObject(nullptr)
 	, m_Score(0)
@@ -46,6 +50,19 @@ void GamePlayMgr::CreateNewStageData()
 	m_StageData = new AStageData;
 }
 
+
+void GamePlayMgr::ApplySkillToPlayer()
+{
+	if (m_PlayerObject == nullptr)
+		return;
+
+	CCookieSkillScript* pSkill = CreateSkillByCharacterType(m_SelectedCharacterType);
+	if (pSkill == nullptr)
+		return;
+
+	m_PlayerScript->SetSkillScript(pSkill);
+}
+
 wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 {
 	switch ((EObjectID)_ObjectID)
@@ -70,4 +87,33 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
  case EObjectID::TileShipeStage_1_tb_s:	return L"Prefab\\TileShipeStage_1_tb_s.pref";
 	default:						return L"";
 	}
+}
+
+CCookieSkillScript* GamePlayMgr::CreateSkillByCharacterType(ECharacterType _Type)
+{
+	if (m_PlayerObject == nullptr)
+		return nullptr;
+
+	switch (_Type)
+	{
+	case ECharacterType::TimeKeeper:
+    {
+		m_PlayerObject->AddComponent(new CTimeKeeperScript);
+
+		auto pSkill = m_PlayerObject->GetScript<CTimeKeeperScript>();
+
+		return (CCookieSkillScript*)pSkill.Get();
+	}
+
+		// case ECharacterType::Knight:
+		//     return _PlayerObject->AddComponent(new CKnightSkillScript);
+
+		// case ECharacterType::Wizard:
+		//     return _PlayerObject->AddComponent(new CWizardSkillScript);
+
+	default:
+		break;
+	}
+
+	return nullptr;
 }

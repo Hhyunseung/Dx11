@@ -3,9 +3,9 @@
 
 #include "CMissileScript.h"
 #include "CStateMachine.h"
+#include "CCookieSkillScript.h"
 
 class CMovingPlatformScirpt;
-
 
 class CPlayerScript;
 
@@ -46,6 +46,8 @@ private:
 
 	Ptr<CStateMachine>	m_StateMachine; // 상태 머신
 
+	CCookieSkillScript* m_CookieSkill; // 현재 장착된 쿠키 스킬 (없으면 nullptr)
+
 	vector<CCollider2D*>	m_GroundColliders;			// 발과 충돌 중인 모든 플랫폼들
 	CMovingPlatformScirpt*	m_CurrentMovingPlatform;	// 현재 타고 있는 이동 플랫폼 스크립트 (없으면 nullptr)
 
@@ -69,6 +71,9 @@ private:
 	const int			m_MaxJumpCount; // 최대 점프 횟수 (2)
 
 	bool				m_JumpRequest; // 점프 입력이 들어왔는지 여부
+	bool 				m_IsSkillMoveMode; // 스킬 사용 입력이 들어왔는지 여부
+
+	bool				m_IsTimeKeeperSkillAnim2;
 
 	bool 			    m_IsLand; // 땅에 닿아있는지 여부
 	bool                m_IsJump; // 점프 중인지 여부
@@ -81,6 +86,17 @@ public:
 	//void SetBodyCollider(CCollider2D* _Collider) { m_BodyCollider = _Collider; }
 	void SetFeetCollider(CCollider2D* _Collider) { m_FeetCollider = _Collider; }
 	void SetStateMachine(Ptr<CStateMachine> _StateMachine) { m_StateMachine = _StateMachine; }
+	void SetSkillScript(CCookieSkillScript* _Skill)
+	{
+		m_CookieSkill = _Skill;
+		if (m_CookieSkill != nullptr)
+		{
+			m_CookieSkill->SetPlayer(this);
+			m_CookieSkill->OnEquip();
+		}
+	}
+
+	CCookieSkillScript* GetSkillScript() const { return m_CookieSkill; }
 
 	void ChangeState(PLAYER_STATE_ID _NextId) { m_StateMachine->ChangeState(_NextId); }
 
@@ -113,6 +129,9 @@ public:
 	void TakeDamage(int _Damage);  // 외부에서 호출 가능
 
 public:
+	GET_SET(bool, IsSkillMoveMode);
+	GET_SET(bool, IsTimeKeeperSkillAnim2);
+
 	GET_SET(bool, IsLand);
 	GET_SET(bool, IsJump);
 	GET_SET(bool, IsDoubleJump);
@@ -129,7 +148,7 @@ private:
     void Slide();
 
 public:
-    virtual void Skill();
+    virtual void UpdateSkillAnimationState();
 
 	// 저장 불러오기
 	virtual void SaveToLevelFile(FILE* _File) override;

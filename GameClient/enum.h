@@ -185,6 +185,11 @@ enum class PLAYER_STATE_ID
 	END,
 };
 
+enum class ECharacterType
+{
+	TimeKeeper,
+};
+
 
 enum class LEVEL_STATE
 {

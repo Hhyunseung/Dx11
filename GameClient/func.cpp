@@ -161,6 +161,7 @@ void CreateTestLevel()
 	{
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
 		Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+		GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
 
 		Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
 		Ptr<GameObject> pUI = pPrefabUI->Instantiate();
@@ -172,7 +173,11 @@ void CreateTestLevel()
 		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
 		GamePlayMgr::GetInst()->SetStageData(pStageData);
 		
+
+
 		Ptr<GameObject> pPlatform = LOAD(APrefab, L"Prefab\\TileShipeStage_1_fh_m.pref")->Instantiate();
+
+
 
 	/*	for (int i = 0; i < 10; ++i)
 		{

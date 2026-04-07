@@ -17,6 +17,8 @@ private:
 	GameObject*  m_PlayerObject;
 	CPlayerScript* m_PlayerScript;
 
+	ECharacterType m_SelectedCharacterType; // 현재 선택된 캐릭터 타입
+
 	Ptr<AStageData> m_StageData;	// 현재 편집중인 StageData
 	
 	int m_Score;
@@ -38,6 +40,10 @@ public:
 	void SetPlayerScript(CPlayerScript* _PlayerScript) { m_PlayerScript = _PlayerScript; }
 	CPlayerScript* GetPlayerScript() { return m_PlayerScript; }
 
+	void SetSelectedCharacterType(ECharacterType _Type) { m_SelectedCharacterType = _Type; }
+	ECharacterType GetSelectedCharacterType() const { return m_SelectedCharacterType; }
+
+
 	void AddScore(int _Score) { m_Score += _Score; }
 	int GetScore() const { return m_Score; }
 
@@ -50,7 +56,12 @@ public:
 	void SetScrollSpeed(float _Speed) { m_ScrollSpeed = _Speed; }
 	float GetScrollSpeed() const { return m_ScrollSpeed; }
 
+	void ApplySkillToPlayer();
+
 	// ObjectID -> Prefab Key 변환
 	static wstring GetPrefabKey(int _ObjectID);
+
+private:
+	CCookieSkillScript* CreateSkillByCharacterType(ECharacterType _Type);
 };
 
