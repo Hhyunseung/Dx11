@@ -102,6 +102,9 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height, bool _EditorMode)
     // 실행파일과 같이 있는 Content 폴더의 경로를 찾아내기 위함
     PathMgr::GetInst()->Init();
 
+    // 폰트 매니저 초기화
+    FontMgr::GetInst()->Init();
+
     // 1프레임 동작하는데 걸리는 시간(DT) 계산
     TimeMgr::GetInst()->Init();
 
@@ -117,8 +120,6 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height, bool _EditorMode)
     // 렌더링 매니저 초기화
     RenderMgr::GetInst()->Init();
 
-	// 폰트 매니저 초기화
-	FontMgr::GetInst()->Init();
 
     // 에디터 매니저 초기화
     if (m_EditorMode)

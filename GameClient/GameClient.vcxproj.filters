@@ -391,6 +391,15 @@
     <ClInclude Include="Source\Scripts\CTimeKeeperScript.h">
       <Filter>Source\Scripts\02.Cookie\Character\TimeKeeper</Filter>
     </ClInclude>
+    <ClInclude Include="FontMgr.h">
+      <Filter>GameEngine\03.Manager\12.FontMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CHPBarScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\02.HP</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CCookieSkillScript.h">
+      <Filter>Source\Scripts\02.Cookie\Character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -724,6 +733,12 @@
     </Filter>
     <Filter Include="Source\Scripts\02.Cookie\Character\TimeKeeper">
       <UniqueIdentifier>{34775c9e-1e3e-4e5c-85d8-e758bc69e276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\03.Manager\12.FontMgr">
+      <UniqueIdentifier>{19d194e1-eb5a-4639-aae4-6c8ebc2e0b56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\02.HP">
+      <UniqueIdentifier>{36de6782-aa37-4779-957b-fd47004e13a0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1090,6 +1105,15 @@
     <ClCompile Include="Source\Scripts\CTimeKeeperScript.cpp">
       <Filter>Source\Scripts\02.Cookie\Character\TimeKeeper</Filter>
     </ClCompile>
+    <ClCompile Include="FontMgr.cpp">
+      <Filter>GameEngine\03.Manager\12.FontMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CHPBarScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\02.HP</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CCookieSkillScript.cpp">
+      <Filter>Source\Scripts\02.Cookie\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -1131,6 +1155,9 @@
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
     <FxCompile Include="Button.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="HPBar.fx">
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
   </ItemGroup>

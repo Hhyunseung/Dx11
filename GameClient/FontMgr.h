@@ -1,7 +1,7 @@
 #pragma once
 
 #include "single.h"
-
+#include <string>
 #include <FontEngine/FW1FontWrapper.h>
 #include <FontEngine/FW1CompileSettings.h>
 
@@ -11,22 +11,20 @@
 #pragma comment(lib, "FontEngine/FW1FontWrapper.lib")
 #endif
 
-#define FONT_RGBA(r, g, b, a) (((((BYTE)a << 24 ) | (BYTE)b << 16) | (BYTE)g << 8) | (BYTE)r)
+#define FONT_RGBA(r, g, b, a) (((((BYTE)a << 24) | (BYTE)b << 16) | (BYTE)g << 8) | (BYTE)r)
 
-
-class FontMgr :
-    public singleton<FontMgr>
+class FontMgr : public singleton<FontMgr>
 {
     SINGLE(FontMgr);
 
 private:
     IFW1Factory* m_FW1Factory;
     IFW1FontWrapper* m_FontWrapper;
+    bool m_FontRegistered;
 
 public:
     void Init();
-
-    // _Color : FONT_RGBA 매크로
+    void Init(const wchar_t* _FontName);
+    bool RegisterPrivateFont(const wchar_t* _FontPath);
     void DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize, UINT _Color);
 };
-
