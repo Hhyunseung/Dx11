@@ -85,5 +85,5 @@ void TimeMgr::Tick()
 void TimeMgr::Render()
 {
 	//FontMgr::GetInst()->DrawFont(m_strFPS.c_str(), 10, 30, 36, FONT_RGBA(200, 20, 20, 255));
-	FontMgr::GetInst()->DrawFont(L"CookieRund Bold 테스트 123 ABC", 10, 30, 36, FONT_RGBA(200, 20, 20, 255));
+	//FontMgr::GetInst()->DrawFont(L"CookieRund Bold 테스트 123 ABC", 10, 30, 36, FONT_RGBA(200, 20, 20, 255));
 }

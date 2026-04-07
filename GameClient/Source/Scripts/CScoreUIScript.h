@@ -10,6 +10,7 @@ private:
 public:
 	virtual void Begin() override;
 	virtual void Tick() override;
+	void Render();
 
 	// 저장 불러오기
 	virtual void SaveToLevelFile(FILE* _File) override {}

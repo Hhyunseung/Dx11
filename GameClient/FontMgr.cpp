@@ -45,9 +45,6 @@ void FontMgr::Init()
     {
         const std::wstring fontPath = CONTENT_PATH + L"Font\\CookieRunFont_TTF\\CookieRun_Bold.ttf";
         m_FontRegistered = RegisterPrivateFont(fontPath.c_str());
-
-        // 이미 등록되어 있어서 false가 나올 수도 있으니 assert는 빼는 게 안전
-        // assert(m_FontRegistered);
     }
 
     Init(L"CookieRun");
@@ -66,7 +63,6 @@ void FontMgr::Init(const wchar_t* _FontName)
 
     if (FAILED(hr))
     {
-        // 쿠키런 실패 시 확인용 fallback
         hr = m_FW1Factory->CreateFontWrapper(DEVICE, L"Arial", &m_FontWrapper);
         assert(SUCCEEDED(hr));
     }
@@ -74,16 +70,43 @@ void FontMgr::Init(const wchar_t* _FontName)
 
 void FontMgr::DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize, UINT _Color)
 {
+    if (_pStr == nullptr)
+        return;
+
+    tFontDrawData data = {};
+    data.Str = _pStr;
+    data.PosX = _fPosX;
+    data.PosY = _fPosY;
+    data.FontSize = _fFontSize;
+    data.Color = _Color;
+
+    m_vecFontDrawData.push_back(data);
+}
+
+void FontMgr::Render()
+{
     if (m_FontWrapper == nullptr)
         return;
 
-    m_FontWrapper->DrawString(
-        CONTEXT,
-        _pStr,
-        _fFontSize,
-        _fPosX,
-        _fPosY,
-        _Color,
-        FW1_RESTORESTATE
-    );
+    for (size_t i = 0; i < m_vecFontDrawData.size(); ++i)
+    {
+        const tFontDrawData& data = m_vecFontDrawData[i];
+
+        m_FontWrapper->DrawString(
+            CONTEXT,
+            data.Str.c_str(),
+            data.FontSize,
+            data.PosX,
+            data.PosY,
+            data.Color,
+            FW1_RESTORESTATE
+        );
+    }
+
+    Clear();
+}
+
+void FontMgr::Clear()
+{
+    m_vecFontDrawData.clear();
 }

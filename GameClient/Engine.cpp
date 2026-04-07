@@ -8,7 +8,7 @@
 #include "RenderMgr.h"
 #include "EditorMgr.h"
 #include "TaskMgr.h"
-
+#include "FontMgr.h"
 
 Engine::Engine()
 	: m_hInst(nullptr)
@@ -39,6 +39,8 @@ int Engine::Progress()
 
 	// FPS Render
 	TimeMgr::GetInst()->Render();
+	
+	FontMgr::GetInst()->Render();
 
 
 	if (m_EditorMode)
@@ -48,7 +50,6 @@ int Engine::Progress()
 		/// (RenderMgr=>EditerMgr=>Device)
 		EditorMgr::GetInst()->Progress();
 	}
-
 
 	// 렌더타겟에 그려진 그림을, 윈도우 비트맵으로 복사
 	Device::GetInst()->Present();

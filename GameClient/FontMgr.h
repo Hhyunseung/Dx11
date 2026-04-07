@@ -22,9 +22,27 @@ private:
     IFW1FontWrapper* m_FontWrapper;
     bool m_FontRegistered;
 
+private:
+    struct tFontDrawData
+    {
+        std::wstring Str;
+        float PosX;
+        float PosY;
+        float FontSize;
+        UINT Color;
+    };
+
+    std::vector<tFontDrawData> m_vecFontDrawData;
+
+private:
+    bool RegisterPrivateFont(const wchar_t* _FontPath);
+
+
 public:
     void Init();
     void Init(const wchar_t* _FontName);
-    bool RegisterPrivateFont(const wchar_t* _FontPath);
     void DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize, UINT _Color);
+
+    void Render();
+    void Clear();
 };
