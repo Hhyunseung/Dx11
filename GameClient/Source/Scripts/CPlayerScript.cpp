@@ -25,13 +25,14 @@
 #include "CGamePlayUIScript.h"
 #include "CJumpButtonScript.h"
 #include "CSlideButtonScript.h"
+#include "CHPBarScript.h"
 
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
 	, m_FeetCollider(nullptr)
 	, m_CurrentMovingPlatform(nullptr)
 	, m_CookieSkill(nullptr)
-	, m_HP(100)
+	, m_MaxHP(100)
 	, m_CurrentHP(100)
 	, m_Damage(10)
 	, m_PrevFeetY(0.f)
@@ -120,7 +121,10 @@ void CPlayerScript::Begin()
 	// 초기 알파는 0 (셰이더에서 적용 안 함)
 	FlipbookRender()->GetMaterial()->SetScalar(FLOAT_0, 0.f);
 
-	m_CurrentHP = 100;
+
+	m_CurrentHP = m_MaxHP;
+
+	UpdateHPUI();
 }
 
 void CPlayerScript::Tick()
@@ -129,6 +133,8 @@ void CPlayerScript::Tick()
 	m_PrevFeetY = GetOwner()->Collider2D()->GetBottomY();
 
 	ApllyMovingPlatform();
+
+	UpdateAutoHPDecrease();
 
 	if (!m_IsSkillMoveMode)
 	{
@@ -212,6 +218,26 @@ void CPlayerScript::HandleSlide()
 
 void CPlayerScript::HandleHit()
 {
+}
+
+void CPlayerScript::UpdateAutoHPDecrease()
+{
+	if (m_CurrentHP <= 0)
+		return;
+
+	m_AutoHPDecreaseTimer += DT;
+
+	if (m_AutoHPDecreaseTimer >= 1.f)
+	{
+		m_AutoHPDecreaseTimer = 0.f;
+
+		m_CurrentHP--;
+
+		if (m_CurrentHP < 0)
+			m_CurrentHP = 0;
+
+		UpdateHPUI();
+	}
 }
 
 // 점프처리 (중력과 별개로 점프 입력이 들어왔을 때 수직 속도 설정)
@@ -325,6 +351,19 @@ void CPlayerScript::UpdateInvincibility()
 	}
 }
 
+void CPlayerScript::UpdateHPUI()
+{
+	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
+
+	if (pUI == nullptr)
+		return;
+
+	if (pUI->GetHPBar() == nullptr)
+		return;
+
+	pUI->GetHPBar()->SetHP(m_CurrentHP, m_MaxHP);
+}
+
 bool CPlayerScript::HasGroundCollider(CCollider2D* _Collider)
 {
 	if (_Collider == nullptr)
@@ -402,12 +441,26 @@ void CPlayerScript::TakeDamage(int _Damage)
 
 	m_InvincibleTimer = 0.f;
 
+	UpdateHPUI();
+
 	// 사망 체크
 	if (m_CurrentHP <= 0)
 	{
 		// TODO: DIE 상태로 전환
 		// ChangeState(PLAYER_STATE_ID::DIE);
 	}
+
+}
+
+void CPlayerScript::Heal(int _Amount)
+{
+	if (_Amount <= 0)
+		return;
+
+	m_CurrentHP += _Amount;
+
+	if (m_CurrentHP > m_MaxHP)
+		m_CurrentHP = m_MaxHP;
 }
 
 

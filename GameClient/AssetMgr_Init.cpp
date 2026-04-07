@@ -355,6 +355,11 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"btn_slide", L"Texture\\UI\\btn_slide.png");
 	Load<ATexture>(L"btn_slide_dim", L"Texture\\UI\\btn_slide_dim.png");
 
+	Load<ATexture>(L"Icon_heartLife", L"Texture\\UI\\Icon_heartLife.png");
+	Load<ATexture>(L"Icon_heart_orange", L"Texture\\UI\\Icon_heart_orange.png");
+	Load<ATexture>(L"Icon_heart_bg", L"Texture\\UI\\Icon_heart_bg.png");
+
+
 }
 
 void AssetMgr::CreateEngineMaterial()

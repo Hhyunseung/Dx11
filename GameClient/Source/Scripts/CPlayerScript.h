@@ -51,10 +51,13 @@ private:
 	vector<CCollider2D*>	m_GroundColliders;			// 발과 충돌 중인 모든 플랫폼들
 	CMovingPlatformScirpt*	m_CurrentMovingPlatform;	// 현재 타고 있는 이동 플랫폼 스크립트 (없으면 nullptr)
 
-	int 				m_HP; // 체력
+	// HP
+	float				m_AutoHPDecreaseTimer; // 자동 체력 감소 타이머
+	int 				m_MaxHP; // 체력
 	int					m_CurrentHP; // 현재 체력
 	int 				m_Damage; // 피격 시 받는 피해량
 
+	// 충돌체
 	float				m_PrevFeetY; // 땅 체크용 충돌체의 이전 y 좌표
 	float			    m_CurFeetY; // 땅 체크용 충돌체의 y 좌표
 
@@ -118,21 +121,29 @@ private:
 	void HandleSlide();
 	void HandleHit();
 
+	void UpdateAutoHPDecrease();
+
 	void UpdateUIButton();
 	void ApllyMovingPlatform();
 	void GravityAndMove();
 	void UpdateInvincibility();  // 이름 변경
 
 private:
+	void UpdateHPUI();
+
 	bool HasGroundCollider(CCollider2D* _Collider);
 
 public:
 	void SetIsSkillMoveMode(bool _Value);
 	bool GetIsSkillMoveMode() const { return m_IsSkillMoveMode; }
 
-	void TakeDamage(int _Damage);  // 외부에서 호출 가능
+	void TakeDamage(int _Damage);
+	void Heal(int _Amount); 
 
 public:
+	GET_SET(int, MaxHP);
+	GET_SET(int, CurrentHP);
+
 	GET_SET(bool, IsTimeKeeperSkillAnim2);
 
 	GET_SET(bool, IsLand);

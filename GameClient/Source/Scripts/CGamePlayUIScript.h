@@ -3,6 +3,7 @@
 
 class CJumpButtonScript;
 class CSlideButtonScript;
+class CHPBarScript;
 
 class CGamePlayUIScript :
     public CScript
@@ -10,6 +11,8 @@ class CGamePlayUIScript :
 private:
 	CJumpButtonScript*		m_JumpBtn;
 	CSlideButtonScript*		m_SlideBtn;
+
+	CHPBarScript*			m_HPBar;
 
 	bool m_JumpRequest;
 	bool m_SlideRequest;
@@ -19,6 +22,9 @@ public:
 	void SetJumpButton(CJumpButtonScript* _Btn) { m_JumpBtn = _Btn; }
 	CSlideButtonScript* GetSlideButton() const { return m_SlideBtn; }
 	void SetSlideButton(CSlideButtonScript* _Btn) { m_SlideBtn = _Btn; }
+
+	CHPBarScript* GetHPBar() const { return m_HPBar; }
+	void SetHPBar(CHPBarScript* _HPBar) { m_HPBar = _HPBar; }
 
 public:
 	virtual void Begin() override;
