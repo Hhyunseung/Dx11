@@ -23,8 +23,8 @@ private:
 	float m_UpSpeed;
 	float m_DownSpeed;
 
-	float m_MaxUpOffset;
-	float m_MaxDownOffset;
+	float m_MinSkillY;
+	float m_MaxSkillY;
 	bool  m_InitSkillPos;
 	float m_StartY;
 

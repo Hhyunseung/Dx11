@@ -16,8 +16,8 @@ CTimeKeeperScript::CTimeKeeperScript()
 	, m_DownSpeed(300.f)
 	, m_InitSkillPos(false)
 	, m_StartY(0.f)
-	, m_MaxUpOffset(250.f)
-	, m_MaxDownOffset(250.f)
+	, m_MinSkillY(-150.f)
+	, m_MaxSkillY(300.f)
 	, m_IsChargeMotion(false)
 	, m_ScoreTickAcc(0.f)
 	, m_ScoreTickCount(0)
@@ -182,14 +182,12 @@ void CTimeKeeperScript::UpdateSkillMove()
 		vPos.y -= m_DownSpeed * DT;
 	}
 
-	float maxY = m_StartY + m_MaxUpOffset;
-	float minY = m_StartY - m_MaxDownOffset;
+	// 월드 Y축 기준 고정 범위 제한
+	if (vPos.y > m_MaxSkillY)
+		vPos.y = m_MaxSkillY;
 
-	if (vPos.y > maxY)
-		vPos.y = maxY;
-
-	if (vPos.y < minY)
-		vPos.y = minY;
+	if (vPos.y < m_MinSkillY)
+		vPos.y = m_MinSkillY;
 
 	pObj->Transform()->SetRelativePos(vPos);
 }

@@ -83,7 +83,12 @@ void CPlayerScript::Begin()
 	m_StateMachine->AddState(new CSlideState(this));
 	m_StateMachine->AddState(new CHitState(this));
 
-	m_StateMachine->StartState(PLAYER_STATE_ID::RUN);
+	// 시작 시에는 일단 공중으로 가정
+	m_IsLand = false;
+	m_JumpCount = 0;
+	m_VelY = 0.f;
+
+	m_StateMachine->StartState(PLAYER_STATE_ID::JUMP);
 
 	// GamePlayMgr에 플레이어 등록
 	GamePlayMgr::GetInst()->SetPlayerObject(GetOwner());
@@ -361,9 +366,24 @@ void CPlayerScript::SetIsSkillMoveMode(bool _Value)
 
 		SetDefaultCollider();
 
-		if (m_IsLand && m_StateMachine != nullptr)
+		// 현재 바닥 접촉 여부 재판단
+		if (m_GroundColliders.empty())
 		{
-			ChangeState(PLAYER_STATE_ID::RUN);
+			// 공중이면 즉시 낙하 시작
+			m_IsLand = false;
+			m_VelY = 0.f;
+		}
+		else
+		{
+			// 바닥 위면 RUN 복귀
+			m_IsLand = true;
+			m_VelY = 0.f;
+			m_JumpCount = 0;
+
+			if (m_StateMachine != nullptr)
+			{
+				ChangeState(PLAYER_STATE_ID::RUN);
+			}
 		}
 	}
 }
@@ -474,7 +494,8 @@ void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCo
 	float prevFeetY = m_PrevFeetY;
 	float curFeetY = m_FeetCollider->GetBottomY(); // 여기서 직접 가져옴
 
-	if (!m_IsLand
+	if (!m_IsSkillMoveMode
+		&& !m_IsLand
 		&& m_VelY <= 0.f // 내려오는 중인지 체크
 		&& feetBottomY <= platformTopY
 		&& m_PrevFeetY >= platformTopY
@@ -504,7 +525,8 @@ void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCo
 			m_CurrentMovingPlatform = nullptr;
 		}
 
-		m_StateMachine->ChangeState(PLAYER_STATE_ID::LAND);
+		if (m_StateMachine != nullptr)
+			m_StateMachine->ChangeState(PLAYER_STATE_ID::LAND);
 	}
 }
 
