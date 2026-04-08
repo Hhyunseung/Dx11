@@ -180,12 +180,17 @@ enum class PLAYER_STATE_ID
 	LAND,
 	SLIDE,
 	HIT,
+	FALL,
 	DEAD,
 
 	Skill_1,
 	Skill_2,
 	Skill_3,
 	Skill_4,
+
+	BonusDown,
+	BonusUp,
+
 
 	END,
 };

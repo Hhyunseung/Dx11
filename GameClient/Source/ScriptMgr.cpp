@@ -7,6 +7,7 @@
 #include "Scripts/CDoubleJumpState.h"
 #include "Scripts/CEffectScript.h"
 #include "Scripts/CEnemy.h"
+#include "Scripts/CFallState.h"
 #include "Scripts/CFlipbookClickScript.h"
 #include "Scripts/CGamePlaySpawnScript.h"
 #include "Scripts/CGamePlayUIScript.h"
@@ -47,6 +48,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CDoubleJumpState");
 	_vec.push_back(L"CEffectScript");
 	_vec.push_back(L"CEnemy");
+	_vec.push_back(L"CFallState");
 	_vec.push_back(L"CFlipbookClickScript");
 	_vec.push_back(L"CGamePlaySpawnScript");
 	_vec.push_back(L"CGamePlayUIScript");
@@ -94,6 +96,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CEffectScript;
 	if (L"CEnemy" == _strScriptName)
 		return new CEnemy;
+	if (L"CFallState" == _strScriptName)
+		return new CFallState;
 	if (L"CFlipbookClickScript" == _strScriptName)
 		return new CFlipbookClickScript;
 	if (L"CGamePlaySpawnScript" == _strScriptName)
@@ -180,6 +184,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::ENEMY:
 		return new CEnemy;
+		break;
+	case (UINT)SCRIPT_TYPE::FALLSTATE:
+		return new CFallState;
 		break;
 	case (UINT)SCRIPT_TYPE::FLIPBOOKCLICKSCRIPT:
 		return new CFlipbookClickScript;
@@ -304,6 +311,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::ENEMY:
 		return L"CEnemy";
+		break;
+
+	case SCRIPT_TYPE::FALLSTATE:
+		return L"CFallState";
 		break;
 
 	case SCRIPT_TYPE::FLIPBOOKCLICKSCRIPT:

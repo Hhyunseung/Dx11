@@ -250,6 +250,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CDoubleJumpState.h" />
     <ClInclude Include="Source\Scripts\CEffectScript.h" />
     <ClInclude Include="Source\Scripts\CEnemy.h" />
+    <ClInclude Include="Source\Scripts\CFallState.h" />
     <ClInclude Include="Source\Scripts\CFlipbookClickScript.h" />
     <ClInclude Include="Source\Scripts\CGamePlaySpawnScript.h" />
     <ClInclude Include="Source\Scripts\CGamePlayUIScript.h" />
@@ -385,6 +386,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CDoubleJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CEffectScript.cpp" />
     <ClCompile Include="Source\Scripts\CEnemy.cpp" />
+    <ClCompile Include="Source\Scripts\CFallState.cpp" />
     <ClCompile Include="Source\Scripts\CFlipbookClickScript.cpp" />
     <ClCompile Include="Source\Scripts\CGamePlaySpawnScript.cpp" />
     <ClCompile Include="Source\Scripts\CGamePlayUIScript.cpp" />

@@ -18,6 +18,7 @@
 #include "CLandState.h"
 #include "CSlideState.h"
 #include "CHitState.h"
+#include "CFallState.h"
 
 #include "CMovingPlatformScirpt.h"
 #include "CCookieSkillScript.h"
@@ -83,6 +84,7 @@ void CPlayerScript::Begin()
 	m_StateMachine->AddState(new CLandState(this));
 	m_StateMachine->AddState(new CSlideState(this));
 	m_StateMachine->AddState(new CHitState(this));
+	m_StateMachine->AddState(new CFallState(this));
 
 	// 시작 시에는 일단 공중으로 가정
 	m_IsLand = false;
@@ -129,6 +131,9 @@ void CPlayerScript::Begin()
 
 void CPlayerScript::Tick()
 {
+
+
+
 	//m_PrevFeetY = GetOwner()->Transform()->GetRelativePos().y;
 	m_PrevFeetY = GetOwner()->Collider2D()->GetBottomY();
 

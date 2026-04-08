@@ -27,7 +27,7 @@ void CLandState::Enter(PLAYER_STATE_ID _prev)
 	GetOwner()->SetIsLand(true);
 	GetOwner()->SetIsDoubleJump(false);
 
-	GetOwner()->FlipbookRender()->Play(3, 8.f, 1);
+	GetOwner()->FlipbookRender()->Play((int)PLAYER_STATE_ID::LAND, 8.f, 1);
 }
 
 void CLandState::Tick()
