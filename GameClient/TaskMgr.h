@@ -9,7 +9,7 @@ class TaskMgr
 
 private:
 	vector<TaskInfo>		 m_vecTask;
-	vector <Ptr<GameObject>> m_Garbage;
+	vector<Ptr<GameObject>> m_Garbage;
 
 public:
 	void AddTask(const TaskInfo& _info) { m_vecTask.push_back(_info); }

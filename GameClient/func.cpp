@@ -157,6 +157,7 @@ bool IsValid(Ptr<GameObject>& _Object)
 #include "Device.h"
 #include "CollisionMgr.h"
 #include "GamePlayMgr.h"
+#include "SceneFlowMgr.h"
 
 #include "Source/Scripts/CCamMoveScript.h"
 #include "Source/Scripts/CPlayerScript.h"
@@ -222,7 +223,9 @@ void CreateTestLevel()
 		//pLevel->AddObject(0, pObject);
 
 		
-		ChangeLevel(L"Level\\LobbyLevel.lv");
+		//ChangeLevel(L"Level\\LobbyLevel.lv");
+
+		SceneFlowMgr::GetInst()->GoToLobby();
 	}
 
 	return;

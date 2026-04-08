@@ -24,6 +24,8 @@ private:
 	int m_Score;
 	float m_ScrollSpeed;			// 현재 월드 스크롤 속도
 
+	int m_RunCoin;					// 현재 얻은 코인 수 (점수 계산용)
+
 public:
 	void Init();
 	void Clear();
@@ -46,6 +48,9 @@ public:
 
 	void AddScore(int _Score) { m_Score += _Score; }
 	int GetScore() const { return m_Score; }
+
+	void AddRunCoin(int _Amount) { m_RunCoin += _Amount; }
+	int GetRunCoin() const { return m_RunCoin; }
 
 	// StageData
 	void SetStageData(Ptr<AStageData> _StageData) { m_StageData = _StageData; }

@@ -10,6 +10,9 @@
 #include "RenderMgr.h"
 #include "FontMgr.h"
 #include "EditorMgr.h"
+#include "GameDataMgr.h"
+#include "SceneFlowMgr.h"
+#include "GamePlayMgr.h"
 
 LRESULT CALLBACK  WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -124,6 +127,11 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height, bool _EditorMode)
     // 에디터 매니저 초기화
     if (m_EditorMode)
         EditorMgr::GetInst()->Init();
+
+    GameDataMgr::GetInst()->Init();
+    SceneFlowMgr::GetInst()->Init();
+    GamePlayMgr::GetInst()->Init();
+
 
 	return S_OK;
 }

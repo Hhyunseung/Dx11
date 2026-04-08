@@ -9,6 +9,8 @@
 GamePlayMgr::GamePlayMgr()
 	: m_PlayerObject(nullptr)
 	, m_Score(0)
+	, m_ScrollSpeed(300.f)
+	, m_RunCoin(0)
 {
 }
 
@@ -24,6 +26,7 @@ void GamePlayMgr::Init()
 	m_PlayerObject = nullptr;
 
 	m_Score = 0;
+	m_RunCoin = 0;
 	m_ScrollSpeed = 300.f;	// 기본 스크롤 속도
 
 	// 기본 StageData 생성
@@ -43,6 +46,7 @@ void GamePlayMgr::Clear()
 	m_SeletectedCharacterPrefab = nullptr;
 	m_PlayerObject = nullptr;
 	m_Score = 0;
+	m_RunCoin = 0;
 }
 
 void GamePlayMgr::CreateNewStageData()
