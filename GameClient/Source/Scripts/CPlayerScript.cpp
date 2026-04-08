@@ -43,9 +43,11 @@ CPlayerScript::CPlayerScript()
 	, m_VelY(0.f)
 	, m_JumpPower(800.f)
 	, m_DoubleJumpPower(600.f)
+	, m_BlockFall(false)
 	, m_InvincibleTime(2.f)
 	, m_InvincibleTimer(0.f)
 	, m_BlinkTime(0.2f)
+	, m_InvincibleFloorLine(-300.f)
 	, m_FallDeadLine(-700.f)
 	, m_FallRescueSpeed(500.f)
 	, m_FallRescueInvincibleDuration(3.f)
@@ -96,6 +98,7 @@ void CPlayerScript::Begin()
 	// 시작 시에는 일단 공중으로 가정
 	m_IsLand = false;
 	m_JumpCount = 0;
+	m_BlockFall = false;
 	m_VelY = 0.f;
 
 	m_StateMachine->StartState(PLAYER_STATE_ID::JUMP);
@@ -164,9 +167,12 @@ void CPlayerScript::Tick()
 
 		ProcessJump();
 		GravityAndMove();
-		UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
+		
+		ClampDuringInvincibility();
 
 		CheckFallOut(); // 낙하 체크
+		UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
+
 
 		if (m_StateMachine != nullptr)
 			m_StateMachine->Tick();
@@ -370,6 +376,7 @@ void CPlayerScript::UpdateInvincibility()
 	{
 		m_IsInvincible = false;
 		m_InvincibleTimer = 0.f;
+		m_BlockFall = false;
 		// 알파값 초기화 (0이면 셰이더에서 적용 안 함)
 		FlipbookRender()->GetMaterial()->SetScalar(FLOAT_0, 0.f);
 	}
@@ -378,14 +385,42 @@ void CPlayerScript::UpdateInvincibility()
 void CPlayerScript::StartInvincibility(float _Duration)
 {
 	m_IsInvincible = true;
+	m_BlockFall = true;
 	m_InvincibleTime = _Duration;
 	m_InvincibleTimer = 0.f;
+}
+
+void CPlayerScript::ClampDuringInvincibility()
+{
+	if (!m_BlockFall)
+		return;
+
+	if (m_IsDead || m_IsFallRescue)
+		return;
+
+	float bottomY = GetOwner()->Collider2D()->GetBottomY();
+
+	if (bottomY >= m_InvincibleFloorLine)
+		return;
+
+	Vec3 vPos = Transform()->GetRelativePos();
+
+	float offset = m_InvincibleFloorLine - bottomY;
+	vPos.y += offset;
+
+	Transform()->SetRelativePos(vPos);
+
+	if (m_VelY < 0.f)
+		m_VelY = 0.f;
 }
 
 // 낙하 체크
 void CPlayerScript::CheckFallOut()
 {
 	if (m_IsDead || m_IsFallRescue)
+		return;
+
+	if (m_IsInvincible)
 		return;
 
 	float bottomY = GetOwner()->Collider2D()->GetBottomY();
