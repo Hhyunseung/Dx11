@@ -12,14 +12,16 @@
 CUIButtonScript::CUIButtonScript(SCRIPT_TYPE _Type)
 	: CScript(_Type)
 	, m_IsPressed(false)
-	, m_Size(Vec2(100.f, 50.f))
+	, m_Size(Vec2(300.f, 300.f))
+	, m_IsMouseHolding(false)
 {
 }
 
 CUIButtonScript::CUIButtonScript()
 	: CScript(SCRIPT_TYPE::UIBUTTONSCRIPT)
 	, m_IsPressed(false)
-	, m_Size(Vec2(100.f, 50.f))
+	, m_Size(Vec2(300.f, 300.f))
+	, m_IsMouseHolding(false)
 {
 }
 
@@ -50,16 +52,17 @@ bool CUIButtonScript::IsMouseOver()
 	Vec2 mousePos = KeyMgr::GetInst()->GetMousePos();
 	Vec2 resolution = Device::GetInst()->GetRenderResolution();
 
-	// 화면 좌표 → UI 좌표 변환
 	float x = mousePos.x - resolution.x * 0.5f;
 	float y = -(mousePos.y - resolution.y * 0.5f);
 
-	Vec2 mouseWorld = Vec2(x, y);
+	Vec2 mouseWorld(x, y);
 
 	Vec3 objPos3 = Transform()->GetRelativePos();
-	Vec2 objPos = Vec2(objPos3.x, objPos3.y);
+	Vec2 objPos(objPos3.x, objPos3.y);
 
-	Vec2 half = m_Size * 0.5f;
+	Vec3 scale3 = Transform()->GetRelativeScale();
+	Vec2 size(fabsf(scale3.x), fabsf(scale3.y));
+	Vec2 half = size * 0.5f;
 
 	if (mouseWorld.x < objPos.x - half.x) return false;
 	if (mouseWorld.x > objPos.x + half.x) return false;
@@ -68,7 +71,6 @@ bool CUIButtonScript::IsMouseOver()
 
 	return true;
 }
-
 void CUIButtonScript::Tick()
 {
 	bool mouseOver = IsMouseOver();
@@ -79,7 +81,7 @@ void CUIButtonScript::Tick()
 		OnButtonDown();
 	}
 
-	if (m_IsPressed && KEY_RELEASED(KEY::LBTN))
+	if (m_IsMouseHolding && KEY_RELEASED(KEY::LBTN))
 	{
 		m_IsMouseHolding = false;
 

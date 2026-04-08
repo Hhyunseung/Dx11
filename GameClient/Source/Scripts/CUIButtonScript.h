@@ -11,7 +11,7 @@ class CUIButtonScript :
     public CScript
 {
 private:
-	Vec2 m_Size;
+	Vec2 m_Size; // 안쓰는중 // 자동으로 transform의 크기를 가져오도록 바꿈
 
 protected:
 	bool m_IsPressed;		// 버튼이 눌린 상태인지 여부
