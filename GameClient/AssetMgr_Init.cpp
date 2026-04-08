@@ -252,9 +252,10 @@ void AssetMgr::CreateEngineShader()
 	pShader->CreatePixelShader(L"Shader\\std2d.fx", "PS_Std2D");
 	pShader->SetBSType(BS_TYPE::ALPHABLEND);
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
-	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	pShader->SetDSType(DS_TYPE::LESS);
 
 	pShader->AddShaderParam(SHADER_PARAM::VEC4, 0, L"TintColor");
+	pShader->AddShaderParam(SHADER_PARAM::TEX, 0, L"OutColor");
 
 	AddAsset(L"AlphaShader", pShader.Get());
 
@@ -380,7 +381,7 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Icon_heartLife", L"Texture\\UI\\Icon_heartLife.png");
 	Load<ATexture>(L"Icon_heart_orange", L"Texture\\UI\\Icon_heart_orange.png");
 	Load<ATexture>(L"Icon_heart_green", L"Texture\\UI\\Icon_heart_green.png");
-	Load<ATexture>(L"Icon_heart_bg", L"Texture\\UI\\Icon_heart_bg.png");
+	Load<ATexture>(L"Icon_heart_blue", L"Texture\\UI\\Icon_heart_blue.png");
 	Load<ATexture>(L"Icon_heartLife_bg", L"Texture\\UI\\gaugebg_heart01.png");
 
 	Load<ATexture>(L"Icon_jellybean0001_big", L"Texture\\UI\\jellybean0001_big.png");
@@ -392,10 +393,11 @@ void AssetMgr::CreateEngineTexture()
 
 	// =========== 로비 UI 텍스쳐 ============
 	Load<ATexture>(L"bg_lobby_skin", L"Texture\\Lobby\\bg_lobby_skin1.png");
-	Load<ATexture>(L"icon_ingame_chapter", L"Texture\\Lobby\\icon_ingame_chapter02.png");
+	Load<ATexture>(L"icon_ingame_level", L"Texture\\Lobby\\icon_ingame_chapter02.png");
 	Load<ATexture>(L"icon_ingame_relayCoin", L"Texture\\Lobby\\icon_ingame_relayCoin.png");
 	Load<ATexture>(L"icon_ingame_rescueCristal", L"Texture\\Lobby\\icon_ingame_rescueCristal.png");
 	Load<ATexture>(L"UI_ingame_ovenBreakGauge", L"Texture\\Lobby\\imf_ingame_ovenBreakGauge.png");
+	Load<ATexture>(L"UI_ingame_blackBox", L"Texture\\Lobby\\frmBg_ingameTreasure.png");
 
 }
 
