@@ -70,7 +70,7 @@ void SceneFlowMgr::GoToLobby()
 
 void SceneFlowMgr::GoToCharacterSelect()
 {
-	RequestLevelChange(L"level\\CharacterSelect.lv");
+	RequestLevelChange(L"Level\\CharacterSelect.lv");
 	RequestLevelPlay();
 }
 
@@ -84,7 +84,7 @@ void SceneFlowMgr::StartGame()
 	const wstring& mapKey = GameDataMgr::GetInst()->GetSelectedStage();
 
 	if (mapKey.empty())
-		RequestLevelChange(L"level\\GamePlay.lv");
+		RequestLevelChange(L"Level\\TestLevel.lv");
 	else
 		RequestLevelChange(mapKey);
 
@@ -101,7 +101,7 @@ void SceneFlowMgr::RestartGame()
 	const wstring& mapKey = GameDataMgr::GetInst()->GetSelectedStage();
 
 	if (mapKey.empty())
-		RequestLevelChange(L"level\\GamePlay.lv");
+		RequestLevelChange(L"Level\\TestLevel.lv");
 	else
 		RequestLevelChange(mapKey);
 
