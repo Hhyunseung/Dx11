@@ -1,13 +1,14 @@
 #include "pch.h"
 #include "CScoreUIScript.h"
 
+
 #include "GamePlayMgr.h"
 #include "FontMgr.h"
 
 CScoreUIScript::CScoreUIScript()
 	: CScript(SCRIPT_TYPE::SCOREUISCRIPT)
 	, m_FontText(L"0")
-	, PosX(800.f)
+	, PosX(720.f)
 	, PosY(180.f)
 {
 }
@@ -27,11 +28,12 @@ void CScoreUIScript::Begin()
 {
 }
 
+
 void CScoreUIScript::Tick()
 {
 	int score = GamePlayMgr::GetInst()->GetScore();
 
-	m_FontText = to_wstring(score);
+	m_FontText = FormatWithComma(score);
 
 	FontMgr::GetInst()->DrawFontOutline(m_FontText.c_str(), PosX, PosY, 50, FONT_RGBA(255, 255, 255, 255), FONT_RGBA(0, 0, 0, 255), 3.f);
 }

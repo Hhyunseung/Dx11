@@ -72,6 +72,10 @@ typedef SimpleMath::Matrix Matrix;
 #include <string>
 using namespace std;
 
+// FormatWithComma 
+#include <sstream>
+#include <locale>
+
 
 // 상대경로 " "
 #include "Resource.h"

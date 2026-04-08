@@ -131,6 +131,14 @@ float Saturate(float _Data)
 		return _Data;
 }
 
+wstring FormatWithComma(long long value)
+{
+	wstringstream ss;
+	ss.imbue(locale(""));  // 시스템 로케일 적용 (한국이면 , 자동)
+	ss << value;
+	return ss.str();
+}
+
 bool IsValid(Ptr<GameObject>& _Object)
 {
 	if (nullptr == _Object || _Object->IsDead())

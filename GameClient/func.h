@@ -22,3 +22,7 @@ void CreateTestLevel();
 
 // 0 ~ 1 사이의 값으로 만듦
 float Saturate(float _Data);
+
+// 
+wstring FormatWithComma(long long value);
+
