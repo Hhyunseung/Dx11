@@ -4,6 +4,7 @@
 #include "AssetMgr.h"
 #include "LevelMgr.h"
 #include "GameObject.h"
+#include "SceneFlowMgr.h"
 
 TaskMgr::TaskMgr()
 {
@@ -57,7 +58,10 @@ void TaskMgr::Progress()
 	// 같은 프레임에 레벨 관련 작업이 있었다면
 	// 일반 생성/삭제는 건너뜀
 	if (bLevelRelatedTaskProcessed)
+	{
+		SceneFlowMgr::GetInst()->OnLevelEntered();
 		return;
+	}
 
 	// 2차 : 일반 Task 처리
 	for (size_t i = 0; i < vecTask.size(); ++i)

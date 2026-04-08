@@ -225,7 +225,7 @@ void CreateTestLevel()
 		
 		//ChangeLevel(L"Level\\LobbyLevel.lv");
 
-		SceneFlowMgr::GetInst()->GoToLobby();
+		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_LOBBY);
 	}
 
 	return;

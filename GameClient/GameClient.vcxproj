@@ -269,6 +269,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CPlayerScript.h" />
     <ClInclude Include="Source\Scripts\CJumpState.h" />
     <ClInclude Include="Source\Scripts\CRunState.h" />
+    <ClInclude Include="Source\Scripts\CSceneChangeButtonScript.h" />
     <ClInclude Include="Source\Scripts\CScoreUIScript.h" />
     <ClInclude Include="Source\Scripts\CScrollScript.h" />
     <ClInclude Include="Source\Scripts\CSlideButtonScript.h" />
@@ -403,6 +404,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CPlayerScript.cpp" />
     <ClCompile Include="Source\Scripts\CJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CRunState.cpp" />
+    <ClCompile Include="Source\Scripts\CSceneChangeButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CScoreUIScript.cpp" />
     <ClCompile Include="Source\Scripts\CScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CSlideButtonScript.cpp" />
