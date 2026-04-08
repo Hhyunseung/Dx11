@@ -42,6 +42,8 @@ public:
     void Init();
     void Init(const wchar_t* _FontName);
     void DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize, UINT _Color);
+    void DrawFontOutline(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize,
+        UINT _TextColor, UINT _OutlineColor, float _Thickness);
 
     void Render();
     void Clear();

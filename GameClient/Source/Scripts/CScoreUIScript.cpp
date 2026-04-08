@@ -7,6 +7,8 @@
 CScoreUIScript::CScoreUIScript()
 	: CScript(SCRIPT_TYPE::SCOREUISCRIPT)
 	, m_FontText(L"0")
+	, PosX(800.f)
+	, PosY(180.f)
 {
 }
 
@@ -14,6 +16,12 @@ CScoreUIScript::~CScoreUIScript()
 {
 }
 
+
+void CScoreUIScript::Init()
+{
+	AddScriptParam(SCRIPT_PARAM::FLOAT, &PosX, L"PosX", true, 0.f);
+	AddScriptParam(SCRIPT_PARAM::FLOAT, &PosY, L"PosY", true, 0.f);
+}
 
 void CScoreUIScript::Begin()
 {
@@ -25,5 +33,5 @@ void CScoreUIScript::Tick()
 
 	m_FontText = to_wstring(score);
 
-	FontMgr::GetInst()->DrawFont(m_FontText.c_str(), 600, 300, 50, FONT_RGBA(255, 255, 255, 255));
+	FontMgr::GetInst()->DrawFontOutline(m_FontText.c_str(), PosX, PosY, 50, FONT_RGBA(255, 255, 255, 255), FONT_RGBA(0, 0, 0, 255), 3.f);
 }

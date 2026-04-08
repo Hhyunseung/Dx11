@@ -6,11 +6,13 @@ class CScoreUIScript :
 {
 private:
 	wstring m_FontText;
+	float PosX;
+	float PosY;
 
 public:
+	virtual void Init() override;
 	virtual void Begin() override;
 	virtual void Tick() override;
-	void Render();
 
 	// 저장 불러오기
 	virtual void SaveToLevelFile(FILE* _File) override {}

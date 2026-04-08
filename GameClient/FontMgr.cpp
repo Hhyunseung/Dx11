@@ -83,6 +83,27 @@ void FontMgr::DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _
     m_vecFontDrawData.push_back(data);
 }
 
+void FontMgr::DrawFontOutline(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize,
+    UINT _TextColor, UINT _OutlineColor, float _Thickness)
+{
+    if (_pStr == nullptr)
+        return;
+
+    // 8방향 외곽선
+    DrawFont(_pStr, _fPosX - _Thickness, _fPosY, _fFontSize, _OutlineColor);
+    DrawFont(_pStr, _fPosX + _Thickness, _fPosY, _fFontSize, _OutlineColor);
+    DrawFont(_pStr, _fPosX, _fPosY - _Thickness, _fFontSize, _OutlineColor);
+    DrawFont(_pStr, _fPosX, _fPosY + _Thickness, _fFontSize, _OutlineColor);
+
+    DrawFont(_pStr, _fPosX - _Thickness, _fPosY - _Thickness, _fFontSize, _OutlineColor);
+    DrawFont(_pStr, _fPosX + _Thickness, _fPosY - _Thickness, _fFontSize, _OutlineColor);
+    DrawFont(_pStr, _fPosX - _Thickness, _fPosY + _Thickness, _fFontSize, _OutlineColor);
+    DrawFont(_pStr, _fPosX + _Thickness, _fPosY + _Thickness, _fFontSize, _OutlineColor);
+
+    // 본문
+    DrawFont(_pStr, _fPosX, _fPosY, _fFontSize, _TextColor);
+}
+
 void FontMgr::Render()
 {
     if (m_FontWrapper == nullptr)
