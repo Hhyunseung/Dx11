@@ -169,19 +169,19 @@ bool IsValid(Ptr<GameObject>& _Object)
 void CreateTestLevel()
 {
 	{
-		//Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
-		//Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
-		//GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
+		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+		Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+		GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
 
-		//Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
-		//Ptr<GameObject> pUI = pPrefabUI->Instantiate();
-		//pLevel->AddObject(31, pUI); // UI 레이어
+		Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
+		Ptr<GameObject> pUI = pPrefabUI->Instantiate();
+		pLevel->AddObject(31, pUI); // UI 레이어
 
 
-		//Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
+		Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
 
-		//GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
-		//GamePlayMgr::GetInst()->SetStageData(pStageData);
+		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
+		GamePlayMgr::GetInst()->SetStageData(pStageData);
 
 
 		//Ptr<GameObject> pPlatform = LOAD(APrefab, L"Prefab\\TileShipeStage_1_fh_m.pref")->Instantiate();
@@ -225,7 +225,7 @@ void CreateTestLevel()
 		
 		//ChangeLevel(L"Level\\LobbyLevel.lv");
 
-		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_LOBBY);
+		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::START_GAME);
 	}
 
 	return;
