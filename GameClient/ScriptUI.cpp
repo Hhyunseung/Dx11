@@ -80,6 +80,37 @@ void ScriptUI::Tick_UI()
 			AddItemHeight();
 		}
 			break;
+        case SCRIPT_PARAM::TEXT:
+		{
+			ImGui::Text(string(vecParam[i].Desc.begin(), vecParam[i].Desc.end()).c_str());
+			ImGui::SameLine(120);
+
+			string Key = "##Text";
+			Key += ID;
+
+            wstring* pWstr = (wstring*)vecParam[i].Data;
+
+			char buf[1024] = {};
+
+			// Convert current wide string to UTF-8 into buf
+			WideCharToMultiByte(CP_UTF8, 0, pWstr->c_str(), -1, buf, (int)sizeof(buf), nullptr, nullptr);
+
+			if (ImGui::InputText(Key.c_str(), buf, sizeof(buf)))
+			{
+				// Convert UTF-8 buf back to wstring
+				int wlen = MultiByteToWideChar(CP_UTF8, 0, buf, -1, nullptr, 0);
+				if (wlen > 0)
+				{
+					wstring wbuf;
+					wbuf.resize(wlen - 1);
+					MultiByteToWideChar(CP_UTF8, 0, buf, -1, &wbuf[0], wlen);
+					*pWstr = move(wbuf);
+				}
+			}
+
+			AddItemHeight();
+		}
+			break;
 		case SCRIPT_PARAM::BOOL:
 		{
 			ImGui::Text(string(vecParam[i].Desc.begin(), vecParam[i].Desc.end()).c_str());

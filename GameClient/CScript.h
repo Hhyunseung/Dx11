@@ -14,6 +14,7 @@ enum class SCRIPT_PARAM
     VEC2,
     VEC4,
     MATRIX,
+    TEXT,
 
     TEXTURE,
     MATERIAL,

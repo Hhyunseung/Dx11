@@ -185,12 +185,7 @@ void CreateTestLevel()
 
 		//Ptr<GameObject> pPlatform = LOAD(APrefab, L"Prefab\\TileShipeStage_1_fh_m.pref")->Instantiate();
 
-
-		// =================================================================
-		// Lobby
-		// =================================================================
-
-	/*	for (int i = 0; i < 10; ++i)
+			/*	for (int i = 0; i < 10; ++i)
 		{
 			Ptr<GameObject> pClone = pPlatform->Clone();
 			pClone->Transform()->SetRelativePos(Vec3(-240.f + i * 125.f, -50.f, 100.f));
@@ -204,6 +199,27 @@ void CreateTestLevel()
 			pLevel->AddObject(2, pClone);
 		}*/
 
+		// =================================================================
+		// Lobby
+		// =================================================================
+
+		//Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\LobbyLevel.lv");
+
+		//Ptr<GameObject> pObject = new GameObject;
+		//pObject->SetName(L"FlipbookDefault");
+
+		//pObject->AddComponent(new CTransform);
+		//pObject->AddComponent(new CFlipbookRender);
+
+		//pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+		//pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+
+
+		////// Save 후 Load
+		//pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\TimeKeeperCookie_BonusTimeUp.flip"));
+		//pObject->FlipbookRender()->Play(0, 8.f, -1);
+
+		//pLevel->AddObject(0, pObject);
 
 		
 		ChangeLevel(L"Level\\LobbyLevel.lv");
@@ -211,24 +227,6 @@ void CreateTestLevel()
 
 	return;
 
-	//Ptr<GameObject> pObject = new GameObject;
-	//pObject->SetName(L"FlipbookDefault");
-
-	//pObject->AddComponent(new CTransform);
-	//pObject->AddComponent(new CFlipbookRender);
-	//pObject->AddComponent(new CCollider2D);
-
-	//pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-	//pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
-
-	//pObject->Collider2D()->SetScale(Vec2(1.f, 1.f));
-	//pObject->Collider2D()->SetOffset(Vec2(0.f, 0.f));
-
-	////// Save 후 Load
-	//pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Obstacle_jp1down_ing.flip"));
-	//pObject->FlipbookRender()->Play(0, 8.f, -1);
-
-	//pLevel->AddObject(0, pObject);
 
 
 	// Level 생성
