@@ -24,7 +24,7 @@ CTimeKeeperScript::CTimeKeeperScript()
 	, m_MaxScoreTickCount(10)
 	, m_ScorePerTick(3000000)
 {
-	m_WaitTime = 3.f; // 자동 발동 대기시간 15초
+	m_WaitTime = 15.f; // 자동 발동 대기시간 15초
 
 
 }

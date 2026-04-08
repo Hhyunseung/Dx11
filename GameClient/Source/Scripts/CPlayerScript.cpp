@@ -36,6 +36,7 @@ CPlayerScript::CPlayerScript()
 	, m_MaxHP(100)
 	, m_CurrentHP(100)
 	, m_Damage(10)
+	, m_FallDamage(20)
 	, m_PrevFeetY(0.f)
 	, m_CurFeetY(0.f)
 	, m_gravity(-980.f)
@@ -45,6 +46,10 @@ CPlayerScript::CPlayerScript()
 	, m_InvincibleTime(2.f)
 	, m_InvincibleTimer(0.f)
 	, m_BlinkTime(0.2f)
+	, m_FallDeadLine(-700.f)
+	, m_FallRescueSpeed(500.f)
+	, m_FallRescueInvincibleDuration(3.f)
+	, m_HitInvincibleDuration(2.f)
 	, m_JumpCount(0)
 	, m_MaxJumpCount(2)
 	, m_IsSkillMoveMode(false)
@@ -55,6 +60,8 @@ CPlayerScript::CPlayerScript()
 	, m_IsDoubleJump(false)
 	, m_IsSlide(false)
 	, m_IsInvincible(false)
+	, m_IsFallRescue(false)
+	, m_IsDead(false)
 {
 
 }
@@ -131,14 +138,22 @@ void CPlayerScript::Begin()
 
 void CPlayerScript::Tick()
 {
+	if (m_IsDead)
+		return;	
 
-
+	if (m_IsFallRescue)
+	{
+		UpdateFallRescue();
+		
+		if (m_StateMachine != nullptr)
+			m_StateMachine->Tick();
+		return;
+	}
 
 	//m_PrevFeetY = GetOwner()->Transform()->GetRelativePos().y;
 	m_PrevFeetY = GetOwner()->Collider2D()->GetBottomY();
 
 	ApllyMovingPlatform();
-
 	UpdateAutoHPDecrease();
 
 	if (!m_IsSkillMoveMode)
@@ -150,6 +165,8 @@ void CPlayerScript::Tick()
 		ProcessJump();
 		GravityAndMove();
 		UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
+
+		CheckFallOut(); // 낙하 체크
 
 		if (m_StateMachine != nullptr)
 			m_StateMachine->Tick();
@@ -205,6 +222,7 @@ void CPlayerScript::HandleSlide()
 		if (m_IsLand)
 		{
 			m_IsSlide = true;
+			m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
 			ChangeState(PLAYER_STATE_ID::SLIDE);
 			SetSlideCollider();
 		}
@@ -215,6 +233,7 @@ void CPlayerScript::HandleSlide()
 
 		if (m_IsLand)
 		{
+			m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
 			ChangeState(PLAYER_STATE_ID::RUN);
 			SetDefaultCollider();
 		}
@@ -356,6 +375,87 @@ void CPlayerScript::UpdateInvincibility()
 	}
 }
 
+void CPlayerScript::StartInvincibility(float _Duration)
+{
+	m_IsInvincible = true;
+	m_InvincibleTime = _Duration;
+	m_InvincibleTimer = 0.f;
+}
+
+// 낙하 체크
+void CPlayerScript::CheckFallOut()
+{
+	if (m_IsDead || m_IsFallRescue)
+		return;
+
+	float bottomY = GetOwner()->Collider2D()->GetBottomY();
+
+	if (bottomY < m_FallDeadLine) // 낙사 기준 y 좌표
+	{
+		// 낙하 구출 시작
+		BeginFallRescue();
+	}
+}
+
+// 낙하 구출 시작
+void CPlayerScript::BeginFallRescue()
+{
+	m_IsFallRescue = true;
+	m_IsSkillMoveMode = false;
+	m_JumpRequest = false;
+	m_IsJump = false;
+	m_IsDoubleJump = false;
+	m_IsSlide = false;
+	m_IsLand = false;
+	m_CurrentMovingPlatform = nullptr;
+	m_GroundColliders.clear();
+
+	m_CurrentHP -= m_FallDamage;
+	if (m_CurrentHP < 0)
+		m_CurrentHP = 0;
+
+	UpdateHPUI();
+
+
+	if (m_CurrentHP <= 0)
+	{
+		ChangeState(PLAYER_STATE_ID::DEAD);
+		return;
+	}
+
+	ChangeState(PLAYER_STATE_ID::FALL);
+
+}
+
+// 낙하 구출 업데이트 (낙사 구출 중일 때 매 프레임 호출)
+void CPlayerScript::UpdateFallRescue()
+{
+	Vec3 pos = GetOwner()->Transform()->GetRelativePos();
+	
+	Vec3 target = m_LastSafePos + Vec3(0.f, 200.f, 0.f); // 안전 위치보다 약간 위로 이동
+
+	Vec3 dir = target - pos;
+	float length = dir.Length();
+
+	if (length < 5.f)
+	{
+		Transform()->SetRelativePos(target);
+
+		m_IsFallRescue = false;
+		m_VelY = 0.f;
+
+		StartInvincibility(m_FallRescueInvincibleDuration); // 구출 후 무적
+
+		ChangeState(PLAYER_STATE_ID::JUMP);
+		return;
+	}
+
+	dir.Normalize();
+	pos += dir * m_FallRescueSpeed * DT; // 낙하 구출 이동 속도
+	Transform()->SetRelativePos(pos);
+}
+
+
 void CPlayerScript::UpdateHPUI()
 {
 	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
@@ -439,12 +539,10 @@ void CPlayerScript::TakeDamage(int _Damage)
 		return;
 
 	m_CurrentHP -= _Damage;
+	if (m_CurrentHP < 0)
+		m_CurrentHP = 0;
 
  	int HP = m_CurrentHP;
-
-	ChangeState(PLAYER_STATE_ID::HIT);
-
-	m_InvincibleTimer = 0.f;
 
 	UpdateHPUI();
 
@@ -455,6 +553,8 @@ void CPlayerScript::TakeDamage(int _Damage)
 		// ChangeState(PLAYER_STATE_ID::DIE);
 	}
 
+	StartInvincibility(m_HitInvincibleDuration); // 피격 후 무적
+	ChangeState(PLAYER_STATE_ID::HIT);
 }
 
 void CPlayerScript::Heal(int _Amount)

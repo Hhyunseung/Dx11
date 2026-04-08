@@ -56,19 +56,33 @@ private:
 	int 				m_MaxHP; // 체력
 	int					m_CurrentHP; // 현재 체력
 	int 				m_Damage; // 피격 시 받는 피해량
+	int 				m_FallDamage; // 낙하 피해량
 
 	// 충돌체
 	float				m_PrevFeetY; // 땅 체크용 충돌체의 이전 y 좌표
 	float			    m_CurFeetY; // 땅 체크용 충돌체의 y 좌표
 
+	// 중력
 	float			    m_gravity; // 중력 가속도
 
+	// 점프
 	float				m_VelY; // 수직 속도
 	float 			    m_JumpPower; // 점프 힘
 	float			    m_DoubleJumpPower; // 더블 점프 힘
+
+	// 무적
 	float 			    m_InvincibleTime; // 무적 지속 시간
 	float               m_InvincibleTimer; // 무적 경과 시간
 	float				m_BlinkTime; // 깜빡임 주파수 (초당 깜빡임 횟수)
+
+	// 낙하
+	Vec3 				m_LastSafePos; // 마지막 안전 위치 (낙사 구출 시 이동할 위치)
+	float				m_FallDeadLine; // 낙사 y 좌표
+	float 			    m_FallRescueSpeed; // 낙사 구출 스피드
+	float				m_FallRescueInvincibleDuration; // 낙사 구출 후 무적 지속 시간
+
+	// 장애물
+	float				m_HitInvincibleDuration; // 장애물 피격 후 무적 지속 시간
 
 	int 				m_JumpCount; // 현재 점프 횟수
 	const int			m_MaxJumpCount; // 최대 점프 횟수 (2)
@@ -83,6 +97,8 @@ private:
 	bool 			    m_IsDoubleJump; // 점프 중인지 여부
 	bool				m_IsSlide; // 슬라이드 중인지 여부
 	bool				m_IsInvincible; // 무적 상태인지 여부
+	bool				m_IsFallRescue; // 낙사 구출 중인지 여부
+	bool 			    m_IsDead; // 죽었는지 여부
 
 public:
 	void SetTarget(Ptr<GameObject> _Target) { m_Target = _Target; }
@@ -121,12 +137,21 @@ private:
 	void HandleSlide();
 	void HandleHit();
 
-	void UpdateAutoHPDecrease();
+	void UpdateAutoHPDecrease(); // 자동 체력 감소 처리
 
-	void UpdateUIButton();
-	void ApllyMovingPlatform();
-	void GravityAndMove();
-	void UpdateInvincibility();  // 이름 변경
+	void UpdateUIButton(); // UI 버튼 업데이트 (체력, 스킬 등)
+	void ApllyMovingPlatform(); // 이동 플랫폼 위에 올라탄 경우, 플레이어 위치에 이동 플랫폼의 이동량 더해주기
+	void GravityAndMove(); // 중력 적용 및 이동 처리
+	void UpdateInvincibility();  // 이름 변경 // 무적
+
+	// 무적 시작
+	void StartInvincibility(float _Duration); 
+
+	// 낙하 코드
+	void CheckFallOut(); // 낙사 체크
+
+	void BeginFallRescue(); // 낙사 구출 시작
+	void UpdateFallRescue(); // 낙사 구출
 
 private:
 	void UpdateHPUI();
