@@ -2,6 +2,7 @@
 #include "CDeadState.h"
 
 #include "GameObject.h"
+#include "TimeMgr.h"
 #include "SceneFlowMgr.h"
 
 CDeadState::CDeadState()
@@ -22,14 +23,27 @@ CDeadState::~CDeadState()
 
 void CDeadState::Enter(PLAYER_STATE_ID _prev)
 {
-	GetOwner()->FlipbookRender()->Play((int)PLAYER_STATE_ID::FALL, 8.f, 0);
+	GetOwner()->FlipbookRender()->Play((int)PLAYER_STATE_ID::FALL, 5.f, 0);
+    m_fDelayTimer = 0.f;
+	m_bDelayStarted = false;
 }
 
 void CDeadState::Tick()
 {
-	if (GetOwner()->FlipbookRender()->IsAnimationComplete())
+    if (GetOwner()->FlipbookRender()->IsAnimationComplete())
 	{
-		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_LOBBY);
+		if (!m_bDelayStarted)
+		{
+			m_bDelayStarted = true;
+			m_fDelayTimer = 0.f;
+		}
+
+		m_fDelayTimer += DT;
+
+		if (m_fDelayTimer >= m_fDelayDuration)
+		{
+			SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_LOBBY);
+		}
 	}
 }
 

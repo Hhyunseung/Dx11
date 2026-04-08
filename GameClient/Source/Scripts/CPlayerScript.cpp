@@ -34,8 +34,8 @@ CPlayerScript::CPlayerScript()
 	, m_FeetCollider(nullptr)
 	, m_CurrentMovingPlatform(nullptr)
 	, m_CookieSkill(nullptr)
-	, m_MaxHP(5)
-	, m_CurrentHP(5)
+	, m_MaxHP(3)
+	, m_CurrentHP(3)
 	, m_Damage(10)
 	, m_FallDamage(20)
 	, m_PrevFeetY(0.f)
@@ -144,7 +144,11 @@ void CPlayerScript::Begin()
 void CPlayerScript::Tick()
 {
 	if (m_IsDead)
-		return;	
+	{
+		if (m_StateMachine != nullptr)
+			m_StateMachine->Tick();
+		return;
+	}
 
 	if (m_IsFallRescue)
 	{
