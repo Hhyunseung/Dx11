@@ -80,7 +80,7 @@ void ScriptUI::Tick_UI()
 			AddItemHeight();
 		}
 			break;
-        case SCRIPT_PARAM::TEXT:
+		case SCRIPT_PARAM::TEXT:
 		{
 			ImGui::Text(string(vecParam[i].Desc.begin(), vecParam[i].Desc.end()).c_str());
 			ImGui::SameLine(120);
@@ -88,28 +88,63 @@ void ScriptUI::Tick_UI()
 			string Key = "##Text";
 			Key += ID;
 
-            wstring* pWstr = (wstring*)vecParam[i].Data;
+			wstring* pWstr = (wstring*)vecParam[i].Data;
+			if (pWstr == nullptr)
+				break;
 
 			char buf[1024] = {};
 
-			// Convert current wide string to UTF-8 into buf
-			WideCharToMultiByte(CP_UTF8, 0, pWstr->c_str(), -1, buf, (int)sizeof(buf), nullptr, nullptr);
+			// wstring -> UTF-8
+			if (!pWstr->empty())
+			{
+				WideCharToMultiByte(
+					CP_UTF8,
+					0,
+					pWstr->c_str(),
+					-1,
+					buf,
+					(int)sizeof(buf),
+					nullptr,
+					nullptr
+				);
+			}
+			else
+			{
+				buf[0] = '\0';
+			}
 
 			if (ImGui::InputText(Key.c_str(), buf, sizeof(buf)))
 			{
-				// Convert UTF-8 buf back to wstring
+				// UTF-8 -> wstring
 				int wlen = MultiByteToWideChar(CP_UTF8, 0, buf, -1, nullptr, 0);
 				if (wlen > 0)
 				{
-					wstring wbuf;
-					wbuf.resize(wlen - 1);
-					MultiByteToWideChar(CP_UTF8, 0, buf, -1, &wbuf[0], wlen);
-					*pWstr = move(wbuf);
+					std::wstring temp;
+					temp.resize(wlen); // null 포함 크기로 확보
+
+					MultiByteToWideChar(
+						CP_UTF8,
+						0,
+						buf,
+						-1,
+						temp.data(),
+						wlen
+					);
+
+					if (!temp.empty() && temp.back() == L'\0')
+						temp.pop_back(); // 마지막 null 제거
+
+					*pWstr = std::move(temp);
+				}
+				else
+				{
+					pWstr->clear();
 				}
 			}
 
 			AddItemHeight();
 		}
+		break;
 			break;
 		case SCRIPT_PARAM::BOOL:
 		{

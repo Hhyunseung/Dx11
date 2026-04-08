@@ -7,7 +7,7 @@
 CTextUIScript::CTextUIScript()
 	: CScript(SCRIPT_TYPE::TEXTUISCRIPT)
 	, m_BindType(TEXT_BIND_TYPE::NONE)
-	, m_Text(L"")
+	, m_Text(L"0")
 	, m_PosX(0.f)
 	, m_PosY(0.f)
 	, m_FontSize(50.f)
@@ -22,7 +22,6 @@ CTextUIScript::~CTextUIScript()
 void CTextUIScript::Init()
 {
 	AddScriptParam(SCRIPT_PARAM::TEXT, &m_Text, L"Text", true, 0);
-
 	AddScriptParam(SCRIPT_PARAM::INT, &m_BindType, L"BindType", true, 0);
 
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_PosX, L"PosX", true, 0.f);
@@ -82,4 +81,36 @@ void CTextUIScript::Tick()
 	);
 }
 
+void CTextUIScript::SaveToLevelFile(FILE* _File)
+{
+	size_t len = m_Text.size();
+	fwrite(&len, sizeof(size_t), 1, _File);
 
+	if (len > 0)
+		fwrite(m_Text.c_str(), sizeof(wchar_t), len, _File);
+
+	fwrite(&m_BindType, sizeof(TEXT_BIND_TYPE), 1, _File);
+	fwrite(&m_PosX, sizeof(float), 1, _File);
+	fwrite(&m_PosY, sizeof(float), 1, _File);
+	fwrite(&m_FontSize, sizeof(float), 1, _File);
+	fwrite(&m_OutlineThickness, sizeof(float), 1, _File);
+}
+
+void CTextUIScript::LoadFromLevelFile(FILE* _File)
+{
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, _File);
+
+	m_Text.clear();
+	if (len > 0)
+	{
+		m_Text.resize(len);
+		fread(m_Text.data(), sizeof(wchar_t), len, _File);
+	}
+
+	fread(&m_BindType, sizeof(TEXT_BIND_TYPE), 1, _File);
+	fread(&m_PosX, sizeof(float), 1, _File);
+	fread(&m_PosY, sizeof(float), 1, _File);
+	fread(&m_FontSize, sizeof(float), 1, _File);
+	fread(&m_OutlineThickness, sizeof(float), 1, _File);
+}
