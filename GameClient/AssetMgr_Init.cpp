@@ -372,6 +372,18 @@ void AssetMgr::CreateEngineTexture()
 
 	Load<ATexture>(L"Icon_jellybean0001_big", L"Texture\\UI\\jellybean0001_big.png");
 
+	Load<ATexture>(L"btn_blue", L"Texture\\UI\\btn_burningRelay.png");
+	Load<ATexture>(L"btn_green", L"Texture\\UI\\btn_useRelay.png");
+	Load<ATexture>(L"btn_gray", L"Texture\\UI\\btn_gray.png");
+	Load<ATexture>(L"btn_yellow", L"Texture\\UI\\btn_yellow.png");
+
+	// =========== 로비 UI 텍스쳐 ============
+	Load<ATexture>(L"bg_lobby_skin", L"Texture\\Lobby\\bg_lobby_skin1.png");
+	Load<ATexture>(L"icon_ingame_chapter", L"Texture\\Lobby\\icon_ingame_chapter02.png");
+	Load<ATexture>(L"icon_ingame_relayCoin", L"Texture\\Lobby\\icon_ingame_relayCoin.png");
+	Load<ATexture>(L"icon_ingame_rescueCristal", L"Texture\\Lobby\\icon_ingame_rescueCristal.png");
+	Load<ATexture>(L"UI_ingame_ovenBreakGauge", L"Texture\\Lobby\\imf_ingame_ovenBreakGauge.png");
+
 }
 
 void AssetMgr::CreateEngineMaterial()
@@ -971,5 +983,26 @@ void AssetMgr::LoadAllPrefab()
 
 void AssetMgr::LoadAllLevel()
 {
+	wstring LevelPath = CONTENT_PATH + L"Level\\";
 
+	if (!std::filesystem::exists(LevelPath))
+		return;
+
+	for (const auto& pair : std::filesystem::directory_iterator(LevelPath))
+	{
+		if (pair.is_regular_file() && pair.path().extension() == L".lv")
+		{
+			wstring fileName = L"Level\\" + pair.path().filename().wstring();
+			wstring relativePath = L"Level\\" + pair.path().filename().wstring();
+
+			if (FindAsset<ALevel>(fileName) == nullptr)
+			{
+				Ptr<ALevel> pLevel = new ALevel;
+				if (S_OK == pLevel->Load(pair.path().wstring()))
+				{
+					AddAsset(fileName, pLevel.Get());
+				}
+			}
+		}
+	}
 }

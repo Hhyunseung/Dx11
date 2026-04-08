@@ -53,20 +53,30 @@ void Menu::File()
 
 			// 레벨을 파일로 저장
 			wstring ContentPath = CONTENT_PATH;
-			pLevel->Save(ContentPath + L"Level\\TestLevel.lv");
+			if (pLevel != nullptr)
+			{
+				wstring relPath = pLevel->GetName();
+				if (relPath.empty())
+				{
+					// No existing relative path, use a default name
+					relPath = L"Level\\NewLevel.lv";
+				}
+				pLevel->Save(ContentPath + relPath);
+			}
 		}
 
 		if (ImGui::BeginMenu("Level Load"))
 		{
 			if (ImGui::MenuItem("TestLevel"))
 			{
-				Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+				Ptr<ALevel> pLevel = FIND(ALevel, L"Level\\TestLevel.lv");
 				ChangeLevel(L"Level\\TestLevel.lv");
 			}
 
-			if (ImGui::MenuItem("...Level"))
+			if (ImGui::MenuItem("LobbyLevel"))
 			{
-
+				Ptr<ALevel> pLevel = FIND(ALevel, L"Level\\LobbyLevel.lv");
+				ChangeLevel(L"Level\\LobbyLevel.lv");
 			}
 
 

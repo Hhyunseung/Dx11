@@ -168,25 +168,27 @@ bool IsValid(Ptr<GameObject>& _Object)
 void CreateTestLevel()
 {
 	{
-		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
-		Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
-		GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
+		//Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+		//Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+		//GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
 
-		Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
-		Ptr<GameObject> pUI = pPrefabUI->Instantiate();
-		pLevel->AddObject(31, pUI); // UI 레이어
-
-
-		Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
-
-		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
-		GamePlayMgr::GetInst()->SetStageData(pStageData);
-		
+		//Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
+		//Ptr<GameObject> pUI = pPrefabUI->Instantiate();
+		//pLevel->AddObject(31, pUI); // UI 레이어
 
 
-		Ptr<GameObject> pPlatform = LOAD(APrefab, L"Prefab\\TileShipeStage_1_fh_m.pref")->Instantiate();
+		//Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
+
+		//GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
+		//GamePlayMgr::GetInst()->SetStageData(pStageData);
 
 
+		//Ptr<GameObject> pPlatform = LOAD(APrefab, L"Prefab\\TileShipeStage_1_fh_m.pref")->Instantiate();
+
+
+		// =================================================================
+		// Lobby
+		// =================================================================
 
 	/*	for (int i = 0; i < 10; ++i)
 		{
@@ -202,40 +204,31 @@ void CreateTestLevel()
 			pLevel->AddObject(2, pClone);
 		}*/
 
-		//Ptr<GameObject> pObject = new GameObject;
-		//pObject->SetName(L"FlipbookDefault");
-
-		//pObject->AddComponent(new CTransform);
-		//pObject->AddComponent(new CFlipbookRender);
-		//pObject->AddComponent(new CCollider2D);
-
-		//pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		//pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
-
-		//pObject->Collider2D()->SetScale(Vec2(1.f, 1.f));
-		//pObject->Collider2D()->SetOffset(Vec2(0.f, 0.f));
-
-		////// Save 후 Load
-		//pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Obstacle_jp1down_ing.flip"));
-		//pObject->FlipbookRender()->Play(0, 8.f, -1);
-
-		//pLevel->AddObject(0, pObject);
-
-		//pObject = new GameObject;
-		//pObject->SetName(L"Obstacle_tm001_sdswing");
-		//pObject->AddComponent(new CTransform);
-		//pObject->AddComponent(new CMeshRender);
-		//pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		//pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
-		//pObject->MeshRender()->SetMesh(AssetMgr::GetInst()->FindAsset<AMesh>(L"RectMesh"));
-		//pObject->MeshRender()->SetMaterial(AssetMgr::GetInst()->FindAsset<AMaterial>(L"Material\\Obstacle_tm001_sdswing.mtrl"));
-		//pLevel->AddObject(0, pObject);
 
 		
-		ChangeLevel(L"Level\\TestLevel.lv");
+		ChangeLevel(L"Level\\LobbyLevel.lv");
 	}
 
 	return;
+
+	//Ptr<GameObject> pObject = new GameObject;
+	//pObject->SetName(L"FlipbookDefault");
+
+	//pObject->AddComponent(new CTransform);
+	//pObject->AddComponent(new CFlipbookRender);
+	//pObject->AddComponent(new CCollider2D);
+
+	//pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+	//pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+
+	//pObject->Collider2D()->SetScale(Vec2(1.f, 1.f));
+	//pObject->Collider2D()->SetOffset(Vec2(0.f, 0.f));
+
+	////// Save 후 Load
+	//pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Obstacle_jp1down_ing.flip"));
+	//pObject->FlipbookRender()->Play(0, 8.f, -1);
+
+	//pLevel->AddObject(0, pObject);
 
 
 	// Level 생성
