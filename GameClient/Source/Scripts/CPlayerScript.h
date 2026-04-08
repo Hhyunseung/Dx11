@@ -156,6 +156,9 @@ private:
 	void BeginFallRescue(); // 낙사 구출 시작
 	void UpdateFallRescue(); // 낙사 구출
 
+	// 죽음 처리
+	void Die();
+
 private:
 	void UpdateHPUI();
 

@@ -15,6 +15,7 @@ CWorldScrollScript::CWorldScrollScript()
 	, m_PlayerPosX(-650.f)			// 플레이어 고정 X 위치
 	, m_NextSpawnIndex(0)
 {
+	m_ScrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
 }
 
 CWorldScrollScript::~CWorldScrollScript()
@@ -67,10 +68,11 @@ void CWorldScrollScript::Reset()
 
 void CWorldScrollScript::UpdateScroll()
 {
+	m_ScrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed(); // GamePlayMgr과 스크롤 속도 동기화
 	m_WorldOffset += m_ScrollSpeed * DT;
 
 	// 전역 스크롤 속도 동기화 (이펙트 등에서 사용)
-	GamePlayMgr::GetInst()->SetScrollSpeed(m_ScrollSpeed);
+	// GamePlayMgr::GetInst()->SetScrollSpeed(m_ScrollSpeed);
 }
 
 void CWorldScrollScript::SpawnObjects()
@@ -146,6 +148,7 @@ void CWorldScrollScript::SpawnObjects()
 
 void CWorldScrollScript::MoveActiveObjects()
 {
+	m_ScrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
 	// 모든 활성 오브젝트를 왼쪽으로 이동 (스크롤 효과)
 	float moveAmount = m_ScrollSpeed * DT;
 

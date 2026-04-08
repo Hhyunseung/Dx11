@@ -19,6 +19,7 @@
 #include "CSlideState.h"
 #include "CHitState.h"
 #include "CFallState.h"
+#include "CDeadState.h"
 
 #include "CMovingPlatformScirpt.h"
 #include "CCookieSkillScript.h"
@@ -33,8 +34,8 @@ CPlayerScript::CPlayerScript()
 	, m_FeetCollider(nullptr)
 	, m_CurrentMovingPlatform(nullptr)
 	, m_CookieSkill(nullptr)
-	, m_MaxHP(100)
-	, m_CurrentHP(100)
+	, m_MaxHP(5)
+	, m_CurrentHP(5)
 	, m_Damage(10)
 	, m_FallDamage(20)
 	, m_PrevFeetY(0.f)
@@ -94,6 +95,7 @@ void CPlayerScript::Begin()
 	m_StateMachine->AddState(new CSlideState(this));
 	m_StateMachine->AddState(new CHitState(this));
 	m_StateMachine->AddState(new CFallState(this));
+	m_StateMachine->AddState(new CDeadState(this));
 
 	// 시작 시에는 일단 공중으로 가정
 	m_IsLand = false;
@@ -253,7 +255,12 @@ void CPlayerScript::HandleHit()
 void CPlayerScript::UpdateAutoHPDecrease()
 {
 	if (m_CurrentHP <= 0)
+	{
+		m_CurrentHP = 0;
+		UpdateHPUI();
+		Die();
 		return;
+	}
 
 	m_AutoHPDecreaseTimer += DT;
 
@@ -490,6 +497,30 @@ void CPlayerScript::UpdateFallRescue()
 	Transform()->SetRelativePos(pos);
 }
 
+void CPlayerScript::Die()
+{
+	if (m_IsDead)
+		return;
+
+	m_IsDead = true;
+
+	m_IsInvincible = false;
+	m_IsFallRescue = false;
+	m_BlockFall = false;
+	m_IsSkillMoveMode = false;
+
+	m_JumpRequest = false;
+	m_IsJump = false;
+	m_IsDoubleJump = false;
+	m_IsSlide = false;
+
+	m_VelY = 0.f;
+
+	GamePlayMgr::GetInst()->SetScrollSpeed(0.f); // 스크롤 멈춤
+
+	ChangeState(PLAYER_STATE_ID::DEAD);
+}
+
 
 void CPlayerScript::UpdateHPUI()
 {
@@ -584,8 +615,10 @@ void CPlayerScript::TakeDamage(int _Damage)
 	// 사망 체크
 	if (m_CurrentHP <= 0)
 	{
-		// TODO: DIE 상태로 전환
-		// ChangeState(PLAYER_STATE_ID::DIE);
+		m_CurrentHP = 0;
+		UpdateHPUI();
+		Die();
+		return;
 	}
 
 	StartInvincibility(m_HitInvincibleDuration); // 피격 후 무적
