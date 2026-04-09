@@ -12,7 +12,6 @@ CItemScript::CItemScript()
 	, m_Duration(5.f)
 	, m_HealAmount(1)
 	, m_ObjectID(EObjectID::Item_Giant)
-	, m_CollectEffect(nullptr)
 	, m_bSpawned(false)
 {
 }
@@ -27,7 +26,6 @@ void CItemScript::Init()
     AddScriptParam(SCRIPT_PARAM::INT, &m_HealAmount, L"HealAmount", true, 0.f);
     AddScriptParam(SCRIPT_PARAM::FLOAT, &m_Duration, L"Duration", true, 0.f);
     AddScriptParam(SCRIPT_PARAM::EObjectID, &m_ObjectID, L"ObjectID", true, 0.f);
-    AddScriptParam(SCRIPT_PARAM::PREFAB, &m_CollectEffect, L"CollectEffect", true, 0.f);
 }
 
 void CItemScript::Begin()
@@ -79,28 +77,52 @@ void CItemScript::OnSpawn()
 
 void CItemScript::SpawnCollectEffect()
 {
-    if (m_CollectEffect == nullptr)
-        return;
+    const wchar_t* effectPath = nullptr;
 
-    Ptr<GameObject> pEffect = m_CollectEffect->Instantiate();
-    if (pEffect == nullptr)
+    switch (m_ItemType)
+    {
+    case EItemType::Giant:
+        effectPath = L"Prefab\\Effect_TextGiant.pref";
+        break;
+
+    case EItemType::Boost:
+        effectPath = L"Prefab\\Effect_TextBoost.pref";
+        break;
+
+    case EItemType::Magnet:
+        effectPath = L"Prefab\\Effect_TextMagnet.pref";
+        break;
+
+    case EItemType::HealHP:
+        effectPath = L"Prefab\\Effect_TextHeal.pref";
+        break;
+    }
+
+    if (effectPath == nullptr)
         return;
 
     Vec3 vPos = Transform()->GetRelativePos();
-    pEffect->Transform()->SetRelativePos(vPos);
-
-    // 이펙트가 들어갈 레이어 번호는 프로젝트 구조에 맞게 조정
-	LevelMgr::GetInst()->GetCurrentLevel()->AddObject(8, pEffect);
+    ObjectPoolMgr::GetInst()->SpawnEffect(effectPath, vPos, true);
 }
 
 void CItemScript::ReturnToPool()
 {
 }
 
+
 void CItemScript::SaveToLevelFile(FILE* _File)
 {
+	int itemType = (int)m_ItemType;
+	fwrite(&itemType, sizeof(int), 1, _File);
+    fwrite(&m_HealAmount, sizeof(int), 1, _File);
+    fwrite(&m_ObjectID, sizeof(EObjectID), 1, _File);
 }
 
 void CItemScript::LoadFromLevelFile(FILE* _File)
 {
+	int itemType = 0;
+	fread(&itemType, sizeof(int), 1, _File);
+	m_ItemType = (EItemType)itemType;
+    fread(&m_HealAmount, sizeof(int), 1, _File);
+    fread(&m_ObjectID, sizeof(EObjectID), 1, _File);
 }

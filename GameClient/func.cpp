@@ -206,21 +206,22 @@ void CreateTestLevel()
 
 		//Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\LobbyLevel.lv");
 
-		//Ptr<GameObject> pObject = new GameObject;
-		//pObject->SetName(L"FlipbookDefault");
+		Ptr<GameObject> pObject = new GameObject;
+		pObject->SetName(L"FlipbookDefault");
 
-		//pObject->AddComponent(new CTransform);
-		//pObject->AddComponent(new CFlipbookRender);
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CFlipbookRender);
+		pObject->AddComponent(new CCollider2D);
 
-		//pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		//pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+		pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 
 
-		////// Save ÈÄ Load
-		//pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\TimeKeeperCookie_BonusTimeUp.flip"));
-		//pObject->FlipbookRender()->Play(0, 8.f, -1);
+		//// Save ÈÄ Load
+		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Item_Giant.flip"));
+		pObject->FlipbookRender()->Play(0, 8.f, -1);
 
-		//pLevel->AddObject(0, pObject);
+		pLevel->AddObject(0, pObject);
 
 		
 		//ChangeLevel(L"Level\\LobbyLevel.lv");

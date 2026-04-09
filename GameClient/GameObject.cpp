@@ -30,7 +30,7 @@ GameObject::GameObject(const GameObject& _Origin)
 	{
 		if (_Origin.m_Com[i] == nullptr)
 			continue;
-
+		
 		AddComponent(_Origin.m_Com[i]->Clone());
 	}
 

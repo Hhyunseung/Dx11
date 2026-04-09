@@ -19,7 +19,6 @@ private:
 	int				m_HealAmount;
 
 	EObjectID		m_ObjectID;			// 풀링용 ID
-	Ptr<APrefab>	m_CollectEffect;	// 수집 효과 프리팹
 	bool 			m_bSpawned;			// 스폰 초기화 여부 체크
 
 public:
