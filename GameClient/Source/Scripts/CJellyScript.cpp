@@ -12,7 +12,7 @@ CJellyScript::CJellyScript()
 	, m_Score(1000)
 	, m_Magnet(true)
 	, m_MagnetRange(300.f)
-	, m_MagnetSpeed(200.f)
+	, m_MagnetSpeed(500.f)
 	, m_ObjectID(EObjectID::DefaultJelly)
 {
 

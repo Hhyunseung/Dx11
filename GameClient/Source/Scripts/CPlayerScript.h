@@ -236,7 +236,7 @@ public:
 	GET_SET(bool, IsGiant);
 	GET_SET(bool, IsBoost);
 	GET_SET(bool, IsMagnet);
-	GET_SET(bool, MagnetRange);
+	GET_SET(float, MagnetRange);
 
 	void RequestJump() { m_JumpRequest = true; }
 
