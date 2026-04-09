@@ -32,10 +32,11 @@
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
 	, m_FeetCollider(nullptr)
+	, m_FeetObject(nullptr)
 	, m_CurrentMovingPlatform(nullptr)
 	, m_CookieSkill(nullptr)
-	, m_MaxHP(3)
-	, m_CurrentHP(3)
+	, m_MaxHP(100)
+	, m_CurrentHP(100)
 	, m_Damage(10)
 	, m_FallDamage(20)
 	, m_PrevFeetY(0.f)
@@ -69,8 +70,10 @@ CPlayerScript::CPlayerScript()
 	, m_IsGiant(false)
 	, m_GiantTimer(0.f)
 	, m_GiantDuration(5.f)
-	, m_DefaultPlayerScale(1.f)
-	, m_GiantPlayerScale(1.5f)
+	, m_DefaultPlayerScale(300.f)
+	, m_GiantTargetScale(600.f)
+	, m_GiantScaleSpeed(300.f)
+	, m_IsReturningFromGiant(false)
 	, m_IsBoost(false)
 	, m_BoostTimer(0.f)
 	, m_BoostDuration(5.f)
@@ -130,11 +133,10 @@ void CPlayerScript::Begin()
 
 	GetOwner()->SetLayerIdx(3); // Player 레이어
 
-	Ptr<GameObject> pChild = nullptr;
-	
-	pChild = GetOwner()->GetChild(1);
-	pChild->SetLayerIdx(4); // PlayerFeet 레이어
-	m_FeetCollider = pChild->Collider2D().Get();
+	Ptr<GameObject> pChild = GetOwner()->GetChild(1);
+	m_FeetObject = pChild.Get();
+	m_FeetObject->SetLayerIdx(4); // PlayerFeet 레이어
+	m_FeetCollider = m_FeetObject->Collider2D().Get();
 
 	
 	m_FeetCollider->AddDynamicBeginOverlap(this, (COLLISION_EVENT)&CPlayerScript::FeetBeginOverlap);
@@ -150,8 +152,10 @@ void CPlayerScript::Begin()
 	// 초기 알파는 0 (셰이더에서 적용 안 함)
 	FlipbookRender()->GetMaterial()->SetScalar(FLOAT_0, 0.f);
 
-
 	m_CurrentHP = m_MaxHP;
+
+	InitFeetColliderShape();
+	SetDefaultCollider();
 
 	UpdateHPUI();
 }
@@ -174,11 +178,11 @@ void CPlayerScript::Tick()
 		return;
 	}
 
-	//m_PrevFeetY = GetOwner()->Transform()->GetRelativePos().y;
 	m_PrevFeetY = GetOwner()->Collider2D()->GetBottomY();
 
 	ApllyMovingPlatform();
 	UpdateAutoHPDecrease();
+	UpdateGiantMode();
 
 	if (!m_IsSkillMoveMode)
 	{
@@ -193,7 +197,6 @@ void CPlayerScript::Tick()
 
 		CheckFallOut(); // 낙하 체크
 		UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
-
 
 		if (m_StateMachine != nullptr)
 			m_StateMachine->Tick();
@@ -213,7 +216,6 @@ void CPlayerScript::Tick()
 		UpdateInvincibility();
 	}
 
-	//m_CurFeetY = GetOwner()->Transform()->GetRelativePos().y;
 	m_CurFeetY = GetOwner()->Collider2D()->GetBottomY();
 }
 
@@ -236,7 +238,6 @@ void CPlayerScript::HandleJump()
 	}
 }
 
-// 슬라이드 입력 처리
 void CPlayerScript::HandleSlide()
 {
 	bool bKeyboardSlide = KEY_PRESSED(KEY::DOWN);
@@ -268,7 +269,11 @@ void CPlayerScript::HandleSlide()
 		{
 			m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
 			ChangeState(PLAYER_STATE_ID::RUN);
-			SetDefaultCollider();
+
+			if (m_IsGiant || m_IsReturningFromGiant)
+				SetGiantCollider();
+			else
+				SetDefaultCollider();
 		}
 	}
 }
@@ -311,7 +316,10 @@ void CPlayerScript::ProcessJump()
 	if (!m_JumpRequest)
 		return;
 
-	SetDefaultCollider();
+	if (m_IsGiant || m_IsReturningFromGiant)
+		SetGiantCollider();
+	else
+		SetDefaultCollider();
 
 	// 착지 상태에서 점프
 	if (m_JumpCount == 0)
@@ -618,6 +626,132 @@ void CPlayerScript::UpdateItemBuffs()
 	}
 }
 
+void CPlayerScript::UpdateGiantMode()
+{
+	float curScale = Transform()->GetRelativeScale().x;
+
+	if (m_IsGiant)
+	{
+		m_GiantTimer += DT;
+
+		if (curScale < m_GiantTargetScale)
+			UpdateGiantScaleUp();
+
+		if (m_GiantTimer >= m_GiantDuration)
+		{
+			m_IsGiant = false;
+			m_IsReturningFromGiant = true;
+			m_GiantTimer = 0.f;
+		}
+	}
+	else if (m_IsReturningFromGiant)
+	{
+		UpdateGiantScaleUp();
+
+		float newScale = Transform()->GetRelativeScale().x;
+		if (fabs(newScale - m_DefaultPlayerScale) <= 0.5f)
+		{
+			m_IsReturningFromGiant = false;
+
+			float prevBottomY = GetOwner()->Collider2D()->GetBottomY();
+
+			Transform()->SetRelativeScale(Vec3(m_DefaultPlayerScale, m_DefaultPlayerScale, 1.f));
+			SetDefaultCollider();
+			KeepBottomAligned(prevBottomY);
+		}
+	}
+}
+
+void CPlayerScript::UpdateGiantScaleUp()
+{
+	Ptr<CCollider2D> pBodyCol = GetOwner()->Collider2D();
+	if (pBodyCol == nullptr)
+		return;
+
+	float prevBottomY = pBodyCol->GetBottomY();
+
+	float curScale = Transform()->GetRelativeScale().x;
+	float targetScale = m_IsGiant ? m_GiantTargetScale : m_DefaultPlayerScale;
+
+	float nextScale = curScale;
+
+	if (curScale < targetScale)
+	{
+		nextScale += m_GiantScaleSpeed * DT;
+		if (nextScale > targetScale)
+			nextScale = targetScale;
+	}
+	else if (curScale > targetScale)
+	{
+		nextScale -= m_GiantScaleSpeed * DT;
+		if (nextScale < targetScale)
+			nextScale = targetScale;
+	}
+
+	if (fabs(nextScale - curScale) <= 0.01f)
+		return;
+
+	Transform()->SetRelativeScale(Vec3(nextScale, nextScale, 1.f));
+	KeepBottomAligned(prevBottomY);
+}
+
+void CPlayerScript::InitFeetColliderShape()
+{
+	if (m_FeetCollider == nullptr)
+		return;
+
+	// 발 콜라이더 자체 크기는 고정
+	m_FeetCollider->SetScale(Vec2(1.f, 1.f));
+	m_FeetCollider->SetOffset(Vec2(0.f, 0.f));
+}
+
+void CPlayerScript::SetDefaultFeetTransform()
+{
+	if (m_FeetObject == nullptr)
+		return;
+
+	// 기본 발 위치
+	m_FeetObject->Transform()->SetRelativePos(Vec3(-5.f, -132.f, 0.f));
+	m_FeetObject->Transform()->SetRelativeScale(Vec3(60.f, 7.f, 0.f));
+}
+
+void CPlayerScript::SetGiantFeetTransform()
+{
+	if (m_FeetObject == nullptr)
+		return;
+
+	// giant 상태에서 살짝만 아래로
+	// 필요하면 -145.f / -150.f 식으로 미세 조정
+	m_FeetObject->Transform()->SetRelativePos(Vec3(-5.f, -255.f, 0.f));
+	m_FeetObject->Transform()->SetRelativeScale(Vec3(150.f, 10.f, 0.f));
+}
+
+void CPlayerScript::SetSlideFeetTransform()
+{
+	if (m_FeetObject == nullptr)
+		return;
+
+	// 슬라이드는 기본과 동일하게 두고 시작
+	m_FeetObject->Transform()->SetRelativePos(Vec3(0.f, -135.f, 0.f));
+}
+
+void CPlayerScript::KeepBottomAligned(float _PrevBottomY)
+{
+	Ptr<CCollider2D> pBodyCol = GetOwner()->Collider2D();
+	if (pBodyCol == nullptr)
+		return;
+
+	float newBottomY = pBodyCol->GetBottomY();
+	float deltaY = _PrevBottomY - newBottomY;
+
+	Vec3 vPos = Transform()->GetRelativePos();
+	vPos.y += deltaY;
+	Transform()->SetRelativePos(vPos);
+
+	if (m_VelY < 0.f)
+		m_VelY = 0.f;
+}
+
 void CPlayerScript::UpdateHPUI()
 {
 	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
@@ -743,12 +877,14 @@ void CPlayerScript::Heal(int _Amount)
 void CPlayerScript::ActivateGiant(float _Duration)
 {
 	m_IsGiant = true;
+	m_IsReturningFromGiant = false;
 	m_GiantTimer = 0.f;
 	m_GiantDuration = _Duration;
 
-	Transform()->SetRelativeScale(Vec3(m_GiantPlayerScale, m_GiantPlayerScale, 1.f));
+	float prevBottomY = GetOwner()->Collider2D()->GetBottomY();
 
 	SetGiantCollider();
+	KeepBottomAligned(prevBottomY);
 }
 
 void CPlayerScript::ActivateBoost(float _Duration)
@@ -801,20 +937,25 @@ void CPlayerScript::SetDefaultCollider()
 {
 	GetOwner()->Collider2D()->SetOffset(Vec2(-0.02f, -0.26f));
 	GetOwner()->Collider2D()->SetScale(Vec2(0.23f, 0.34f));
+
+	SetDefaultFeetTransform();
 }
 
 void CPlayerScript::SetSlideCollider()
 {
 	GetOwner()->Collider2D()->SetOffset(Vec2(-0.02f, -0.34f));
 	GetOwner()->Collider2D()->SetScale(Vec2(0.23f, 0.17f));
+
+	SetSlideFeetTransform();
 }
 
 void CPlayerScript::SetGiantCollider()
 {
-	GetOwner()->Collider2D()->SetScale(Vec2(0.35f, 0.50f));
+	GetOwner()->Collider2D()->SetScale(Vec2(0.24f, 0.36f));
 	GetOwner()->Collider2D()->SetOffset(Vec2(-0.02f, -0.20f));
-}
 
+	SetGiantFeetTransform();
+}
 
 // 충돌 체크용 충돌체
 void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)

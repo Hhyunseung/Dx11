@@ -43,7 +43,7 @@ private:
 
 	//CCollider2D*		m_BodyCollider; // 충돌체 컴포넌트
 	CCollider2D*		m_FeetCollider; // 땅 체크용 충돌체 컴포넌트
-
+	GameObject*			m_FeetObject; // 땅 체크용 충돌체 오브젝트
 	Ptr<CStateMachine>	m_StateMachine; // 상태 머신
 
 	CCookieSkillScript* m_CookieSkill; // 현재 장착된 쿠키 스킬 (없으면 nullptr)
@@ -110,7 +110,10 @@ private:
 	float				m_GiantTimer;
 	float				m_GiantDuration;
 	float				m_DefaultPlayerScale; 
-	float				m_GiantPlayerScale; 
+	float				m_GiantTargetScale;
+	float				m_GiantScaleSpeed;
+
+	bool				m_IsReturningFromGiant; // 거대화에서 원래 크기로 돌아오는 중
 
 	// 부스트
 	bool				m_IsBoost;
@@ -187,6 +190,15 @@ private:
 
 	// 아이템 효과 처리
 	void UpdateItemBuffs(); // 아이템 효과 업데이트 (거대화, 부스트, 자석)
+	// 거대화
+	void UpdateGiantMode();
+	void UpdateGiantScaleUp();
+
+	void InitFeetColliderShape();
+	void SetDefaultFeetTransform();
+	void SetGiantFeetTransform();
+	void SetSlideFeetTransform();
+	void KeepBottomAligned(float _PrevBottomY);
 
 private:
 	void UpdateHPUI();

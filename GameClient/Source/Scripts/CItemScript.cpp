@@ -62,7 +62,9 @@ void CItemScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCol
         break;
     }
 
-    ObjectPoolMgr::GetInst()->Return(m_ObjectID, GetOwner());
+    SpawnCollectEffect();
+
+    ReturnToPool();
 }
 
 void CItemScript::OnSpawn()
@@ -102,11 +104,13 @@ void CItemScript::SpawnCollectEffect()
         return;
 
     Vec3 vPos = Transform()->GetRelativePos();
+	vPos.y += 100.f; // 이펙트가 아이템보다 위에 뜨도록 위치 조정
     ObjectPoolMgr::GetInst()->SpawnEffect(effectPath, vPos, true);
 }
 
 void CItemScript::ReturnToPool()
 {
+    ObjectPoolMgr::GetInst()->Return(m_ObjectID, GetOwner());
 }
 
 
