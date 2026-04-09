@@ -183,7 +183,9 @@ void CPlayerScript::Tick()
 	ApllyMovingPlatform();
 	ApplyCurrentColliderState();
 	UpdateAutoHPDecrease();
+
 	UpdateGiantMode();
+	UpdateItemBuffs();
 
 	if (!m_IsSkillMoveMode)
 	{
@@ -617,17 +619,17 @@ void CPlayerScript::RequestDie()
 
 void CPlayerScript::UpdateItemBuffs()
 {
-	if (m_IsGiant)
-	{
-		m_GiantTimer += DT;
-		if (m_GiantTimer >= m_GiantDuration)
-		{
-			m_IsGiant = false;
-			m_GiantTimer = 0.f;
+	//if (m_IsGiant)
+	//{
+	//	m_GiantTimer += DT;
+	//	if (m_GiantTimer >= m_GiantDuration)
+	//	{
+	//		m_IsGiant = false;
+	//		m_GiantTimer = 0.f;
 
-			Transform()->SetRelativeScale(Vec3(m_DefaultPlayerScale, m_DefaultPlayerScale, 1.f));
-		}
-	}
+	//		Transform()->SetRelativeScale(Vec3(m_DefaultPlayerScale, m_DefaultPlayerScale, 1.f));
+	//	}
+	//}
 
 	if (m_IsBoost)
 	{
@@ -924,7 +926,6 @@ void CPlayerScript::ActivateGiant(float _Duration)
 	m_GiantDuration = _Duration;
 
 	float prevBottomY = GetOwner()->Collider2D()->GetBottomY();
-
 	KeepBottomAligned(prevBottomY);
 }
 
