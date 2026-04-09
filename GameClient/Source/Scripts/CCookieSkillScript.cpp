@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CCookieSkillScript.h"
 
+#include "GamePlayMgr.h"
 #include "TimeMgr.h"
 
 CCookieSkillScript::CCookieSkillScript(SCRIPT_TYPE _Type)
@@ -27,6 +28,9 @@ void CCookieSkillScript::Begin()
 
 void CCookieSkillScript::Tick()
 {
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	TickSkill();
 }
 

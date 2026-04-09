@@ -13,18 +13,21 @@ class GamePlayMgr
 private:
 	CGamePlayUIScript* m_GamePlayUI;
 
-	Ptr<APrefab> m_SeletectedCharacterPrefab;
-	GameObject*  m_PlayerObject;
-	CPlayerScript* m_PlayerScript;
+	Ptr<APrefab>	m_SeletectedCharacterPrefab;
+	GameObject*		m_PlayerObject;
+	CPlayerScript*	m_PlayerScript;
 
-	ECharacterType m_SelectedCharacterType; // 현재 선택된 캐릭터 타입
+	ECharacterType	m_SelectedCharacterType; // 현재 선택된 캐릭터 타입
 
-	Ptr<AStageData> m_StageData;	// 현재 편집중인 StageData
+	Ptr<AStageData> m_StageData;			 // 현재 편집중인 StageData
 	
-	int m_Score;
-	float m_ScrollSpeed;			// 현재 월드 스크롤 속도
+	int				m_Score;
+	float			m_ScrollSpeed;			 // 현재 월드 스크롤 속도
 
-	int m_RunCoin;					// 현재 얻은 코인 수 (점수 계산용)
+	int				m_RunCoin;				 // 현재 얻은 코인 수 (점수 계산용)
+
+	bool			m_IsPaused;				 // 게임 일시정지 상태 여부
+	float			m_PausePrevScrollSpeed;		 // 일시정지 시 저장해둔 스크롤 속도
 
 public:
 	void Init();
@@ -62,6 +65,14 @@ public:
 	float GetScrollSpeed() const { return m_ScrollSpeed; }
 
 	void ApplySkillToPlayer();
+
+	// 일시정지 관련
+	bool IsPaused() const { return m_IsPaused; }
+
+	void PauseGame();
+	void ResumeGame();
+	void TogglePause();
+
 
 	// ObjectID -> Prefab Key 변환
 	static wstring GetPrefabKey(int _ObjectID);

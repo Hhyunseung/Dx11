@@ -11,6 +11,8 @@ GamePlayMgr::GamePlayMgr()
 	, m_Score(0)
 	, m_ScrollSpeed(300.f)
 	, m_RunCoin(0)
+	, m_IsPaused(false)
+	, m_PausePrevScrollSpeed(300.f)
 {
 }
 
@@ -28,6 +30,8 @@ void GamePlayMgr::Init()
 	m_Score = 0;
 	m_RunCoin = 0;
 	m_ScrollSpeed = 300.f;	// 기본 스크롤 속도
+	m_IsPaused = false;
+	m_PausePrevScrollSpeed = 300.f; // 기본 스크롤 속도로 초기화
 
 	// 기본 StageData 생성
 	if (nullptr == m_StageData)
@@ -47,6 +51,8 @@ void GamePlayMgr::Clear()
 	m_PlayerObject = nullptr;
 	m_Score = 0;
 	m_RunCoin = 0;
+	m_IsPaused = false;
+	m_PausePrevScrollSpeed = 300.f;
 }
 
 void GamePlayMgr::CreateNewStageData()
@@ -65,6 +71,33 @@ void GamePlayMgr::ApplySkillToPlayer()
 		return;
 
 	m_PlayerScript->SetSkillScript(pSkill);
+}
+
+void GamePlayMgr::PauseGame()
+{
+	if (m_IsPaused)
+		return;
+
+	m_IsPaused = true;
+	m_PausePrevScrollSpeed = m_ScrollSpeed;
+	m_ScrollSpeed = 0.f; 
+}
+
+void GamePlayMgr::ResumeGame()
+{
+	if (!m_IsPaused)
+		return;
+
+	m_IsPaused = false;
+	m_ScrollSpeed = m_PausePrevScrollSpeed;
+}
+
+void GamePlayMgr::TogglePause()
+{
+	if (m_IsPaused)
+		ResumeGame();
+	else
+		PauseGame();
 }
 
 wstring GamePlayMgr::GetPrefabKey(int _ObjectID)

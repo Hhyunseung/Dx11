@@ -162,6 +162,10 @@ void CPlayerScript::Begin()
 
 void CPlayerScript::Tick()
 {
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
+
 	if (m_IsDead)
 	{
  		if (m_StateMachine != nullptr)
