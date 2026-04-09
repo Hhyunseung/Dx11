@@ -359,6 +359,7 @@ void AssetMgr::CreateEngineTexture()
 
 
 
+
 	// ==============================
 	// 장애물 텍스쳐
 	// ==============================
@@ -370,6 +371,21 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Obstacle_jp1down", L"Texture\\Obstacle\\jp1down.png");
 	Load<ATexture>(L"Obstacle_jp1down_ing", L"Texture\\Obstacle\\jp1down_ing.png");
 	Load<ATexture>(L"Obstacle_tm001_sdswing", L"Texture\\Obstacle\\tm001_sdswing.png");
+
+
+	// ==============================
+	// 아이템 텍스쳐
+	// ==============================
+	Load<ATexture>(L"ItemBoost", L"Texture\\Item\\ItemBoost.png");
+	Load<ATexture>(L"ItemGiant", L"Texture\\Item\\ItemGiant.png");
+	Load<ATexture>(L"ItemHeal_A", L"Texture\\Item\\ItemHeal_A.png");
+	Load<ATexture>(L"ItemHeal_B", L"Texture\\Item\\ItemHeal_B.png");
+	Load<ATexture>(L"ItemMagnet", L"Texture\\Item\\ItemMagnet.png");
+
+	Load<ATexture>(L"ImgTxt_ingameBoost", L"Texture\\Item\\imgTxt_ingameBoost.png");
+	Load<ATexture>(L"ImgTxt_ingameGiant", L"Texture\\Item\\imgTxt_ingameGiant.png");
+	Load<ATexture>(L"ImgTxt_ingameHeal", L"Texture\\Item\\imgTxt_ingameHeal.png");
+	Load<ATexture>(L"ImgTxt_ingameMagnet", L"Texture\\Item\\imgTxt_ingameMagnet.png");
 
 
 	// ==============================
