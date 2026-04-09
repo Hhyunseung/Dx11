@@ -200,6 +200,11 @@ private:
 	void SetSlideFeetTransform();
 	void KeepBottomAligned(float _PrevBottomY);
 
+
+	// 현재 상태에 맞는 충돌체 모양 적용 (기본/슬라이드/거대화)
+	void ApplyCurrentColliderState(); 
+
+
 private:
 	void UpdateHPUI();
 

@@ -181,6 +181,7 @@ void CPlayerScript::Tick()
 	m_PrevFeetY = GetOwner()->Collider2D()->GetBottomY();
 
 	ApllyMovingPlatform();
+	ApplyCurrentColliderState();
 	UpdateAutoHPDecrease();
 	UpdateGiantMode();
 
@@ -251,29 +252,60 @@ void CPlayerScript::HandleSlide()
 
 	bool bSlideHeld = (bKeyboardSlide || bUISlide);
 
+	// =========================
+	// giant 상태에서는 콜라이더 절대 안 바꿈
+	// =========================
+	if (m_IsGiant || m_IsReturningFromGiant)
+	{
+		if (bSlideHeld)
+		{
+			if (m_IsLand && !m_IsSlide)
+			{
+				m_IsSlide = true;
+				m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
+				ChangeState(PLAYER_STATE_ID::SLIDE);
+			}
+		}
+		else
+		{
+			if (m_IsSlide)
+			{
+				m_IsSlide = false;
+
+				if (m_IsLand)
+				{
+					m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
+					ChangeState(PLAYER_STATE_ID::RUN);
+				}
+			}
+		}
+
+		return;
+	}
+
+	// =========================
+	// 일반 상태일 때만 collider 변경
+	// =========================
 	if (bSlideHeld)
 	{
-		if (m_IsLand)
+		if (m_IsLand && !m_IsSlide)
 		{
 			m_IsSlide = true;
 			m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
 			ChangeState(PLAYER_STATE_ID::SLIDE);
-			SetSlideCollider();
 		}
 	}
 	else
 	{
-		m_IsSlide = false;
-
-		if (m_IsLand)
+		if (m_IsSlide)
 		{
-			m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
-			ChangeState(PLAYER_STATE_ID::RUN);
+			m_IsSlide = false;
 
-			if (m_IsGiant || m_IsReturningFromGiant)
-				SetGiantCollider();
-			else
-				SetDefaultCollider();
+			if (m_IsLand)
+			{
+				m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
+				ChangeState(PLAYER_STATE_ID::RUN);
+			}
 		}
 	}
 }
@@ -316,11 +348,6 @@ void CPlayerScript::ProcessJump()
 	if (!m_JumpRequest)
 		return;
 
-	if (m_IsGiant || m_IsReturningFromGiant)
-		SetGiantCollider();
-	else
-		SetDefaultCollider();
-
 	// 착지 상태에서 점프
 	if (m_JumpCount == 0)
 	{
@@ -334,7 +361,6 @@ void CPlayerScript::ProcessJump()
 		m_CurrentMovingPlatform = nullptr;
 		ChangeState(PLAYER_STATE_ID::JUMP);
 	}
-
 	// 더블 점프
 	else if (m_JumpCount == 1)
 	{
@@ -600,7 +626,6 @@ void CPlayerScript::UpdateItemBuffs()
 			m_GiantTimer = 0.f;
 
 			Transform()->SetRelativeScale(Vec3(m_DefaultPlayerScale, m_DefaultPlayerScale, 1.f));
-			SetDefaultCollider();
 		}
 	}
 
@@ -656,7 +681,6 @@ void CPlayerScript::UpdateGiantMode()
 			float prevBottomY = GetOwner()->Collider2D()->GetBottomY();
 
 			Transform()->SetRelativeScale(Vec3(m_DefaultPlayerScale, m_DefaultPlayerScale, 1.f));
-			SetDefaultCollider();
 			KeepBottomAligned(prevBottomY);
 		}
 	}
@@ -692,6 +716,7 @@ void CPlayerScript::UpdateGiantScaleUp()
 		return;
 
 	Transform()->SetRelativeScale(Vec3(nextScale, nextScale, 1.f));
+
 	KeepBottomAligned(prevBottomY);
 }
 
@@ -752,6 +777,23 @@ void CPlayerScript::KeepBottomAligned(float _PrevBottomY)
 		m_VelY = 0.f;
 }
 
+void CPlayerScript::ApplyCurrentColliderState()
+{
+	if (m_IsGiant || m_IsReturningFromGiant)
+	{
+		SetGiantCollider();
+		return;
+	}
+
+	if (m_IsSlide)
+	{
+		SetSlideCollider();
+		return;
+	}
+
+	SetDefaultCollider();
+}
+
 void CPlayerScript::UpdateHPUI()
 {
 	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
@@ -796,7 +838,7 @@ void CPlayerScript::SetIsSkillMoveMode(bool _Value)
 		m_VelY = 0.f;
 		m_JumpCount = 0;
 
-		SetDefaultCollider();
+		ApplyCurrentColliderState();
 	}
 	else
 	{
@@ -804,7 +846,7 @@ void CPlayerScript::SetIsSkillMoveMode(bool _Value)
 		m_IsSlide = false;
 		m_IsTimeKeeperSkillAnim2 = false;
 
-		SetDefaultCollider();
+		ApplyCurrentColliderState();
 
 		// 현재 바닥 접촉 여부 재판단
 		if (m_GroundColliders.empty())
@@ -883,7 +925,6 @@ void CPlayerScript::ActivateGiant(float _Duration)
 
 	float prevBottomY = GetOwner()->Collider2D()->GetBottomY();
 
-	SetGiantCollider();
 	KeepBottomAligned(prevBottomY);
 }
 
@@ -945,8 +986,6 @@ void CPlayerScript::SetSlideCollider()
 {
 	GetOwner()->Collider2D()->SetOffset(Vec2(-0.02f, -0.34f));
 	GetOwner()->Collider2D()->SetScale(Vec2(0.23f, 0.17f));
-
-	SetSlideFeetTransform();
 }
 
 void CPlayerScript::SetGiantCollider()

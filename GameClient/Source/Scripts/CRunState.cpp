@@ -34,21 +34,6 @@ void CRunState::Tick()
 	Vec3 vScale = GetOwner()->Transform()->GetRelativeScale();
 	Vec3 vRotation = GetOwner()->Transform()->GetRelativeRot();
 
-	Vec3 vUp = GetOwner()->Transform()->GetDir(DIR::UP);
-	Vec3 vDown = -vUp;
-
-
-
-	if (KEY_PRESSED(KEY::UP))
-		vPos += vUp * 150.f * DT;
-	if (KEY_PRESSED(KEY::DOWN))
-		vPos += vDown * 150.f * DT;
-
-	if (KEY_PRESSED(KEY::RIGHT))
-		vPos.x += 150.f * DT;
-	if (KEY_PRESSED(KEY::LEFT))
-		vPos.x -= 150.f * DT;
-
 
 	GetOwner()->Transform()->SetRelativePos(vPos);
 	GetOwner()->Transform()->SetRelativeScale(vScale);
