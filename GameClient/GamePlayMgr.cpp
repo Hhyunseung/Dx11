@@ -92,7 +92,8 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 	case EObjectID::Item_Giant:		return L"Prefab\\Item_Giant.pref";
 	case EObjectID::Item_Boost:	return L"Prefab\\Item_Boost.pref";
 	case EObjectID::Item_Magnet:		return L"Prefab\\Item_Magnet.pref";
-	case EObjectID::Item_HealHP:		return L"Prefab\\Item_HealHP.pref";
+	case EObjectID::Item_HealA:		return L"Prefab\\Item_HealA.pref";
+	case EObjectID::Item_HealB:		return L"Prefab\\Item_HealB.pref";
 	default:						return L"";
 	}
 }

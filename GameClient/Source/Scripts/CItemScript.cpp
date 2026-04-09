@@ -69,7 +69,7 @@ void CItemScript::OnSpawn()
 {
     if (GetOwner()->FlipbookRender() != nullptr)
     {
-        GetOwner()->FlipbookRender()->Play(0, 12.f, -1);
+        GetOwner()->FlipbookRender()->Play(0, 6.f, -1);
     }
 
     ADD_DYNAMIC_BEGIN_OVERLAP(CItemScript::BeginOverlap);

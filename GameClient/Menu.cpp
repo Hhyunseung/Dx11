@@ -56,6 +56,7 @@ void Menu::File()
 			if (pLevel != nullptr)
 			{
 				wstring relPath = pLevel->GetName();
+
 				if (relPath.empty())
 				{
 					// No existing relative path, use a default name

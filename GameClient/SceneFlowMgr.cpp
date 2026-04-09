@@ -84,7 +84,7 @@ void SceneFlowMgr::StartGame()
 	const wstring& mapKey = GameDataMgr::GetInst()->GetSelectedStage();
 
 	if (mapKey.empty())
-		RequestLevelChange(L"Level\\TestLevel.lv");
+		RequestLevelChange(L"Level\\GamePlayLevel_1.lv");
 	else
 		RequestLevelChange(mapKey);
 

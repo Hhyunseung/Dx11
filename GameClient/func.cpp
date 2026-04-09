@@ -166,10 +166,13 @@ bool IsValid(Ptr<GameObject>& _Object)
 #include "Source/Scripts/CScrollScript.h"
 #include "Source/Scripts/CBGScrollScript.h"
 
+#include "Source/Scripts/CItemScript.h"
+
 void CreateTestLevel()
 {
 	{
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+		pLevel->SetName(L"Level\\GamePlayLevel_1.lv");
 		Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 		GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
 
@@ -207,18 +210,19 @@ void CreateTestLevel()
 		//Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\LobbyLevel.lv");
 
 		Ptr<GameObject> pObject = new GameObject;
-		pObject->SetName(L"FlipbookDefault");
+		pObject->SetName(L"Item_HealA");
 
 		pObject->AddComponent(new CTransform);
 		pObject->AddComponent(new CFlipbookRender);
 		pObject->AddComponent(new CCollider2D);
+		pObject->AddComponent(new CItemScript);
 
 		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+		pObject->Transform()->SetRelativeScale(Vec3(90.f, 90.f, 1.f));
 
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Item_Giant.flip"));
+		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\Item_Magnet.flip"));
 		pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 		pLevel->AddObject(0, pObject);

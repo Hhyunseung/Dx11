@@ -246,7 +246,8 @@ enum class EObjectID
 	Item_Giant = 4001,
 	Item_Boost = 4002,
 	Item_Magnet = 4003,
-	Item_HealHP = 4004,
+	Item_HealA = 4004,
+	Item_HealB = 4005,
 
 	END,
 };
@@ -278,13 +279,14 @@ inline const char* EObjectIDToString(EObjectID _ID)
 	case EObjectID::Item_Giant:      return "Item_Giant";
 	case EObjectID::Item_Boost:		 return "Item_Boost";
 	case EObjectID::Item_Magnet:     return "Item_Magnet";
-	case EObjectID::Item_HealHP:     return "Item_HealHP";
+	case EObjectID::Item_HealA:     return "Item_HealA";
+	case EObjectID::Item_HealB:     return "Item_HealB";
 	default:						return "Unknown";
 	}
 }
 
 // 콤보박스용 EObjectID 배열 및 개수
-constexpr int g_ObjectIDCount = 23;
+constexpr int g_ObjectIDCount = 24;
 
 inline EObjectID GetObjectIDByIndex(int _Idx)
 {
@@ -312,7 +314,8 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
 		EObjectID::Item_Giant,
 		EObjectID::Item_Boost,
 		EObjectID::Item_Magnet,
-		EObjectID::Item_HealHP,
+		EObjectID::Item_HealA,
+		EObjectID::Item_HealB,
 	};
 
 	if (_Idx < 0 || _Idx >= g_ObjectIDCount)

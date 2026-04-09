@@ -35,6 +35,11 @@ void ObjectPoolMgr::Init()
 	CreatePool(L"Prefab\\Obstacle_tm001_sdswing.pref", 10, 8);
 
 	// 아이템 풀 (예시)
+	CreatePool(L"Prefab\\Item_Giant.pref", 3, 10);
+	CreatePool(L"Prefab\\Item_Boost.pref", 3, 10);
+	CreatePool(L"Prefab\\Item_HealA.pref", 3, 10);
+	CreatePool(L"Prefab\\Item_HealB.pref", 3, 10);
+	CreatePool(L"Prefab\\Item_Magnet.pref", 3, 10);
 
 	// 플랫폼 풀 (예시)
 	CreatePool(L"Prefab\\TileShipeStage_1_fh_m.pref", 20, 2);
@@ -42,6 +47,10 @@ void ObjectPoolMgr::Init()
 
 	// 이펙트 풀 (예시)
 	CreatePool(L"Prefab\\Effect_JellyCollect.pref", 3, 0);
+	CreatePool(L"Prefab\\Effect_TextBoost.pref", 3, 0);
+	CreatePool(L"Prefab\\Effect_TextGiant.pref", 3, 0);
+	CreatePool(L"Prefab\\Effect_TextHeal.pref", 3, 0);
+	CreatePool(L"Prefab\\Effect_TextMagnet.pref", 3, 0);
 }
 
 void ObjectPoolMgr::Clear()
