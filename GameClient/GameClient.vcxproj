@@ -257,6 +257,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CGamePlayUIScript.h" />
     <ClInclude Include="Source\Scripts\CHitState.h" />
     <ClInclude Include="Source\Scripts\CHPBarScript.h" />
+    <ClInclude Include="Source\Scripts\CItemScript.h" />
     <ClInclude Include="Source\Scripts\CJellyScript.h" />
     <ClInclude Include="Source\Scripts\CJumpButtonScript.h" />
     <ClInclude Include="Source\Scripts\CLandState.h" />
@@ -394,6 +395,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CGamePlayUIScript.cpp" />
     <ClCompile Include="Source\Scripts\CHitState.cpp" />
     <ClCompile Include="Source\Scripts\CHPBarScript.cpp" />
+    <ClCompile Include="Source\Scripts\CItemScript.cpp" />
     <ClCompile Include="Source\Scripts\CJellyScript.cpp" />
     <ClCompile Include="Source\Scripts\CJumpButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CLandState.cpp" />

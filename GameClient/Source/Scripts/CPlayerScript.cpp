@@ -66,6 +66,20 @@ CPlayerScript::CPlayerScript()
 	, m_IsFallRescue(false)
 	, m_DeathPending(false)
 	, m_IsDead(false)
+	, m_IsGiant(false)
+	, m_GiantTimer(0.f)
+	, m_GiantDuration(5.f)
+	, m_DefaultPlayerScale(1.f)
+	, m_GiantPlayerScale(1.5f)
+	, m_IsBoost(false)
+	, m_BoostTimer(0.f)
+	, m_BoostDuration(5.f)
+	, m_DefaultScrollSpeed(300.f)
+	, m_DashScrollSpeed(500.f)
+	, m_IsMagnet(false)
+	, m_MagnetTimer(0.f)
+	, m_MagnetDuration(5.f)
+	, m_MagnetRange(200.f)
 {
 
 }
@@ -567,6 +581,43 @@ void CPlayerScript::RequestDie()
 }
 
 
+void CPlayerScript::UpdateItemBuffs()
+{
+	if (m_IsGiant)
+	{
+		m_GiantTimer += DT;
+		if (m_GiantTimer >= m_GiantDuration)
+		{
+			m_IsGiant = false;
+			m_GiantTimer = 0.f;
+
+			Transform()->SetRelativeScale(Vec3(m_DefaultPlayerScale, m_DefaultPlayerScale, 1.f));
+			SetDefaultCollider();
+		}
+	}
+
+	if (m_IsBoost)
+	{
+		m_BoostTimer += DT;
+		if (m_BoostTimer >= m_BoostDuration)
+		{
+			m_IsBoost = false;
+			m_BoostTimer = 0.f;
+			GamePlayMgr::GetInst()->SetScrollSpeed(m_DefaultScrollSpeed);
+		}
+	}
+
+	if (m_IsMagnet)
+	{
+		m_MagnetTimer += DT;
+		if (m_MagnetTimer >= m_MagnetDuration)
+		{
+			m_IsMagnet = false;
+			m_MagnetTimer = 0.f;
+		}
+	}
+}
+
 void CPlayerScript::UpdateHPUI()
 {
 	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
@@ -682,6 +733,39 @@ void CPlayerScript::Heal(int _Amount)
 
 	if (m_CurrentHP > m_MaxHP)
 		m_CurrentHP = m_MaxHP;
+
+	UpdateHPUI();
+}
+
+
+// ================== 아이템 효과 활성화 함수들 ==================
+
+void CPlayerScript::ActivateGiant(float _Duration)
+{
+	m_IsGiant = true;
+	m_GiantTimer = 0.f;
+	m_GiantDuration = _Duration;
+
+	Transform()->SetRelativeScale(Vec3(m_GiantPlayerScale, m_GiantPlayerScale, 1.f));
+
+	SetGiantCollider();
+}
+
+void CPlayerScript::ActivateBoost(float _Duration)
+{
+	m_IsBoost = true;
+	m_BoostTimer = 0.f;
+	m_BoostDuration = _Duration;
+
+	m_DefaultScrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
+	GamePlayMgr::GetInst()->SetScrollSpeed(m_DashScrollSpeed);
+}
+
+void CPlayerScript::ActivateMagnet(float _Duration)
+{
+	m_IsMagnet = true;
+	m_MagnetTimer = 0.f;
+	m_MagnetDuration = _Duration;
 }
 
 
@@ -723,6 +807,12 @@ void CPlayerScript::SetSlideCollider()
 {
 	GetOwner()->Collider2D()->SetOffset(Vec2(-0.02f, -0.34f));
 	GetOwner()->Collider2D()->SetScale(Vec2(0.23f, 0.17f));
+}
+
+void CPlayerScript::SetGiantCollider()
+{
+	GetOwner()->Collider2D()->SetScale(Vec2(0.35f, 0.50f));
+	GetOwner()->Collider2D()->SetOffset(Vec2(-0.02f, -0.20f));
 }
 
 

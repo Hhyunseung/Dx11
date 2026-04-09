@@ -14,6 +14,7 @@
 #include "Scripts/CGamePlayUIScript.h"
 #include "Scripts/CHitState.h"
 #include "Scripts/CHPBarScript.h"
+#include "Scripts/CItemScript.h"
 #include "Scripts/CJellyScript.h"
 #include "Scripts/CJumpButtonScript.h"
 #include "Scripts/CJumpState.h"
@@ -56,6 +57,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CGamePlayUIScript");
 	_vec.push_back(L"CHitState");
 	_vec.push_back(L"CHPBarScript");
+	_vec.push_back(L"CItemScript");
 	_vec.push_back(L"CJellyScript");
 	_vec.push_back(L"CJumpButtonScript");
 	_vec.push_back(L"CJumpState");
@@ -112,6 +114,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CHitState;
 	if (L"CHPBarScript" == _strScriptName)
 		return new CHPBarScript;
+	if (L"CItemScript" == _strScriptName)
+		return new CItemScript;
 	if (L"CJellyScript" == _strScriptName)
 		return new CJellyScript;
 	if (L"CJumpButtonScript" == _strScriptName)
@@ -209,6 +213,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::HPBARSCRIPT:
 		return new CHPBarScript;
+		break;
+	case (UINT)SCRIPT_TYPE::ITEMSCRIPT:
+		return new CItemScript;
 		break;
 	case (UINT)SCRIPT_TYPE::JELLYSCRIPT:
 		return new CJellyScript;
@@ -346,6 +353,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::HPBARSCRIPT:
 		return L"CHPBarScript";
+		break;
+
+	case SCRIPT_TYPE::ITEMSCRIPT:
+		return L"CItemScript";
 		break;
 
 	case SCRIPT_TYPE::JELLYSCRIPT:

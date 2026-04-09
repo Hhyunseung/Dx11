@@ -6,6 +6,7 @@ class CObstructScript : public CScript
 private:
 	EObjectID m_ObjectID;
 	int	m_Damage;
+	bool m_IsBroken; // 장애물이 부서졌는지 (부서진 상태에서는 플레이어에게 피해를 주지 않음)
 
 public:
 	void SetObjectID(EObjectID& _ID) { m_ObjectID = _ID; }
@@ -15,6 +16,8 @@ public:
 	int	 GetDamage() const { return m_Damage; }
 
 	void BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider);
+
+	void BreakObstacle(); // 장애물 부수기
 
     // 스폰 시 호출 (자식에서 오버라이드 가능)
 	virtual void OnSpawn();

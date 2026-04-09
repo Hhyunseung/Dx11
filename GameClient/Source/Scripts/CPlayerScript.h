@@ -94,6 +94,7 @@ private:
 
 	bool				m_IsTimeKeeperSkillAnim2;
 
+	// ========= 상태 ============
 	bool 			    m_IsLand; // 땅에 닿아있는지 여부
 	bool                m_IsJump; // 점프 중인지 여부
 	bool 			    m_IsDoubleJump; // 점프 중인지 여부
@@ -102,6 +103,27 @@ private:
 	bool				m_IsFallRescue; // 낙사 구출 중인지 여부
 	bool				m_DeathPending; // 죽음 예정
 	bool 			    m_IsDead; // 죽었는지 여부
+
+	// ========== 아이템 ============
+	// 거대화
+	bool				m_IsGiant;
+	float				m_GiantTimer;
+	float				m_GiantDuration;
+	float				m_DefaultPlayerScale; 
+	float				m_GiantPlayerScale; 
+
+	// 부스트
+	bool				m_IsBoost;
+	float 				m_BoostTimer;
+	float 				m_BoostDuration;
+	float				m_DefaultScrollSpeed;
+	float				m_DashScrollSpeed;
+
+	// 자석
+	bool				m_IsMagnet;
+	float 				m_MagnetTimer;
+	float 				m_MagnetDuration;
+	float 				m_MagnetRange;
 
 public:
 	void SetTarget(Ptr<GameObject> _Target) { m_Target = _Target; }
@@ -132,6 +154,7 @@ public:
 public:
 	void SetDefaultCollider();
 	void SetSlideCollider();
+	void SetGiantCollider();
 
 private:
 	void HandleJump();
@@ -161,6 +184,10 @@ private:
 	void Die();
 	void RequestDie();
 
+
+	// 아이템 효과 처리
+	void UpdateItemBuffs(); // 아이템 효과 업데이트 (거대화, 부스트, 자석)
+
 private:
 	void UpdateHPUI();
 
@@ -173,6 +200,10 @@ public:
 	void TakeDamage(int _Damage);
 	void Heal(int _Amount); 
 
+	void ActivateGiant(float _Duration);
+	void ActivateBoost(float _Duration);
+	void ActivateMagnet(float _Duration);
+
 public:
 	GET_SET(int, MaxHP);
 	GET_SET(int, CurrentHP);
@@ -184,6 +215,11 @@ public:
 	GET_SET(bool, IsDoubleJump);
 	GET_SET(bool, IsInvincible);
 	GET_SET(bool, IsDead);
+
+	GET_SET(bool, IsGiant);
+	GET_SET(bool, IsBoost);
+	GET_SET(bool, IsMagnet);
+	GET_SET(bool, MagnetRange);
 
 	void RequestJump() { m_JumpRequest = true; }
 

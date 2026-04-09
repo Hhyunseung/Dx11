@@ -238,8 +238,15 @@ enum class EObjectID
 
 
 	// 플랫폼
-   TileShipeStage_1_fh_m = 3001,
+	TileShipeStage_1_fh_m = 3001,
 	TileShipeStage_1_tb_s = 3002,
+
+
+	// 아이템
+	Item_Giant = 4001,
+	Item_Boost = 4002,
+	Item_Magnet = 4003,
+	Item_HealHP = 4004,
 
 	END,
 };
@@ -268,12 +275,16 @@ inline const char* EObjectIDToString(EObjectID _ID)
 	case EObjectID::Obstacle_tm001_sdswing: return "Obstacle_tm001_sdswing";
 	case EObjectID::TileShipeStage_1_fh_m: return "TileShipeStage_1_fh_m";
 	case EObjectID::TileShipeStage_1_tb_s: return "TileShipeStage_1_tb_s";
+	case EObjectID::Item_Giant:      return "Item_Giant";
+	case EObjectID::Item_Boost:		 return "Item_Boost";
+	case EObjectID::Item_Magnet:     return "Item_Magnet";
+	case EObjectID::Item_HealHP:     return "Item_HealHP";
 	default:						return "Unknown";
 	}
 }
 
 // 콤보박스용 EObjectID 배열 및 개수
-constexpr int g_ObjectIDCount = 19;
+constexpr int g_ObjectIDCount = 23;
 
 inline EObjectID GetObjectIDByIndex(int _Idx)
 {
@@ -298,6 +309,10 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
 		EObjectID::Obstacle_tm001_sdswing,
         EObjectID::TileShipeStage_1_fh_m,
 		EObjectID::TileShipeStage_1_tb_s,
+		EObjectID::Item_Giant,
+		EObjectID::Item_Boost,
+		EObjectID::Item_Magnet,
+		EObjectID::Item_HealHP,
 	};
 
 	if (_Idx < 0 || _Idx >= g_ObjectIDCount)

@@ -2,6 +2,7 @@
 #include "CJellyScript.h"
 
 #include "GamePlayMgr.h"
+#include "TimeMgr.h"
 #include "ObjectPoolMgr.h"
 #include "GameObject.h"
 
@@ -50,9 +51,27 @@ void CJellyScript::Tick()
 		m_bSpawned = true;
 	}
 
-	// 위아래로 움직이는 젤리
-
 	// 플레이어가 자석 상태일 때, 플레이어가 범위 안에 있으면 젤리가 플레이어를 향해서 움직이는 코드
+	CPlayerScript* pPlayer = GamePlayMgr::GetInst()->GetPlayerScript();
+	if (pPlayer == nullptr)
+		return;
+
+	if (!pPlayer->GetIsMagnet())
+		return;
+
+	Vec3 playerPos = pPlayer->Transform()->GetRelativePos();
+	Vec3 myPos = GetOwner()->Transform()->GetRelativePos();
+
+	Vec3 dir = playerPos - myPos;
+	float dist = dir.Length();
+
+	if (dist <= pPlayer->GetMagnetRange() && dist > 1.f)
+	{
+		dir.Normalize();
+		myPos += dir * m_MagnetSpeed * DT;
+		GetOwner()->Transform()->SetRelativePos(myPos);
+	}
+
 }
 
 void CJellyScript::BeginOverlap(CCollider2D* _This, CCollider2D* _Other)

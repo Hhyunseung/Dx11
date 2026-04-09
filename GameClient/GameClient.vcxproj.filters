@@ -403,6 +403,16 @@
     <ClInclude Include="Source\Scripts\CScoreUIScript.h">
       <Filter>Source\Scripts\07.UI\GamePlayUI\03.Score</Filter>
     </ClInclude>
+    <ClInclude Include="GameDataMgr.h" />
+    <ClInclude Include="SceneFlowMgr.h" />
+    <ClInclude Include="Source\Scripts\CFallState.h" />
+    <ClInclude Include="Source\Scripts\CFlipbookClickScript.h" />
+    <ClInclude Include="Source\Scripts\CSceneChangeButtonScript.h" />
+    <ClInclude Include="Source\Scripts\CTextUIScript.h" />
+    <ClInclude Include="Source\Scripts\CItemScript.h">
+      <Filter>Source\Scripts\08.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CDeadState.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -745,6 +755,9 @@
     </Filter>
     <Filter Include="Source\Scripts\07.UI\GamePlayUI\03.Score">
       <UniqueIdentifier>{30fad3dc-2784-4df0-8107-a01f0b80bc92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\08.Item">
+      <UniqueIdentifier>{443f3f9d-ad65-46c6-b701-2fa42fedba33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1123,6 +1136,16 @@
     <ClCompile Include="Source\Scripts\CScoreUIScript.cpp">
       <Filter>Source\Scripts\07.UI\GamePlayUI\03.Score</Filter>
     </ClCompile>
+    <ClCompile Include="GameDataMgr.cpp" />
+    <ClCompile Include="SceneFlowMgr.cpp" />
+    <ClCompile Include="Source\Scripts\CFallState.cpp" />
+    <ClCompile Include="Source\Scripts\CFlipbookClickScript.cpp" />
+    <ClCompile Include="Source\Scripts\CSceneChangeButtonScript.cpp" />
+    <ClCompile Include="Source\Scripts\CTextUIScript.cpp" />
+    <ClCompile Include="Source\Scripts\CItemScript.cpp">
+      <Filter>Source\Scripts\08.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CDeadState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

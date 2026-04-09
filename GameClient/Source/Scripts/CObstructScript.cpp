@@ -4,12 +4,15 @@
 #include "TimeMgr.h"
 #include "GamePlayMgr.h"
 #include "GameObject.h"
+#include "ObjectPoolMgr.h"
 
 #include "CPlayerScript.h"
 
 CObstructScript::CObstructScript(SCRIPT_TYPE _Type)
 	: CScript(_Type)
 	, m_Damage(30)
+	, m_ObjectID(EObjectID::Obstacle_bl1)
+	, m_IsBroken(false)
 {
 }
 
@@ -29,6 +32,9 @@ void CObstructScript::ApplySpawnInfo(const FSpawnInfo& info)
 
 CObstructScript::CObstructScript()
 	: CScript(SCRIPT_TYPE::OBSTRUCTSCRIPT)
+	, m_Damage(30)
+	, m_ObjectID(EObjectID::Obstacle_bl1)
+	, m_IsBroken(false)
 {
 }
 
@@ -58,6 +64,8 @@ void CObstructScript::Tick()
 
 void CObstructScript::OnSpawn()
 {
+	m_IsBroken = false;
+
 	// MeshRender와 FlipbookRender가 있는지 먼저 확인
 	if (GetOwner()->FlipbookRender() != nullptr)
 	{
@@ -78,7 +86,30 @@ void CObstructScript::Move()
 
 void CObstructScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCollider)
 {
-	GamePlayMgr::GetInst()->GetPlayerScript()->TakeDamage(m_Damage);
+	CPlayerScript* pPlayer = GamePlayMgr::GetInst()->GetPlayerScript();
+	if (pPlayer == nullptr || m_IsBroken)
+		return;
+
+	if (pPlayer->GetIsGiant() || pPlayer->GetIsBoost())
+	{
+		BreakObstacle();
+		return;
+	}
+
+	pPlayer->TakeDamage(m_Damage);
+}
+
+void CObstructScript::BreakObstacle()
+{
+	if (m_IsBroken)
+		return;
+
+	m_IsBroken = true;
+
+	Vec3 pos = Transform()->GetRelativePos();
+	ObjectPoolMgr::GetInst()->SpawnEffect(L"Prefab\\Effect_Obstrcut_Break.pref", pos, true);
+
+	ObjectPoolMgr::GetInst()->Return(m_ObjectID, GetOwner());
 }
 
 
