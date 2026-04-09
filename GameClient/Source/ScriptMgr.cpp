@@ -26,8 +26,13 @@
 #include "Scripts/CMovingPlatformScirpt.h"
 #include "Scripts/CObstructScript.h"
 #include "Scripts/CParabolicObstacle.h"
+#include "Scripts/CPauseButtonScript.h"
+#include "Scripts/CPausePanelScript.h"
 #include "Scripts/CPendulumObstacle.h"
 #include "Scripts/CPlayerScript.h"
+#include "Scripts/CQuitButtonScript.h"
+#include "Scripts/CRestartButtonScript.h"
+#include "Scripts/CResumeButtonScript.h"
 #include "Scripts/CRunState.h"
 #include "Scripts/CSceneChangeButtonScript.h"
 #include "Scripts/CScoreUIScript.h"
@@ -69,8 +74,13 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CMovingPlatformScirpt");
 	_vec.push_back(L"CObstructScript");
 	_vec.push_back(L"CParabolicObstacle");
+	_vec.push_back(L"CPauseButtonScript");
+	_vec.push_back(L"CPausePanelScript");
 	_vec.push_back(L"CPendulumObstacle");
 	_vec.push_back(L"CPlayerScript");
+	_vec.push_back(L"CQuitButtonScript");
+	_vec.push_back(L"CRestartButtonScript");
+	_vec.push_back(L"CResumeButtonScript");
 	_vec.push_back(L"CRunState");
 	_vec.push_back(L"CSceneChangeButtonScript");
 	_vec.push_back(L"CScoreUIScript");
@@ -138,10 +148,20 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CObstructScript;
 	if (L"CParabolicObstacle" == _strScriptName)
 		return new CParabolicObstacle;
+	if (L"CPauseButtonScript" == _strScriptName)
+		return new CPauseButtonScript;
+	if (L"CPausePanelScript" == _strScriptName)
+		return new CPausePanelScript;
 	if (L"CPendulumObstacle" == _strScriptName)
 		return new CPendulumObstacle;
 	if (L"CPlayerScript" == _strScriptName)
 		return new CPlayerScript;
+	if (L"CQuitButtonScript" == _strScriptName)
+		return new CQuitButtonScript;
+	if (L"CRestartButtonScript" == _strScriptName)
+		return new CRestartButtonScript;
+	if (L"CResumeButtonScript" == _strScriptName)
+		return new CResumeButtonScript;
 	if (L"CRunState" == _strScriptName)
 		return new CRunState;
 	if (L"CSceneChangeButtonScript" == _strScriptName)
@@ -250,11 +270,26 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::PARABOLICOBSTACLE:
 		return new CParabolicObstacle;
 		break;
+	case (UINT)SCRIPT_TYPE::PAUSEBUTTONSCRIPT:
+		return new CPauseButtonScript;
+		break;
+	case (UINT)SCRIPT_TYPE::PAUSEPANELSCRIPT:
+		return new CPausePanelScript;
+		break;
 	case (UINT)SCRIPT_TYPE::PENDULUMOBSTACLE:
 		return new CPendulumObstacle;
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT:
 		return new CPlayerScript;
+		break;
+	case (UINT)SCRIPT_TYPE::QUITBUTTONSCRIPT:
+		return new CQuitButtonScript;
+		break;
+	case (UINT)SCRIPT_TYPE::RESTARTBUTTONSCRIPT:
+		return new CRestartButtonScript;
+		break;
+	case (UINT)SCRIPT_TYPE::RESUMEBUTTONSCRIPT:
+		return new CResumeButtonScript;
 		break;
 	case (UINT)SCRIPT_TYPE::RUNSTATE:
 		return new CRunState;
@@ -403,12 +438,32 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 		return L"CParabolicObstacle";
 		break;
 
+	case SCRIPT_TYPE::PAUSEBUTTONSCRIPT:
+		return L"CPauseButtonScript";
+		break;
+
+	case SCRIPT_TYPE::PAUSEPANELSCRIPT:
+		return L"CPausePanelScript";
+		break;
+
 	case SCRIPT_TYPE::PENDULUMOBSTACLE:
 		return L"CPendulumObstacle";
 		break;
 
 	case SCRIPT_TYPE::PLAYERSCRIPT:
 		return L"CPlayerScript";
+		break;
+
+	case SCRIPT_TYPE::QUITBUTTONSCRIPT:
+		return L"CQuitButtonScript";
+		break;
+
+	case SCRIPT_TYPE::RESTARTBUTTONSCRIPT:
+		return L"CRestartButtonScript";
+		break;
+
+	case SCRIPT_TYPE::RESUMEBUTTONSCRIPT:
+		return L"CResumeButtonScript";
 		break;
 
 	case SCRIPT_TYPE::RUNSTATE:

@@ -41,6 +41,9 @@ void CWorldScrollScript::Begin()
 
 void CWorldScrollScript::Tick()
 {
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	UpdateScroll();
 	SpawnObjects();
 	MoveActiveObjects();

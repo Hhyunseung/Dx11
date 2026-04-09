@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CMovingPlatformScirpt.h"
 
+#include "GamePlayMgr.h"
 #include "GameObject.h"
 #include "TimeMgr.h"
 
@@ -65,6 +66,9 @@ void CMovingPlatformScirpt::Begin()
 
 void CMovingPlatformScirpt::Tick()
 {
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	Vec3 vPos = Transform()->GetRelativePos();
 	Vec3 vTarget = m_IsMovingToEnd ? m_EndPos : m_StartPos;
 

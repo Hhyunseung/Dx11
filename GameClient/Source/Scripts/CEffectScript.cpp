@@ -54,6 +54,9 @@ void CEffectScript::OnSpawn()
 
 void CEffectScript::Tick()
 {
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	m_AccTime += DT;
 
 	// 월드 스크롤과 함께 이동 (GamePlayMgr에서 속도 읽기)

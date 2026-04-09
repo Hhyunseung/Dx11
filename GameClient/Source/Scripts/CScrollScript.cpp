@@ -3,6 +3,7 @@
 #include "TimeMgr.h"
 #include "GameObject.h"
 
+#include "GamePlayMgr.h"
 #include "CScrollScript.h"
 
 CScrollScript::CScrollScript()
@@ -17,6 +18,9 @@ CScrollScript::~CScrollScript()
 
 void CScrollScript::Tick()
 {
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	Vec3 vPos = Transform()->GetRelativePos();
 	vPos.x -= m_fSpeed * DT;
 	Transform()->SetRelativePos(vPos);

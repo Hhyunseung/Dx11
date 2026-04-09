@@ -5,6 +5,15 @@ class CJumpButtonScript;
 class CSlideButtonScript;
 class CHPBarScript;
 
+class CUIButtonScript;
+
+class CPausePanelScript;
+class CPauseButtonScript;
+class CResumeButtonScript;
+class CRestartButtonScript;
+class CQuitButtonScript;
+
+
 class CGamePlayUIScript :
     public CScript
 {
@@ -13,6 +22,14 @@ private:
 	CSlideButtonScript*		m_SlideBtn;
 
 	CHPBarScript*			m_HPBar;
+
+	CUIButtonScript*		m_PauseBtn;
+
+
+	GameObject*				m_PausePanel;
+	CResumeButtonScript*	m_ResumeBtn;
+	CRestartButtonScript*	m_RestartBtn;
+	CQuitButtonScript*		m_QuitBtn;
 
 	bool m_JumpRequest;
 	bool m_SlideRequest;

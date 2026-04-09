@@ -6,9 +6,16 @@
 
 #include "GameObject.h"
 
+#include "CUIButtonScript.h"
 #include "CJumpButtonScript.h"
 #include "CSlideButtonScript.h"
 #include "CHPBarScript.h"
+
+#include "CPausePanelScript.h"
+#include "CPauseButtonScript.h"
+#include "CResumeButtonScript.h"
+#include "CRestartButtonScript.h"
+#include "CQuitButtonScript.h"
 
 CGamePlayUIScript::CGamePlayUIScript()
 	: CScript(SCRIPT_TYPE::GAMEPLAYUISCRIPT)
@@ -17,6 +24,11 @@ CGamePlayUIScript::CGamePlayUIScript()
 	, m_JumpRequest(false)
 	, m_SlideRequest(false)
 	, m_HPBar(nullptr)
+	, m_PauseBtn(nullptr)
+	, m_PausePanel(nullptr)
+	, m_ResumeBtn(nullptr)	
+	, m_RestartBtn(nullptr)
+	, m_QuitBtn(nullptr)
 {
 }
 
@@ -43,14 +55,51 @@ void CGamePlayUIScript::Begin()
 	}
 
 	GameObject* pHPBarObj = GetOwner()->FindChildByScript<CHPBarScript>();
-	if (pSlideObj != nullptr)
+	if (pHPBarObj != nullptr)
 	{
 		m_HPBar = pHPBarObj->GetScript<CHPBarScript>().Get();
+	}
+
+	GameObject* pPauseObj = GetOwner()->FindChildByScript<CPauseButtonScript>();
+	if (pPauseObj != nullptr)
+	{
+		m_PauseBtn = pPauseObj->GetScript<CPauseButtonScript>().Get();
+	}
+
+	GameObject* m_PausePanel = GetOwner()->FindChildByScript<CPausePanelScript>();
+	//if (pPanelObj != nullptr)
+	//{
+	//	m_PausePanel = pPanelObj->GetScript<CPausePanelScript>().Get();
+	//}
+
+	if (m_PausePanel != nullptr)
+	{
+		GameObject* pResumeObj = m_PausePanel->FindChildByScript<CResumeButtonScript>();
+		if (pResumeObj != nullptr)
+			m_ResumeBtn = pResumeObj->GetScript<CResumeButtonScript>().Get();
+
+		GameObject* pRestartObj = m_PausePanel->FindChildByScript<CRestartButtonScript>();
+		if (pRestartObj != nullptr)
+			m_RestartBtn = pRestartObj->GetScript<CRestartButtonScript>().Get();
+
+		GameObject* pQuitObj = m_PausePanel->FindChildByScript<CQuitButtonScript>();
+		if (pQuitObj != nullptr)
+			m_QuitBtn = pQuitObj->GetScript<CQuitButtonScript>().Get();
+
+		m_PausePanel->SetActive(false);
 	}
 }
 
 void CGamePlayUIScript::Tick()
 {
+	if (KEY_TAP(KEY::ESC))
+	{
+		GamePlayMgr::GetInst()->TogglePause();
+	}
 
+	if (m_PausePanel != nullptr)
+	{
+		m_PausePanel->SetActive(GamePlayMgr::GetInst()->IsPaused());
+	}
 }
 

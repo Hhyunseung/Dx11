@@ -44,6 +44,9 @@ void CJellyScript::Begin()
 
 void CJellyScript::Tick()
 {
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	// 첫 Tick에서 스폰 초기화 (Begin이 호출 안 됐을 수 있음)
 	if (!m_bSpawned)
 	{

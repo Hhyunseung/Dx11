@@ -16,7 +16,6 @@ private:
 protected:
 	bool m_IsPressed;		// 버튼이 눌린 상태인지 여부
 	bool m_IsMouseHolding;	// 마우스가 버튼을 누르고 있는지 여부
-	
 
 public:
 	bool GetPressed() const { return m_IsPressed; }
