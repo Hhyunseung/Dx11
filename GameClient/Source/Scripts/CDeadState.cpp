@@ -23,7 +23,7 @@ CDeadState::~CDeadState()
 
 void CDeadState::Enter(PLAYER_STATE_ID _prev)
 {
-	GetOwner()->FlipbookRender()->Play((int)PLAYER_STATE_ID::FALL, 5.f, 0);
+	GetOwner()->FlipbookRender()->Play((int)PLAYER_STATE_ID::DEAD, 5.f, 0);
     m_fDelayTimer = 0.f;
 	m_bDelayStarted = false;
 }

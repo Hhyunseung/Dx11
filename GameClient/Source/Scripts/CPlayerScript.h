@@ -100,6 +100,7 @@ private:
 	bool				m_IsSlide; // 슬라이드 중인지 여부
 	bool				m_IsInvincible; // 무적 상태인지 여부
 	bool				m_IsFallRescue; // 낙사 구출 중인지 여부
+	bool				m_DeathPending; // 죽음 예정
 	bool 			    m_IsDead; // 죽었는지 여부
 
 public:
@@ -158,6 +159,7 @@ private:
 
 	// 죽음 처리
 	void Die();
+	void RequestDie();
 
 private:
 	void UpdateHPUI();
@@ -181,6 +183,7 @@ public:
 	GET_SET(bool, IsJump);
 	GET_SET(bool, IsDoubleJump);
 	GET_SET(bool, IsInvincible);
+	GET_SET(bool, IsDead);
 
 	void RequestJump() { m_JumpRequest = true; }
 

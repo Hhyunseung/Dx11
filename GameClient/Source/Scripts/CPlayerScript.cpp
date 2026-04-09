@@ -64,6 +64,7 @@ CPlayerScript::CPlayerScript()
 	, m_IsSlide(false)
 	, m_IsInvincible(false)
 	, m_IsFallRescue(false)
+	, m_DeathPending(false)
 	, m_IsDead(false)
 {
 
@@ -145,7 +146,7 @@ void CPlayerScript::Tick()
 {
 	if (m_IsDead)
 	{
-		if (m_StateMachine != nullptr)
+ 		if (m_StateMachine != nullptr)
 			m_StateMachine->Tick();
 		return;
 	}
@@ -182,6 +183,12 @@ void CPlayerScript::Tick()
 
 		if (m_StateMachine != nullptr)
 			m_StateMachine->Tick();
+
+		if (!m_IsDead && m_DeathPending && m_IsLand)
+		{
+			Die();
+			return;
+		}
 	}
 	else
 	{
@@ -258,11 +265,14 @@ void CPlayerScript::HandleHit()
 
 void CPlayerScript::UpdateAutoHPDecrease()
 {
-	if (m_CurrentHP <= 0)
+	if (m_IsDead || m_DeathPending)
+		return;
+
+   if (m_CurrentHP <= 0)
 	{
 		m_CurrentHP = 0;
 		UpdateHPUI();
-		Die();
+		RequestDie();
 		return;
 	}
 
@@ -465,7 +475,8 @@ void CPlayerScript::BeginFallRescue()
 
 	if (m_CurrentHP <= 0)
 	{
-		ChangeState(PLAYER_STATE_ID::DEAD);
+		m_CurrentHP = 0;
+		UpdateHPUI();
 		return;
 	}
 
@@ -506,7 +517,11 @@ void CPlayerScript::Die()
 	if (m_IsDead)
 		return;
 
+	if (!m_IsLand)
+		return;
+
 	m_IsDead = true;
+	m_DeathPending = false;
 
 	m_IsInvincible = false;
 	m_IsFallRescue = false;
@@ -523,6 +538,32 @@ void CPlayerScript::Die()
 	GamePlayMgr::GetInst()->SetScrollSpeed(0.f); // 스크롤 멈춤
 
 	ChangeState(PLAYER_STATE_ID::DEAD);
+}
+
+void CPlayerScript::RequestDie()
+{
+	if (m_IsDead || m_DeathPending)
+		return;
+
+	if (m_IsLand)
+	{
+		Die();
+	}
+	else
+	{
+		m_DeathPending = true;
+
+		// 공중에서 죽음 예약되면 더 이상 일반 피격/구출/스킬 상태가 꼬이지 않게 정리
+		m_IsInvincible = false;
+		m_IsFallRescue = false;
+		m_BlockFall = false;
+		m_IsSkillMoveMode = false;
+
+		m_JumpRequest = false;
+		m_IsJump = false;
+		m_IsDoubleJump = false;
+		m_IsSlide = false;
+	}
 }
 
 
@@ -604,6 +645,9 @@ void CPlayerScript::SetIsSkillMoveMode(bool _Value)
 
 void CPlayerScript::TakeDamage(int _Damage)
 {
+	if (m_IsDead || m_DeathPending)
+		return;
+
 	// 무적 상태면 무시
 	if (m_IsInvincible) 
 		return;
@@ -616,12 +660,12 @@ void CPlayerScript::TakeDamage(int _Damage)
 
 	UpdateHPUI();
 
-	// 사망 체크
+    // 사망 체크
 	if (m_CurrentHP <= 0)
 	{
 		m_CurrentHP = 0;
 		UpdateHPUI();
-		Die();
+		RequestDie();
 		return;
 	}
 
@@ -743,6 +787,12 @@ void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCo
 		m_IsLand = true;
 		m_JumpCount = 0;
 		m_VelY = 0.f;
+
+		if (m_CurrentHP <= 0 || m_DeathPending)
+		{
+			m_DeathPending = true;
+			return;
+		}
 
 		// 현재 닿은 바닥이 moving platform이면 저장
 		GameObject* pOtherObj = _OtherCollider->GetOwner();

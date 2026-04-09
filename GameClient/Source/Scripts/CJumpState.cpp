@@ -28,7 +28,7 @@ void CJumpState::Enter(PLAYER_STATE_ID _prev)
 
 void CJumpState::Tick()
 {
-	if (GetOwner()->GetIsLand())
+	if (GetOwner()->GetIsLand() && !GetOwner()->GetIsDead())
 	{
 		GetOwner()->ChangeState(PLAYER_STATE_ID::LAND);
 	}

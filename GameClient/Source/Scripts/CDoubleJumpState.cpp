@@ -29,7 +29,7 @@ void CDoubleJumpState::Enter(PLAYER_STATE_ID _prev)
 
 void CDoubleJumpState::Tick()
 {
-	if (GetOwner()->GetIsLand())
+	if (GetOwner()->GetIsLand() && !GetOwner()->GetIsDead())
 	{
 		GetOwner()->ChangeState(PLAYER_STATE_ID::LAND);
 	}
