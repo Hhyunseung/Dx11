@@ -66,11 +66,7 @@ void CGamePlayUIScript::Begin()
 		m_PauseBtn = pPauseObj->GetScript<CPauseButtonScript>().Get();
 	}
 
-	GameObject* m_PausePanel = GetOwner()->FindChildByScript<CPausePanelScript>();
-	//if (pPanelObj != nullptr)
-	//{
-	//	m_PausePanel = pPanelObj->GetScript<CPausePanelScript>().Get();
-	//}
+	m_PausePanel = GetOwner()->FindChildByScript<CPausePanelScript>();
 
 	if (m_PausePanel != nullptr)
 	{
@@ -85,8 +81,6 @@ void CGamePlayUIScript::Begin()
 		GameObject* pQuitObj = m_PausePanel->FindChildByScript<CQuitButtonScript>();
 		if (pQuitObj != nullptr)
 			m_QuitBtn = pQuitObj->GetScript<CQuitButtonScript>().Get();
-
-		m_PausePanel->SetActive(false);
 	}
 }
 
@@ -97,9 +91,11 @@ void CGamePlayUIScript::Tick()
 		GamePlayMgr::GetInst()->TogglePause();
 	}
 
+	bool isPaused = GamePlayMgr::GetInst()->IsPaused();
+
 	if (m_PausePanel != nullptr)
 	{
-		m_PausePanel->SetActive(GamePlayMgr::GetInst()->IsPaused());
+		m_PausePanel->SetActive(isPaused);
 	}
 }
 

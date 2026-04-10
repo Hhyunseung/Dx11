@@ -111,7 +111,8 @@ void CWorldScrollScript::SpawnObjects()
 			const float screenX = WorldToScreenX(info.WorldPos.x);
 
 			float prefabZ = pObject->Transform()->GetRelativePos().z;
-			pObject->Transform()->SetRelativePos(Vec3(screenX, info.WorldPos.y, prefabZ));
+			// 프리팹의 기본 Z 값을 유지하면서 위치 설정
+			pObject->Transform()->SetRelativePos(Vec3(screenX, info.WorldPos.y, prefabZ + 100.f));
 			pObject->Transform()->SetRelativeScale(Vec3(info.Scale.x, info.Scale.y, 1.f));
 
             // 활성 목록에 추가

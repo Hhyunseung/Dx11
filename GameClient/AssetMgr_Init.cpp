@@ -259,6 +259,20 @@ void AssetMgr::CreateEngineShader()
 
 	AddAsset(L"AlphaShader", pShader.Get());
 
+	// ============== BackAlphaShader 持失 ==============//
+	pShader = new AGraphicShader;
+	pShader->SetName(L"BackAlphaShader");
+	pShader->CreateVertexShader(L"Shader\\std2d.fx", "VS_Std2D");
+	pShader->CreatePixelShader(L"Shader\\std2d.fx", "PS_Std2D");
+	pShader->SetBSType(BS_TYPE::ALPHABLEND);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::LESS_EQUL);
+
+	pShader->AddShaderParam(SHADER_PARAM::VEC4, 0, L"TintColor");
+	pShader->AddShaderParam(SHADER_PARAM::TEX, 0, L"OutColor");
+
+	AddAsset(L"BackAlphaShader", pShader.Get());
+
 	// ============== HPBarShader 持失 ==============//
 	pShader = new AGraphicShader;
 	pShader->SetName(L"ButtonShader");
