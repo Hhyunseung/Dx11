@@ -39,9 +39,14 @@ private:
 	int   m_ScorePerTick;
 
 	// 스킬 종료 예약 여부
-	bool m_bEndReserved; 
+	bool m_bEndReserved;
+
+	// 시간지기 전용 배경 이펙트
+	Ptr<APrefab> m_TKBGEffectPrefab;
+	GameObject*  m_TKBGEffectObject;
 
 public:
+	virtual void Begin() override;
 	virtual void OnEquip() override;
 	virtual void OnUnequip() override;
 
@@ -56,6 +61,9 @@ public:
 private:
 	void EnterSkillMode();
 	void ExitSkillMode();
+
+	void SpawnTKBGEffect(int _LayerIdx);
+	void DestroyTKBGEffect();
 
 
 	void UpdateSkillMove();			// 상하 이동

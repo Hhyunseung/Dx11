@@ -2,10 +2,12 @@
 #include "CTimeKeeperScript.h"
 
 #include "CPlayerScript.h"
+#include "CTimeKeeperBGEffectScript.h"
 #include "GameObject.h"
 
 #include "AssetMgr.h"
 #include "GamePlayMgr.h"
+#include "TaskMgr.h"
 #include "TimeMgr.h"
 #include "KeyMgr.h"
 
@@ -24,6 +26,8 @@ CTimeKeeperScript::CTimeKeeperScript()
 	, m_ScoreTickCount(0)
 	, m_MaxScoreTickCount(10)
 	, m_ScorePerTick(3000000)
+	, m_TKBGEffectPrefab(nullptr)
+	, m_TKBGEffectObject(nullptr)
 {
 	m_WaitTime = 2.f; // 자동 발동 대기시간 15초
 }
@@ -46,6 +50,12 @@ void CTimeKeeperScript::OnEquip()
 void CTimeKeeperScript::OnUnequip()
 {
 	EndSkill();
+}
+
+void CTimeKeeperScript::Begin()
+{
+	CCookieSkillScript::Begin();
+	AddScriptParam(SCRIPT_PARAM::PREFAB, &m_TKBGEffectPrefab, L"TKBGEffectPrefab");
 }
 
 
@@ -77,6 +87,8 @@ void CTimeKeeperScript::UseSkill()
 	EnterSkillMode();
 
 	SpawnSkillBG(1);
+	SpawnSkillBGEffect(1);
+	SpawnTKBGEffect(1);
 
 	// 스킬 시작 연출(1회)
 	ChangeSkillState(ETimeKeeperSkillState::Start);
@@ -100,6 +112,8 @@ void CTimeKeeperScript::EndSkill()
 	m_bEndReserved = false;
 
 	DestroySkillBG();
+	DestroySkillBGEffect();
+	DestroyTKBGEffect();
 
 	ExitSkillMode();
 }
@@ -156,6 +170,32 @@ void CTimeKeeperScript::ExitSkillMode()
 
 	m_Player->SetIsSkillMoveMode(false);
 	m_Player->SetIsTimeKeeperSkillAnim2(false);
+}
+
+void CTimeKeeperScript::SpawnTKBGEffect(int _LayerIdx)
+{
+	if (m_TKBGEffectPrefab == nullptr)
+		return;
+
+	DestroyTKBGEffect();
+
+	m_TKBGEffectObject = m_TKBGEffectPrefab->Instantiate();
+	CreateObject(m_TKBGEffectObject, _LayerIdx);
+}
+
+void CTimeKeeperScript::DestroyTKBGEffect()
+{
+	if (m_TKBGEffectObject == nullptr || m_TKBGEffectObject->IsDead())
+	{
+		m_TKBGEffectObject = nullptr;
+		return;
+	}
+
+	TaskInfo info = {};
+	info.Type    = TASK_TYPE::DESTROY_OBJECT;
+	info.Param_0 = (DWORD_PTR)m_TKBGEffectObject;
+	TaskMgr::GetInst()->AddTask(info);
+	m_TKBGEffectObject = nullptr;
 }
 
 

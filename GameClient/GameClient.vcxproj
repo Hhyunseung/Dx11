@@ -280,6 +280,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CSceneChangeButtonScript.h" />
     <ClInclude Include="Source\Scripts\CScoreUIScript.h" />
     <ClInclude Include="Source\Scripts\CScrollScript.h" />
+    <ClInclude Include="Source\Scripts\CSkillBGEffectScript.h" />
     <ClInclude Include="Source\Scripts\CSkillBGScript.h" />
     <ClInclude Include="Source\Scripts\CSlideButtonScript.h" />
     <ClInclude Include="Source\Scripts\CSlideState.h" />
@@ -287,6 +288,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CStaticObstacle.h" />
     <ClInclude Include="Source\Scripts\CStaticPlatformScript.h" />
     <ClInclude Include="Source\Scripts\CTextUIScript.h" />
+    <ClInclude Include="Source\Scripts\CTimeKeeperBGEffectScript.h" />
     <ClInclude Include="Source\Scripts\CTimeKeeperScript.h" />
     <ClInclude Include="Source\Scripts\CUIButtonScript.h" />
     <ClInclude Include="Source\Scripts\CWorldScrollScript.h" />
@@ -424,6 +426,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CSceneChangeButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CScoreUIScript.cpp" />
     <ClCompile Include="Source\Scripts\CScrollScript.cpp" />
+    <ClCompile Include="Source\Scripts\CSkillBGEffectScript.cpp" />
     <ClCompile Include="Source\Scripts\CSkillBGScript.cpp" />
     <ClCompile Include="Source\Scripts\CSlideButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CSlideState.cpp" />
@@ -431,6 +434,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CStaticObstacle.cpp" />
     <ClCompile Include="Source\Scripts\CStaticPlatformScript.cpp" />
     <ClCompile Include="Source\Scripts\CTextUIScript.cpp" />
+    <ClCompile Include="Source\Scripts\CTimeKeeperBGEffectScript.cpp" />
     <ClCompile Include="Source\Scripts\CTimeKeeperScript.cpp" />
     <ClCompile Include="Source\Scripts\CUIButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CWorldScrollScript.cpp" />

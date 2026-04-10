@@ -445,6 +445,8 @@
     <ClInclude Include="Source\Scripts\CSkillBGScript.h">
       <Filter>Source\Scripts\09.BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CSkillBGEffectScript.h" />
+    <ClInclude Include="Source\Scripts\CTimeKeeperBGEffectScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -1246,6 +1248,8 @@
     <ClCompile Include="Source\Scripts\CSkillBGScript.cpp">
       <Filter>Source\Scripts\09.BackGround</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scripts\CSkillBGEffectScript.cpp" />
+    <ClCompile Include="Source\Scripts\CTimeKeeperBGEffectScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

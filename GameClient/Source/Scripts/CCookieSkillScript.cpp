@@ -12,6 +12,8 @@ CCookieSkillScript::CCookieSkillScript(SCRIPT_TYPE _Type)
 	, m_Player(nullptr)
 	, m_SkillBGPrefab(nullptr)
 	, m_SkillBGObject(nullptr)
+	, m_SkillBGEffectPrefab(nullptr)
+	, m_SkillBGEffectObject(nullptr)
 	, m_SkillEffectPrefab(nullptr)
 	, m_SkillEffectObj(nullptr)
 	, m_WaitTime(12.f)   // 기본 자동 발동 대기시간
@@ -32,6 +34,7 @@ CCookieSkillScript::~CCookieSkillScript()
 void CCookieSkillScript::Begin()
 {
 	AddScriptParam(SCRIPT_PARAM::PREFAB, &m_SkillBGPrefab, L"SkillBGPrefab");
+	AddScriptParam(SCRIPT_PARAM::PREFAB, &m_SkillBGEffectPrefab, L"SkillBGEffectPrefab");
 }
 
 void CCookieSkillScript::Tick()
@@ -105,4 +108,30 @@ void CCookieSkillScript::DestroySkillBG()
 		TaskMgr::GetInst()->AddTask(info);
 	}
 	m_SkillBGObject = nullptr;
+}
+
+void CCookieSkillScript::SpawnSkillBGEffect(int _LayerIdx)
+{
+	if (m_SkillBGEffectPrefab == nullptr)
+		return;
+
+	DestroySkillBGEffect();
+
+	m_SkillBGEffectObject = m_SkillBGEffectPrefab->Instantiate();
+	CreateObject(m_SkillBGEffectObject, _LayerIdx);
+}
+
+void CCookieSkillScript::DestroySkillBGEffect()
+{
+	if (m_SkillBGEffectObject == nullptr || m_SkillBGEffectObject->IsDead())
+	{
+		m_SkillBGEffectObject = nullptr;
+		return;
+	}
+
+	TaskInfo info = {};
+	info.Type    = TASK_TYPE::DESTROY_OBJECT;
+	info.Param_0 = (DWORD_PTR)m_SkillBGEffectObject;
+	TaskMgr::GetInst()->AddTask(info);
+	m_SkillBGEffectObject = nullptr;
 }

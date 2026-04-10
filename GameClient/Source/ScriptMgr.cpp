@@ -37,6 +37,7 @@
 #include "Scripts/CSceneChangeButtonScript.h"
 #include "Scripts/CScoreUIScript.h"
 #include "Scripts/CScrollScript.h"
+#include "Scripts/CSkillBGEffectScript.h"
 #include "Scripts/CSkillBGScript.h"
 #include "Scripts/CSlideButtonScript.h"
 #include "Scripts/CSlideState.h"
@@ -44,6 +45,7 @@
 #include "Scripts/CStaticObstacle.h"
 #include "Scripts/CStaticPlatformScript.h"
 #include "Scripts/CTextUIScript.h"
+#include "Scripts/CTimeKeeperBGEffectScript.h"
 #include "Scripts/CTimeKeeperScript.h"
 #include "Scripts/CUIButtonScript.h"
 #include "Scripts/CWorldScrollScript.h"
@@ -86,6 +88,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CSceneChangeButtonScript");
 	_vec.push_back(L"CScoreUIScript");
 	_vec.push_back(L"CScrollScript");
+	_vec.push_back(L"CSkillBGEffectScript");
 	_vec.push_back(L"CSkillBGScript");
 	_vec.push_back(L"CSlideButtonScript");
 	_vec.push_back(L"CSlideState");
@@ -93,6 +96,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CStaticObstacle");
 	_vec.push_back(L"CStaticPlatformScript");
 	_vec.push_back(L"CTextUIScript");
+	_vec.push_back(L"CTimeKeeperBGEffectScript");
 	_vec.push_back(L"CTimeKeeperScript");
 	_vec.push_back(L"CUIButtonScript");
 	_vec.push_back(L"CWorldScrollScript");
@@ -172,6 +176,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CScoreUIScript;
 	if (L"CScrollScript" == _strScriptName)
 		return new CScrollScript;
+	if (L"CSkillBGEffectScript" == _strScriptName)
+		return new CSkillBGEffectScript;
 	if (L"CSkillBGScript" == _strScriptName)
 		return new CSkillBGScript;
 	if (L"CSlideButtonScript" == _strScriptName)
@@ -186,6 +192,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CStaticPlatformScript;
 	if (L"CTextUIScript" == _strScriptName)
 		return new CTextUIScript;
+	if (L"CTimeKeeperBGEffectScript" == _strScriptName)
+		return new CTimeKeeperBGEffectScript;
 	if (L"CTimeKeeperScript" == _strScriptName)
 		return new CTimeKeeperScript;
 	if (L"CUIButtonScript" == _strScriptName)
@@ -307,6 +315,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::SCROLLSCRIPT:
 		return new CScrollScript;
 		break;
+	case (UINT)SCRIPT_TYPE::SKILLBGEFFECTSCRIPT:
+		return new CSkillBGEffectScript;
+		break;
 	case (UINT)SCRIPT_TYPE::SKILLBGSCRIPT:
 		return new CSkillBGScript;
 		break;
@@ -327,6 +338,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::TEXTUISCRIPT:
 		return new CTextUIScript;
+		break;
+	case (UINT)SCRIPT_TYPE::TIMEKEEPERBGEFFECTSCRIPT:
+		return new CTimeKeeperBGEffectScript;
 		break;
 	case (UINT)SCRIPT_TYPE::TIMEKEEPERSCRIPT:
 		return new CTimeKeeperScript;
@@ -489,6 +503,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 		return L"CScrollScript";
 		break;
 
+	case SCRIPT_TYPE::SKILLBGEFFECTSCRIPT:
+		return L"CSkillBGEffectScript";
+		break;
+
 	case SCRIPT_TYPE::SKILLBGSCRIPT:
 		return L"CSkillBGScript";
 		break;
@@ -515,6 +533,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::TEXTUISCRIPT:
 		return L"CTextUIScript";
+		break;
+
+	case SCRIPT_TYPE::TIMEKEEPERBGEFFECTSCRIPT:
+		return L"CTimeKeeperBGEffectScript";
 		break;
 
 	case SCRIPT_TYPE::TIMEKEEPERSCRIPT:

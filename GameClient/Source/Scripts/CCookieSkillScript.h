@@ -12,8 +12,11 @@ protected:
 	Ptr<APrefab> m_SkillEffectPrefab;   // 스킬 발사체 프리팹 
 	GameObject*  m_SkillEffectObj;      // 스킬 발사체 오브젝트
 
-	Ptr<APrefab> m_SkillBGPrefab; // 스킬 배경 프리팹
-	GameObject*  m_SkillBGObject; // 현재 씬에 생성된 스킬 배경 오브젝트 (없으면 nullptr)
+	Ptr<APrefab> m_SkillBGPrefab;       // 스킬 배경 프리팹
+	GameObject*  m_SkillBGObject;       // 현재 씬에 생성된 스킬 배경 오브젝트 (없으면 nullptr)
+
+	Ptr<APrefab> m_SkillBGEffectPrefab; // 스킬 배경 이펙트 프리팹 (1회 재생 후 소멸)
+	GameObject*  m_SkillBGEffectObject; // 현재 씬에 생성된 스킬 배경 이펙트 오브젝트
 
 	bool m_IsUsingSkill;
 
@@ -29,6 +32,9 @@ public:
 
 	void SetSkillBGPrefab(Ptr<APrefab> _Prefab) { m_SkillBGPrefab = _Prefab; }
 	Ptr<APrefab> GetSkillBGPrefab() { return m_SkillBGPrefab; }
+
+	void SetSkillBGEffectPrefab(Ptr<APrefab> _Prefab) { m_SkillBGEffectPrefab = _Prefab; }
+	Ptr<APrefab> GetSkillBGEffectPrefab() { return m_SkillBGEffectPrefab; }
 
 	bool IsUsingSkill() const { return m_IsUsingSkill; }
 
@@ -46,6 +52,9 @@ public:
 protected:
 	void SpawnSkillBG(int _LayerIdx);  // UseSkill() 시 호출
 	void DestroySkillBG();             // EndSkill() 시 호출
+
+	void SpawnSkillBGEffect(int _LayerIdx);  // UseSkill() 시 호출
+	void DestroySkillBGEffect();             // EndSkill() 시 호출
 
 	void SpawnSkillEffect(int _LayerIdx);  // UseSkill() 시 호출
 	void DestroySkillEffect();             // EndSkill() 시 호출

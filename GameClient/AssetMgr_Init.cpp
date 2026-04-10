@@ -357,6 +357,16 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"TimeKeeper_bg2", L"Texture\\TimeKeeper\\TimeKeeper_bg2.png");
 	Load<ATexture>(L"TimeKeeper_bg3", L"Texture\\TimeKeeper\\TimeKeeper_bg3.png");
 
+	Load<ATexture>(L"TimeKeeper_SkillBG", L"Texture\\TimeKeeper\\TimeKeeper_SkillBG.png");
+	Load<ATexture>(L"TimeKeeper_SkillEffect_0", L"Texture\\TimeKeeper\\TimeKeeper_SkillEffect_0.png");
+	Load<ATexture>(L"TimeKeeper_SkillEffect_1_1", L"Texture\\TimeKeeper\\TimeKeeper_SkillEffect_1_1.png");
+	Load<ATexture>(L"TimeKeeper_SkillEffect_1_2", L"Texture\\TimeKeeper\\TimeKeeper_SkillEffect_1_2.png");
+	Load<ATexture>(L"TimeKeeper_SkillEffect_2_1", L"Texture\\TimeKeeper\\TimeKeeper_SkillEffect_2_1.png");
+	Load<ATexture>(L"TimeKeeper_SkillEffect_2_2", L"Texture\\TimeKeeper\\TimeKeeper_SkillEffect_2_2.png");
+	Load<ATexture>(L"TimeKeeper_SkillEffect_3_1", L"Texture\\TimeKeeper\\TimeKeeper_SkillEffect_3_1.png");
+	Load<ATexture>(L"TimeKeeper_SkillEffect_3_2", L"Texture\\TimeKeeper\\TimeKeeper_SkillEffect_3_2.png");
+
+
 	//Load<ATexture>(L"DragonCookieHitDead", L"Texture\\TimeKeeper\\TimeKeeper_Hit_Dead.png");
 
 
