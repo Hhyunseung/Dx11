@@ -171,20 +171,20 @@ bool IsValid(Ptr<GameObject>& _Object)
 void CreateTestLevel()
 {
 	{
-		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
-		pLevel->SetName(L"Level\\GamePlayLevel_1.lv");
-		Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
-		GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
+		//Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
+		//pLevel->SetName(L"Level\\GamePlayLevel_1.lv");
+		//Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+		//GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
 
-		Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
-		Ptr<GameObject> pUI = pPrefabUI->Instantiate();
-		pLevel->AddObject(31, pUI); // UI 레이어
+		//Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
+		//Ptr<GameObject> pUI = pPrefabUI->Instantiate();
+		//pLevel->AddObject(31, pUI); // UI 레이어
 
 
-		Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
+		//Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
 
-		GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
-		GamePlayMgr::GetInst()->SetStageData(pStageData);
+		//GamePlayMgr::GetInst()->SetSelectedCharacterPrefab(pPrefab);
+		//GamePlayMgr::GetInst()->SetStageData(pStageData);
 
 
 		//Ptr<GameObject> pPlatform = LOAD(APrefab, L"Prefab\\TileShipeStage_1_fh_m.pref")->Instantiate();
@@ -225,7 +225,7 @@ void CreateTestLevel()
 		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\Item_Magnet.flip"));
 		pObject->FlipbookRender()->Play(0, 8.f, -1);
 
-		pLevel->AddObject(0, pObject);
+		//pLevel->AddObject(0, pObject);
 
 		
 		//ChangeLevel(L"Level\\LobbyLevel.lv");

@@ -11,6 +11,7 @@ class GamePlayMgr
 	SINGLE(GamePlayMgr);
 
 private:
+	Ptr<APrefab>	   m_GamePlayUIRootPrefab; // 게임 플레이 UI 루트 프리팹
 	CGamePlayUIScript* m_GamePlayUI;
 
 	Ptr<APrefab>	m_SeletectedCharacterPrefab;
@@ -32,6 +33,9 @@ private:
 public:
 	void Init();
 	void Clear();
+
+	void SetGamePlayUIRootPrefab(Ptr<APrefab> _Prefab) { m_GamePlayUIRootPrefab = _Prefab; }
+	Ptr<APrefab> GetGamePlayUIRootPrefab() { return m_GamePlayUIRootPrefab; }
 
 	void SetGamePlayUIScript(CGamePlayUIScript* _pUI) { m_GamePlayUI = _pUI; }
 	CGamePlayUIScript* GetGamePlayUIScript() { return m_GamePlayUI; }

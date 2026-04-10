@@ -8,6 +8,7 @@ private:
 	Vec4 m_vecPlayerSpawnPos;
 
 private:
+	void SpawnUI();
 	void SpawnPlayer();
 	void SpawnStageObjects();
 

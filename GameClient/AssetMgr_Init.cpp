@@ -391,10 +391,14 @@ void AssetMgr::CreateEngineTexture()
 	// ==============================
 	// UI ÅØ½ºÃÄ
 	// ==============================
+	Load<ATexture>(L"BlackPanel", L"Texture\\UI\\BlackPanel.png");
+
 	Load<ATexture>(L"btn_jump", L"Texture\\UI\\btn_jump.png");
 	Load<ATexture>(L"btn_jump_dim", L"Texture\\UI\\btn_jump_dim.png");
 	Load<ATexture>(L"btn_slide", L"Texture\\UI\\btn_slide.png");
 	Load<ATexture>(L"btn_slide_dim", L"Texture\\UI\\btn_slide_dim.png");
+
+	Load<ATexture>(L"btn_puase_no", L"Texture\\UI\\btn_puase_no.png");
 
 	Load<ATexture>(L"Icon_heartLife", L"Texture\\UI\\Icon_heartLife.png");
 	Load<ATexture>(L"Icon_heart_orange", L"Texture\\UI\\Icon_heart_orange.png");

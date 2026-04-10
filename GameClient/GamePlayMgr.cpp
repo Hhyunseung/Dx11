@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GamePlayMgr.h"
 #include "ObjectPoolMgr.h"
+#include "AssetMgr.h"
 
 #include "..\GameClient\Source\Scripts\CPlayerScript.h"
 #include "..\GameClient\Source\Scripts\CCookieSkillScript.h"
@@ -38,6 +39,20 @@ void GamePlayMgr::Init()
 	{
 		CreateNewStageData();
 	}
+
+
+	// ==============================================
+	// 캐릭터 프리팹과 UI 프리팹 로드 및 인스턴스화
+	// ==============================================
+	Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+	m_SeletectedCharacterPrefab = pPrefab; // 선택된 캐릭터 프리팹 저장
+	m_SelectedCharacterType = ECharacterType::TimeKeeper; // 기본 캐릭터 타입 설정
+
+	Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
+	m_GamePlayUIRootPrefab = pPrefabUI; // UI 루트 프리팹 저장
+
+	Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
+	m_StageData = pStageData; // StageData 저장
 
 	// 오브젝트 풀 초기화
 	ObjectPoolMgr::GetInst()->Init();

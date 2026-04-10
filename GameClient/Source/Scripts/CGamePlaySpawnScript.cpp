@@ -27,6 +27,7 @@ void CGamePlaySpawnScript::Begin()
 	// 플레이어 스폰
 	SpawnPlayer();
 
+	SpawnUI();
 	// StageData 기반 오브젝트 스폰
 	// SpawnStageObjects();
 }
@@ -34,6 +35,17 @@ void CGamePlaySpawnScript::Begin()
 void CGamePlaySpawnScript::Tick()
 {
 
+}
+
+void CGamePlaySpawnScript::SpawnUI()
+{
+	Ptr<APrefab> pPrefabUI = GamePlayMgr::GetInst()->GetGamePlayUIRootPrefab();
+	if (pPrefabUI == nullptr)
+		return;
+
+	GameObject* pUI = pPrefabUI->Instantiate();
+	pUI->Transform()->SetRelativePos(Vec3(0.f, 0.f, 0.f)); // UI는 월드 좌표 (0,0,0)에 배치
+	CreateObject(pUI, 31); // UI 레이어
 }
 
 void CGamePlaySpawnScript::SpawnPlayer()

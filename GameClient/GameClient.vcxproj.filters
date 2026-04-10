@@ -403,16 +403,45 @@
     <ClInclude Include="Source\Scripts\CScoreUIScript.h">
       <Filter>Source\Scripts\07.UI\GamePlayUI\03.Score</Filter>
     </ClInclude>
-    <ClInclude Include="GameDataMgr.h" />
-    <ClInclude Include="SceneFlowMgr.h" />
-    <ClInclude Include="Source\Scripts\CFallState.h" />
-    <ClInclude Include="Source\Scripts\CFlipbookClickScript.h" />
-    <ClInclude Include="Source\Scripts\CSceneChangeButtonScript.h" />
-    <ClInclude Include="Source\Scripts\CTextUIScript.h" />
     <ClInclude Include="Source\Scripts\CItemScript.h">
       <Filter>Source\Scripts\08.Item</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scripts\CDeadState.h" />
+    <ClInclude Include="Source\Scripts\CDeadState.h">
+      <Filter>Source\Scripts\02.Cookie\State\Dead</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CFallState.h">
+      <Filter>Source\Scripts\02.Cookie\State\Fall</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CFlipbookClickScript.h">
+      <Filter>Source\Scripts\07.UI\LobbyUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CPausePanelScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CPauseButtonScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Pause</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CQuitButtonScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Quit</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CRestartButtonScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Restart</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CResumeButtonScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Resume</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CSceneChangeButtonScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\SceneChange</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CTextUIScript.h">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\04.Text</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDataMgr.h">
+      <Filter>GameEngine\03.Manager\13.GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFlowMgr.h">
+      <Filter>GameEngine\03.Manager\14.SceneFlow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -758,6 +787,39 @@
     </Filter>
     <Filter Include="Source\Scripts\08.Item">
       <UniqueIdentifier>{443f3f9d-ad65-46c6-b701-2fa42fedba33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\02.Cookie\State\Dead">
+      <UniqueIdentifier>{334c753b-ad54-4dad-ba71-fa1e64d392cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\02.Cookie\State\Fall">
+      <UniqueIdentifier>{ce3120bd-c610-47f9-905e-039ba5fd0c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\LobbyUI">
+      <UniqueIdentifier>{d5e7d75f-c24e-4473-855e-5a1b7dd08f21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\01.Button\Pause">
+      <UniqueIdentifier>{a675ae9f-a158-4006-8d55-626988737aff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\01.Button\Quit">
+      <UniqueIdentifier>{4b8fe9d7-8006-41b6-ad91-42823935d956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\01.Button\Restart">
+      <UniqueIdentifier>{87e23d79-21e9-41b3-97b4-c696480fe169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\01.Button\Resume">
+      <UniqueIdentifier>{f63360cd-d3ca-47f4-9092-a9b714024782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\01.Button\SceneChange">
+      <UniqueIdentifier>{579287a1-3bcd-4944-870f-9d4039e9c461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripts\07.UI\GamePlayUI\04.Text">
+      <UniqueIdentifier>{9d3e9a85-d53c-4ceb-89e8-fbeff46f6723}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\03.Manager\13.GameData">
+      <UniqueIdentifier>{3cc6dd03-35d8-4d5a-ab3e-bdc1903f7a46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\03.Manager\14.SceneFlow">
+      <UniqueIdentifier>{a6f85da5-3d3e-40ec-bff2-09438b3d46e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1136,16 +1198,45 @@
     <ClCompile Include="Source\Scripts\CScoreUIScript.cpp">
       <Filter>Source\Scripts\07.UI\GamePlayUI\03.Score</Filter>
     </ClCompile>
-    <ClCompile Include="GameDataMgr.cpp" />
-    <ClCompile Include="SceneFlowMgr.cpp" />
-    <ClCompile Include="Source\Scripts\CFallState.cpp" />
-    <ClCompile Include="Source\Scripts\CFlipbookClickScript.cpp" />
-    <ClCompile Include="Source\Scripts\CSceneChangeButtonScript.cpp" />
-    <ClCompile Include="Source\Scripts\CTextUIScript.cpp" />
     <ClCompile Include="Source\Scripts\CItemScript.cpp">
       <Filter>Source\Scripts\08.Item</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\CDeadState.cpp" />
+    <ClCompile Include="Source\Scripts\CDeadState.cpp">
+      <Filter>Source\Scripts\02.Cookie\State\Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CFallState.cpp">
+      <Filter>Source\Scripts\02.Cookie\State\Fall</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CFlipbookClickScript.cpp">
+      <Filter>Source\Scripts\07.UI\LobbyUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CPausePanelScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CPauseButtonScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Pause</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CQuitButtonScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Quit</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CRestartButtonScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Restart</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CResumeButtonScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\Resume</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CSceneChangeButtonScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\01.Button\SceneChange</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CTextUIScript.cpp">
+      <Filter>Source\Scripts\07.UI\GamePlayUI\04.Text</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDataMgr.cpp">
+      <Filter>GameEngine\03.Manager\13.GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFlowMgr.cpp">
+      <Filter>GameEngine\03.Manager\14.SceneFlow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
