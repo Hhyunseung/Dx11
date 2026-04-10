@@ -50,6 +50,8 @@ void CTimeKeeperScript::OnEquip()
 
 	Ptr<APrefab> pAttackEffectPrefab = FIND(APrefab, L"Prefab\\TimeKeeper_SkillAttackEffect.pref");
 	SetSKillEffectPrefab(pAttackEffectPrefab);
+
+	m_TKBGEffectPrefab = FIND(APrefab, L"Prefab\\TimeKeeper_SkillEffect.pref");
 }
 
 // 스킬 해제 시 호출

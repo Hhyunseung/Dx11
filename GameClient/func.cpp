@@ -212,21 +212,24 @@ void CreateTestLevel()
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_1.lv");
 
 		Ptr<GameObject> pObject = new GameObject;
-		pObject->SetName(L"TimeKeeper_SkillAttackEffect");
+		pObject->SetName(L"TimeKeeper_SkillEffect_1");
 
 		pObject->AddComponent(new CTransform);
 		pObject->AddComponent(new CFlipbookRender);
+		pObject->AddComponent(new CTimeKeeperBGEffectScript);
 
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 650.f));
-		pObject->Transform()->SetRelativeScale(Vec3(500.f, 500.f, 1.f));
+		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 600.f));
+		pObject->Transform()->SetRelativeScale(Vec3(503.f, 489.f, 1.f));
 
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\TimeKeeper_SkillAttackEffect.flip"));
-		pObject->FlipbookRender()->Play(0, 8.f, -1);
+		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\TimeKeeper_SkillEffect_1_1.flip"));
+		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\TimeKeeper_SkillEffect_1_2.flip"));
+		pObject->FlipbookRender()->Play(0, 6.f, -1);
 
 		//pLevel->AddObject(1, pObject);
 		
+
 		//ChangeLevel(L"Level\\LobbyLevel.lv");
 
 		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::START_GAME);

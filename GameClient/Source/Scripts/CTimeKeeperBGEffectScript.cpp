@@ -7,7 +7,7 @@
 
 CTimeKeeperBGEffectScript::CTimeKeeperBGEffectScript()
 	: CScript(SCRIPT_TYPE::TIMEKEEPERBGEFFECTSCRIPT)
-	, m_FPS(12.f)
+	, m_FPS(8.f)
 	, m_State(ETKBGEffectState::Intro)
 {
 }
