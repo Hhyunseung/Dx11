@@ -9,6 +9,12 @@ class CCookieSkillScript :
 protected:
 	CPlayerScript* m_Player;
 
+	Ptr<APrefab> m_SkillEffectPrefab;   // 스킬 발사체 프리팹 
+	GameObject*  m_SkillEffectObj;      // 스킬 발사체 오브젝트
+
+	Ptr<APrefab> m_SkillBGPrefab; // 스킬 배경 프리팹
+	GameObject*  m_SkillBGObject; // 현재 씬에 생성된 스킬 배경 오브젝트 (없으면 nullptr)
+
 	bool m_IsUsingSkill;
 
 	float m_WaitTime;
@@ -17,6 +23,12 @@ protected:
 public:
 	void SetPlayer(CPlayerScript* _Player) { m_Player = _Player; }
 	CPlayerScript* GetPlayer() const { return m_Player; }
+
+	void SetKillEffectPrefab(Ptr<APrefab> _Prefab) { m_SkillEffectPrefab = _Prefab; }
+	Ptr<APrefab> GetKillEffectPrefab() { return m_SkillEffectPrefab; }
+
+	void SetSkillBGPrefab(Ptr<APrefab> _Prefab) { m_SkillBGPrefab = _Prefab; }
+	Ptr<APrefab> GetSkillBGPrefab() { return m_SkillBGPrefab; }
 
 	bool IsUsingSkill() const { return m_IsUsingSkill; }
 
@@ -30,6 +42,13 @@ public:
 	virtual void TickSkill();
 
 	virtual bool IsSkillMovementMode() const { return false; }
+
+protected:
+	void SpawnSkillBG(int _LayerIdx);  // UseSkill() 시 호출
+	void DestroySkillBG();             // EndSkill() 시 호출
+
+	void SpawnSkillEffect(int _LayerIdx);  // UseSkill() 시 호출
+	void DestroySkillEffect();             // EndSkill() 시 호출
 
 public:
 	virtual void Begin() override;

@@ -4,6 +4,7 @@
 #include "CPlayerScript.h"
 #include "GameObject.h"
 
+#include "AssetMgr.h"
 #include "GamePlayMgr.h"
 #include "TimeMgr.h"
 #include "KeyMgr.h"
@@ -24,7 +25,7 @@ CTimeKeeperScript::CTimeKeeperScript()
 	, m_MaxScoreTickCount(10)
 	, m_ScorePerTick(3000000)
 {
-	m_WaitTime = 15.f; // 자동 발동 대기시간 15초
+	m_WaitTime = 2.f; // 자동 발동 대기시간 15초
 }
 
 
@@ -36,6 +37,9 @@ CTimeKeeperScript::~CTimeKeeperScript()
 void CTimeKeeperScript::OnEquip()
 {
 	//m_Player->GetStateMachine()->AddState(new CRunState(m_Player));
+
+	Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeper_BG.pref");
+	SetSkillBGPrefab(pPrefab);
 }
 
 // 스킬 해제 시 호출
@@ -72,6 +76,8 @@ void CTimeKeeperScript::UseSkill()
 
 	EnterSkillMode();
 
+	SpawnSkillBG(1);
+
 	// 스킬 시작 연출(1회)
 	ChangeSkillState(ETimeKeeperSkillState::Start);
 }
@@ -92,6 +98,8 @@ void CTimeKeeperScript::EndSkill()
 
 	m_SkillState = ETimeKeeperSkillState::None;
 	m_bEndReserved = false;
+
+	DestroySkillBG();
 
 	ExitSkillMode();
 }

@@ -37,6 +37,7 @@
 #include "Scripts/CSceneChangeButtonScript.h"
 #include "Scripts/CScoreUIScript.h"
 #include "Scripts/CScrollScript.h"
+#include "Scripts/CSkillBGScript.h"
 #include "Scripts/CSlideButtonScript.h"
 #include "Scripts/CSlideState.h"
 #include "Scripts/CStateMachine.h"
@@ -85,6 +86,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CSceneChangeButtonScript");
 	_vec.push_back(L"CScoreUIScript");
 	_vec.push_back(L"CScrollScript");
+	_vec.push_back(L"CSkillBGScript");
 	_vec.push_back(L"CSlideButtonScript");
 	_vec.push_back(L"CSlideState");
 	_vec.push_back(L"CStateMachine");
@@ -170,6 +172,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CScoreUIScript;
 	if (L"CScrollScript" == _strScriptName)
 		return new CScrollScript;
+	if (L"CSkillBGScript" == _strScriptName)
+		return new CSkillBGScript;
 	if (L"CSlideButtonScript" == _strScriptName)
 		return new CSlideButtonScript;
 	if (L"CSlideState" == _strScriptName)
@@ -302,6 +306,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::SCROLLSCRIPT:
 		return new CScrollScript;
+		break;
+	case (UINT)SCRIPT_TYPE::SKILLBGSCRIPT:
+		return new CSkillBGScript;
 		break;
 	case (UINT)SCRIPT_TYPE::SLIDEBUTTONSCRIPT:
 		return new CSlideButtonScript;
@@ -480,6 +487,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::SCROLLSCRIPT:
 		return L"CScrollScript";
+		break;
+
+	case SCRIPT_TYPE::SKILLBGSCRIPT:
+		return L"CSkillBGScript";
 		break;
 
 	case SCRIPT_TYPE::SLIDEBUTTONSCRIPT:

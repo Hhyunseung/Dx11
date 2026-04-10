@@ -310,9 +310,6 @@
     <ClInclude Include="Source\Scripts\CScrollScript.h">
       <Filter>Source\Scripts\03.Scroll</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scripts\CBGScrollScript.h">
-      <Filter>Source\Scripts\03.Scroll</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scripts\CSlideState.h">
       <Filter>Source\Scripts\02.Cookie\State\Slide</Filter>
     </ClInclude>
@@ -441,6 +438,12 @@
     </ClInclude>
     <ClInclude Include="SceneFlowMgr.h">
       <Filter>GameEngine\03.Manager\14.SceneFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CBGScrollScript.h">
+      <Filter>Source\Scripts\09.BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scripts\CSkillBGScript.h">
+      <Filter>Source\Scripts\09.BackGround</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -821,6 +824,9 @@
     <Filter Include="GameEngine\03.Manager\14.SceneFlow">
       <UniqueIdentifier>{a6f85da5-3d3e-40ec-bff2-09438b3d46e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Scripts\09.BackGround">
+      <UniqueIdentifier>{60811301-a0ac-4ed7-9dcb-916f3ebec549}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -1105,9 +1111,6 @@
     <ClCompile Include="Source\Scripts\CScrollScript.cpp">
       <Filter>Source\Scripts\03.Scroll</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\CBGScrollScript.cpp">
-      <Filter>Source\Scripts\03.Scroll</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scripts\CSlideState.cpp">
       <Filter>Source\Scripts\02.Cookie\State\Slide</Filter>
     </ClCompile>
@@ -1236,6 +1239,12 @@
     </ClCompile>
     <ClCompile Include="SceneFlowMgr.cpp">
       <Filter>GameEngine\03.Manager\14.SceneFlow</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CBGScrollScript.cpp">
+      <Filter>Source\Scripts\09.BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scripts\CSkillBGScript.cpp">
+      <Filter>Source\Scripts\09.BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

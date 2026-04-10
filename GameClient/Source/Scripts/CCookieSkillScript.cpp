@@ -3,10 +3,17 @@
 
 #include "GamePlayMgr.h"
 #include "TimeMgr.h"
+#include "TaskMgr.h"
+#include "APrefab.h"
+#include "CSkillBGScript.h"
 
 CCookieSkillScript::CCookieSkillScript(SCRIPT_TYPE _Type)
 	: CScript(_Type)
 	, m_Player(nullptr)
+	, m_SkillBGPrefab(nullptr)
+	, m_SkillBGObject(nullptr)
+	, m_SkillEffectPrefab(nullptr)
+	, m_SkillEffectObj(nullptr)
 	, m_WaitTime(12.f)   // 기본 자동 발동 대기시간
 	, m_WaitAcc(0.f)
 	, m_IsUsingSkill(false)
@@ -24,6 +31,7 @@ CCookieSkillScript::~CCookieSkillScript()
 
 void CCookieSkillScript::Begin()
 {
+	AddScriptParam(SCRIPT_PARAM::PREFAB, &m_SkillBGPrefab, L"SkillBGPrefab");
 }
 
 void CCookieSkillScript::Tick()
@@ -63,4 +71,38 @@ void CCookieSkillScript::TickSkill()
 			UseSkill();
 		}
 	}
+}
+
+void CCookieSkillScript::SpawnSkillBG(int _LayerIdx)
+{
+	if (m_SkillBGPrefab == nullptr)
+		return;
+
+	DestroySkillBG(); // 혹시 이전 것이 남아있으면 제거
+
+	m_SkillBGObject = m_SkillBGPrefab->Instantiate();
+	CreateObject(m_SkillBGObject, _LayerIdx);
+}
+
+void CCookieSkillScript::DestroySkillBG()
+{
+	if (m_SkillBGObject == nullptr || m_SkillBGObject->IsDead())
+	{
+		m_SkillBGObject = nullptr;
+		return;
+	}
+
+	Ptr<CSkillBGScript> pBGScript = m_SkillBGObject->GetScript<CSkillBGScript>();
+	if (pBGScript != nullptr)
+	{
+		pBGScript->BeginFadeOut();
+	}
+	else
+	{
+		TaskInfo info = {};
+		info.Type    = TASK_TYPE::DESTROY_OBJECT;
+		info.Param_0 = (DWORD_PTR)m_SkillBGObject;
+		TaskMgr::GetInst()->AddTask(info);
+	}
+	m_SkillBGObject = nullptr;
 }
