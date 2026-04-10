@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CBGScrollScript.h"
 
+#include "GamePlayMgr.h"
 #include "TimeMgr.h"
 #include "GameObject.h"
 #include "CMeshRender.h"
@@ -25,6 +26,9 @@ void CBGScrollScript::Init()
 
 void CBGScrollScript::Tick()
 {
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	Ptr<CMeshRender> pMeshRender = GetOwner()->MeshRender();
 
 	if (pMeshRender == nullptr || pMeshRender->GetMaterial() == nullptr)
