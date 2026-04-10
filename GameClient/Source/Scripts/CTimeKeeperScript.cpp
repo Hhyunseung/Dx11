@@ -44,6 +44,9 @@ void CTimeKeeperScript::OnEquip()
 
 	Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeper_BG.pref");
 	SetSkillBGPrefab(pPrefab);
+
+	Ptr<APrefab> pEffectPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie_SkillBGEffect.pref");
+	SetSkillBGEffectPrefab(pEffectPrefab);
 }
 
 // 스킬 해제 시 호출

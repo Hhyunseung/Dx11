@@ -165,6 +165,8 @@ bool IsValid(Ptr<GameObject>& _Object)
 #include "Source/Scripts/CStateMachine.h"
 #include "Source/Scripts/CScrollScript.h"
 #include "Source/Scripts/CBGScrollScript.h"
+#include "Source/Scripts/CSkillBGEffectScript.h"
+#include "Source/Scripts/CTimeKeeperBGEffectScript.h"
 
 #include "Source/Scripts/CItemScript.h"
 
@@ -207,26 +209,24 @@ void CreateTestLevel()
 		// Lobby
 		// =================================================================
 
-		//Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\LobbyLevel.lv");
+		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_1.lv");
 
 		Ptr<GameObject> pObject = new GameObject;
-		pObject->SetName(L"Item_HealA");
+		pObject->SetName(L"TimeKeeperCookie_SkillBGEffect");
 
 		pObject->AddComponent(new CTransform);
 		pObject->AddComponent(new CFlipbookRender);
-		pObject->AddComponent(new CCollider2D);
-		pObject->AddComponent(new CItemScript);
+		pObject->AddComponent(new CSkillBGEffectScript);
 
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(90.f, 90.f, 1.f));
+		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 700.f));
+		pObject->Transform()->SetRelativeScale(Vec3(1500.f, 918.f, 1.f));
 
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\Item_Magnet.flip"));
+		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\TimeKeeperCookie_SkillBGEffect.flip"));
 		pObject->FlipbookRender()->Play(0, 8.f, -1);
 
-		//pLevel->AddObject(0, pObject);
-
+		//pLevel->AddObject(1, pObject);
 		
 		//ChangeLevel(L"Level\\LobbyLevel.lv");
 
