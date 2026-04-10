@@ -27,8 +27,8 @@ public:
 	void SetPlayer(CPlayerScript* _Player) { m_Player = _Player; }
 	CPlayerScript* GetPlayer() const { return m_Player; }
 
-	void SetKillEffectPrefab(Ptr<APrefab> _Prefab) { m_SkillEffectPrefab = _Prefab; }
-	Ptr<APrefab> GetKillEffectPrefab() { return m_SkillEffectPrefab; }
+	void SetSKillEffectPrefab(Ptr<APrefab> _Prefab) { m_SkillEffectPrefab = _Prefab; }
+	Ptr<APrefab> GetSKillEffectPrefab() { return m_SkillEffectPrefab; }
 
 	void SetSkillBGPrefab(Ptr<APrefab> _Prefab) { m_SkillBGPrefab = _Prefab; }
 	Ptr<APrefab> GetSkillBGPrefab() { return m_SkillBGPrefab; }
@@ -41,7 +41,7 @@ public:
 public:
 	virtual void OnEquip() {}
 	virtual void OnUnequip() {}
-
+	
 	virtual bool CanAutoUseSkill() const;
 	virtual void UseSkill() {};
 	virtual void EndSkill() {};

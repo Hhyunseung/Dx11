@@ -35,6 +35,7 @@ void CCookieSkillScript::Begin()
 {
 	AddScriptParam(SCRIPT_PARAM::PREFAB, &m_SkillBGPrefab, L"SkillBGPrefab");
 	AddScriptParam(SCRIPT_PARAM::PREFAB, &m_SkillBGEffectPrefab, L"SkillBGEffectPrefab");
+	AddScriptParam(SCRIPT_PARAM::PREFAB, &m_SkillEffectPrefab, L"SkillEffectPrefab");
 }
 
 void CCookieSkillScript::Tick()
@@ -134,4 +135,31 @@ void CCookieSkillScript::DestroySkillBGEffect()
 	info.Param_0 = (DWORD_PTR)m_SkillBGEffectObject;
 	TaskMgr::GetInst()->AddTask(info);
 	m_SkillBGEffectObject = nullptr;
+}
+
+void CCookieSkillScript::SpawnSkillEffect(int _LayerIdx)
+{
+	if (m_SkillEffectPrefab == nullptr)
+		return;
+
+	DestroySkillEffect();
+
+	m_SkillEffectObj = m_SkillEffectPrefab->Instantiate();
+	m_SkillEffectObj->Transform()->SetRelativePos(m_Player->GetOwner()->Transform()->GetRelativePos());
+	CreateObject(m_SkillEffectObj, _LayerIdx);
+}
+
+void CCookieSkillScript::DestroySkillEffect()
+{
+	if (m_SkillEffectObj == nullptr || m_SkillEffectObj->IsDead())
+	{
+		m_SkillEffectObj = nullptr;
+		return;
+	}
+
+	TaskInfo info = {};
+	info.Type = TASK_TYPE::DESTROY_OBJECT;
+	info.Param_0 = (DWORD_PTR)m_SkillEffectObj;
+	TaskMgr::GetInst()->AddTask(info);
+	m_SkillEffectObj = nullptr;
 }

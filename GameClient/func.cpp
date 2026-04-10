@@ -212,18 +212,17 @@ void CreateTestLevel()
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_1.lv");
 
 		Ptr<GameObject> pObject = new GameObject;
-		pObject->SetName(L"TimeKeeperCookie_SkillBGEffect");
+		pObject->SetName(L"TimeKeeper_SkillAttackEffect");
 
 		pObject->AddComponent(new CTransform);
 		pObject->AddComponent(new CFlipbookRender);
-		pObject->AddComponent(new CSkillBGEffectScript);
 
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 700.f));
-		pObject->Transform()->SetRelativeScale(Vec3(1500.f, 918.f, 1.f));
+		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 650.f));
+		pObject->Transform()->SetRelativeScale(Vec3(500.f, 500.f, 1.f));
 
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\TimeKeeperCookie_SkillBGEffect.flip"));
+		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\TimeKeeper_SkillAttackEffect.flip"));
 		pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 		//pLevel->AddObject(1, pObject);

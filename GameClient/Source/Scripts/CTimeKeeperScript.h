@@ -65,8 +65,9 @@ private:
 	void SpawnTKBGEffect(int _LayerIdx);
 	void DestroyTKBGEffect();
 
+	void TrySpawnSlideEffect();
 
-	void UpdateSkillMove();			// 상하 이동
+	void UpdateSkillMove();
 	void UpdateSkillScore();		// 점수 처리
 	void UpdateSkillAnimState();	// 상태 전환
 

@@ -47,6 +47,9 @@ void CTimeKeeperScript::OnEquip()
 
 	Ptr<APrefab> pEffectPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie_SkillBGEffect.pref");
 	SetSkillBGEffectPrefab(pEffectPrefab);
+
+	Ptr<APrefab> pAttackEffectPrefab = FIND(APrefab, L"Prefab\\TimeKeeper_SkillAttackEffect.pref");
+	SetSKillEffectPrefab(pAttackEffectPrefab);
 }
 
 // 스킬 해제 시 호출
@@ -117,6 +120,7 @@ void CTimeKeeperScript::EndSkill()
 	DestroySkillBG();
 	DestroySkillBGEffect();
 	DestroyTKBGEffect();
+	DestroySkillEffect();
 
 	ExitSkillMode();
 }
@@ -151,6 +155,16 @@ void CTimeKeeperScript::TickSkill()
 		UpdateSkillScore();
 	}
 
+	// 슬라이드 이펙트 플립북 완료 감지 → 자동 제거
+	if (m_SkillEffectObj != nullptr && !m_SkillEffectObj->IsDead())
+	{
+		if (m_SkillEffectObj->FlipbookRender() != nullptr
+			&& m_SkillEffectObj->FlipbookRender()->IsAnimationComplete())
+		{
+			DestroySkillEffect();
+		}
+	}
+
 	UpdateSkillAnimState();
 }
 
@@ -173,6 +187,22 @@ void CTimeKeeperScript::ExitSkillMode()
 
 	m_Player->SetIsSkillMoveMode(false);
 	m_Player->SetIsTimeKeeperSkillAnim2(false);
+}
+
+void CTimeKeeperScript::TrySpawnSlideEffect()
+{
+	// 이미 이펙트가 살아있고 플립북이 재생 중이면 새로 생성하지 않음
+	if (m_SkillEffectObj != nullptr && !m_SkillEffectObj->IsDead())
+		return;
+
+	SpawnSkillEffect(1);
+
+	if (m_SkillEffectObj != nullptr)
+	{
+		// 플레이어보다 Z가 크면 깊이 테스트에서 플레이어 뒤쪽으로 배치됨
+		Vec3 vPos = m_SkillEffectObj->Transform()->GetRelativePos();
+		m_SkillEffectObj->Transform()->SetRelativePos(Vec3(vPos.x, vPos.y, 650.f));
+	}
 }
 
 void CTimeKeeperScript::SpawnTKBGEffect(int _LayerIdx)
@@ -349,6 +379,7 @@ void CTimeKeeperScript::ChangeSkillState(ETimeKeeperSkillState _NextState)
 	case ETimeKeeperSkillState::Slide:
 		m_IsChargeMotion = true;
 		m_Player->SetIsTimeKeeperSkillAnim2(true);
+		TrySpawnSlideEffect();
 		break;
 
 	case ETimeKeeperSkillState::End:
