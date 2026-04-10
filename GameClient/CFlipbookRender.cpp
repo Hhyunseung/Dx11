@@ -3,6 +3,7 @@
 
 #include "AssetMgr.h"
 #include "TimeMgr.h"
+#include "GamePlayMgr.h"
 
 CFlipbookRender::CFlipbookRender()
 	: CRenderComponent(COMPONENT_TYPE::FLIPBOOK_RENDER)
@@ -21,6 +22,9 @@ CFlipbookRender::~CFlipbookRender()
 
 void CFlipbookRender::FinalTick()
 {
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	if (CheckFinish())
 		return;
 

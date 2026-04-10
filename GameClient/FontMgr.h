@@ -21,6 +21,7 @@ private:
     IFW1Factory* m_FW1Factory;
     IFW1FontWrapper* m_FontWrapper;
     bool m_FontRegistered;
+    std::wstring m_RegisteredFontPath;
 
 private:
     struct tFontDrawData
