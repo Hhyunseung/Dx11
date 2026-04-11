@@ -149,6 +149,11 @@ void Device::ClearTarget()
     CONTEXT->ClearDepthStencilView(m_DSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 }
 
+void Device::ClearDepth()
+{
+    CONTEXT->ClearDepthStencilView(m_DSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
+}
+
 void Device::OMSetTarget()
 {
     // ∑ª¥ı≈∏∞Ÿ, ±Ì¿Ã ≈∏∞Ÿ √‚∑¬ º≥¡§

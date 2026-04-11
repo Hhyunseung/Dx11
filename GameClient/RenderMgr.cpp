@@ -49,6 +49,7 @@ void RenderMgr::Progress()
 
 		if (m_UICam != nullptr)
 		{
+			Device::GetInst()->ClearDepth();
 			m_UICam->SortObject();
 			m_UICam->Render();
 		}
