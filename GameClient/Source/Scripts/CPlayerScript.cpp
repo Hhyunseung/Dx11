@@ -148,7 +148,6 @@ void CPlayerScript::Begin()
 
 	// 부스트 이펙트 프리팹 로드
 	m_BoostEffectPrefab = LOAD(APrefab, L"Prefab\\Effect_Boost.pref");
-	m_BoostEffectObject = m_BoostEffectPrefab->Instantiate();
 
 	// 임시
 	// 플레이어 전용 머티리얼 생성
