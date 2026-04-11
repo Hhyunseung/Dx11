@@ -70,7 +70,7 @@ void SceneFlowMgr::GoToLobby()
 
 void SceneFlowMgr::GoToCharacterSelect()
 {
-	RequestLevelChange(L"Level\\SelectCharacterLevel.lv");
+	RequestLevelChange(L"Level\\CharacterSelect.lv");
 	RequestLevelPlay();
 }
 
