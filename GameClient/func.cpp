@@ -212,10 +212,9 @@ void CreateTestLevel()
 		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_1.lv");
 
 		Ptr<GameObject> pObject = new GameObject;
-		pObject->SetName(L"TimeKeeper_SkillEffect_1");
+		pObject->SetName(L"DragonCookie_SkillBG");
 
 		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CCollider2D);
 		pObject->AddComponent(new CFlipbookRender);
 
 		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
@@ -223,11 +222,42 @@ void CreateTestLevel()
 
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_Idle.flip"));
+		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillBG.flip"));
+		pObject->FlipbookRender()->Play(0, 8.f, -1);
+
+		//pLevel->AddObject(1, pObject);
+
+		pObject = new GameObject;
+		pObject->SetName(L"DragonCookie_SkillEffect_0");
+
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CFlipbookRender);
+
+		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
+
+
+		//// Save ÈÄ Load
+		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillEffect_0.flip"));
 		pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 		//pLevel->AddObject(1, pObject);
 		
+		pObject = new GameObject;
+		pObject->SetName(L"DragonCookie_SkillEffect_1");
+
+		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CFlipbookRender);
+
+		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
+
+
+		//// Save ÈÄ Load
+		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillEffect_1.flip"));
+		pObject->FlipbookRender()->Play(0, 8.f, -1);
+
+		//pLevel->AddObject(1, pObject);
 
 		//ChangeLevel(L"Level\\LobbyLevel.lv");
 

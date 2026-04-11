@@ -42,16 +42,16 @@ void CLycheeScript::OnEquip()
 {
 	//m_Player->GetStateMachine()->AddState(new CRunState(m_Player));
 
-	Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeper_BG.pref");
+	Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\DragonCookie_BG.pref");
 	SetSkillBGPrefab(pPrefab);
 
-	Ptr<APrefab> pEffectPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie_SkillBGEffect.pref");
+	Ptr<APrefab> pEffectPrefab = FIND(APrefab, L"Prefab\\DragonCookie_SkillBGEffect.pref");
 	SetSkillBGEffectPrefab(pEffectPrefab);
 
-	Ptr<APrefab> pAttackEffectPrefab = FIND(APrefab, L"Prefab\\TimeKeeper_SkillAttackEffect.pref");
+	Ptr<APrefab> pAttackEffectPrefab = FIND(APrefab, L"Prefab\\DragonCookie_SkillAttackEffect.pref");
 	SetSKillEffectPrefab(pAttackEffectPrefab);
 
-	m_TKBGEffectPrefab = FIND(APrefab, L"Prefab\\TimeKeeper_SkillEffect.pref");
+	m_TKBGEffectPrefab = FIND(APrefab, L"Prefab\\DragonCookie_SkillEffect.pref");
 }
 
 // 스킬 해제 시 호출
