@@ -215,17 +215,16 @@ void CreateTestLevel()
 		pObject->SetName(L"TimeKeeper_SkillEffect_1");
 
 		pObject->AddComponent(new CTransform);
+		pObject->AddComponent(new CCollider2D);
 		pObject->AddComponent(new CFlipbookRender);
-		pObject->AddComponent(new CTimeKeeperBGEffectScript);
 
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 600.f));
-		pObject->Transform()->SetRelativeScale(Vec3(503.f, 489.f, 1.f));
+		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
 
 
 		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\TimeKeeper_SkillEffect_1_1.flip"));
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\TimeKeeper_SkillEffect_1_2.flip"));
-		pObject->FlipbookRender()->Play(0, 6.f, -1);
+		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_Idle.flip"));
+		pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 		//pLevel->AddObject(1, pObject);
 		

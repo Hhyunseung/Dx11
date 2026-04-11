@@ -29,7 +29,7 @@ CTimeKeeperScript::CTimeKeeperScript()
 	, m_TKBGEffectPrefab(nullptr)
 	, m_TKBGEffectObject(nullptr)
 {
-	m_WaitTime = 2.f; // 자동 발동 대기시간 15초
+	m_WaitTime = 15.f; // 자동 발동 대기시간 15초
 }
 
 
