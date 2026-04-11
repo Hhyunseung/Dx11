@@ -191,6 +191,7 @@ enum class PLAYER_STATE_ID
 	BonusDown,
 	BonusUp,
 
+	BOOST_RUN,	// 부스트 달리기
 
 	END,
 };

@@ -4,6 +4,9 @@
 class CRunState :
 	public PlayerState
 {
+private:
+	bool m_WasBoosting;
+
 public:
 	void Enter(PLAYER_STATE_ID _prev) override;
 	void Tick();

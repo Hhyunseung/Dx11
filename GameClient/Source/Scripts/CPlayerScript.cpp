@@ -79,6 +79,8 @@ CPlayerScript::CPlayerScript()
 	, m_BoostDuration(5.f)
 	, m_DefaultScrollSpeed(300.f)
 	, m_DashScrollSpeed(500.f)
+	, m_BoostEffectPrefab(nullptr)
+	, m_BoostEffectObject(nullptr)
 	, m_IsMagnet(false)
 	, m_MagnetTimer(0.f)
 	, m_MagnetDuration(5.f)
@@ -96,8 +98,6 @@ void CPlayerScript::Init()
 	AddScriptParam(SCRIPT_PARAM::FLOAT, &m_JumpPower, L"JumpPower", true, 0.f);
 	AddScriptParam(SCRIPT_PARAM::PREFAB, &m_Missile, L"Missile", true, 0.f);
 	AddScriptParam(SCRIPT_PARAM::TEXTURE, &m_Tex, L"ChangeTex");
-
-	
 }
 
 
@@ -145,6 +145,9 @@ void CPlayerScript::Begin()
 
 	GetOwner()->Collider2D()->AddDynamicBeginOverlap(this, (COLLISION_EVENT)&CPlayerScript::BeginOverlap);
 
+	// 부스트 이펙트 프리팹 로드
+	m_BoostEffectPrefab = LOAD(APrefab, L"Prefab\\Effect_Boost.pref");
+	m_BoostEffectObject = m_BoostEffectPrefab->Instantiate();
 
 	// 임시
 	// 플레이어 전용 머티리얼 생성
@@ -637,12 +640,16 @@ void CPlayerScript::UpdateItemBuffs()
 
 	if (m_IsBoost)
 	{
+		UpdateBoostEffect();
+
 		m_BoostTimer += DT;
 		if (m_BoostTimer >= m_BoostDuration)
 		{
 			m_IsBoost = false;
 			m_BoostTimer = 0.f;
 			GamePlayMgr::GetInst()->SetScrollSpeed(m_DefaultScrollSpeed);
+
+			DestroyBoostEffect();
 		}
 	}
 
@@ -941,6 +948,8 @@ void CPlayerScript::ActivateBoost(float _Duration)
 
 	m_DefaultScrollSpeed = GamePlayMgr::GetInst()->GetScrollSpeed();
 	GamePlayMgr::GetInst()->SetScrollSpeed(m_DashScrollSpeed);
+
+	SpawnBoostEffect(1); // 레이어 1 → 플레이어(레이어 3)보다 먼저 렌더링 → 캐릭터 뒤에 표시
 }
 
 void CPlayerScript::ActivateMagnet(float _Duration)
@@ -948,6 +957,52 @@ void CPlayerScript::ActivateMagnet(float _Duration)
 	m_IsMagnet = true;
 	m_MagnetTimer = 0.f;
 	m_MagnetDuration = _Duration;
+}
+
+void CPlayerScript::SpawnBoostEffect(int _LayerIdx)
+{
+	if (m_BoostEffectPrefab == nullptr)
+		return;
+
+	DestroyBoostEffect();
+
+	m_BoostEffectObject = m_BoostEffectPrefab->Instantiate();
+
+	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
+	vPos.z += 1.f;
+	m_BoostEffectObject->Transform()->SetRelativePos(vPos);
+
+	GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::BOOST_RUN, 12.f, -1);
+
+	CreateObject(m_BoostEffectObject, _LayerIdx);
+}
+
+void CPlayerScript::DestroyBoostEffect()
+{
+	if (m_BoostEffectObject == nullptr || m_BoostEffectObject->IsDead())
+	{
+		m_BoostEffectObject = nullptr;
+		return;
+	}
+
+	TaskInfo info = {};
+	info.Type    = TASK_TYPE::DESTROY_OBJECT;
+	info.Param_0 = (DWORD_PTR)m_BoostEffectObject;
+	TaskMgr::GetInst()->AddTask(info);
+	m_BoostEffectObject = nullptr;
+}
+
+void CPlayerScript::UpdateBoostEffect()
+{
+	if (m_BoostEffectObject == nullptr || m_BoostEffectObject->IsDead())
+	{
+		m_BoostEffectObject = nullptr;
+		return;
+	}
+
+	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
+	vPos.z += 1.f;
+	m_BoostEffectObject->Transform()->SetRelativePos(vPos);
 }
 
 

@@ -351,6 +351,8 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"TimeKeeperCookieSkillEnd", L"Texture\\TimeKeeper\\TimeKeeper_SkillEnd.png");
 	Load<ATexture>(L"TimeKeeperCookieBonusTimeDown", L"Texture\\TimeKeeper\\TimeKeeper_BonusTime_Down.png");
 	Load<ATexture>(L"TimeKeeperCookieBonusTimeUp", L"Texture\\TimeKeeper\\TimeKeeper_BonusTime_Up.png");
+	Load<ATexture>(L"TimeKeeperCookieBonusTimeUp", L"Texture\\TimeKeeper\\TimeKeeper_BonusTime_Up.png");
+	Load<ATexture>(L"TimeKeeperBoost", L"Texture\\TimeKeeper\\TimeKeeper_Boost.png");
 	
 	
 	Load<ATexture>(L"TimeKeeper_bg1", L"Texture\\TimeKeeper\\TimeKeeper_bg1.png");

@@ -122,6 +122,9 @@ private:
 	float				m_DefaultScrollSpeed;
 	float				m_DashScrollSpeed;
 
+	Ptr<APrefab>		m_BoostEffectPrefab;
+	GameObject*			m_BoostEffectObject;
+
 	// 자석
 	bool				m_IsMagnet;
 	float 				m_MagnetTimer;
@@ -200,9 +203,13 @@ private:
 	void SetSlideFeetTransform();
 	void KeepBottomAligned(float _PrevBottomY);
 
-
 	// 현재 상태에 맞는 충돌체 모양 적용 (기본/슬라이드/거대화)
 	void ApplyCurrentColliderState(); 
+
+	// 부스트 이펙트
+	void SpawnBoostEffect(int _LayerIdx);
+	void DestroyBoostEffect();
+	void UpdateBoostEffect();
 
 
 private:
