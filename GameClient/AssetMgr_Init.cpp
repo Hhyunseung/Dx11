@@ -387,6 +387,7 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Effect_JellyCollect", L"Texture\\Effect\\Effect_JellyCollect.png");
 	Load<ATexture>(L"Effect_CookieBoost", L"Texture\\Effect\\Effect_CookieBoost.png");
 	Load<ATexture>(L"Effect_Obstruct", L"Texture\\Obstacle\\Obstruct.png");
+	Load<ATexture>(L"Effect_Hit", L"Texture\\Effect\\Effect_Hit.png");
 
 
 
@@ -437,7 +438,7 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Icon_heart_green", L"Texture\\UI\\Icon_heart_green.png");
 	Load<ATexture>(L"Icon_heart_blue", L"Texture\\UI\\Icon_heart_blue.png");
 	Load<ATexture>(L"Icon_heartLife_bg", L"Texture\\UI\\gaugebg_heart01.png");
-
+	
 	Load<ATexture>(L"Icon_jellybean0001_big", L"Texture\\UI\\jellybean0001_big.png");
 
 	Load<ATexture>(L"btn_blue", L"Texture\\UI\\btn_burningRelay.png");

@@ -451,6 +451,7 @@
     <ClInclude Include="Source\Scripts\CTimeKeeperBGEffectScript.h">
       <Filter>Source\Scripts\05.Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CHitEffectScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -1258,6 +1259,7 @@
     <ClCompile Include="Source\Scripts\CTimeKeeperBGEffectScript.cpp">
       <Filter>Source\Scripts\05.Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scripts\CHitEffectScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

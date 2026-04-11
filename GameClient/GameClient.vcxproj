@@ -255,6 +255,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CFlipbookClickScript.h" />
     <ClInclude Include="Source\Scripts\CGamePlaySpawnScript.h" />
     <ClInclude Include="Source\Scripts\CGamePlayUIScript.h" />
+    <ClInclude Include="Source\Scripts\CHitEffectScript.h" />
     <ClInclude Include="Source\Scripts\CHitState.h" />
     <ClInclude Include="Source\Scripts\CHPBarScript.h" />
     <ClInclude Include="Source\Scripts\CItemScript.h" />
@@ -401,6 +402,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CFlipbookClickScript.cpp" />
     <ClCompile Include="Source\Scripts\CGamePlaySpawnScript.cpp" />
     <ClCompile Include="Source\Scripts\CGamePlayUIScript.cpp" />
+    <ClCompile Include="Source\Scripts\CHitEffectScript.cpp" />
     <ClCompile Include="Source\Scripts\CHitState.cpp" />
     <ClCompile Include="Source\Scripts\CHPBarScript.cpp" />
     <ClCompile Include="Source\Scripts\CItemScript.cpp" />

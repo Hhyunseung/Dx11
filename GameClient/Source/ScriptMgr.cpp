@@ -12,6 +12,7 @@
 #include "Scripts/CFlipbookClickScript.h"
 #include "Scripts/CGamePlaySpawnScript.h"
 #include "Scripts/CGamePlayUIScript.h"
+#include "Scripts/CHitEffectScript.h"
 #include "Scripts/CHitState.h"
 #include "Scripts/CHPBarScript.h"
 #include "Scripts/CItemScript.h"
@@ -63,6 +64,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CFlipbookClickScript");
 	_vec.push_back(L"CGamePlaySpawnScript");
 	_vec.push_back(L"CGamePlayUIScript");
+	_vec.push_back(L"CHitEffectScript");
 	_vec.push_back(L"CHitState");
 	_vec.push_back(L"CHPBarScript");
 	_vec.push_back(L"CItemScript");
@@ -126,6 +128,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CGamePlaySpawnScript;
 	if (L"CGamePlayUIScript" == _strScriptName)
 		return new CGamePlayUIScript;
+	if (L"CHitEffectScript" == _strScriptName)
+		return new CHitEffectScript;
 	if (L"CHitState" == _strScriptName)
 		return new CHitState;
 	if (L"CHPBarScript" == _strScriptName)
@@ -239,6 +243,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::GAMEPLAYUISCRIPT:
 		return new CGamePlayUIScript;
+		break;
+	case (UINT)SCRIPT_TYPE::HITEFFECTSCRIPT:
+		return new CHitEffectScript;
 		break;
 	case (UINT)SCRIPT_TYPE::HITSTATE:
 		return new CHitState;
@@ -401,6 +408,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::GAMEPLAYUISCRIPT:
 		return L"CGamePlayUIScript";
+		break;
+
+	case SCRIPT_TYPE::HITEFFECTSCRIPT:
+		return L"CHitEffectScript";
 		break;
 
 	case SCRIPT_TYPE::HITSTATE:

@@ -28,6 +28,7 @@
 #include "CJumpButtonScript.h"
 #include "CSlideButtonScript.h"
 #include "CHPBarScript.h"
+#include "CHitEffectScript.h"
 
 CPlayerScript::CPlayerScript()
 	: CScript(SCRIPT_TYPE::PLAYERSCRIPT)
@@ -900,7 +901,12 @@ void CPlayerScript::TakeDamage(int _Damage)
 
 	UpdateHPUI();
 
-    // 사망 체크
+	// Hit Effect UI 표시 (전체화면 빨간 테두리)
+	CGamePlayUIScript* pUI = GamePlayMgr::GetInst()->GetGamePlayUIScript();
+	if (pUI != nullptr && pUI->GetHitEffect() != nullptr)
+		pUI->GetHitEffect()->Trigger();
+
+	// 사망 체크
 	if (m_CurrentHP <= 0)
 	{
 		m_CurrentHP = 0;
@@ -969,6 +975,8 @@ void CPlayerScript::SpawnBoostEffect(int _LayerIdx)
 	m_BoostEffectObject = m_BoostEffectPrefab->Instantiate();
 
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
+	vPos.x -= 90.f;
+	vPos.y -= 60.f; 
 	vPos.z += 1.f;
 	m_BoostEffectObject->Transform()->SetRelativePos(vPos);
 
@@ -1001,6 +1009,8 @@ void CPlayerScript::UpdateBoostEffect()
 	}
 
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
+	vPos.x -= 90.f;
+	vPos.y -= 60.f;
 	vPos.z += 1.f;
 	m_BoostEffectObject->Transform()->SetRelativePos(vPos);
 }

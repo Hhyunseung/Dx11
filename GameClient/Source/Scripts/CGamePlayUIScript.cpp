@@ -10,6 +10,7 @@
 #include "CJumpButtonScript.h"
 #include "CSlideButtonScript.h"
 #include "CHPBarScript.h"
+#include "CHitEffectScript.h"
 
 #include "CPausePanelScript.h"
 #include "CPauseButtonScript.h"
@@ -24,6 +25,7 @@ CGamePlayUIScript::CGamePlayUIScript()
 	, m_JumpRequest(false)
 	, m_SlideRequest(false)
 	, m_HPBar(nullptr)
+	, m_HitEffect(nullptr)
 	, m_PauseBtn(nullptr)
 	, m_PausePanel(nullptr)
 	, m_ResumeBtn(nullptr)	
@@ -40,6 +42,12 @@ CGamePlayUIScript::~CGamePlayUIScript()
 void CGamePlayUIScript::Begin()
 {
 	GamePlayMgr::GetInst()->SetGamePlayUIScript(this);
+
+	GameObject* pHitEffectObj = GetOwner()->FindChildByScript<CHitEffectScript>();
+	if (pHitEffectObj != nullptr)
+	{
+		m_HitEffect = pHitEffectObj->GetScript<CHitEffectScript>().Get();
+	}
 
 
 	GameObject* pJumpObj = GetOwner()->FindChildByScript<CJumpButtonScript>();

@@ -4,6 +4,7 @@
 class CJumpButtonScript;
 class CSlideButtonScript;
 class CHPBarScript;
+class CHitEffectScript;
 
 class CUIButtonScript;
 
@@ -22,6 +23,8 @@ private:
 	CSlideButtonScript*		m_SlideBtn;
 
 	CHPBarScript*			m_HPBar;
+
+	CHitEffectScript*		m_HitEffect;
 
 	CUIButtonScript*		m_PauseBtn;
 
@@ -42,6 +45,8 @@ public:
 
 	CHPBarScript* GetHPBar() const { return m_HPBar; }
 	void SetHPBar(CHPBarScript* _HPBar) { m_HPBar = _HPBar; }
+
+	CHitEffectScript* GetHitEffect() const { return m_HitEffect; }
 
 public:
 	virtual void Begin() override;
