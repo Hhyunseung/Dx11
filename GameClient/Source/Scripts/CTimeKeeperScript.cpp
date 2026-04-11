@@ -99,7 +99,7 @@ void CTimeKeeperScript::UseSkill()
 	SpawnTKBGEffect(1);
 
 	// 스킬 시작 연출(1회)
-	ChangeSkillState(ETimeKeeperSkillState::Start);
+	ChangeSkillState(ESkillState::Start);
 }
 
 void CTimeKeeperScript::EndSkill()
@@ -116,7 +116,7 @@ void CTimeKeeperScript::EndSkill()
 	m_ScoreTickAcc = 0.f;
 	m_ScoreTickCount = 0;
 
-	m_SkillState = ETimeKeeperSkillState::None;
+	m_SkillState = ESkillState::None;
 	m_bEndReserved = false;
 
 	DestroySkillBG();
@@ -146,12 +146,12 @@ void CTimeKeeperScript::TickSkill()
 			m_RemainDuration = 0.f;
 			m_bEndReserved = true;
 
-			ChangeSkillState(ETimeKeeperSkillState::End);
+			ChangeSkillState(ESkillState::End);
 		}
 	}
 
-	if ( m_SkillState == ETimeKeeperSkillState::Loop
-		|| m_SkillState == ETimeKeeperSkillState::Slide)
+	if ( m_SkillState == ESkillState::Loop
+		|| m_SkillState == ESkillState::Slide)
 	{
 		UpdateSkillMove();
 		UpdateSkillScore();
@@ -275,7 +275,7 @@ void CTimeKeeperScript::UpdateSkillMove()
 
 void CTimeKeeperScript::UpdateSkillScore()
 {
-	if (m_SkillState != ETimeKeeperSkillState::Slide)
+	if (m_SkillState != ESkillState::Slide)
 	{
 		m_ScoreTickAcc = 0.f;
 		return;
@@ -305,42 +305,42 @@ void CTimeKeeperScript::UpdateSkillAnimState()
 
 	switch (m_SkillState)
 	{
-	case ETimeKeeperSkillState::Start:
+	case ESkillState::Start:
 	{
 		// 시작 연출이 끝나면
 		// DOWN 누르고 있으면 Slide, 아니면 Loop
 		if (GetOwner()->FlipbookRender()->IsAnimationComplete())
 		{
 			if (bSlidePressed)
-				ChangeSkillState(ETimeKeeperSkillState::Slide);
+				ChangeSkillState(ESkillState::Slide);
 			else
-				ChangeSkillState(ETimeKeeperSkillState::Loop);
+				ChangeSkillState(ESkillState::Loop);
 		}
 	}
 	break;
 
-	case ETimeKeeperSkillState::Loop:
+	case ESkillState::Loop:
 	{
 		// DOWN 홀드 시작 시 Slide 진입
 		if (bSlidePressed)
 		{
-			ChangeSkillState(ETimeKeeperSkillState::Slide);
+			ChangeSkillState(ESkillState::Slide);
 		}
 	}
 	break;
 
-	case ETimeKeeperSkillState::Slide:
+	case ESkillState::Slide:
 	{
 		// DOWN 누르고 있는 동안 계속 Slide 유지
 		// 떼면 다시 Loop
 		if (!bSlidePressed)
 		{
-			ChangeSkillState(ETimeKeeperSkillState::Loop);
+			ChangeSkillState(ESkillState::Loop);
 		}
 	}
 	break;
 
-	case ETimeKeeperSkillState::End:
+	case ESkillState::End:
 	{
 		// 종료 연출 끝나면 스킬 완전 종료
 		if (GetOwner()->FlipbookRender()->IsAnimationComplete())
@@ -355,7 +355,7 @@ void CTimeKeeperScript::UpdateSkillAnimState()
 	}
 }
 
-void CTimeKeeperScript::ChangeSkillState(ETimeKeeperSkillState _NextState)
+void CTimeKeeperScript::ChangeSkillState(ESkillState _NextState)
 {
 	if (m_SkillState == _NextState)
 		return;
@@ -368,23 +368,23 @@ void CTimeKeeperScript::ChangeSkillState(ETimeKeeperSkillState _NextState)
 
 	switch (_NextState)
 	{
-	case ETimeKeeperSkillState::Start:
+	case ESkillState::Start:
 		m_IsChargeMotion = false;
 		m_Player->SetIsTimeKeeperSkillAnim2(false);
 		break;
 
-	case ETimeKeeperSkillState::Loop:
+	case ESkillState::Loop:
 		m_IsChargeMotion = false;
 		m_Player->SetIsTimeKeeperSkillAnim2(false);
 		break;
 
-	case ETimeKeeperSkillState::Slide:
+	case ESkillState::Slide:
 		m_IsChargeMotion = true;
 		m_Player->SetIsTimeKeeperSkillAnim2(true);
 		TrySpawnSlideEffect();
 		break;
 
-	case ETimeKeeperSkillState::End:
+	case ESkillState::End:
 		m_IsChargeMotion = false;
 		m_Player->SetIsTimeKeeperSkillAnim2(false);
 		break;
@@ -394,29 +394,29 @@ void CTimeKeeperScript::ChangeSkillState(ETimeKeeperSkillState _NextState)
 	}
 }
 
-void CTimeKeeperScript::PlaySkillAnim(ETimeKeeperSkillState _AnimState)
+void CTimeKeeperScript::PlaySkillAnim(ESkillState _AnimState)
 {
 	if (GetOwner() == nullptr || GetOwner()->FlipbookRender() == nullptr)
 		return;
 
 	switch (_AnimState)
 	{
-	case ETimeKeeperSkillState::Start:
+	case ESkillState::Start:
 		// 스킬 시작 Flipbook(1) : 1회 재생
 		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_1, 12.f, 0);
 		break;
 
-	case ETimeKeeperSkillState::Loop:
+	case ESkillState::Loop:
 		// 스킬 진행 Flipbook(2) : 반복 재생
 		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_2, 12.f, -1);
 		break;
 
-	case ETimeKeeperSkillState::Slide:
+	case ESkillState::Slide:
 		// 스킬 슬라이드 Flipbook(3) : DOWN 홀드 동안 유지되어야 하므로 반복 재생
 		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_3, 12.f, -1);
 		break;
 
-	case ETimeKeeperSkillState::End:
+	case ESkillState::End:
 		// 스킬 종료 Flipbook(4) : 1회 재생
 		GetOwner()->FlipbookRender()->Play((UINT)PLAYER_STATE_ID::Skill_4, 12.f, 0);
 		break;

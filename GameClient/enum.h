@@ -209,6 +209,14 @@ enum class LEVEL_STATE
 	STOP,
 };
 
+enum class ESkillState
+{
+	None,
+	Start,
+	Loop,
+	Slide,
+	End,
+};
 
 enum class EObjectID
 {

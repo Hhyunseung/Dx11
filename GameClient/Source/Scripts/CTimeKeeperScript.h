@@ -1,16 +1,6 @@
 #pragma once
 #include "CCookieSkillScript.h"
 
-enum class ETimeKeeperSkillState
-{
-	None,
-	Start,
-	Loop,
-	Slide,
-	End,
-};
-
-
 class CTimeKeeperScript :
     public CCookieSkillScript
 {
@@ -29,7 +19,7 @@ private:
 	float m_StartY;
 
 	// 애니메이션 상태
-	ETimeKeeperSkillState m_SkillState;
+	ESkillState m_SkillState;
 	bool  m_IsChargeMotion;
 	
 	// 점수
@@ -72,8 +62,8 @@ private:
 	void UpdateSkillAnimState();	// 상태 전환
 
 	// 상태 전환
-	void ChangeSkillState(ETimeKeeperSkillState _NextState);
-	void PlaySkillAnim(ETimeKeeperSkillState _AnimState);
+	void ChangeSkillState(ESkillState _NextState);
+	void PlaySkillAnim(ESkillState _AnimState);
 
 public:
 	bool IsChargeMotion() const { return m_IsChargeMotion; }
