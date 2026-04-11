@@ -47,6 +47,7 @@ void ObjectPoolMgr::Init()
 
 	// 이펙트 풀 (예시)
 	CreatePool(L"Prefab\\Effect_JellyCollect.pref", 3, 0);
+	CreatePool(L"Prefab\\Effect_Obstrcut_Break.pref", 10, 0);
 	CreatePool(L"Prefab\\Effect_TextBoost.pref", 3, 0);
 	CreatePool(L"Prefab\\Effect_TextGiant.pref", 3, 0);
 	CreatePool(L"Prefab\\Effect_TextHeal.pref", 3, 0);

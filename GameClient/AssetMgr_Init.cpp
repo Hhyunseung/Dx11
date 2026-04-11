@@ -331,6 +331,12 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"DragonCookieSlide", L"Texture\\Lychee\\Lychee_Slide.png");
 	Load<ATexture>(L"DragonCookieDead", L"Texture\\Lychee\\Lychee_Dead.png");
 	Load<ATexture>(L"DragonCookieHitDead", L"Texture\\Lychee\\Lychee_Hit_Dead.png");
+	Load<ATexture>(L"DragonCookieSkillStart", L"Texture\\Lychee\\Lychee_SkillStart.png");
+	Load<ATexture>(L"DragonCookieSkillSlide", L"Texture\\Lychee\\Lychee_SkillSlide.png");
+	Load<ATexture>(L"DragonCookieSkillEnd", L"Texture\\Lychee\\Lychee_SkillEnd.png");
+	Load<ATexture>(L"DragonCookieBonusTime_Down", L"Texture\\Lychee\\Lychee_BonusTime_Down.png");
+	Load<ATexture>(L"DragonCookieBonusTime_Up", L"Texture\\Lychee\\Lychee_BonusTime_Up.png");
+	Load<ATexture>(L"DragonCookieBoost", L"Texture\\Lychee\\Lychee_Boost.png");
 
 	Load<ATexture>(L"DragonCookiePetIdle", L"Texture\\Lycheye\\Lycheye_Idle.png");
 
