@@ -45,11 +45,12 @@ void GamePlayMgr::Init()
 	// ==============================================
 	// 캐릭터 프리팹과 UI 프리팹 로드 및 인스턴스화
 	// ==============================================
-	//Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
-	//m_SelectedCharacterType = ECharacterType::TimeKeeper; // 기본 캐릭터 타입 설정
-	Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\DragonCookie.pref");
-	m_SeletectedCharacterPrefab = pPrefab; // 선택된 캐릭터 프리팹 저장
-	m_SelectedCharacterType = ECharacterType::Lychee; // 기본 캐릭터 타입 설정
+	// 로비에서 이미 선택된 캐릭터가 있으면 그대로 유지, 없으면 기본값 적용
+	if (m_SeletectedCharacterPrefab == nullptr)
+	{
+		m_SelectedCharacterType = ECharacterType::TimeKeeper;
+		m_SeletectedCharacterPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+	}
 
 	Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
 	m_GamePlayUIRootPrefab = pPrefabUI; // UI 루트 프리팹 저장

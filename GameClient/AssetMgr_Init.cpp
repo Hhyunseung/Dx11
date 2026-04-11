@@ -467,6 +467,11 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"UI_ingame_ovenBreakGauge", L"Texture\\Lobby\\imf_ingame_ovenBreakGauge.png");
 	Load<ATexture>(L"UI_ingame_blackBox", L"Texture\\Lobby\\frmBg_ingameTreasure.png");
 
+	// =========== 캐릭터 선택창 UI 텍스쳐 ============
+	Load<ATexture>(L"SelectCookie_BG", L"Texture\\SelectCookie\\SelectCookie_BG.png");
+	Load<ATexture>(L"SelectIcon_TimeKeeper", L"Texture\\SelectCookie\\SelectIcon_TimeKeeper.png");
+	Load<ATexture>(L"SelectIcon_DragonCookie", L"Texture\\SelectCookie\\SelectIcon_DragonCookie.png");
+
 }
 
 void AssetMgr::CreateEngineMaterial()

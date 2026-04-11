@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -246,6 +246,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\ScriptMgr.h" />
     <ClInclude Include="Source\Scripts\CBGScrollScript.h" />
     <ClInclude Include="Source\Scripts\CCamMoveScript.h" />
+    <ClInclude Include="Source\Scripts\CCharSelectBtnScript.h" />
     <ClInclude Include="Source\Scripts\CCookieSkillScript.h" />
     <ClInclude Include="Source\Scripts\CDeadState.h" />
     <ClInclude Include="Source\Scripts\CDoubleJumpState.h" />
@@ -263,6 +264,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CJumpButtonScript.h" />
     <ClInclude Include="Source\Scripts\CLandState.h" />
     <ClInclude Include="Source\Scripts\CLinearObstacle.h" />
+    <ClInclude Include="Source\Scripts\CLobbyUIScript.h" />
     <ClInclude Include="Source\Scripts\CLycheeScript.h" />
     <ClInclude Include="Source\Scripts\CMissileScript.h" />
     <ClInclude Include="Source\Scripts\CMonsterScript.h" />
@@ -393,6 +395,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\ScriptMgr.cpp" />
     <ClCompile Include="Source\Scripts\CBGScrollScript.cpp" />
     <ClCompile Include="Source\Scripts\CCamMoveScript.cpp" />
+    <ClCompile Include="Source\Scripts\CCharSelectBtnScript.cpp" />
     <ClCompile Include="Source\Scripts\CCookieSkillScript.cpp" />
     <ClCompile Include="Source\Scripts\CDeadState.cpp" />
     <ClCompile Include="Source\Scripts\CDoubleJumpState.cpp" />
@@ -410,6 +413,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CJumpButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CLandState.cpp" />
     <ClCompile Include="Source\Scripts\CLinearObstacle.cpp" />
+    <ClCompile Include="Source\Scripts\CLobbyUIScript.cpp" />
     <ClCompile Include="Source\Scripts\CLycheeScript.cpp" />
     <ClCompile Include="Source\Scripts\CMissileScript.cpp" />
     <ClCompile Include="Source\Scripts\CMonsterScript.cpp" />

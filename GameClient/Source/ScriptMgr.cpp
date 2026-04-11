@@ -3,6 +3,7 @@
 
 #include "Scripts/CBGScrollScript.h"
 #include "Scripts/CCamMoveScript.h"
+#include "Scripts/CCharSelectBtnScript.h"
 #include "Scripts/CCookieSkillScript.h"
 #include "Scripts/CDeadState.h"
 #include "Scripts/CDoubleJumpState.h"
@@ -21,6 +22,7 @@
 #include "Scripts/CJumpState.h"
 #include "Scripts/CLandState.h"
 #include "Scripts/CLinearObstacle.h"
+#include "Scripts/CLobbyUIScript.h"
 #include "Scripts/CLycheeScript.h"
 #include "Scripts/CMissileScript.h"
 #include "Scripts/CMonsterScript.h"
@@ -55,6 +57,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CBGScrollScript");
 	_vec.push_back(L"CCamMoveScript");
+	_vec.push_back(L"CCharSelectBtnScript");
 	_vec.push_back(L"CCookieSkillScript");
 	_vec.push_back(L"CDeadState");
 	_vec.push_back(L"CDoubleJumpState");
@@ -73,6 +76,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CJumpState");
 	_vec.push_back(L"CLandState");
 	_vec.push_back(L"CLinearObstacle");
+	_vec.push_back(L"CLobbyUIScript");
 	_vec.push_back(L"CLycheeScript");
 	_vec.push_back(L"CMissileScript");
 	_vec.push_back(L"CMonsterScript");
@@ -110,6 +114,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CBGScrollScript;
 	if (L"CCamMoveScript" == _strScriptName)
 		return new CCamMoveScript;
+	if (L"CCharSelectBtnScript" == _strScriptName)
+		return new CCharSelectBtnScript;
 	if (L"CCookieSkillScript" == _strScriptName)
 		return new CCookieSkillScript;
 	if (L"CDeadState" == _strScriptName)
@@ -146,6 +152,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CLandState;
 	if (L"CLinearObstacle" == _strScriptName)
 		return new CLinearObstacle;
+	if (L"CLobbyUIScript" == _strScriptName)
+		return new CLobbyUIScript;
 	if (L"CLycheeScript" == _strScriptName)
 		return new CLycheeScript;
 	if (L"CMissileScript" == _strScriptName)
@@ -217,6 +225,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::CAMMOVESCRIPT:
 		return new CCamMoveScript;
 		break;
+	case (UINT)SCRIPT_TYPE::CHARSELECTBTNSCRIPT:
+		return new CCharSelectBtnScript;
+		break;
 	case (UINT)SCRIPT_TYPE::COOKIESKILLSCRIPT:
 		return new CCookieSkillScript;
 		break;
@@ -270,6 +281,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::LINEAROBSTACLE:
 		return new CLinearObstacle;
+		break;
+	case (UINT)SCRIPT_TYPE::LOBBYUISCRIPT:
+		return new CLobbyUIScript;
 		break;
 	case (UINT)SCRIPT_TYPE::LYCHEESCRIPT:
 		return new CLycheeScript;
@@ -374,6 +388,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 		return L"CCamMoveScript";
 		break;
 
+	case SCRIPT_TYPE::CHARSELECTBTNSCRIPT:
+		return L"CCharSelectBtnScript";
+		break;
+
 	case SCRIPT_TYPE::COOKIESKILLSCRIPT:
 		return L"CCookieSkillScript";
 		break;
@@ -444,6 +462,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::LINEAROBSTACLE:
 		return L"CLinearObstacle";
+		break;
+
+	case SCRIPT_TYPE::LOBBYUISCRIPT:
+		return L"CLobbyUIScript";
 		break;
 
 	case SCRIPT_TYPE::LYCHEESCRIPT:

@@ -209,59 +209,28 @@ void CreateTestLevel()
 		// Lobby
 		// =================================================================
 
-		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_1.lv");
-
-		Ptr<GameObject> pObject = new GameObject;
-		pObject->SetName(L"DragonCookie_SkillBG");
-
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CFlipbookRender);
-
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
-
-
-		//// Save 후 Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillBG.flip"));
-		pObject->FlipbookRender()->Play(0, 8.f, -1);
-
-		//pLevel->AddObject(1, pObject);
-
-		pObject = new GameObject;
-		pObject->SetName(L"DragonCookie_SkillEffect_0");
-
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CFlipbookRender);
-
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
-
-
-		//// Save 후 Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillEffect_0.flip"));
-		pObject->FlipbookRender()->Play(0, 8.f, -1);
-
-		//pLevel->AddObject(1, pObject);
+		//Ptr<ALevel> pLevel = new ALevel; //LOAD(ALevel, L"Level\\GamePlayLevel_1.lv");
+		//pLevel->SetName(L"Level\\SelectCharacterLevel.lv");
 		
-		pObject = new GameObject;
-		pObject->SetName(L"DragonCookie_SkillEffect_1");
+		//Ptr<GameObject> pObject = new GameObject;
+		//pObject->SetName(L"DragonCookie_SkillEffect_1");
 
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CFlipbookRender);
+		//pObject->AddComponent(new CTransform);
+		//pObject->AddComponent(new CFlipbookRender);
 
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
+		//pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+		//pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
 
 
-		//// Save 후 Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillEffect_1.flip"));
-		pObject->FlipbookRender()->Play(0, 8.f, -1);
+		////// Save 후 Load
+		//pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillEffect_1.flip"));
+		//pObject->FlipbookRender()->Play(0, 8.f, -1);
 
 		//pLevel->AddObject(1, pObject);
+		//AssetMgr::GetInst()->AddAsset(L"Level\\SelectCharacterLevel.lv", pLevel.Get());
+		//ChangeLevel(L"Level\\SelectCharacterLevel.lv");
 
-		//ChangeLevel(L"Level\\LobbyLevel.lv");
-
-		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::START_GAME);
+		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_LOBBY);
 	}
 
 	return;
