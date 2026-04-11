@@ -199,6 +199,7 @@ enum class PLAYER_STATE_ID
 enum class ECharacterType
 {
 	TimeKeeper,
+	Lychee,
 };
 
 

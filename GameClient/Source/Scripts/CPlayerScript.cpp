@@ -523,6 +523,10 @@ void CPlayerScript::BeginFallRescue()
 	m_CurrentMovingPlatform = nullptr;
 	m_GroundColliders.clear();
 
+	// 낙하 직전 x/z 좌표 보존, y는 구출 목표 높이로 고정
+	Vec3 vCurrentPos = GetOwner()->Transform()->GetRelativePos();
+	m_LastSafePos = Vec3(vCurrentPos.x, 100.f, vCurrentPos.z);
+
 	m_CurrentHP -= m_FallDamage;
 	if (m_CurrentHP < 0)
 		m_CurrentHP = 0;
@@ -546,7 +550,7 @@ void CPlayerScript::UpdateFallRescue()
 {
 	Vec3 pos = GetOwner()->Transform()->GetRelativePos();
 	
-	Vec3 target = m_LastSafePos + Vec3(0.f, 200.f, 0.f); // 안전 위치보다 약간 위로 이동
+	Vec3 target = m_LastSafePos; // BeginFallRescue에서 확정된 구출 위치 (x/z 보존, y=100)
 
 	Vec3 dir = target - pos;
 	float length = dir.Length();

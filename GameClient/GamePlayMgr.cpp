@@ -6,6 +6,7 @@
 #include "..\GameClient\Source\Scripts\CPlayerScript.h"
 #include "..\GameClient\Source\Scripts\CCookieSkillScript.h"
 #include "..\GameClient\Source\Scripts\CTimeKeeperScript.h"
+#include "..\GameClient\Source\Scripts\CLycheeScript.h"
 
 GamePlayMgr::GamePlayMgr()
 	: m_PlayerObject(nullptr)
@@ -45,9 +46,10 @@ void GamePlayMgr::Init()
 	// 캐릭터 프리팹과 UI 프리팹 로드 및 인스턴스화
 	// ==============================================
 	//Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
+	//m_SelectedCharacterType = ECharacterType::TimeKeeper; // 기본 캐릭터 타입 설정
 	Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\DragonCookie.pref");
 	m_SeletectedCharacterPrefab = pPrefab; // 선택된 캐릭터 프리팹 저장
-	m_SelectedCharacterType = ECharacterType::TimeKeeper; // 기본 캐릭터 타입 설정
+	m_SelectedCharacterType = ECharacterType::Lychee; // 기본 캐릭터 타입 설정
 
 	Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
 	m_GamePlayUIRootPrefab = pPrefabUI; // UI 루트 프리팹 저장
@@ -163,8 +165,14 @@ CCookieSkillScript* GamePlayMgr::CreateSkillByCharacterType(ECharacterType _Type
 		return (CCookieSkillScript*)pSkill.Get();
 	}
 
-		// case ECharacterType::Knight:
-		//     return _PlayerObject->AddComponent(new CKnightSkillScript);
+	case ECharacterType::Lychee:
+	{
+		m_PlayerObject->AddComponent(new CLycheeScript);
+
+		auto pSkill = m_PlayerObject->GetScript<CLycheeScript>();
+
+		return (CCookieSkillScript*)pSkill.Get();
+	}
 
 		// case ECharacterType::Wizard:
 		//     return _PlayerObject->AddComponent(new CWizardSkillScript);
