@@ -167,6 +167,7 @@ bool IsValid(Ptr<GameObject>& _Object)
 #include "Source/Scripts/CBGScrollScript.h"
 #include "Source/Scripts/CSkillBGEffectScript.h"
 #include "Source/Scripts/CTimeKeeperBGEffectScript.h"
+#include "Source/Scripts/CJellyScript.h"
 
 #include "Source/Scripts/CItemScript.h"
 
@@ -209,61 +210,21 @@ void CreateTestLevel()
 		// Lobby
 		// =================================================================
 
-		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\ScoreLevel.lv");
-		pLevel->SetName(L"Level\\ScoreLevel.lv");
+		Ptr<ALevel> pLevel = FIND(ALevel, L"Level\\GamePlayLevel_1.lv");
 
-		Ptr<GameObject> pObject = new GameObject;
-		pObject->SetName(L"DragonCookie_SkillBG");
+		Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\TileShipeStage_1_tb_s.pref");
+		for (int i = 0; i < 150; ++i)
+		{
+			Ptr<GameObject> pClone = pPrefabUI->Instantiate();
+			pClone->Transform()->SetRelativePos(Vec3(-800.f + i * 125.f, -400.f, 100.f));
+			pLevel->AddObject(2, pClone);
+		}
 
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CFlipbookRender);
-
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
-
-
-		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillBG.flip"));
-		pObject->FlipbookRender()->Play(0, 8.f, -1);
-
-		//pLevel->AddObject(1, pObject);
-
-		pObject = new GameObject;
-		pObject->SetName(L"DragonCookie_SkillEffect_0");
-
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CFlipbookRender);
-
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
-
-
-		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillEffect_0.flip"));
-		pObject->FlipbookRender()->Play(0, 8.f, -1);
-
-		//pLevel->AddObject(1, pObject);
-		
-		pObject = new GameObject;
-		pObject->SetName(L"DragonCookie_SkillEffect_1");
-
-		pObject->AddComponent(new CTransform);
-		pObject->AddComponent(new CFlipbookRender);
-
-		pObject->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-		pObject->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
-
-
-		//// Save ÈÄ Load
-		pObject->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\DragonCookie_SkillEffect_1.flip"));
-		pObject->FlipbookRender()->Play(0, 8.f, -1);
-
-		//pLevel->AddObject(1, pObject);
 
 		//AssetMgr::GetInst()->AddAsset(L"Level\\ScoreLevel.lv", pLevel.Get());
-		ChangeLevel(L"Level\\ScoreLevel.lv");
+		//ChangeLevel(L"Level\\ScoreLevel.lv");
 
-		//SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_SCORE);
+		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::START_GAME);
 	}
 
 	return;
