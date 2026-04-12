@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CStaticObstacle.h"
 
+#include "GamePlayMgr.h"
 #include "GameObject.h"
 #include "TimeMgr.h"
 
@@ -22,6 +23,8 @@ void CStaticObstacle::Init()
 
 void CStaticObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 {
+	CObstructScript::ApplySpawnInfo(info); // 부모 클래스의 ApplySpawnInfo 호출
+
 	auto itF = info.FloatParams.find("Speed");
 	if (itF != info.FloatParams.end())
 		m_Speed = itF->second;
@@ -30,6 +33,10 @@ void CStaticObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 
 void CStaticObstacle::Move()
 {
+	// Pause 상태에서는 움직이지 않음
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	Vec3 pos = Transform()->GetRelativePos();
 	pos.x -= m_Speed * DT;
 	Transform()->SetRelativePos(pos);

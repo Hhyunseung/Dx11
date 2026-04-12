@@ -130,7 +130,7 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 	case EObjectID::BearYellow:		return L"Prefab\\Jelly_Bearyellow.pref";
 	case EObjectID::BearPink:		return L"Prefab\\Jelly_Bearpink.pref";
 	case EObjectID::BearBlue:		return L"Prefab\\Jelly_Bearice.pref";
-	case EObjectID::BearBigYellow:	return L"Prefab\\Jelly_Bearbig.pref";
+	case EObjectID::BearBigYellow:	return L"Prefab\\Jelly_BearBig.pref";
 	case EObjectID::BearRainbow:	return L"Prefab\\Jelly_BearRainbow.pref";
 	case EObjectID::SpecialBonus_1:	return L"Prefab\\Jelly_SpecialBonus_1.pref";
 	case EObjectID::SpecialBonus_2:	return L"Prefab\\Jelly_SpecialBonus_2.pref";
@@ -144,6 +144,7 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 	case EObjectID::Obstacle_tm001_jp1A:	return L"Prefab\\Obstacle_tm001_jp1A.pref";
 	case EObjectID::Obstacle_tm001_jp1B:	return L"Prefab\\Obstacle_tm001_jp1B.pref";
 	case EObjectID::Obstacle_cb2_open:		return L"Prefab\\Obstacle_cb2_open.pref";
+	case EObjectID::Obstacle_tm001_sdA:		return L"Prefab\\Obstacle_tm001_sdA.pref";
 	case EObjectID::TileShipeStage_1_fh_m:	return L"Prefab\\TileShipeStage_1_fh_m.pref";
 	case EObjectID::TileShipeStage_1_tb_s:	return L"Prefab\\TileShipeStage_1_tb_s.pref";
 	case EObjectID::Item_Giant:		return L"Prefab\\Item_Giant.pref";

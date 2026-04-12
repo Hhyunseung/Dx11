@@ -256,6 +256,7 @@ enum class EObjectID
 	Obstacle_tm001_jp1A = 2007,
 	Obstacle_tm001_jp1B = 2008,
 	Obstacle_cb2_open = 2009,
+	Obstacle_tm001_sdA = 2010,
 
 
 	// ÇÃ·§Æû
@@ -301,6 +302,7 @@ inline const char* EObjectIDToString(EObjectID _ID)
 	case EObjectID::Obstacle_tm001_jp1A:    return "Obstacle_tm001_jp1A";
 	case EObjectID::Obstacle_tm001_jp1B:    return "Obstacle_tm001_jp1B";
 	case EObjectID::Obstacle_cb2_open:      return "Obstacle_cb2_open";
+	case EObjectID::Obstacle_tm001_sdA: return "Obstacle_tm001_sdA";
 	case EObjectID::TileShipeStage_1_fh_m: return "TileShipeStage_1_fh_m";
 	case EObjectID::TileShipeStage_1_tb_s: return "TileShipeStage_1_tb_s";
 	case EObjectID::TileShipeStage_1_fh_Road: return "TileShipeStage_1_fh_Road";
@@ -320,7 +322,7 @@ inline const char* EObjectIDToString(EObjectID _ID)
 }
 
 // ÄÞº¸¹Ú½º¿ë EObjectID ¹è¿­ ¹× °³¼ö
-constexpr int g_ObjectIDCount = 35;
+constexpr int g_ObjectIDCount = 37;
 
 inline EObjectID GetObjectIDByIndex(int _Idx)
 {
@@ -347,6 +349,7 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
 		EObjectID::Obstacle_tm001_jp1A,
 		EObjectID::Obstacle_tm001_jp1B,
 		EObjectID::Obstacle_cb2_open,
+		EObjectID::Obstacle_tm001_sdA,
 		EObjectID::TileShipeStage_1_fh_m,
 		EObjectID::TileShipeStage_1_tb_s,
 		EObjectID::TileShipeStage_1_fh_Road,

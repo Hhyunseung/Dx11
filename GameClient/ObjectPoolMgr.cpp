@@ -47,6 +47,7 @@ void ObjectPoolMgr::Init()
 	CreatePool(L"Prefab\\Obstacle_tm001_jp1A.pref", 10, 8);
 	CreatePool(L"Prefab\\Obstacle_tm001_jp1B.pref", 10, 8);
 	CreatePool(L"Prefab\\Obstacle_cb2_open.pref", 10, 8);
+	CreatePool(L"Prefab\\Obstacle_tm001_sdA.pref", 10, 8);
 
 	// 아이템 풀 (예시)
 	CreatePool(L"Prefab\\Item_Giant.pref", 3, 10);

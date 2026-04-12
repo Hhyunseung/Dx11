@@ -41,6 +41,8 @@ void CParabolicObstacle::OnSpawn()
 
 void CParabolicObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 {
+	CObstructScript::ApplySpawnInfo(info); // 부모 클래스의 ApplySpawnInfo 호출
+
 	// float params
 	auto itF = info.FloatParams.find("Speed");
 	if (itF != info.FloatParams.end())
@@ -62,6 +64,14 @@ void CParabolicObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 	auto itB = info.BoolParams.find("StopOnGround");
 	if (itB != info.BoolParams.end())
 		m_StopOnGround = itB->second;
+
+	m_IsGrounded = false;
+	m_CurrentVelocityY = m_InitialVelocityY;
+
+	if (GetOwner()->Collider2D() != nullptr)
+	{
+		ADD_DYNAMIC_BEGIN_OVERLAP(CObstructScript::BeginOverlap);
+	}
 }
 
 void CParabolicObstacle::Move()

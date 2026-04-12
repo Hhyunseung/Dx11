@@ -50,6 +50,11 @@ void CLinearObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 	auto itBY = info.BoolParams.find("IsGroundedY");
 	if (itBY != info.BoolParams.end())
 		m_IsGroundedY = itBY->second;
+
+	if (GetOwner()->Collider2D() != nullptr)
+	{
+		ADD_DYNAMIC_BEGIN_OVERLAP(CObstructScript::BeginOverlap);
+	}
 }
 
 void CLinearObstacle::Init()

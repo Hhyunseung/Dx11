@@ -95,7 +95,7 @@ void CObstructScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _Othe
 	if (pPlayer == nullptr || m_IsBroken)
 		return;
 
-	if (pPlayer->GetIsGiant() || pPlayer->GetIsBoost())
+	if (pPlayer->GetIsGiant() || pPlayer->GetIsBoost() || pPlayer->GetIsSkillMoveMode())
 	{
 		BreakObstacle();
 		return;
