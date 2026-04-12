@@ -209,7 +209,8 @@ void CreateTestLevel()
 		// Lobby
 		// =================================================================
 
-		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_1.lv");
+		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\ScoreLevel.lv");
+		pLevel->SetName(L"Level\\ScoreLevel.lv");
 
 		Ptr<GameObject> pObject = new GameObject;
 		pObject->SetName(L"DragonCookie_SkillBG");
@@ -259,10 +260,10 @@ void CreateTestLevel()
 
 		//pLevel->AddObject(1, pObject);
 
-		AssetMgr::GetInst()->AddAsset(L"TestLevel", pLevel.Get());
-		//ChangeLevel(L"Level\\LobbyLevel.lv");
+		//AssetMgr::GetInst()->AddAsset(L"Level\\ScoreLevel.lv", pLevel.Get());
+		ChangeLevel(L"Level\\ScoreLevel.lv");
 
-		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_LOBBY);
+		//SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_SCORE);
 	}
 
 	return;

@@ -40,8 +40,8 @@ void SceneFlowMgr::ExecuteAction(SCENE_FLOW_ACTION _Action)
 		GoToLobby();
 		break;
 
-	case SCENE_FLOW_ACTION::GO_CHARACTER_SELECT:
-		GoToCharacterSelect();
+	case SCENE_FLOW_ACTION::GO_SCORE:
+		GoToScore();
 		break;
 
 	case SCENE_FLOW_ACTION::START_GAME:
@@ -68,9 +68,9 @@ void SceneFlowMgr::GoToLobby()
 	RequestLevelPlay();
 }
 
-void SceneFlowMgr::GoToCharacterSelect()
+void SceneFlowMgr::GoToScore()
 {
-	RequestLevelChange(L"Level\\CharacterSelect.lv");
+	RequestLevelChange(L"Level\\ScoreLevel.lv");
 	RequestLevelPlay();
 }
 

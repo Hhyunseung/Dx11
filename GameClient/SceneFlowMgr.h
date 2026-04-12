@@ -4,7 +4,7 @@ enum class SCENE_FLOW_ACTION
 {
 	NONE,
 	GO_LOBBY,
-	GO_CHARACTER_SELECT,
+	GO_SCORE,
 	START_GAME,
 	RESTART_GAME,
 	GAME_OVER_TO_LOBBY,
@@ -34,7 +34,7 @@ public:
 	void ExecuteAction(SCENE_FLOW_ACTION _Action);
 
 	void GoToLobby();
-	void GoToCharacterSelect();
+	void GoToScore();
 	void StartGame();
 	void RestartGame();
 

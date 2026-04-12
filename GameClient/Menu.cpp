@@ -80,6 +80,11 @@ void Menu::File()
 				ChangeLevel(L"Level\\LobbyLevel.lv");
 			}
 
+			if (ImGui::MenuItem("ScoreLevel"))
+			{
+				Ptr<ALevel> pLevel = FIND(ALevel, L"Level\\ScoreLevel.lv");
+				ChangeLevel(L"Level\\ScoreLevel.lv");
+			}
 
 			ImGui::EndMenu();
 		}
