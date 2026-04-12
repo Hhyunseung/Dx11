@@ -36,8 +36,8 @@ CPlayerScript::CPlayerScript()
 	, m_FeetObject(nullptr)
 	, m_CurrentMovingPlatform(nullptr)
 	, m_CookieSkill(nullptr)
-	, m_MaxHP(100)
-	, m_CurrentHP(100)
+	, m_MaxHP(10)
+	, m_CurrentHP(10)
 	, m_Damage(10)
 	, m_FallDamage(20)
 	, m_PrevFeetY(0.f)
@@ -233,6 +233,9 @@ void CPlayerScript::Tick()
 // 점프 입력 처리
 void CPlayerScript::HandleJump()
 {
+	if (m_DeathPending)
+		return;
+
 	bool bKeyboardJump = KEY_TAP(KEY::SPACE);
 	bool bUIJump = false;
 
@@ -251,6 +254,9 @@ void CPlayerScript::HandleJump()
 
 void CPlayerScript::HandleSlide()
 {
+	if (m_DeathPending)
+		return;
+
 	bool bKeyboardSlide = KEY_PRESSED(KEY::DOWN);
 	bool bUISlide = false;
 
@@ -480,6 +486,13 @@ void CPlayerScript::CheckFallOut()
 
 	if (bottomY < m_FallDeadLine) // 낙사 기준 y 좌표
 	{
+		// 죽음 예약 상태에서 낙사하면 즉시 사망 처리
+		if (m_DeathPending)
+		{
+			Die();
+			return;
+		}
+
 		// 낙하 구출 시작
 		BeginFallRescue();
 	}
@@ -553,9 +566,6 @@ void CPlayerScript::Die()
 	if (m_IsDead)
 		return;
 
-	if (!m_IsLand)
-		return;
-
 	m_IsDead = true;
 	m_DeathPending = false;
 
@@ -580,24 +590,17 @@ void CPlayerScript::RequestDie()
 	if (m_IsDead || m_DeathPending)
 		return;
 
-	if (m_IsLand)
-	{
-		Die();
-	}
-	else
-	{
-		m_DeathPending = true;
+	// 항상 죽음 예약 → Tick()에서 m_IsLand가 true일 때만 Die() 호출
+	m_DeathPending = true;
 
-		// 공중에서 죽음 예약되면 더 이상 일반 피격/구출/스킬 상태가 꼬이지 않게 정리
-		m_IsInvincible = false;
-		m_IsFallRescue = false;
-		m_IsSkillMoveMode = false;
+	m_IsInvincible = false;
+	m_IsFallRescue = false;
+	m_IsSkillMoveMode = false;
 
-		m_JumpRequest = false;
-		m_IsJump = false;
-		m_IsDoubleJump = false;
-		m_IsSlide = false;
-	}
+	m_JumpRequest = false;
+	m_IsJump = false;
+	m_IsDoubleJump = false;
+	m_IsSlide = false;
 }
 
 
