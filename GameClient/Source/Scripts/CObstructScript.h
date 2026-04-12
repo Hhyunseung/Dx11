@@ -3,7 +3,7 @@
 
 class CObstructScript : public CScript
 {
-private:
+protected:
 	EObjectID m_ObjectID;
 	int	m_Damage;
 	bool m_IsBroken; // 장애물이 부서졌는지 (부서진 상태에서는 플레이어에게 피해를 주지 않음)

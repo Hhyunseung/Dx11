@@ -8,7 +8,7 @@
 CPendulumObstacle::CPendulumObstacle()
 	: CObstructScript(SCRIPT_TYPE::PENDULUMOBSTACLE)
 	, m_LocalCenterOffsetX(0.f)
-	, m_LocalCenterOffsetY(0.f)
+	, m_LocalCenterOffsetY(-200.f)
 	, m_AccTime(0.f)
 	, m_MaxAngle(30.f) // 최대 각도 (예시: 30도)
 	, m_Frequency(1.f) // 진동 주파수 (예시: 1Hz)
@@ -18,6 +18,7 @@ CPendulumObstacle::CPendulumObstacle()
 	, m_OneMoveTime(0.5f)
 	, m_pBody(nullptr)
 {
+	m_ObjectID = EObjectID::Obstacle_tm001_sdswing;
 }
 
 CPendulumObstacle::~CPendulumObstacle()
@@ -78,6 +79,17 @@ void CPendulumObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 	rot.z = 0.f;
 	GetOwner()->Transform()->SetRelativeRot(rot);
 
+	// 자식 몸체 오브젝트의 콜라이더에 직접 콜백 등록
+	if (!GetOwner()->GetChild().empty())
+	{
+		m_pBody = GetOwner()->GetChild(0).Get();
+	}
+
+	if (m_pBody != nullptr && m_pBody->Collider2D() != nullptr)
+	{
+		m_pBody->Collider2D()->AddDynamicBeginOverlap(this, (COLLISION_EVENT)&CObstructScript::BeginOverlap);
+	}
+
 
 	if (GetOwner()->GetChild().size() > 0)
 	{
@@ -133,7 +145,7 @@ void CPendulumObstacle::Move()
 
     if (m_pBody)
 	{
-		//m_pBody->Transform()->SetRelativePos(Vec3(m_LocalCenterOffsetX, m_LocalCenterOffsetY, 0.f));
+		m_pBody->Transform()->SetRelativePos(Vec3(m_LocalCenterOffsetX, m_LocalCenterOffsetY, 0.f));
 	}
 }
 

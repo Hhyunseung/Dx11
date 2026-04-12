@@ -56,7 +56,7 @@ void GamePlayMgr::Init()
 	Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
 	m_GamePlayUIRootPrefab = pPrefabUI; // UI 루트 프리팹 저장
 
-	Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestStage.stage");
+	Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestMap_0.stage");
 	m_StageData = pStageData; // StageData 저장
 
 	// 오브젝트 풀 초기화

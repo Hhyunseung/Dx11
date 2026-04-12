@@ -74,7 +74,12 @@ void CObstructScript::OnSpawn()
 
 	// 스폰될 때마다 재설정해야하는 부분들
 	// 충돌 콜백 등록 (풀에서 재사용될 때도 호출해야 함)
-	ADD_DYNAMIC_BEGIN_OVERLAP(CObstructScript::BeginOverlap);
+	// 콜라이더가 없는 오브젝트(예: CPendulumObstacle 피벗)는 등록 생략
+	// 자식 콜라이더가 있는 경우 자식 클래스의 OnSpawn()에서 직접 등록
+	if (GetOwner()->Collider2D() != nullptr)
+	{
+		ADD_DYNAMIC_BEGIN_OVERLAP(CObstructScript::BeginOverlap);
+	}
 }
 
 void CObstructScript::Move()

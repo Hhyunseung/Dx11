@@ -210,21 +210,44 @@ void CreateTestLevel()
 		// Lobby
 		// =================================================================
 
-		Ptr<ALevel> pLevel = FIND(ALevel, L"Level\\GamePlayLevel_1.lv");
+		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_Make.lv");
+		
+	   /*pLevel->SetName(L"Level\\GamePlayLevel_Make.lv");
 
-		Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\TileShipeStage_1_tb_s.pref");
-		for (int i = 0; i < 150; ++i)
+		Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\TileShipeStage_1_fh_m.pref");
+		for (int i = 0; i < 10; ++i)
 		{
 			Ptr<GameObject> pClone = pPrefabUI->Instantiate();
-			pClone->Transform()->SetRelativePos(Vec3(-800.f + i * 125.f, -400.f, 100.f));
+			pClone->Transform()->SetRelativePos(Vec3(700.f + i * 130.f, -170.f, 100.f));
 			pLevel->AddObject(2, pClone);
-		}
+		}*/
+
+		//pPrefabUI = FIND(APrefab, L"Prefab\\Jelly_Default.pref");
+		//for (int i = 0; i < 100; ++i)
+		//{
+		//	Ptr<GameObject> pClone = pPrefabUI->Instantiate();
+		//	pClone->Transform()->SetRelativePos(Vec3(i * 50.f, -255.f, 100.f));
+		//	pLevel->AddObject(2, pClone);
+		//}
+
+		Ptr<GameObject> pChild = new GameObject;
+		pChild->SetName(L"Obstacle_cb2_open");
+
+		pChild->AddComponent(new CTransform);
+		pChild->AddComponent(new CFlipbookRender);
+
+		pChild->Transform()->SetRelativePos(Vec3(-80.f, -65.f, 0.f));
+		pChild->Transform()->SetRelativeScale(Vec3(150.f, 150.f, 1.f));
+
+		pChild->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Obstacle_cb2_open.flip"));
+		pChild->FlipbookRender()->Play(0, 8.f, -1);
+		//pLevel->AddObject(2, pChild);
 
 
-		//AssetMgr::GetInst()->AddAsset(L"Level\\ScoreLevel.lv", pLevel.Get());
-		//ChangeLevel(L"Level\\ScoreLevel.lv");
+		//AssetMgr::GetInst()->AddAsset(L"Level\\GamePlayLevel_Make.lv", pLevel.Get());
+		ChangeLevel(L"Level\\GamePlayLevel_Make.lv");
 
-		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::START_GAME);
+		//SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::START_GAME);
 	}
 
 	return;

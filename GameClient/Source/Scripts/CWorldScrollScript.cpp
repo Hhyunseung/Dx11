@@ -10,7 +10,7 @@ CWorldScrollScript::CWorldScrollScript()
 	: CScript(SCRIPT_TYPE::WORLDSCROLLSCRIPT)
 	, m_ScrollSpeed(300.f)
 	, m_WorldOffset(0.f)
-	, m_SpawnDistance(800.f)		// 화면 오른쪽 밖
+	, m_SpawnDistance(1700.f)		// 화면 오른쪽 밖
 	, m_DespawnDistance(-500.f)		// 화면 왼쪽 밖
 	, m_PlayerPosX(-650.f)			// 플레이어 고정 X 위치
 	, m_NextSpawnIndex(0)

@@ -23,10 +23,13 @@ void ObjectPoolMgr::Init()
 	// ============================================
 
 	 //젤리 풀 (예시)
-	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 10, 9);
-	 //CreatePool(L"Prefab\\Jelly_Bearpink.pref", 50, 9);
-	 //CreatePool(L"Prefab\\Jelly_Bearyellow.pref", 50, 9);
+	 CreatePool(L"Prefab\\Jelly_Default.pref", 30, 9);
+	 CreatePool(L"Prefab\\Jelly_GoldCoin.pref", 30, 9);
+	 CreatePool(L"Prefab\\Jelly_SilverCoin.pref", 30, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 30, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearpink.pref", 30, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearyellow.pref", 30, 9);
+	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 30, 9);
 
 	// 장애물 풀 (예시)
 	CreatePool(L"Prefab\\Obstacle_bl1.pref", 10, 8);

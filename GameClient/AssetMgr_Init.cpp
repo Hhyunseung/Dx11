@@ -417,6 +417,10 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Obstacle_jp1down", L"Texture\\Obstacle\\jp1down.png");
 	Load<ATexture>(L"Obstacle_jp1down_ing", L"Texture\\Obstacle\\jp1down_ing.png");
 	Load<ATexture>(L"Obstacle_tm001_sdswing", L"Texture\\Obstacle\\tm001_sdswing.png");
+	Load<ATexture>(L"Obstacle_cb2_open", L"Texture\\Obstacle\\cb2_open.png");
+	Load<ATexture>(L"Obstacle_tm001_jp1A", L"Texture\\Obstacle\\tm001_jp1A.png");
+	Load<ATexture>(L"Obstacle_tm001_jp1B", L"Texture\\Obstacle\\tm001_jp1B.png");
+	Load<ATexture>(L"Obstacle_tm001_sdA", L"Texture\\Obstacle\\tm001_sdA.png");
 
 
 	// ==============================
