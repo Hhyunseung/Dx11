@@ -123,6 +123,14 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height, bool _EditorMode)
     // 렌더링 매니저 초기화
     RenderMgr::GetInst()->Init();
 
+    // FMOD 초기화	
+    {
+        FMOD::System_Create(&m_FMODSystem);
+        assert(m_FMODSystem);
+
+        // 32개 채널 생성
+        FMOD_RESULT result = m_FMODSystem->init(32, FMOD_DEFAULT, nullptr);
+    }
 
     // 에디터 매니저 초기화
     if (m_EditorMode)

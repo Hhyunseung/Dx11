@@ -76,6 +76,16 @@ using namespace std;
 #include <sstream>
 #include <locale>
 
+// FMOD
+#include <FMOD/fmod.h>
+#include <FMOD/fmod.hpp>
+#include <FMOD/fmod_codec.h>
+
+#ifdef _DEBUG
+#pragma comment(lib, "FMOD/fmodL64_vc.lib")
+#else
+#pragma comment(lib, "FMOD/fmod64_vc.lib")
+#endif
 
 // 상대경로 " "
 #include "Resource.h"

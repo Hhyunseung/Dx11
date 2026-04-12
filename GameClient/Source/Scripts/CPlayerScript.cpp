@@ -161,6 +161,12 @@ void CPlayerScript::Begin()
 	SetDefaultCollider();
 
 	UpdateHPUI();
+
+
+	// 사운드 재생 테스트
+	Ptr<ASound> pSound = LOAD(ASound, L"Sound\\Lobby_Sound.mp3");
+
+	pSound->Play(0, 0.5f, false);
 }
 
 void CPlayerScript::Tick()

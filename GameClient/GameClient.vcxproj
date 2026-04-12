@@ -161,6 +161,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="AMaterial.h" />
     <ClInclude Include="AMesh.h" />
     <ClInclude Include="APrefab.h" />
+    <ClInclude Include="ASound.h" />
     <ClInclude Include="ASprite.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetMgr.h" />
@@ -315,6 +316,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="AMaterial.cpp" />
     <ClCompile Include="AMesh.cpp" />
     <ClCompile Include="APrefab.cpp" />
+    <ClCompile Include="ASound.cpp" />
     <ClCompile Include="ASprite.cpp" />
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetMgr.cpp" />

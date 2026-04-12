@@ -10,6 +10,7 @@
 #include "ALevel.h"
 #include "APrefab.h"
 #include "AStageData.h"
+#include "ASound.h"
 #include "extern.h"
 
 
