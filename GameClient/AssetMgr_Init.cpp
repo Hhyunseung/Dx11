@@ -459,6 +459,10 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"btn_gray", L"Texture\\UI\\btn_gray.png");
 	Load<ATexture>(L"btn_yellow", L"Texture\\UI\\btn_yellow.png");
 
+
+	Load<ATexture>(L"SelectIcon_TimeKeeper", L"Texture\\UI\\SelectIcon_TimeKeeper.png");
+	Load<ATexture>(L"SelectIcon_Dragon", L"Texture\\UI\\SelectIcon_Dragon.png");
+
 	// =========== 로비 UI 텍스쳐 ============
 	Load<ATexture>(L"bg_lobby_skin", L"Texture\\Lobby\\bg_lobby_skin1.png");
 	Load<ATexture>(L"icon_ingame_level", L"Texture\\Lobby\\icon_ingame_chapter02.png");

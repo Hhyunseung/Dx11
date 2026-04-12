@@ -52,6 +52,12 @@ public:
 	void SetSelectedCharacterType(ECharacterType _Type) { m_SelectedCharacterType = _Type; }
 	ECharacterType GetSelectedCharacterType() const { return m_SelectedCharacterType; }
 
+	void SetPrefabForCharType(ECharacterType _Type)
+	{
+		m_SelectedCharacterType = _Type;
+		m_SeletectedCharacterPrefab = GetPrefabForCharType(_Type);
+	}
+
 
 	void AddScore(int _Score) { m_Score += _Score; }
 	int GetScore() const { return m_Score; }
@@ -83,5 +89,6 @@ public:
 
 private:
 	CCookieSkillScript* CreateSkillByCharacterType(ECharacterType _Type);
+	Ptr<APrefab> GetPrefabForCharType(ECharacterType _Type);
 };
 

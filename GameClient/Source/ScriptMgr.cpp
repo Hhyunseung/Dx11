@@ -3,6 +3,7 @@
 
 #include "Scripts/CBGScrollScript.h"
 #include "Scripts/CCamMoveScript.h"
+#include "Scripts/CCharSelectBtnScript.h"
 #include "Scripts/CCookieSkillScript.h"
 #include "Scripts/CDeadState.h"
 #include "Scripts/CDoubleJumpState.h"
@@ -55,6 +56,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CBGScrollScript");
 	_vec.push_back(L"CCamMoveScript");
+	_vec.push_back(L"CCharSelectBtnScript");
 	_vec.push_back(L"CCookieSkillScript");
 	_vec.push_back(L"CDeadState");
 	_vec.push_back(L"CDoubleJumpState");
@@ -110,6 +112,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CBGScrollScript;
 	if (L"CCamMoveScript" == _strScriptName)
 		return new CCamMoveScript;
+	if (L"CCharSelectBtnScript" == _strScriptName)
+		return new CCharSelectBtnScript;
 	if (L"CCookieSkillScript" == _strScriptName)
 		return new CCookieSkillScript;
 	if (L"CDeadState" == _strScriptName)
@@ -216,6 +220,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::CAMMOVESCRIPT:
 		return new CCamMoveScript;
+		break;
+	case (UINT)SCRIPT_TYPE::CHARSELECTBTNSCRIPT:
+		return new CCharSelectBtnScript;
 		break;
 	case (UINT)SCRIPT_TYPE::COOKIESKILLSCRIPT:
 		return new CCookieSkillScript;
@@ -372,6 +379,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::CAMMOVESCRIPT:
 		return L"CCamMoveScript";
+		break;
+
+	case SCRIPT_TYPE::CHARSELECTBTNSCRIPT:
+		return L"CCharSelectBtnScript";
 		break;
 
 	case SCRIPT_TYPE::COOKIESKILLSCRIPT:
