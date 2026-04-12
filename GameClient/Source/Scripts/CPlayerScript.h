@@ -71,11 +71,9 @@ private:
 	float			    m_DoubleJumpPower; // 더블 점프 힘
 
 	// 무적
-	bool				m_BlockFall; // 낙하 안되게
 	float 			    m_InvincibleTime; // 무적 지속 시간
 	float               m_InvincibleTimer; // 무적 경과 시간
 	float				m_BlinkTime; // 깜빡임 주파수 (초당 깜빡임 횟수)
-	float				m_InvincibleFloorLine; // 무적 중에는 이 선 아래로 떨어질 수 없음
 
 	// 낙하
 	Vec3 				m_LastSafePos; // 마지막 안전 위치 (낙사 구출 시 이동할 위치)
@@ -178,7 +176,6 @@ private:
 
 	// 무적 코드
 	void StartInvincibility(float _Duration);  // 무적 시작
-	void ClampDuringInvincibility(); // 무적 중 낙사 방지 위해 y 좌표 제한
 
 	// 낙하 코드
 	void CheckFallOut(); // 낙사 체크

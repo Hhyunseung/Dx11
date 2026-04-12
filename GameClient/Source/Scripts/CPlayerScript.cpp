@@ -46,11 +46,9 @@ CPlayerScript::CPlayerScript()
 	, m_VelY(0.f)
 	, m_JumpPower(800.f)
 	, m_DoubleJumpPower(600.f)
-	, m_BlockFall(false)
 	, m_InvincibleTime(2.f)
 	, m_InvincibleTimer(0.f)
 	, m_BlinkTime(0.2f)
-	, m_InvincibleFloorLine(-300.f)
 	, m_FallDeadLine(-700.f)
 	, m_FallRescueSpeed(500.f)
 	, m_FallRescueInvincibleDuration(3.f)
@@ -119,7 +117,6 @@ void CPlayerScript::Begin()
 	// 시작 시에는 일단 공중으로 가정
 	m_IsLand = false;
 	m_JumpCount = 0;
-	m_BlockFall = false;
 	m_VelY = 0.f;
 
 	m_StateMachine->StartState(PLAYER_STATE_ID::JUMP);
@@ -209,9 +206,7 @@ void CPlayerScript::Tick()
 		ProcessJump();
 		GravityAndMove();
 		
-		ClampDuringInvincibility();
-
-		CheckFallOut(); // 낙하 체크
+		CheckFallOut();
 		UpdateInvincibility();  // 매 프레임 무적 타이머 업데이트
 
 		if (m_StateMachine != nullptr)
@@ -460,7 +455,6 @@ void CPlayerScript::UpdateInvincibility()
 	{
 		m_IsInvincible = false;
 		m_InvincibleTimer = 0.f;
-		m_BlockFall = false;
 		// 알파값 초기화 (0이면 셰이더에서 적용 안 함)
 		FlipbookRender()->GetMaterial()->SetScalar(FLOAT_0, 0.f);
 	}
@@ -469,33 +463,8 @@ void CPlayerScript::UpdateInvincibility()
 void CPlayerScript::StartInvincibility(float _Duration)
 {
 	m_IsInvincible = true;
-	m_BlockFall = true;
 	m_InvincibleTime = _Duration;
 	m_InvincibleTimer = 0.f;
-}
-
-void CPlayerScript::ClampDuringInvincibility()
-{
-	if (!m_BlockFall)
-		return;
-
-	if (m_IsDead || m_IsFallRescue)
-		return;
-
-	float bottomY = GetOwner()->Collider2D()->GetBottomY();
-
-	if (bottomY >= m_InvincibleFloorLine)
-		return;
-
-	Vec3 vPos = Transform()->GetRelativePos();
-
-	float offset = m_InvincibleFloorLine - bottomY;
-	vPos.y += offset;
-
-	Transform()->SetRelativePos(vPos);
-
-	if (m_VelY < 0.f)
-		m_VelY = 0.f;
 }
 
 // 낙하 체크
@@ -568,7 +537,7 @@ void CPlayerScript::UpdateFallRescue()
 		m_IsFallRescue = false;
 		m_VelY = 0.f;
 
-		StartInvincibility(m_FallRescueInvincibleDuration); // 구출 후 무적
+		StartInvincibility(m_FallRescueInvincibleDuration);
 
 		ChangeState(PLAYER_STATE_ID::JUMP);
 		return;
@@ -592,7 +561,6 @@ void CPlayerScript::Die()
 
 	m_IsInvincible = false;
 	m_IsFallRescue = false;
-	m_BlockFall = false;
 	m_IsSkillMoveMode = false;
 
 	m_JumpRequest = false;
@@ -623,7 +591,6 @@ void CPlayerScript::RequestDie()
 		// 공중에서 죽음 예약되면 더 이상 일반 피격/구출/스킬 상태가 꼬이지 않게 정리
 		m_IsInvincible = false;
 		m_IsFallRescue = false;
-		m_BlockFall = false;
 		m_IsSkillMoveMode = false;
 
 		m_JumpRequest = false;
@@ -924,7 +891,7 @@ void CPlayerScript::TakeDamage(int _Damage)
 		return;
 	}
 
-	StartInvincibility(m_HitInvincibleDuration); // 피격 후 무적
+	StartInvincibility(m_HitInvincibleDuration);
 	ChangeState(PLAYER_STATE_ID::HIT);
 }
 
@@ -1114,15 +1081,10 @@ void CPlayerScript::FeetOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCo
 	const float platformTopY = _OtherCollider->GetTopY();
 	const float feetBottomY = m_FeetCollider->GetBottomY();
 
-	float prevFeetY = m_PrevFeetY;
-	float curFeetY = m_FeetCollider->GetBottomY(); // 여기서 직접 가져옴
-
 	if (!m_IsSkillMoveMode
 		&& !m_IsLand
-		&& m_VelY <= 0.f // 내려오는 중인지 체크
-		&& feetBottomY <= platformTopY
-		&& m_PrevFeetY >= platformTopY
-		&& curFeetY <= platformTopY)
+		&& m_VelY <= 0.f
+		&& feetBottomY <= platformTopY)
 	{
 		// 플레이어 위치를 플랫폼 위로 보정
 		Vec3 playerPos = GetOwner()->Transform()->GetRelativePos();
