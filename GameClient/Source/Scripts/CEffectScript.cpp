@@ -34,6 +34,19 @@ void CEffectScript::Begin()
 	// 시작 시 초기화
 	m_AccTime = 0.f;
 
+	// 이펙트 셰이더: 깊이 테스트 유지(LESS) + 깊이 쓰기 비활성화
+	// → 캐릭터/배경 앞뒤 관계는 정상 유지, 이펙트끼리 겹쳐도 서로 차단하지 않음
+	//auto applyLessNoWrite = [](CRenderComponent* pRender) {
+	//	if (pRender == nullptr) return;
+	//	auto pMtrl = pRender->GetMaterial();
+	//	if (pMtrl == nullptr) return;
+	//	auto pShader = pMtrl->GetShader();
+	//	if (pShader == nullptr) return;
+	//	pShader->SetDSType(DS_TYPE::LESS_NO_WRITE);
+	//};
+	//applyLessNoWrite(GetOwner()->FlipbookRender().Get());
+	//applyLessNoWrite(GetOwner()->MeshRender().Get());
+
 	// 시작 시 알파값 1.0 (완전 불투명)으로 설정
 	if (GetOwner()->MeshRender() != nullptr && GetOwner()->MeshRender()->GetMaterial() != nullptr)
 	{

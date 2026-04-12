@@ -221,6 +221,7 @@ void AssetMgr::CreateEngineShader()
 	pShader->CreatePixelShader(L"Shader\\effect.fx", "PS_Effect");
 	pShader->SetBSType(BS_TYPE::ALPHABLEND);
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::LESS_EQUL);
 
 	pShader->AddShaderParam(SHADER_PARAM::FLOAT, 0, L"AlphaValue");
 	pShader->AddShaderParam(SHADER_PARAM::TEX, 0, L"OutColor");

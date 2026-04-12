@@ -24,6 +24,7 @@ enum class DS_TYPE
 {
 	LESS,				// 깊이 판정 LESS 깊이 - 성공 시 덮어쓰기 // 기본 옵션 /// 더 가까워야 통과
 	LESS_EQUL,			// 깊이 판정 LSEFF_EQUAL 
+	LESS_NO_WRITE,		// 깊이 판정 LESS, 성공 시 깊이 기록 X (투명 오브젝트용)
 	NO_TEST,			// 깊이 판정 X(무조건 성공) 성공 시 - 덮어쓰기
 	NO_TEST_NO_WRITE,	// 깊이 판정 X(무조건 성공) 성공 시 - 깊이 기록 X 
 

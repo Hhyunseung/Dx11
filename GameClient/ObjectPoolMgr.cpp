@@ -149,7 +149,7 @@ GameObject* ObjectPoolMgr::SpawnEffect(const wstring& _EffectKey, Vec3 _Pos, boo
 	if (pEffect == nullptr)
 		return nullptr;
 
-	pEffect->Transform()->SetRelativePos(_Pos);
+	pEffect->Transform()->SetRelativePos(Vec3(_Pos.x, _Pos.y, 600.f));
 
 	// 스크롤 여부 설정 (속도는 GamePlayMgr에서 자동으로 읽음)
 	Ptr<CEffectScript> pEffectScript = pEffect->GetScript<CEffectScript>();
