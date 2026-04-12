@@ -103,6 +103,7 @@ void CLinearObstacle::Move()
 
 void CLinearObstacle::SaveToLevelFile(FILE* _File)
 {
+	fwrite(&m_ObjectID, sizeof(EObjectID), 1, _File);
 	fwrite(&m_SpeedX, sizeof(float), 1, _File);
 	fwrite(&m_SpeedY, sizeof(float), 1, _File);
 	fwrite(&m_GroundX, sizeof(float), 1, _File);
@@ -113,6 +114,7 @@ void CLinearObstacle::SaveToLevelFile(FILE* _File)
 
 void CLinearObstacle::LoadFromLevelFile(FILE* _File)
 {
+	fread(&m_ObjectID, sizeof(EObjectID), 1, _File);
 	fread(&m_SpeedX, sizeof(float), 1, _File);
 	fread(&m_SpeedY, sizeof(float), 1, _File);
 	fread(&m_GroundX, sizeof(float), 1, _File);

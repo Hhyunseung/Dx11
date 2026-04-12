@@ -62,17 +62,24 @@ void CJellyScript::Tick()
 	if (!pPlayer->GetIsMagnet())
 		return;
 
-	Vec3 playerPos = pPlayer->Transform()->GetRelativePos();
-	Vec3 myPos = GetOwner()->Transform()->GetRelativePos();
+	// 월드 좌표로 방향/거리 계산 (젤리가 부모 그룹의 자식일 수 있으므로)
+	Vec3 playerPos = pPlayer->Transform()->GetWorldPos();
+	Vec3 myWorldPos = GetOwner()->Transform()->GetWorldPos();
 
-	Vec3 dir = playerPos - myPos;
+	// 플레이어 오른쪽(진행 방향)으로 오프셋 → 캐릭터 앞에서 바로 먹을 수 있도록
+	const Vec3 magnetTargetOffset(20.f, -50.f, 0.f);
+	Vec3 targetPos = playerPos + magnetTargetOffset;
+
+	Vec3 dir = targetPos - myWorldPos;
 	float dist = dir.Length();
 
 	if (dist <= pPlayer->GetMagnetRange() && dist > 1.f)
 	{
 		dir.Normalize();
-		myPos += dir * m_MagnetSpeed * DT;
-		GetOwner()->Transform()->SetRelativePos(myPos);
+		// 이동 델타는 로컬 좌표에 그대로 적용 (부모가 회전 없이 이동만 하므로 동일)
+		Vec3 relPos = GetOwner()->Transform()->GetRelativePos();
+		relPos += dir * m_MagnetSpeed * DT;
+		GetOwner()->Transform()->SetRelativePos(relPos);
 	}
 
 }
@@ -84,12 +91,12 @@ void CJellyScript::BeginOverlap(CCollider2D* _This, CCollider2D* _Other)
 	GamePlayMgr::GetInst()->AddScore(m_Score);
 
 	// 코인 타입이면 RunCoin 카운트도 추가
-	if (m_ObjectID == EObjectID::Coin1)
+	if (m_ObjectID == EObjectID::Jelly_SilverCoin)
 	{
 		GamePlayMgr::GetInst()->AddRunCoin(10);
 	}
 
-	if (m_ObjectID == EObjectID::Coin2)
+	if (m_ObjectID == EObjectID::Jelly_GoldCoin)
 	{
 		GamePlayMgr::GetInst()->AddRunCoin(50);
 	}

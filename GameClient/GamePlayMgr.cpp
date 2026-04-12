@@ -125,8 +125,8 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 	switch ((EObjectID)_ObjectID)
 	{
 	case EObjectID::DefaultJelly:	return L"Prefab\\Jelly_Default.pref";
-	case EObjectID::Coin1:			return L"Prefab\\Jelly_CoinGold.pref";
-	case EObjectID::Coin2:			return L"Prefab\\Jelly_CoinSilver.pref";
+	case EObjectID::Jelly_SilverCoin:			return L"Prefab\\Jelly_SilverCoin.pref";
+	case EObjectID::Jelly_GoldCoin:			return L"Prefab\\Jelly_GoldCoin.pref";
 	case EObjectID::BearYellow:		return L"Prefab\\Jelly_Bearyellow.pref";
 	case EObjectID::BearPink:		return L"Prefab\\Jelly_Bearpink.pref";
 	case EObjectID::BearBlue:		return L"Prefab\\Jelly_Bearice.pref";
@@ -140,6 +140,10 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 	case EObjectID::Obstacle_tm001:	return L"Prefab\\Obstacle_tm001.pref";
 	case EObjectID::Obstacle_jp1down:	return L"Prefab\\Obstacle_jp1down.pref";
 	case EObjectID::Obstacle_tm001_sdswing:	return L"Prefab\\Obstacle_tm001_sdswing.pref";
+	case EObjectID::Obstacle_bl1_ing:		return L"Prefab\\Obstacle_bl1_ing.pref";
+	case EObjectID::Obstacle_tm001_jp1A:	return L"Prefab\\Obstacle_tm001_jp1A.pref";
+	case EObjectID::Obstacle_tm001_jp1B:	return L"Prefab\\Obstacle_tm001_jp1B.pref";
+	case EObjectID::Obstacle_cb2_open:		return L"Prefab\\Obstacle_cb2_open.pref";
 	case EObjectID::TileShipeStage_1_fh_m:	return L"Prefab\\TileShipeStage_1_fh_m.pref";
 	case EObjectID::TileShipeStage_1_tb_s:	return L"Prefab\\TileShipeStage_1_tb_s.pref";
 	case EObjectID::Item_Giant:		return L"Prefab\\Item_Giant.pref";

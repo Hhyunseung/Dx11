@@ -225,8 +225,8 @@ enum class EObjectID
     None			= 0,
 
 	DefaultJelly	= 1001,
-	Coin1			= 1002,
-	Coin2			= 1003,
+	Jelly_SilverCoin = 1002,
+	Jelly_GoldCoin = 1003,
 
 	BearYellow		= 1004,
 	BearPink		= 1005,
@@ -252,6 +252,10 @@ enum class EObjectID
     Obstacle_tm001	= 2003,
 	Obstacle_jp1down	= 2004,
 	Obstacle_tm001_sdswing	= 2005,
+	Obstacle_bl1_ing = 2006,
+	Obstacle_tm001_jp1A = 2007,
+	Obstacle_tm001_jp1B = 2008,
+	Obstacle_cb2_open = 2009,
 
 
 	// ÇÃ·§Æû
@@ -278,8 +282,8 @@ inline const char* EObjectIDToString(EObjectID _ID)
 	{
 	case EObjectID::None:			return "None";
 	case EObjectID::DefaultJelly:	return "DefaultJelly";
-	case EObjectID::Coin1:			return "Coin1";
-	case EObjectID::Coin2:			return "Coin2";
+	case EObjectID::Jelly_SilverCoin: return "Jelly_SilverCoin";
+	case EObjectID::Jelly_GoldCoin: return "Jelly_GoldCoin";
 	case EObjectID::BearYellow:		return "BearYellow";
 	case EObjectID::BearPink:		return "BearPink";
 	case EObjectID::BearBlue:		return "BearBlue";
@@ -293,6 +297,10 @@ inline const char* EObjectIDToString(EObjectID _ID)
     case EObjectID::Obstacle_tm001:	return "Obstacle_tm001";
 	case EObjectID::Obstacle_jp1down: return "Obstacle_jp1down";
 	case EObjectID::Obstacle_tm001_sdswing: return "Obstacle_tm001_sdswing";
+	case EObjectID::Obstacle_bl1_ing:       return "Obstacle_bl1_ing";
+	case EObjectID::Obstacle_tm001_jp1A:    return "Obstacle_tm001_jp1A";
+	case EObjectID::Obstacle_tm001_jp1B:    return "Obstacle_tm001_jp1B";
+	case EObjectID::Obstacle_cb2_open:      return "Obstacle_cb2_open";
 	case EObjectID::TileShipeStage_1_fh_m: return "TileShipeStage_1_fh_m";
 	case EObjectID::TileShipeStage_1_tb_s: return "TileShipeStage_1_tb_s";
 	case EObjectID::TileShipeStage_1_fh_Road: return "TileShipeStage_1_fh_Road";
@@ -312,7 +320,7 @@ inline const char* EObjectIDToString(EObjectID _ID)
 }
 
 // ÄÞº¸¹Ú½º¿ë EObjectID ¹è¿­ ¹× °³¼ö
-constexpr int g_ObjectIDCount = 31;
+constexpr int g_ObjectIDCount = 35;
 
 inline EObjectID GetObjectIDByIndex(int _Idx)
 {
@@ -320,8 +328,8 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
 	{
 		EObjectID::None,
 		EObjectID::DefaultJelly,
-		EObjectID::Coin1,
-		EObjectID::Coin2,
+		EObjectID::Jelly_SilverCoin,
+		EObjectID::Jelly_GoldCoin,
 		EObjectID::BearYellow,
 		EObjectID::BearPink,
 		EObjectID::BearBlue,
@@ -335,6 +343,10 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
         EObjectID::Obstacle_tm001,
 		EObjectID::Obstacle_jp1down,
 		EObjectID::Obstacle_tm001_sdswing,
+		EObjectID::Obstacle_bl1_ing,
+		EObjectID::Obstacle_tm001_jp1A,
+		EObjectID::Obstacle_tm001_jp1B,
+		EObjectID::Obstacle_cb2_open,
 		EObjectID::TileShipeStage_1_fh_m,
 		EObjectID::TileShipeStage_1_tb_s,
 		EObjectID::TileShipeStage_1_fh_Road,

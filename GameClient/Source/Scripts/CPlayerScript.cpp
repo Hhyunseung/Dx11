@@ -85,7 +85,7 @@ CPlayerScript::CPlayerScript()
 	, m_IsMagnet(false)
 	, m_MagnetTimer(0.f)
 	, m_MagnetDuration(5.f)
-	, m_MagnetRange(500.f)
+	, m_MagnetRange(300.f)
 {
 
 }
