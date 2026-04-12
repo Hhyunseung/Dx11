@@ -5,7 +5,8 @@ enum class TEXT_BIND_TYPE
 {
 	NONE,
 	SCORE,
-	COIN,
+	RUN_COIN,		// 이번 판에서 얻은 코인
+	TOTAL_COIN,		// 누적 보유 코인 (GameDataMgr)
 	CRYSTAL,
 	CURRENT_LEVEL,
 };

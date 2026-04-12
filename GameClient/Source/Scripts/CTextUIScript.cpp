@@ -2,6 +2,7 @@
 #include "CTextUIScript.h"
 
 #include "GamePlayMgr.h"
+#include "GameDataMgr.h"
 #include "FontMgr.h"
 
 CTextUIScript::CTextUIScript()
@@ -45,10 +46,17 @@ void CTextUIScript::Tick()
 	}
 	break;
 
-	case TEXT_BIND_TYPE::COIN:
+	case TEXT_BIND_TYPE::RUN_COIN:
 	{
-		//int coin = GamePlayMgr::GetInst()->GetCoin();
-		//m_Text = FormatWithComma(coin);
+		int coin = GamePlayMgr::GetInst()->GetRunCoin();
+		m_Text = FormatWithComma(coin);
+	}
+	break;
+
+	case TEXT_BIND_TYPE::TOTAL_COIN:
+	{
+		int coin = GameDataMgr::GetInst()->GetTotalCoin();
+		m_Text = FormatWithComma(coin);
 	}
 	break;
 

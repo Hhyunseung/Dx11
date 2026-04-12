@@ -70,6 +70,7 @@ void SceneFlowMgr::GoToLobby()
 
 void SceneFlowMgr::GoToScore()
 {
+	CommitRunResult(); // 이번 판 결과를 GameDataMgr에 반영 후 씬 전환
 	RequestLevelChange(L"Level\\ScoreLevel.lv");
 	RequestLevelPlay();
 }

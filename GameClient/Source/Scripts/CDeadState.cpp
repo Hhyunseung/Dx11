@@ -42,7 +42,7 @@ void CDeadState::Tick()
 
 		if (m_fDelayTimer >= m_fDelayDuration)
 		{
-			SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_LOBBY);
+			SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_SCORE);
 		}
 	}
 }

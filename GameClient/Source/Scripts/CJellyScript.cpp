@@ -83,6 +83,17 @@ void CJellyScript::BeginOverlap(CCollider2D* _This, CCollider2D* _Other)
 	// 점수 추가
 	GamePlayMgr::GetInst()->AddScore(m_Score);
 
+	// 코인 타입이면 RunCoin 카운트도 추가
+	if (m_ObjectID == EObjectID::Coin1)
+	{
+		GamePlayMgr::GetInst()->AddRunCoin(10);
+	}
+
+	if (m_ObjectID == EObjectID::Coin2)
+	{
+		GamePlayMgr::GetInst()->AddRunCoin(50);
+	}
+
 	// 이펙트 생성
 	SpawnCollectEffect();
 
