@@ -31,6 +31,8 @@ void ObjectPoolMgr::Init()
 	 CreatePool(L"Prefab\\Jelly_Bearyellow.pref", 10, 9);
 	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 10, 9);
 	 CreatePool(L"Prefab\\Jelly_BearBig.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_SpecialBonus_1.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_SpecialBonus_2.pref", 10, 9);
 
 	 CreatePool(L"Prefab\\Jelly_Heart_Ice.pref", 5, 9);
 	 CreatePool(L"Prefab\\Jelly_Heart_Pink.pref", 5, 9);
