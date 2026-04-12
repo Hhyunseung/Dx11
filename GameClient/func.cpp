@@ -259,9 +259,10 @@ void CreateTestLevel()
 
 		//pLevel->AddObject(1, pObject);
 
+		AssetMgr::GetInst()->AddAsset(L"TestLevel", pLevel.Get());
 		//ChangeLevel(L"Level\\LobbyLevel.lv");
 
-		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::START_GAME);
+		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_LOBBY);
 	}
 
 	return;
