@@ -465,6 +465,7 @@ void AssetMgr::CreateEngineTexture()
 
 
 	Load<ATexture>(L"Score_BG", L"Texture\\UI\\Score_BG.png");
+	Load<ATexture>(L"Panel_Ribbon", L"Texture\\UI\\img_burningDay_ingameRibbon.png");
 
 	// =========== 로비 UI 텍스쳐 ============
 	Load<ATexture>(L"bg_lobby_skin", L"Texture\\Lobby\\bg_lobby_skin1.png");
