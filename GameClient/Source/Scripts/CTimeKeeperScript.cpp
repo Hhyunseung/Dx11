@@ -212,7 +212,7 @@ void CTimeKeeperScript::SpawnTKBGEffect(int _LayerIdx)
 	if (m_TKBGEffectPrefab == nullptr)
 		return;
 
-	DestroyTKBGEffect();
+ 	DestroyTKBGEffect();
 
 	m_TKBGEffectObject = m_TKBGEffectPrefab->Instantiate();
 	CreateObject(m_TKBGEffectObject, _LayerIdx);

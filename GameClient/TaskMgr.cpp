@@ -100,6 +100,10 @@ void TaskMgr::Progress()
 				Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
 				if (nullptr != pCurLevel)
 					pCurLevel->SetChanged();
+
+
+				if (pObj->GetName() == L"IsAlphaEffect")
+					return;
 			}
 		}
 		break;

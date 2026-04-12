@@ -23,16 +23,16 @@ void ObjectPoolMgr::Init()
 	// ============================================
 
 	 //젤리 풀 (예시)
-	 CreatePool(L"Prefab\\Jelly_Default.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_GoldCoin.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_SilverCoin.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_Bearpink.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_Bearyellow.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_BearBig.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_SpecialBonus_1.pref", 10, 9);
-	 CreatePool(L"Prefab\\Jelly_SpecialBonus_2.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_Default.pref", 20, 9);
+	 CreatePool(L"Prefab\\Jelly_GoldCoin.pref", 20, 9);
+	 CreatePool(L"Prefab\\Jelly_SilverCoin.pref", 20, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 20, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearpink.pref", 20, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearyellow.pref", 20, 9);
+	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 20, 9);
+	 CreatePool(L"Prefab\\Jelly_BearBig.pref", 20, 9);
+	 CreatePool(L"Prefab\\Jelly_SpecialBonus_1.pref", 20, 9);
+	 CreatePool(L"Prefab\\Jelly_SpecialBonus_2.pref", 20, 9);
 
 	 CreatePool(L"Prefab\\Jelly_Heart_Ice.pref", 5, 9);
 	 CreatePool(L"Prefab\\Jelly_Heart_Pink.pref", 5, 9);
