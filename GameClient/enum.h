@@ -239,6 +239,12 @@ enum class EObjectID
 
 	Item,
 
+	Jelly_Jump_Default	= 1012,
+	Jelly_Road_Default	= 1013,
+	Jelly_Heart_Ice		= 1014,
+	Jelly_Heart_Pink	= 1015,
+	Jelly_Heart_Yellow	= 1016,
+
 	// 장애물
 	Obstacle_bl1	= 2001,
 	Obstacle_cb2	= 2002,
@@ -250,6 +256,8 @@ enum class EObjectID
 	// 플랫폼
 	TileShipeStage_1_fh_m = 3001,
 	TileShipeStage_1_tb_s = 3002,
+	TileShipeStage_1_fh_Road = 3003,
+	TileShipeStage_1_tb_Road = 3004,
 
 
 	// 아이템
@@ -286,6 +294,13 @@ inline const char* EObjectIDToString(EObjectID _ID)
 	case EObjectID::Obstacle_tm001_sdswing: return "Obstacle_tm001_sdswing";
 	case EObjectID::TileShipeStage_1_fh_m: return "TileShipeStage_1_fh_m";
 	case EObjectID::TileShipeStage_1_tb_s: return "TileShipeStage_1_tb_s";
+	case EObjectID::TileShipeStage_1_fh_Road: return "TileShipeStage_1_fh_Road";
+	case EObjectID::TileShipeStage_1_tb_Road: return "TileShipeStage_1_tb_Road";
+	case EObjectID::Jelly_Jump_Default: return "Jelly_Jump_Default";
+	case EObjectID::Jelly_Road_Default: return "Jelly_Road_Default";
+	case EObjectID::Jelly_Heart_Ice:    return "Jelly_Heart_Ice";
+	case EObjectID::Jelly_Heart_Pink:   return "Jelly_Heart_Pink";
+	case EObjectID::Jelly_Heart_Yellow: return "Jelly_Heart_Yellow";
 	case EObjectID::Item_Giant:      return "Item_Giant";
 	case EObjectID::Item_Boost:		 return "Item_Boost";
 	case EObjectID::Item_Magnet:     return "Item_Magnet";
@@ -296,7 +311,7 @@ inline const char* EObjectIDToString(EObjectID _ID)
 }
 
 // 콤보박스용 EObjectID 배열 및 개수
-constexpr int g_ObjectIDCount = 24;
+constexpr int g_ObjectIDCount = 31;
 
 inline EObjectID GetObjectIDByIndex(int _Idx)
 {
@@ -319,8 +334,15 @@ inline EObjectID GetObjectIDByIndex(int _Idx)
         EObjectID::Obstacle_tm001,
 		EObjectID::Obstacle_jp1down,
 		EObjectID::Obstacle_tm001_sdswing,
-        EObjectID::TileShipeStage_1_fh_m,
+		EObjectID::TileShipeStage_1_fh_m,
 		EObjectID::TileShipeStage_1_tb_s,
+		EObjectID::TileShipeStage_1_fh_Road,
+		EObjectID::TileShipeStage_1_tb_Road,
+		EObjectID::Jelly_Jump_Default,
+		EObjectID::Jelly_Road_Default,
+		EObjectID::Jelly_Heart_Ice,
+		EObjectID::Jelly_Heart_Pink,
+		EObjectID::Jelly_Heart_Yellow,
 		EObjectID::Item_Giant,
 		EObjectID::Item_Boost,
 		EObjectID::Item_Magnet,

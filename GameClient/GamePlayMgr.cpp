@@ -56,7 +56,7 @@ void GamePlayMgr::Init()
 	Ptr<APrefab> pPrefabUI = FIND(APrefab, L"Prefab\\GamePlayUIRoot.pref");
 	m_GamePlayUIRootPrefab = pPrefabUI; // UI 루트 프리팹 저장
 
-	Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestMap_0.stage");
+	Ptr<AStageData> pStageData = LOAD(AStageData, L"StageData\\TestMap_1.stage");
 	m_StageData = pStageData; // StageData 저장
 
 	// 오브젝트 풀 초기화
@@ -147,6 +147,13 @@ wstring GamePlayMgr::GetPrefabKey(int _ObjectID)
 	case EObjectID::Item_Magnet:		return L"Prefab\\Item_Magnet.pref";
 	case EObjectID::Item_HealA:		return L"Prefab\\Item_HealA.pref";
 	case EObjectID::Item_HealB:		return L"Prefab\\Item_HealB.pref";
+	case EObjectID::TileShipeStage_1_fh_Road:	return L"Prefab\\TileShipeStage_1_fh_Road.pref";
+	case EObjectID::TileShipeStage_1_tb_Road:	return L"Prefab\\TileShipeStage_1_tb_Road.pref";
+	case EObjectID::Jelly_Jump_Default:	return L"Prefab\\Jelly_Jump_Default.pref";
+	case EObjectID::Jelly_Road_Default:	return L"Prefab\\Jelly_Road_Default.pref";
+	case EObjectID::Jelly_Heart_Ice:	return L"Prefab\\Jelly_Heart_Ice.pref";
+	case EObjectID::Jelly_Heart_Pink:	return L"Prefab\\Jelly_Heart_Pink.pref";
+	case EObjectID::Jelly_Heart_Yellow:	return L"Prefab\\Jelly_Heart_Yellow.pref";
 	default:						return L"";
 	}
 }

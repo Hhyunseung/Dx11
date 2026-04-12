@@ -65,6 +65,10 @@ void CLinearObstacle::Init()
 
 void CLinearObstacle::Move()
 {
+	// Pause 상태에서는 움직이지 않음
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	Vec3 pos = Transform()->GetRelativePos();
 
 	if (m_IsGroundedX)

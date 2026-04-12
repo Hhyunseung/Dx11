@@ -66,6 +66,10 @@ void CParabolicObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 
 void CParabolicObstacle::Move()
 {
+	// Pause 상태에서는 움직이지 않음
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	// 월드 스크롤 + 포물선 이동
 	Vec3 pos = Transform()->GetRelativePos();
 

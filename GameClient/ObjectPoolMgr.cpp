@@ -23,13 +23,20 @@ void ObjectPoolMgr::Init()
 	// ============================================
 
 	 //젤리 풀 (예시)
-	 CreatePool(L"Prefab\\Jelly_Default.pref", 30, 9);
-	 CreatePool(L"Prefab\\Jelly_GoldCoin.pref", 30, 9);
-	 CreatePool(L"Prefab\\Jelly_SilverCoin.pref", 30, 9);
-	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 30, 9);
-	 CreatePool(L"Prefab\\Jelly_Bearpink.pref", 30, 9);
-	 CreatePool(L"Prefab\\Jelly_Bearyellow.pref", 30, 9);
-	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 30, 9);
+	 CreatePool(L"Prefab\\Jelly_Default.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_GoldCoin.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_SilverCoin.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearice.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearpink.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_Bearyellow.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_BearRainbow.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_BearBig.pref", 10, 9);
+
+	 CreatePool(L"Prefab\\Jelly_Heart_Ice.pref", 5, 9);
+	 CreatePool(L"Prefab\\Jelly_Heart_Pink.pref", 5, 9);
+	 CreatePool(L"Prefab\\Jelly_Heart_Yellow.pref", 5, 9);
+	 CreatePool(L"Prefab\\Jelly_Jump_Default.pref", 10, 9);
+	 CreatePool(L"Prefab\\Jelly_Road_Default.pref", 10, 9);
 
 	// 장애물 풀 (예시)
 	CreatePool(L"Prefab\\Obstacle_bl1.pref", 10, 8);
@@ -46,7 +53,9 @@ void ObjectPoolMgr::Init()
 
 	// 플랫폼 풀 (예시)
 	CreatePool(L"Prefab\\TileShipeStage_1_fh_m.pref", 20, 2);
+	CreatePool(L"Prefab\\TileShipeStage_1_fh_Road.pref", 10, 2);
 	CreatePool(L"Prefab\\TileShipeStage_1_tb_s.pref", 10, 2);
+	CreatePool(L"Prefab\\TileShipeStage_1_tb_Road.pref", 10, 2);
 
 	// 이펙트 풀 (예시)
 	CreatePool(L"Prefab\\Effect_JellyCollect.pref", 3, 0);

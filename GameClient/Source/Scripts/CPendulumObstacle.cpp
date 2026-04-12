@@ -111,6 +111,10 @@ void CPendulumObstacle::ApplySpawnInfo(const FSpawnInfo& info)
 
 void CPendulumObstacle::Move()
 {
+	// Pause 상태에서는 움직이지 않음
+	if (GamePlayMgr::GetInst()->IsPaused())
+		return;
+
 	if (m_OneMove && m_IsStopped)
 		return;
 

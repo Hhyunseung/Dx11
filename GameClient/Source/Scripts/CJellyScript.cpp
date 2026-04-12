@@ -107,7 +107,7 @@ void CJellyScript::OnSpawn()
 
 void CJellyScript::SpawnCollectEffect()
 {
-	Vec3 pos = Transform()->GetRelativePos();
+	Vec3 pos = Transform()->GetWorldPos();
 	ObjectPoolMgr::GetInst()->SpawnEffect(L"Prefab\\Effect_JellyCollect.pref", pos, true);
 }
 

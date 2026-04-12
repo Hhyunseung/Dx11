@@ -174,8 +174,8 @@ bool IsValid(Ptr<GameObject>& _Object)
 void CreateTestLevel()
 {
 	{
-		//Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\TestLevel.lv");
-		//pLevel->SetName(L"Level\\GamePlayLevel_1.lv");
+		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_New.lv");
+		pLevel->SetName(L"Level\\GamePlayLevel_New.lv");
 		//Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 		//GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
 
@@ -210,7 +210,7 @@ void CreateTestLevel()
 		// Lobby
 		// =================================================================
 
-		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_Make.lv");
+		//Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_New.lv");
 		
 	   /*pLevel->SetName(L"Level\\GamePlayLevel_Make.lv");
 
@@ -245,7 +245,7 @@ void CreateTestLevel()
 
 
 		//AssetMgr::GetInst()->AddAsset(L"Level\\GamePlayLevel_Make.lv", pLevel.Get());
-		ChangeLevel(L"Level\\GamePlayLevel_Make.lv");
+		ChangeLevel(L"Level\\GamePlayLevel_New.lv");
 
 		//SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::START_GAME);
 	}
