@@ -4,6 +4,8 @@
 #include "TaskMgr.h"
 #include "GamePlayMgr.h"
 #include "GameDataMgr.h"
+#include "AssetMgr.h"
+#include "ASound.h"
 
 SceneFlowMgr::SceneFlowMgr()
 	: m_IsChangingLevel(false)
@@ -64,6 +66,7 @@ void SceneFlowMgr::ExecuteAction(SCENE_FLOW_ACTION _Action)
 
 void SceneFlowMgr::GoToLobby()
 {
+	PlayBGM(L"Lobby_Sound", 0.5f);
 	RequestLevelChange(L"Level\\LobbyLevel.lv");
 	RequestLevelPlay();
 }
@@ -71,6 +74,7 @@ void SceneFlowMgr::GoToLobby()
 void SceneFlowMgr::GoToScore()
 {
 	CommitRunResult(); // 이번 판 결과를 GameDataMgr에 반영 후 씬 전환
+	PlayBGM(L"r_score", 0.5f);
 	RequestLevelChange(L"Level\\ScoreLevel.lv");
 	RequestLevelPlay();
 }
@@ -81,6 +85,8 @@ void SceneFlowMgr::StartGame()
 
 	// 현재 판 데이터 초기화
 	GamePlayMgr::GetInst()->Init();
+
+	PlayBGM(L"GamePlay_Sound", 0.5f);
 
 	const wstring& mapKey = GameDataMgr::GetInst()->GetSelectedStage();
 
@@ -98,6 +104,8 @@ void SceneFlowMgr::RestartGame()
 
 	// 재시작 시 현재 판 데이터 초기화
 	GamePlayMgr::GetInst()->Init();
+
+	PlayBGM(L"GamePlay_Sound", 0.5f);
 
 	const wstring& mapKey = GameDataMgr::GetInst()->GetSelectedStage();
 
@@ -153,4 +161,25 @@ void SceneFlowMgr::RequestLevelPlay()
 	info.Param_0 = (DWORD_PTR)LEVEL_STATE::PLAY;
 
 	TaskMgr::GetInst()->AddTask(info);
+}
+
+void SceneFlowMgr::PlayBGM(const wstring& _SoundKey, float _Volume)
+{
+	StopBGM();
+
+	Ptr<ASound> pBGM = FIND(ASound, _SoundKey);
+	if (pBGM == nullptr)
+		return;
+
+	pBGM->Play(0, _Volume, false); // 0 = 무한 반복
+	m_CurBGM = pBGM;
+}
+
+void SceneFlowMgr::StopBGM()
+{
+	if (m_CurBGM != nullptr)
+	{
+		m_CurBGM->Stop();
+		m_CurBGM = nullptr;
+	}
 }

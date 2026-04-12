@@ -7,6 +7,7 @@
 
 #include "AssetMgr.h"
 #include "GamePlayMgr.h"
+#include "SceneFlowMgr.h"
 #include "TaskMgr.h"
 #include "TimeMgr.h"
 #include "KeyMgr.h"
@@ -98,6 +99,9 @@ void CLycheeScript::UseSkill()
 	SpawnSkillBGEffect(1);
 	SpawnTKBGEffect(1);
 
+	// 스킬 배경음악 재생
+	SceneFlowMgr::GetInst()->PlayBGM(L"DragonCookie_Skill", 0.5f);
+
 	// 스킬 시작 연출(1회)
 	ChangeSkillState(ESkillState::Start);
 }
@@ -123,6 +127,9 @@ void CLycheeScript::EndSkill()
 	DestroySkillBGEffect();
 	DestroyTKBGEffect();
 	DestroySkillEffect();
+
+	// 게임플레이 배경음악 복원
+	SceneFlowMgr::GetInst()->PlayBGM(L"GamePlay_Sound", 0.5f);
 
 	ExitSkillMode();
 }

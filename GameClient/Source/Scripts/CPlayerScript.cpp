@@ -2,6 +2,7 @@
 #include "CPlayerScript.h"
 
 #include "AssetMgr.h"
+#include "ASound.h"
 #include "KeyMgr.h"
 #include "TimeMgr.h"
 #include "LevelMgr.h"
@@ -158,12 +159,6 @@ void CPlayerScript::Begin()
 	SetDefaultCollider();
 
 	UpdateHPUI();
-
-
-	// 사운드 재생 테스트
-	Ptr<ASound> pSound = LOAD(ASound, L"Sound\\Lobby_Sound.mp3");
-
-	pSound->Play(0, 0.5f, false);
 }
 
 void CPlayerScript::Tick()
@@ -280,6 +275,10 @@ void CPlayerScript::HandleSlide()
 				m_IsSlide = true;
 				m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
 				ChangeState(PLAYER_STATE_ID::SLIDE);
+
+				Ptr<ASound> pSlideSFX = FIND(ASound, L"slide");
+				if (pSlideSFX != nullptr)
+					pSlideSFX->Play(1, 0.7f, true);
 			}
 		}
 		else
@@ -309,6 +308,10 @@ void CPlayerScript::HandleSlide()
 			m_IsSlide = true;
 			m_LastSafePos = GetOwner()->Transform()->GetRelativePos();
 			ChangeState(PLAYER_STATE_ID::SLIDE);
+
+			Ptr<ASound> pSlideSFX = FIND(ASound, L"slide");
+			if (pSlideSFX != nullptr)
+				pSlideSFX->Play(1, 0.7f, true);
 		}
 	}
 	else
@@ -376,6 +379,10 @@ void CPlayerScript::ProcessJump()
 
 		m_CurrentMovingPlatform = nullptr;
 		ChangeState(PLAYER_STATE_ID::JUMP);
+
+		Ptr<ASound> pJumpSFX = FIND(ASound, L"jump");
+		if (pJumpSFX != nullptr)
+			pJumpSFX->Play(1, 0.7f, true);
 	}
 	// 더블 점프
 	else if (m_JumpCount == 1)
@@ -389,6 +396,10 @@ void CPlayerScript::ProcessJump()
 
 		m_CurrentMovingPlatform = nullptr;
 		ChangeState(PLAYER_STATE_ID::DOUBLE_JUMP);
+
+		Ptr<ASound> pJumpSFX = FIND(ASound, L"jump");
+		if (pJumpSFX != nullptr)
+			pJumpSFX->Play(1, 0.7f, true);
 	}
 
 	m_JumpRequest = false;

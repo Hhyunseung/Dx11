@@ -114,15 +114,6 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height, bool _EditorMode)
     // 각각의 키의 상태를 계산
     KeyMgr::GetInst()->Init();
 
-    // 엔진 기본 에셋틀 생성
-    AssetMgr::GetInst()->Init();
-
-    // 레벨 매니저 초기화
-    LevelMgr::GetInst()->Init();
-
-    // 렌더링 매니저 초기화
-    RenderMgr::GetInst()->Init();
-
     // FMOD 초기화	
     {
         FMOD::System_Create(&m_FMODSystem);
@@ -131,6 +122,15 @@ int Engine::Init(HINSTANCE _hInst, UINT _Width, UINT _Height, bool _EditorMode)
         // 32개 채널 생성
         FMOD_RESULT result = m_FMODSystem->init(32, FMOD_DEFAULT, nullptr);
     }
+
+    // 엔진 기본 에셋틀 생성
+    AssetMgr::GetInst()->Init();
+
+    // 레벨 매니저 초기화
+    LevelMgr::GetInst()->Init();
+
+    // 렌더링 매니저 초기화
+    RenderMgr::GetInst()->Init();
 
     // 에디터 매니저 초기화
     if (m_EditorMode)

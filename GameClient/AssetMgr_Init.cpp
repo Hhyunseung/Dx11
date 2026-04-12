@@ -480,6 +480,26 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"UI_ingame_ovenBreakGauge", L"Texture\\Lobby\\imf_ingame_ovenBreakGauge.png");
 	Load<ATexture>(L"UI_ingame_blackBox", L"Texture\\Lobby\\frmBg_ingameTreasure.png");
 
+
+	// == »ç¿îµå ==
+	Load<ASound>(L"Lobby_Sound", L"Sound\\Lobby_Sound.mp3");
+	Load<ASound>(L"GamePlay_Sound", L"Sound\\GamePlay_Sound.mp3");
+	Load<ASound>(L"r_score", L"Sound\\r_score.ogg");
+
+	Load<ASound>(L"DragonCookie_Skill", L"Sound\\DragonCookie_Skill.mp3");
+	Load<ASound>(L"TimeKeeperCookie_Skill", L"Sound\\TimeKeeperCookie_Skill.mp3");
+	Load<ASound>(L"slide", L"Sound\\slide.ogg");
+	Load<ASound>(L"jump", L"Sound\\jump.ogg");
+
+	Load<ASound>(L"g_gold", L"Sound\\g_gold.ogg");
+	Load<ASound>(L"g_ijelly", L"Sound\\g_ijelly.ogg");
+	Load<ASound>(L"g_jelly", L"Sound\\g_jelly.ogg");
+
+	Load<ASound>(L"i_giant", L"Sound\\i_giant.ogg");
+	Load<ASound>(L"i_large_energy", L"Sound\\i_large_energy.ogg");
+	Load<ASound>(L"i_magnet", L"Sound\\i_magnet.ogg");
+
+	Load<ASound>(L"ui_1", L"Sound\\ui_1.ogg");
 }
 
 void AssetMgr::CreateEngineMaterial()
