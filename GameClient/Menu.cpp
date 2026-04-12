@@ -68,10 +68,10 @@ void Menu::File()
 
 		if (ImGui::BeginMenu("Level Load"))
 		{
-			if (ImGui::MenuItem("TestLevel"))
+			if (ImGui::MenuItem("GamePlayLevel_1"))
 			{
-				Ptr<ALevel> pLevel = FIND(ALevel, L"Level\\TestLevel.lv");
-				ChangeLevel(L"Level\\TestLevel.lv");
+				Ptr<ALevel> pLevel = FIND(ALevel, L"Level\\GamePlayLevel_1.lv");
+				ChangeLevel(L"Level\\GamePlayLevel_1.lv");
 			}
 
 			if (ImGui::MenuItem("LobbyLevel"))
