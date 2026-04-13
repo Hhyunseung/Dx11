@@ -92,7 +92,7 @@ void TaskMgr::Progress()
 
 		case TASK_TYPE::DESTROY_OBJECT:
 		{
-			Ptr<GameObject> pObj = (GameObject*)vecTask[i].Param_0;
+			GameObject* pObj = (GameObject*)vecTask[i].Param_0;
 			if (nullptr == pObj)
 				continue;
 
@@ -101,7 +101,7 @@ void TaskMgr::Progress()
                 // 자기 자신과 모든 자손을 Dead 처리하고 m_Garbage에 추가
 				// 부모가 m_Garbage.clear()로 해제될 때 자식이 cascade delete 되는 것을 방지
 				list<GameObject*> queue;
-				queue.push_back(pObj.Get());
+				queue.push_back(pObj);
 
 				while (!queue.empty())
 				{

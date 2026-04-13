@@ -97,7 +97,7 @@ void CLycheeScript::UseSkill()
 
 	SpawnSkillBG(1);
 	SpawnSkillBGEffect(1);
-	SpawnTKBGEffect(1);
+	//SpawnTKBGEffect(1);
 
 	// 스킬 배경음악 재생
 	SceneFlowMgr::GetInst()->PlayBGM(L"DragonCookie_Skill", 0.5f);
@@ -124,9 +124,9 @@ void CLycheeScript::EndSkill()
 	m_bEndReserved = false;
 
 	DestroySkillBG();
-	DestroySkillBGEffect();
-	DestroyTKBGEffect();
-	DestroySkillEffect();
+	//DestroySkillBGEffect();
+	//DestroyTKBGEffect();
+	//DestroySkillEffect();
 
 	// 게임플레이 배경음악 복원
 	SceneFlowMgr::GetInst()->PlayBGM(L"GamePlay_Sound", 0.5f);
