@@ -345,10 +345,6 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"DragonCookie_SkillEffect_0", L"Texture\\Lychee\\Lychee_SkillEffect_0.png");
 	Load<ATexture>(L"DragonCookie_SkillEffect_1", L"Texture\\Lychee\\Lychee_SkillEffect_1.png");
 
-
-	Load<ATexture>(L"DragonCookiePetIdle", L"Texture\\Lycheye\\Lycheye_Idle.png");
-
-
 	// ==============================
 	// 시간지기 쿠키 애니메이션 텍스쳐
 	// ==============================
@@ -383,7 +379,12 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"TimeKeeper_SkillEffect_3_2", L"Texture\\TimeKeeper\\TimeKeeper_SkillEffect_3_2.png");
 
 
-	//Load<ATexture>(L"DragonCookieHitDead", L"Texture\\TimeKeeper\\TimeKeeper_Hit_Dead.png");
+	// ========
+	// 펫
+	// ========
+	Load<ATexture>(L"Pet_Default", L"Texture\\Pet\\Pet_Default.png");
+	Load<ATexture>(L"DragonCookiePetIdle", L"Texture\\Pet\\Pet_Lycheye.png");
+	Load<ATexture>(L"Pet_TimeKeeper", L"Texture\\Pet\\Pet_TimeKeeper.png");
 
 
 	// ==========

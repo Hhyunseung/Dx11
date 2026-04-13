@@ -174,8 +174,8 @@ bool IsValid(Ptr<GameObject>& _Object)
 void CreateTestLevel()
 {
 	{
-		Ptr<ALevel> pLevel = LOAD(ALevel, L"Level\\GamePlayLevel_New.lv");
-		pLevel->SetName(L"Level\\GamePlayLevel_New.lv");
+		Ptr<ALevel> pLevel = FIND(ALevel, L"Level\\LobbyLevel.lv");
+		//pLevel->SetName(L"Level\\GamePlayLevel_New.lv");
 		//Ptr<APrefab> pPrefab = FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 		//GamePlayMgr::GetInst()->SetSelectedCharacterType(ECharacterType::TimeKeeper);
 
@@ -231,7 +231,7 @@ void CreateTestLevel()
 		//}
 
 		Ptr<GameObject> pChild = new GameObject;
-		pChild->SetName(L"Obstacle_cb2_open");
+		pChild->SetName(L"Pet_TimeKeeper");
 
 		pChild->AddComponent(new CTransform);
 		pChild->AddComponent(new CFlipbookRender);
@@ -239,9 +239,9 @@ void CreateTestLevel()
 		pChild->Transform()->SetRelativePos(Vec3(-80.f, -65.f, 0.f));
 		pChild->Transform()->SetRelativeScale(Vec3(150.f, 150.f, 1.f));
 
-		pChild->FlipbookRender()->AddFlipbook(LOAD(AFlipbook, L"Flipbook\\Obstacle_cb2_open.flip"));
+		pChild->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\Pet_TimeKeeper.flip"));
 		pChild->FlipbookRender()->Play(0, 8.f, -1);
-		//pLevel->AddObject(2, pChild);
+		pLevel->AddObject(2, pChild);
 
 
 		//AssetMgr::GetInst()->AddAsset(L"Level\\GamePlayLevel_Make.lv", pLevel.Get());

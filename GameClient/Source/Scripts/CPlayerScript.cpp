@@ -132,7 +132,13 @@ void CPlayerScript::Begin()
 
 	GetOwner()->SetLayerIdx(3); // Player 레이어
 
-	Ptr<GameObject> pChild = GetOwner()->GetChild(1);
+
+	Ptr<GameObject> pChild = GetOwner()->GetChild(0);
+	if (pChild != nullptr && pChild->FlipbookRender() != nullptr)
+		pChild->FlipbookRender()->Play(0, 8.f, -1);
+
+
+	pChild = GetOwner()->GetChild(1);
 	m_FeetObject = pChild.Get();
 	m_FeetObject->SetLayerIdx(4); // PlayerFeet 레이어
 	m_FeetCollider = m_FeetObject->Collider2D().Get();
