@@ -86,6 +86,12 @@ void Menu::File()
 				ChangeLevel(L"Level\\ScoreLevel.lv");
 			}
 
+			if (ImGui::MenuItem("MakeLevel"))
+			{
+				Ptr<ALevel> pLevel = FIND(ALevel, L"Level\\GamePlayLevel_New.lv");
+				ChangeLevel(L"Level\\GamePlayLevel_New.lv");
+			}
+
 			ImGui::EndMenu();
 		}
 
