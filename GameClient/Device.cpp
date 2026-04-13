@@ -32,6 +32,7 @@ int Device::Init(HWND _hwnd, Vec2 _Resolution)
 #ifdef _DEBUG
 	UINT iFlag = D3D11_CREATE_DEVICE_DEBUG;
 #endif
+    //UINT iFlag = 0;
 
     D3D_FEATURE_LEVEL* pLevel = nullptr;
 
