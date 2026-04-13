@@ -74,6 +74,9 @@ void TaskMgr::Progress()
 			if (nullptr == pNewObj)
 				continue;
 
+			if (pNewObj->GetName() == L"IsAlphaEffect")
+				return;
+
 			Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
 			if (nullptr == pCurLevel)
 				continue;
@@ -83,6 +86,7 @@ void TaskMgr::Progress()
 
 			if (LevelMgr::GetInst()->GetLevelState() == LEVEL_STATE::PLAY)
 				pNewObj->Begin();
+
 		}
 		break;
 
@@ -94,16 +98,32 @@ void TaskMgr::Progress()
 
 			if (pObj->m_Dead == false)
 			{
-				pObj->m_Dead = true;
-				m_Garbage.push_back(pObj);
+                // 자기 자신과 모든 자손을 Dead 처리하고 m_Garbage에 추가
+				// 부모가 m_Garbage.clear()로 해제될 때 자식이 cascade delete 되는 것을 방지
+				list<GameObject*> queue;
+				queue.push_back(pObj.Get());
+
+				while (!queue.empty())
+				{
+					GameObject* pCur = queue.front();
+					queue.pop_front();
+
+					if (pCur->m_Dead)
+						continue;
+
+					pCur->m_Dead = true;
+					m_Garbage.push_back(pCur);
+
+					const vector<Ptr<GameObject>>& children = pCur->GetChild();
+					for (size_t j = 0; j < children.size(); ++j)
+					{
+						queue.push_back(children[j].Get());
+					}
+				}
 
 				Ptr<ALevel> pCurLevel = LevelMgr::GetInst()->GetCurrentLevel();
 				if (nullptr != pCurLevel)
 					pCurLevel->SetChanged();
-
-
-				if (pObj->GetName() == L"IsAlphaEffect")
-					return;
 			}
 		}
 		break;

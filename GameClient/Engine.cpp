@@ -57,6 +57,10 @@ int Engine::Progress()
 	// 렌더타겟에 그려진 그림을, 윈도우 비트맵으로 복사
 	Device::GetInst()->Present();
 
+	// FMOD 시스템 업데이트 (채널 콜백 처리, 완료된 사운드 채널 정리)
+	if (m_FMODSystem)
+		m_FMODSystem->update();
+
 	// 다음 프레임에 적용될 작업 처리 /// 가장 마지막에 호출
 	// 여기서 처리한 작업은 다음 프레임에 적용된다
 	TaskMgr::GetInst()->Progress();

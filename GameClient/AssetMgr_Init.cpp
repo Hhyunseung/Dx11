@@ -490,10 +490,13 @@ void AssetMgr::CreateEngineTexture()
 	Load<ASound>(L"TimeKeeperCookie_Skill", L"Sound\\TimeKeeperCookie_Skill.mp3");
 	Load<ASound>(L"slide", L"Sound\\slide.ogg");
 	Load<ASound>(L"jump", L"Sound\\jump.ogg");
+	Load<ASound>(L"hit", L"Sound\\hit.ogg");
+	Load<ASound>(L"dead", L"Sound\\dead.ogg");
 
 	Load<ASound>(L"g_gold", L"Sound\\g_gold.ogg");
 	Load<ASound>(L"g_ijelly", L"Sound\\g_ijelly.ogg");
 	Load<ASound>(L"g_jelly", L"Sound\\g_jelly.ogg");
+	Load<ASound>(L"breakObs", L"Sound\\breakObs.ogg");
 
 	Load<ASound>(L"i_giant", L"Sound\\i_giant.ogg");
 	Load<ASound>(L"i_large_energy", L"Sound\\i_large_energy.ogg");

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CDeadState.h"
 
+#include "AssetMgr.h"
 #include "GameObject.h"
 #include "TimeMgr.h"
 #include "SceneFlowMgr.h"
@@ -23,6 +24,10 @@ CDeadState::~CDeadState()
 
 void CDeadState::Enter(PLAYER_STATE_ID _prev)
 {
+	Ptr<ASound> pCoinSFX = FIND(ASound, L"dead");
+	if (pCoinSFX != nullptr)
+		pCoinSFX->Play(1, 0.7f, true);
+
 	GetOwner()->FlipbookRender()->Play((int)PLAYER_STATE_ID::DEAD, 5.f, 0);
     m_fDelayTimer = 0.f;
 	m_bDelayStarted = false;

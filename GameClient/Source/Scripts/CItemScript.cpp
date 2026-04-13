@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CItemScript.h"
 
+#include "AssetMgr.h"
 #include "CPlayerScript.h"
 #include "GamePlayMgr.h"
 #include "LevelMgr.h"
@@ -61,6 +62,10 @@ void CItemScript::BeginOverlap(CCollider2D* _OwnCollider, CCollider2D* _OtherCol
         pPlayer->Heal(m_HealAmount);
         break;
     }
+
+    Ptr<ASound> pSlideSFX = FIND(ASound, L"g_ijelly");
+    if (pSlideSFX != nullptr)
+        pSlideSFX->Play(1, 0.7f, true);
 
     SpawnCollectEffect();
 

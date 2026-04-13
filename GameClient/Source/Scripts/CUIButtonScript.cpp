@@ -5,6 +5,7 @@
 #include "KeyMgr.h"
 #include "GameObject.h"
 
+#include "AssetMgr.h"
 #include "AMaterial.h"
 #include "CMeshRender.h"
 #include "CTransform.h"
@@ -87,6 +88,10 @@ void CUIButtonScript::Tick()
 
 		if (mouseOver)
 		{
+			Ptr<ASound> pCoinSFX = FIND(ASound, L"ui_1");
+			if (pCoinSFX != nullptr)
+				pCoinSFX->Play(1, 1.f, true);
+
 			OnButtonClick();
 		}
 

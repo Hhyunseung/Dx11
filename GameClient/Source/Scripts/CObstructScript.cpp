@@ -5,6 +5,7 @@
 #include "GamePlayMgr.h"
 #include "GameObject.h"
 #include "ObjectPoolMgr.h"
+#include "AssetMgr.h"
 
 #include "CPlayerScript.h"
 
@@ -113,6 +114,11 @@ void CObstructScript::BreakObstacle()
 
 	Vec3 pos = Transform()->GetRelativePos();
 	ObjectPoolMgr::GetInst()->SpawnEffect(L"Prefab\\Effect_Obstrcut_Break.pref", pos, true);
+
+
+	Ptr<ASound> pCoinSFX = FIND(ASound, L"breakObs");
+	if (pCoinSFX != nullptr)
+		pCoinSFX->Play(1, 0.7f, true);
 
 	ObjectPoolMgr::GetInst()->Return(m_ObjectID, GetOwner());
 }

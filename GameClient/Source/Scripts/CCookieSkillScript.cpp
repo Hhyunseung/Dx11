@@ -6,6 +6,7 @@
 #include "TaskMgr.h"
 #include "APrefab.h"
 #include "CSkillBGScript.h"
+#include "CPlayerScript.h"
 
 CCookieSkillScript::CCookieSkillScript(SCRIPT_TYPE _Type)
 	: CScript(_Type)
@@ -52,6 +53,9 @@ bool CCookieSkillScript::CanAutoUseSkill() const
 		return false;
 
 	if (m_IsUsingSkill)
+		return false;
+
+	if (m_Player->GetIsDead())
 		return false;
 
 	return true;

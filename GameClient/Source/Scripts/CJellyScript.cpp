@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CJellyScript.h"
 
+#include "AssetMgr.h"
 #include "GamePlayMgr.h"
 #include "TimeMgr.h"
 #include "ObjectPoolMgr.h"
@@ -99,6 +100,20 @@ void CJellyScript::BeginOverlap(CCollider2D* _This, CCollider2D* _Other)
 	if (m_ObjectID == EObjectID::Jelly_GoldCoin)
 	{
 		GamePlayMgr::GetInst()->AddRunCoin(50);
+	}
+
+	// 코인 타입이면 g_gold, 그 외에는 g_jelly 재생
+	if (m_ObjectID == EObjectID::Jelly_SilverCoin || m_ObjectID == EObjectID::Jelly_GoldCoin)
+	{
+		Ptr<ASound> pCoinSFX = FIND(ASound, L"g_gold");
+		if (pCoinSFX != nullptr)
+			pCoinSFX->Play(1, 0.7f, true);
+	}
+	else
+	{
+		Ptr<ASound> pJellySFX = FIND(ASound, L"g_jelly");
+		if (pJellySFX != nullptr)
+			pJellySFX->Play(1, 0.7f, true);
 	}
 
 	// 이펙트 생성

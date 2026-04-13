@@ -46,7 +46,7 @@ Vec3 CTransform::GetWorldScale()
 }
 
 void CTransform::FinalTick()
-{
+{	
 	// 크기 -> 회전 -> 이동 순으로 
 	Matrix matTrans = XMMatrixTranslation(m_RelativePos.x, m_RelativePos.y, m_RelativePos.z); // 단위행렬로 초기화
 	// Matrix matTrans = XMMatrixIdentity(); // 단위행렬로 초기화

@@ -245,9 +245,9 @@ void CreateTestLevel()
 
 
 		//AssetMgr::GetInst()->AddAsset(L"Level\\GamePlayLevel_Make.lv", pLevel.Get());
-		ChangeLevel(L"Level\\GamePlayLevel_New.lv");
+		//ChangeLevel(L"Level\\GamePlayLevel_New.lv");
 
-		//SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::START_GAME);
+		SceneFlowMgr::GetInst()->ExecuteAction(SCENE_FLOW_ACTION::GO_LOBBY);
 	}
 
 	return;

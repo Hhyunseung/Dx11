@@ -69,6 +69,7 @@ void GameObject::Begin()
 	{
 		m_vecChild[i]->Begin();
 	}
+
 }
 
 void GameObject::Tick()

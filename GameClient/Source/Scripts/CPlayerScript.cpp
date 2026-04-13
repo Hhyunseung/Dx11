@@ -883,6 +883,10 @@ void CPlayerScript::TakeDamage(int _Damage)
 	if (m_IsInvincible) 
 		return;
 
+	Ptr<ASound> pCoinSFX = FIND(ASound, L"hit");
+	if (pCoinSFX != nullptr)
+		pCoinSFX->Play(1, 0.7f, true);
+
 	m_CurrentHP -= _Damage;
 	if (m_CurrentHP < 0)
 		m_CurrentHP = 0;
