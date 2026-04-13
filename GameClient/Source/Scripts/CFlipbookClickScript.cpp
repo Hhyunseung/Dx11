@@ -11,7 +11,7 @@ CFlipbookClickScript::CFlipbookClickScript()
 	, m_DefaultFlipbookIdx(0)
 	, m_FPS(8.f)
 	, m_WaitingForFinish(false)
-	, m_CharType(ECharacterType::TimeKeeper)
+	, m_CharType(ECharacterType::Default)
 {
 }
 

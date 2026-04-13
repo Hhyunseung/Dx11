@@ -201,6 +201,7 @@ enum class ECharacterType
 {
 	TimeKeeper,
 	Lychee,
+	Default,
 };
 
 

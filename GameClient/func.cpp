@@ -231,17 +231,17 @@ void CreateTestLevel()
 		//}
 
 		Ptr<GameObject> pChild = new GameObject;
-		pChild->SetName(L"Pet_TimeKeeper");
+		pChild->SetName(L"Pet_Default");
 
 		pChild->AddComponent(new CTransform);
 		pChild->AddComponent(new CFlipbookRender);
 
-		pChild->Transform()->SetRelativePos(Vec3(-80.f, -65.f, 0.f));
+		pChild->Transform()->SetRelativePos(Vec3(0.f, 0.f, 0.f));
 		pChild->Transform()->SetRelativeScale(Vec3(150.f, 150.f, 1.f));
 
-		pChild->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\Pet_TimeKeeper.flip"));
+		pChild->FlipbookRender()->AddFlipbook(FIND(AFlipbook, L"Flipbook\\Pet_Default.flip"));
 		pChild->FlipbookRender()->Play(0, 8.f, -1);
-		pLevel->AddObject(2, pChild);
+		//pLevel->AddObject(2, pChild);
 
 
 		//AssetMgr::GetInst()->AddAsset(L"Level\\GamePlayLevel_Make.lv", pLevel.Get());

@@ -379,6 +379,21 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"TimeKeeper_SkillEffect_3_2", L"Texture\\TimeKeeper\\TimeKeeper_SkillEffect_3_2.png");
 
 
+	// ==============================
+	// 용감한 쿠키 애니메이션 텍스쳐
+	// ==============================
+	Load<ATexture>(L"Cookie_BonusTimeUp", L"Texture\\DefaultCookie\\Cookie_BonusTimeUp.png");
+	Load<ATexture>(L"Cookie_Boost", L"Texture\\DefaultCookie\\Cookie_Boost.png");
+	Load<ATexture>(L"Cookie_Dead", L"Texture\\DefaultCookie\\Cookie_Dead.png");
+	Load<ATexture>(L"Cookie_DoubleJump", L"Texture\\DefaultCookie\\Cookie_DoubleJump.png");
+	Load<ATexture>(L"Cookie_Hit", L"Texture\\DefaultCookie\\Cookie_Hit.png");
+	Load<ATexture>(L"Cookie_Idle", L"Texture\\DefaultCookie\\Cookie_Idle.png");
+	Load<ATexture>(L"Cookie_Jump", L"Texture\\DefaultCookie\\Cookie_Jump.png");
+	Load<ATexture>(L"Cookie_Land", L"Texture\\DefaultCookie\\Cookie_Land.png");
+	Load<ATexture>(L"Cookie_Slide", L"Texture\\DefaultCookie\\Cookie_Slide.png");
+
+
+
 	// ========
 	// 펫
 	// ========
@@ -468,6 +483,7 @@ void AssetMgr::CreateEngineTexture()
 
 	Load<ATexture>(L"SelectIcon_TimeKeeper", L"Texture\\UI\\SelectIcon_TimeKeeper.png");
 	Load<ATexture>(L"SelectIcon_Dragon", L"Texture\\UI\\SelectIcon_Dragon.png");
+	Load<ATexture>(L"SelectIcon_Default", L"Texture\\UI\\SelectIcon_Default.png");
 
 
 	Load<ATexture>(L"Score_BG", L"Texture\\UI\\Score_BG.png");

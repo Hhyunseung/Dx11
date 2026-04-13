@@ -5,7 +5,7 @@
 
 CCharSelectBtnScript::CCharSelectBtnScript()
     : CUIButtonScript(SCRIPT_TYPE::CHARSELECTBTNSCRIPT)
-    , m_CharType(ECharacterType::TimeKeeper)
+    , m_CharType(ECharacterType::Default)
 {
 }
 

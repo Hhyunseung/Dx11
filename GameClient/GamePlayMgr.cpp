@@ -49,7 +49,7 @@ void GamePlayMgr::Init()
 	m_SeletectedCharacterPrefab = GetPrefabForCharType(m_SelectedCharacterType);
 	if (m_SeletectedCharacterPrefab == nullptr)
 	{
-		m_SelectedCharacterType = ECharacterType::TimeKeeper;
+		m_SelectedCharacterType = ECharacterType::Default;
 		m_SeletectedCharacterPrefab = GetPrefabForCharType(m_SelectedCharacterType);
 	}
 
@@ -188,9 +188,8 @@ CCookieSkillScript* GamePlayMgr::CreateSkillByCharacterType(ECharacterType _Type
 		return (CCookieSkillScript*)pSkill.Get();
 	}
 
-		// case ECharacterType::Wizard:
-		//     return _PlayerObject->AddComponent(new CWizardSkillScript);
-
+	case ECharacterType::Default:
+		break;
 	default:
 		break;
 	}
@@ -204,6 +203,7 @@ Ptr<APrefab> GamePlayMgr::GetPrefabForCharType(ECharacterType _Type)
 	{
 	case ECharacterType::TimeKeeper:	return FIND(APrefab, L"Prefab\\TimeKeeperCookie.pref");
 	case ECharacterType::Lychee:		return FIND(APrefab, L"Prefab\\DragonCookie.pref");
+	case ECharacterType::Default:		return FIND(APrefab, L"Prefab\\DefaultCookie.pref");
 	default:						return nullptr;
 	}
 }
