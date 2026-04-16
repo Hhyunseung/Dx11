@@ -283,6 +283,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CSceneChangeButtonScript.h" />
     <ClInclude Include="Source\Scripts\CScoreUIScript.h" />
     <ClInclude Include="Source\Scripts\CScrollScript.h" />
+    <ClInclude Include="Source\Scripts\CShockWaveScript.h" />
     <ClInclude Include="Source\Scripts\CSkillBGEffectScript.h" />
     <ClInclude Include="Source\Scripts\CSkillBGScript.h" />
     <ClInclude Include="Source\Scripts\CSlideButtonScript.h" />
@@ -432,6 +433,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CSceneChangeButtonScript.cpp" />
     <ClCompile Include="Source\Scripts\CScoreUIScript.cpp" />
     <ClCompile Include="Source\Scripts\CScrollScript.cpp" />
+    <ClCompile Include="Source\Scripts\CShockWaveScript.cpp" />
     <ClCompile Include="Source\Scripts\CSkillBGEffectScript.cpp" />
     <ClCompile Include="Source\Scripts\CSkillBGScript.cpp" />
     <ClCompile Include="Source\Scripts\CSlideButtonScript.cpp" />
@@ -491,6 +493,12 @@ call CodeGen.exe</Command>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="distortion.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="effect.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
@@ -510,6 +518,12 @@ call CodeGen.exe</Command>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="HPBar.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="setcolor.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

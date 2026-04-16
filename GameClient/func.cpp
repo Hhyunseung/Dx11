@@ -171,6 +171,8 @@ bool IsValid(Ptr<GameObject>& _Object)
 
 #include "Source/Scripts/CItemScript.h"
 
+#include "Source/Scripts/CShockWaveScript.h"
+
 void CreateTestLevel()
 {
 	{
@@ -243,6 +245,21 @@ void CreateTestLevel()
 		pChild->FlipbookRender()->Play(0, 8.f, -1);
 		//pLevel->AddObject(2, pChild);
 
+
+		Ptr<GameObject> PostProcessObj = new GameObject;
+		PostProcessObj->SetName(L"Postprocess");
+
+		PostProcessObj->AddComponent(new CTransform);
+		PostProcessObj->AddComponent(new CMeshRender);
+		PostProcessObj->AddComponent(new CShockWaveScript);
+
+		PostProcessObj->Transform()->SetRelativePos(Vec3(-500.f, 0.f, -100.f));
+		PostProcessObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
+
+		PostProcessObj->MeshRender()->SetMesh(FIND(AMesh, L"RectMesh"));
+		PostProcessObj->MeshRender()->SetMaterial(FIND(AMaterial, L"DistortionMtrl"));
+
+		pLevel->AddObject(0, PostProcessObj);
 
 		//AssetMgr::GetInst()->AddAsset(L"Level\\GamePlayLevel_Make.lv", pLevel.Get());
 		//ChangeLevel(L"Level\\GamePlayLevel_New.lv");

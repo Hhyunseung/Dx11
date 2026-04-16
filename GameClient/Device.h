@@ -46,6 +46,9 @@ public:
 	ComPtr<ID3D11DeviceContext> GetContext() { return m_Context; }
 	Ptr<ConstBuffer> GetCB(CB_TYPE _Type) { return m_CB[(UINT)_Type]; }
 
+	ComPtr<ID3D11Texture2D>	GetRenderTarget() { return m_RenderTarget; }
+	ComPtr<ID3D11Texture2D> GetDSTarget() { return 	m_DepthStencilTarget; }
+
 	ComPtr<ID3D11RasterizerState> GetRSState(RS_TYPE _Type) { return m_RSState[(UINT)_Type]; }
 	ComPtr< ID3D11DepthStencilState> GetDSState(DS_TYPE _Type) { return m_DSState[(UINT)_Type]; }
 	ComPtr<ID3D11BlendState> GetBSState(BS_TYPE _Type) { return m_BSState[(UINT)_Type]; }

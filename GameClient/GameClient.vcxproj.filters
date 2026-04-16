@@ -454,6 +454,11 @@
     <ClInclude Include="Source\Scripts\CTimeKeeperBGEffectScript.h">
       <Filter>Source\Scripts\05.Effect</Filter>
     </ClInclude>
+    <ClInclude Include="ASound.h" />
+    <ClInclude Include="Source\Scripts\CCharSelectBtnScript.h" />
+    <ClInclude Include="Source\Scripts\CShockWaveScript.h">
+      <Filter>Source\Scripts\05.Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -1264,6 +1269,11 @@
     <ClCompile Include="Source\Scripts\CTimeKeeperBGEffectScript.cpp">
       <Filter>Source\Scripts\05.Effect</Filter>
     </ClCompile>
+    <ClCompile Include="ASound.cpp" />
+    <ClCompile Include="Source\Scripts\CCharSelectBtnScript.cpp" />
+    <ClCompile Include="Source\Scripts\CShockWaveScript.cpp">
+      <Filter>Source\Scripts\05.Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -1308,6 +1318,12 @@
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
     <FxCompile Include="HPBar.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="setcolor.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="distortion.fx">
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
   </ItemGroup>

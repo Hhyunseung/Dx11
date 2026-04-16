@@ -39,6 +39,7 @@
 #include "Scripts/CSceneChangeButtonScript.h"
 #include "Scripts/CScoreUIScript.h"
 #include "Scripts/CScrollScript.h"
+#include "Scripts/CShockWaveScript.h"
 #include "Scripts/CSkillBGEffectScript.h"
 #include "Scripts/CSkillBGScript.h"
 #include "Scripts/CSlideButtonScript.h"
@@ -92,6 +93,7 @@ void ScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CSceneChangeButtonScript");
 	_vec.push_back(L"CScoreUIScript");
 	_vec.push_back(L"CScrollScript");
+	_vec.push_back(L"CShockWaveScript");
 	_vec.push_back(L"CSkillBGEffectScript");
 	_vec.push_back(L"CSkillBGScript");
 	_vec.push_back(L"CSlideButtonScript");
@@ -184,6 +186,8 @@ CScript * ScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CScoreUIScript;
 	if (L"CScrollScript" == _strScriptName)
 		return new CScrollScript;
+	if (L"CShockWaveScript" == _strScriptName)
+		return new CShockWaveScript;
 	if (L"CSkillBGEffectScript" == _strScriptName)
 		return new CSkillBGEffectScript;
 	if (L"CSkillBGScript" == _strScriptName)
@@ -328,6 +332,9 @@ CScript * ScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::SCROLLSCRIPT:
 		return new CScrollScript;
+		break;
+	case (UINT)SCRIPT_TYPE::SHOCKWAVESCRIPT:
+		return new CShockWaveScript;
 		break;
 	case (UINT)SCRIPT_TYPE::SKILLBGEFFECTSCRIPT:
 		return new CSkillBGEffectScript;
@@ -523,6 +530,10 @@ const wchar_t * ScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::SCROLLSCRIPT:
 		return L"CScrollScript";
+		break;
+
+	case SCRIPT_TYPE::SHOCKWAVESCRIPT:
+		return L"CShockWaveScript";
 		break;
 
 	case SCRIPT_TYPE::SKILLBGEFFECTSCRIPT:

@@ -22,6 +22,8 @@ private:
 	vector<Ptr<CLight2D>> m_vecLight2D;		// 레벨 안에있는 모든 광원
 	Ptr<StructuredBuffer> m_Light2DBuffer;	// 광원의 데이터를 입력받을 구조화버퍼
 
+	Ptr<ATexture>		  m_PostProcessTex;		// 포스트 프로세싱 효과를 위한 렌더 타겟 텍스쳐
+
 	bool				  m_bDebugRender;   // 디버그 렌더 기능 On / Off
 
 public:
@@ -31,6 +33,8 @@ public:
 	Ptr<CCamera> GetMainCam() { return m_MainCam; }
 	void AddDebugInfo(const DbgInfo& _Info) { if (m_bDebugRender) m_DbgInfoList.push_back(_Info); }
 	void RegisterLight2D(Ptr<CLight2D> _Light2D) { m_vecLight2D.push_back(_Light2D); }	
+
+	void CopyPostProcess();
 
 public:
 	void Render_Start();

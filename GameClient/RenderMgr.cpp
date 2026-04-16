@@ -28,6 +28,15 @@ void RenderMgr::Init()
 	m_DbgObj->MeshRender()->SetMaterial(FIND(AMaterial, L"DbgMtrl"));
 
 	m_Light2DBuffer = new StructuredBuffer;
+
+	// PostProcess 용 렌더 타겟 텍스쳐 생성
+	// RenderTarget 과 동일한 해상도
+	m_PostProcessTex = new ATexture;
+	Vec2 vResol = Device::GetInst()->GetRenderResolution();
+	m_PostProcessTex->Create((UINT)vResol.x, (UINT)vResol.y, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE, D3D11_USAGE_DEFAULT);
+
+	// t14 는 PostporessTarget 자리로 예약
+	m_PostProcessTex->Binding(14);
 }
 
 void RenderMgr::Progress()
@@ -73,6 +82,12 @@ void RenderMgr::Progress()
 
 	
 	Render_End();
+}
+
+void RenderMgr::CopyPostProcess()
+{
+	// PostProcess Target 에 RenderTarget 을 복사한다
+	CONTEXT->CopyResource(m_PostProcessTex->GetTex2D().Get(), Device::GetInst()->GetRenderTarget().Get());
 }
 
 void RenderMgr::Render_Start()

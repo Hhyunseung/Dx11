@@ -282,6 +282,16 @@ void AssetMgr::CreateEngineShader()
 	pShader->SetBSType(BS_TYPE::DEFAULT);
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	AddAsset(L"HPBarShader", pShader.Get());
+
+	// ============== DistortionShader 积己 ==============//
+	pShader = new AGraphicShader;
+	pShader->CreateVertexShader(L"Shader\\distortion.fx", "VS_Distortion");
+	pShader->CreatePixelShader(L"Shader\\distortion.fx", "PS_Distortion");
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+
+	AddAsset(L"DistortionShader", pShader.Get());
 	
 	//================== DbgShader 积己 ==============//
 	pShader = new AGraphicShader;
@@ -520,6 +530,13 @@ void AssetMgr::CreateEngineTexture()
 	Load<ASound>(L"i_magnet", L"Sound\\i_magnet.ogg");
 
 	Load<ASound>(L"ui_1", L"Sound\\ui_1.ogg");
+
+
+	// ========= noise ===========
+	Load<ATexture>(L"Noise_01", L"Texture\\Noise\\noise_01.png");
+	Load<ATexture>(L"Noise_02", L"Texture\\Noise\\noise_02.png");
+	Load<ATexture>(L"Noise_03", L"Texture\\Noise\\noise_03.jpg");
+	
 }
 
 void AssetMgr::CreateEngineMaterial()
@@ -562,6 +579,18 @@ void AssetMgr::CreateEngineMaterial()
 
 	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_TRANSPARENT);
 	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
+
+	// ================== DistortionMtrl 积己 ==============//
+	pMtrl = new AMaterial;
+	pMtrl->SetName(L"DistortionMtrl");
+	pMtrl->SetShader(FindAsset<AGraphicShader>(L"DistortionShader"));
+	pMtrl->SetDomain(RENDER_DOMAIN::DOMAIN_POSTPROCESS);
+
+	pMtrl->SetTexture(TEX_0, FindAsset<ATexture>(L"Noise_03"));
+
+	AddAsset(pMtrl->GetName(), pMtrl.Get());
+
 
 	// ================== 秦利 甘_1 积己 ==============//
 	pMtrl = new AMaterial;

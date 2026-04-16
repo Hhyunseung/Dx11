@@ -194,7 +194,12 @@ void CCamera::Render()
 		m_vecTrapsnarent[i]->Render();
 
 	for (size_t i = 0; i < m_vePostProcess.size(); ++i)
+	{
+		// RenderTarget 장면을 postprocessTarget 으로 복사
+		RenderMgr::GetInst()->CopyPostProcess();
+
 		m_vePostProcess[i]->Render();
+	}
 }
 
 void CCamera::LayerCheck(int _Idx)
