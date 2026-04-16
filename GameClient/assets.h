@@ -11,6 +11,7 @@
 #include "APrefab.h"
 #include "AStageData.h"
 #include "ASound.h"
+#include "AComputeShader.h"
 #include "extern.h"
 
 

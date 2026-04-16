@@ -459,6 +459,15 @@
     <ClInclude Include="Source\Scripts\CShockWaveScript.h">
       <Filter>Source\Scripts\05.Effect</Filter>
     </ClInclude>
+    <ClInclude Include="CParticleRender.h">
+      <Filter>GameEngine\06.Component\RenderComponent\06.CParticleRender</Filter>
+    </ClInclude>
+    <ClInclude Include="AComputeShader.h">
+      <Filter>GameEngine\04.Asset\11.ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="AParticleTickCS.h">
+      <Filter>GameEngine\04.Asset\11.ComputeShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -840,6 +849,12 @@
     </Filter>
     <Filter Include="Source\Scripts\09.BackGround">
       <UniqueIdentifier>{60811301-a0ac-4ed7-9dcb-916f3ebec549}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\06.Component\RenderComponent\06.CParticleRender">
+      <UniqueIdentifier>{30e160ff-2459-4104-9165-8c7ba3a923ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\04.Asset\11.ComputeShader">
+      <UniqueIdentifier>{1fc82c8c-1d01-47a7-a57f-ae5e6dfe9371}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1273,6 +1288,15 @@
     <ClCompile Include="Source\Scripts\CCharSelectBtnScript.cpp" />
     <ClCompile Include="Source\Scripts\CShockWaveScript.cpp">
       <Filter>Source\Scripts\05.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticleRender.cpp">
+      <Filter>GameEngine\06.Component\RenderComponent\06.CParticleRender</Filter>
+    </ClCompile>
+    <ClCompile Include="AComputeShader.cpp">
+      <Filter>GameEngine\04.Asset\11.ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="AParticleTickCS.cpp">
+      <Filter>GameEngine\04.Asset\11.ComputeShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

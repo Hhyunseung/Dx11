@@ -36,6 +36,7 @@ private:
 
     vector<GameObject*>     m_vecOpaque;
     vector<GameObject*>     m_vecMasked;
+	vector<GameObject*>     m_vecParticle;
     vector<GameObject*>     m_vecTrapsnarent;
     vector<GameObject*>     m_vePostProcess;
 

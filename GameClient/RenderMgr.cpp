@@ -98,6 +98,9 @@ void RenderMgr::Render_Start()
 	// 렌더타겟 클리어
 	Device::GetInst()->ClearTarget();
 
+	// Sampler 재 바인딩 (ImGui 쪽에서 변경 가능성)
+	Device::GetInst()->BindingSampler();
+
 	// 등록받은 Light2D 의 광원 정보를 구조화 버퍼에 담는다
 	// 구조화버퍼를 특정 t 레지스터에 바인딩 한다
 	vector<Light2DInfo> vecInfo;
@@ -128,6 +131,7 @@ void RenderMgr::Render_Start()
 	// Global 데이터를 상수버퍼를 통해 b2 레지스터에 바인딩
 	Device::GetInst()->GetCB(CB_TYPE::GLOBAL)->SetData(&g_Global);
 	Device::GetInst()->GetCB(CB_TYPE::GLOBAL)->Binding();
+	Device::GetInst()->GetCB(CB_TYPE::GLOBAL)->Binding_CS();
 }
 
 void RenderMgr::Render_End()

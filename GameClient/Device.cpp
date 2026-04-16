@@ -162,6 +162,7 @@ void Device::OMSetTarget()
     m_Context->OMSetRenderTargets(1, m_RTV.GetAddressOf(), m_DSV.Get());
 }
 
+
 int Device::CreateSwapChain()
 {
     DXGI_SWAP_CHAIN_DESC m_Desc = {};
@@ -464,4 +465,23 @@ void Device::CreateConstBuffer()
 
     m_CB[(UINT)CB_TYPE::GLOBAL] = new ConstBuffer;
     m_CB[(UINT)CB_TYPE::GLOBAL]->Create(CB_TYPE::GLOBAL, sizeof(GlobalData));
+}
+
+void Device::BindingSampler()
+{
+    // s0 레지스터에 바인딩 (모든 파이프라인 단계에서 사용 가능)
+    CONTEXT->VSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+    CONTEXT->HSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+    CONTEXT->DSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+    CONTEXT->GSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+    CONTEXT->PSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+    CONTEXT->CSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+
+    // s1 레지스터에 바인딩 (모든 파이프라인 단계에서 사용 가능)
+    CONTEXT->VSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+    CONTEXT->HSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+    CONTEXT->DSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+    CONTEXT->GSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+    CONTEXT->PSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+    CONTEXT->CSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
 }

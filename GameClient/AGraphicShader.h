@@ -28,9 +28,11 @@ class AGraphicShader
 {
 private:
 	ComPtr<ID3DBlob>			m_VSBlob; // HLSL 로 작성한 VS 함수를 컴파일한 어셈블리 코드를 저장시킬 버퍼
+	ComPtr<ID3DBlob>			m_GSBlob; // HLSL 로 작성한 GS 함수를 컴파일한 어셈블리 코드를 저장시킬 버퍼
 	ComPtr<ID3DBlob>			m_PSBlob; // HLSL 로 작성한 PS 함수를 컴파일한 어셈블리 코드를 저장시킬 버퍼
 
 	ComPtr<ID3D11VertexShader>	m_VS;
+	ComPtr<ID3D11GeometryShader>m_GS;
 	ComPtr<ID3D11PixelShader>	m_PS;
 
 	RS_TYPE						m_RSType; // 래스터라이저 컬링 모드
@@ -53,6 +55,7 @@ public:
 
 public:
 	int CreateVertexShader(const wstring& _RelativeFilePath, const string& _FuncName);
+	int CrateGeometryShader(const wstring& _RelativeFilePath, const string& _FuncName);
 	int CreatePixelShader(const wstring& _RelativeFilePath, const string& _FuncName);
 
 	GET_SET(D3D11_PRIMITIVE_TOPOLOGY, Topology);

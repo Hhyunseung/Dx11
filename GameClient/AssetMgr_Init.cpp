@@ -25,6 +25,21 @@ void AssetMgr::CreateEngineMesh()
 	Ptr<AMesh> pMesh = nullptr;
 
 
+	// =========
+	// PointMesh
+	// =========
+	Ptr<AMesh> pPointMesh = new AMesh;
+	Vtx vPoint;
+
+	vPoint.vPos = Vec3(0.f, 0.f, 0.f);
+	vPoint.vUV = Vec2(0.f, 0.f);
+	vPoint.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+	UINT Idx = 0;
+
+	pPointMesh->Create(&vPoint, 1, &Idx, 1);
+	AddAsset(L"PointMesh", pPointMesh.Get());
+
+
 	// 정점 기본 값 세팅
 	Vtx arrVtx[4] = {};
 

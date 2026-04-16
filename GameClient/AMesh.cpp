@@ -95,3 +95,10 @@ void AMesh::Render()
 	// 그 이전까지는 각 단계별로 실행할 옵션을 설정만 하고 함
 	CONTEXT->DrawIndexed(m_IdxCount, 0, 0); // 인덱스 버퍼에 들어있는 인덱스 6개를 순서대로 그려라
 }
+
+void AMesh::Render_Particle(UINT _Count)
+{
+	Binding();
+
+	CONTEXT->DrawIndexedInstanced(m_IdxCount, _Count, 0, 0, 0);
+}

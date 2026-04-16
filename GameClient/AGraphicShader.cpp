@@ -89,6 +89,32 @@ int AGraphicShader::CreateVertexShader(const wstring& _RelativeFilePath, const s
 	return 0;
 }
 
+int AGraphicShader::CrateGeometryShader(const wstring& _RelativeFilePath, const string& _FuncName)
+{
+	wstring Path = PathMgr::GetInst()->GetContentPath() + _RelativeFilePath;
+
+	// PixelShader
+	ComPtr<ID3DBlob> Err;
+	if (FAILED(D3DCompileFromFile(Path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+		, _FuncName.c_str(), "gs_5_0", D3DCOMPILE_DEBUG, 0
+		, m_GSBlob.GetAddressOf(), Err.GetAddressOf())))
+	{
+		const char* pErrMsg = (const char*)Err->GetBufferPointer();
+		MessageBoxA(nullptr, pErrMsg, "쉐이더 생성 실패", MB_OK);
+		return E_FAIL;
+	}
+
+	// 컴파일한 Shader 코드로 PixelShader 만들기
+	if (FAILED(DEVICE->CreateGeometryShader(m_GSBlob->GetBufferPointer()
+		, m_GSBlob->GetBufferSize(), nullptr
+		, m_GS.GetAddressOf())))
+	{
+		return E_FAIL;
+	}
+
+	return S_OK;
+}
+
 int AGraphicShader::CreatePixelShader(const wstring& _RelativeFilePath, const string& _FuncName)
 {
 	wstring Path = PathMgr::GetInst()->GetContentPath() + _RelativeFilePath;
@@ -134,6 +160,10 @@ void AGraphicShader::Binding()
 	// Vertex Shader(함수) - 정점 당 연산 수행
 	// HLSL (High Level Shader Language) 5.0
 	CONTEXT->VSSetShader(m_VS.Get(), nullptr, 0);
+
+	// Geometry Shader(함수) - 정점 당 수행, 정점의 개수를 변경할 수 있음
+	// HLSL(High Level Shader Language) 5.0
+	CONTEXT->GSSetShader(m_GS.Get(), nullptr, 0);
 
 	// Resterizer State
 	// 정점 셰이더에서 반환한 정점의 위치를 NDC 좌표 기준으로 기록

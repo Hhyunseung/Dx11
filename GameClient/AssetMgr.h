@@ -82,6 +82,8 @@ ASSET_TYPE GetAssetType()
 		return ASSET_TYPE::STAGE_DATA;
 	else if constexpr (std::is_same_v<T, ASound>)
 		return ASSET_TYPE::SOUND;
+	else if constexpr (std::is_same_v<T, AComputeShader>)
+		return ASSET_TYPE::COMPUTESHADER;
 
 	//if (info.hash_code() == typeid(AMesh).hash_code())
 	//	Type = ASSET_TYPE::MESH;
@@ -119,24 +121,27 @@ inline Ptr<T> AssetMgr::Load(const wstring& _Key, const wstring& _RelativePath)
 	if (nullptr != pAsset)
 		return pAsset;
 
-	// 에셋 객체 생성
-	pAsset = new T;
-	
-	// 입력된 경로로부터 에셋 로딩작업 진행
-	pAsset->Load(CONTENT_PATH + _RelativePath);
+	if constexpr (!std::is_same_v<T, AComputeShader>)
+	{
+		// 에셋 객체 생성
+		pAsset = new T;
 
-	// T 타입에 해당하는 실제 AssetType 확인
-	ASSET_TYPE type = GetAssetType<T>();
+		// 입력된 경로로부터 에셋 로딩작업 진행
+		pAsset->Load(CONTENT_PATH + _RelativePath);
 
-	// 맵에 에셋 등록
-	m_mapAsset[(UINT)type].insert(make_pair(_Key, pAsset.Get()));
+		// T 타입에 해당하는 실제 AssetType 확인
+		ASSET_TYPE type = GetAssetType<T>();
 
-	// 에셋이 자신이 매니저에 등록할 때 사용된 Key 와
-	// 자신이 어떤 경로에 있는 파일로부터 로딩된 에셋인지 스스로 알 수 있도록 해줌
-	pAsset->SetKey(_Key);
-	pAsset->SetRelativePath(_RelativePath);
+		// 맵에 에셋 등록
+		m_mapAsset[(UINT)type].insert(make_pair(_Key, pAsset.Get()));
 
-	m_Changed = true;
+		// 에셋이 자신이 매니저에 등록할 때 사용된 Key 와
+		// 자신이 어떤 경로에 있는 파일로부터 로딩된 에셋인지 스스로 알 수 있도록 해줌
+		pAsset->SetKey(_Key);
+		pAsset->SetRelativePath(_RelativePath);
+
+		m_Changed = true;
+	}
 
 	return pAsset;
 }

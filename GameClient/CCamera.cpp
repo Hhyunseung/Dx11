@@ -130,6 +130,7 @@ void CCamera::SortObject()
 	// 렌더링 할 물체들을 정렬한다
 	m_vecOpaque.clear();
 	m_vecMasked.clear();
+	m_vecParticle.clear();
 	m_vecTrapsnarent.clear();
 	m_vePostProcess.clear();
 
@@ -167,6 +168,9 @@ void CCamera::SortObject()
 			 case RENDER_DOMAIN::DOMAIN_MASKED:
 				 m_vecMasked.push_back(vecObjects[j].Get());
 				 break;
+			 case RENDER_DOMAIN::DOMAIN_PARTICLE:
+				 m_vecParticle.push_back(vecObjects[j].Get());
+				 break;
 			 case RENDER_DOMAIN::DOMAIN_TRANSPARENT:
 				 m_vecTrapsnarent.push_back(vecObjects[j].Get());
 				 break;
@@ -189,6 +193,9 @@ void CCamera::Render()
 
 	for (size_t i = 0; i < m_vecMasked.size(); ++i)
 		m_vecMasked[i]->Render();
+
+	for (size_t i = 0; i < m_vecParticle.size(); ++i)
+		m_vecParticle[i]->Render();
 
 	for (size_t i = 0; i < m_vecTrapsnarent.size(); ++i)
 		m_vecTrapsnarent[i]->Render();

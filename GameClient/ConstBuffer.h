@@ -12,6 +12,7 @@ public:
 	int Create(CB_TYPE _Type, UINT _Size);
 	void SetData(void* _SysMem, UINT _Size = 0);
 	void Binding();
+	void Binding_CS(); // ComputeShader 용 바인딩 함수
 
 public:
 	ConstBuffer();

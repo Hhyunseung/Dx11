@@ -155,11 +155,13 @@ call CodeGen.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AComputeShader.h" />
     <ClInclude Include="AFlipbook.h" />
     <ClInclude Include="AGraphicShader.h" />
     <ClInclude Include="ALevel.h" />
     <ClInclude Include="AMaterial.h" />
     <ClInclude Include="AMesh.h" />
+    <ClInclude Include="AParticleTickCS.h" />
     <ClInclude Include="APrefab.h" />
     <ClInclude Include="ASound.h" />
     <ClInclude Include="ASprite.h" />
@@ -187,6 +189,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="ComputeShaderUI.h" />
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="ContentUI.h" />
+    <ClInclude Include="CParticleRender.h" />
     <ClInclude Include="CRenderComponent.h" />
     <ClInclude Include="CScript.h" />
     <ClInclude Include="CSpriteRender.h" />
@@ -311,11 +314,13 @@ call CodeGen.exe</Command>
     <ClInclude Include="TreeUI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AComputeShader.cpp" />
     <ClCompile Include="AFlipbook.cpp" />
     <ClCompile Include="AGraphicShader.cpp" />
     <ClCompile Include="ALevel.cpp" />
     <ClCompile Include="AMaterial.cpp" />
     <ClCompile Include="AMesh.cpp" />
+    <ClCompile Include="AParticleTickCS.cpp" />
     <ClCompile Include="APrefab.cpp" />
     <ClCompile Include="ASound.cpp" />
     <ClCompile Include="ASprite.cpp" />
@@ -342,6 +347,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="ComputeShaderUI.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="ContentUI.cpp" />
+    <ClCompile Include="CParticleRender.cpp" />
     <ClCompile Include="CRenderComponent.cpp" />
     <ClCompile Include="CScript.cpp" />
     <ClCompile Include="CSpriteRender.cpp" />

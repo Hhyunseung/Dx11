@@ -40,6 +40,7 @@ public:
 	void ClearDepth();
 	void OMSetTarget();
 	void Present() { m_SwapChain->Present(0, 0); }
+	void BindingSampler();
 
 	Vec2 GetRenderResolution() { return m_RenderResol; }
 	ComPtr<ID3D11Device> GetDevice() { return m_Device; }

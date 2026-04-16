@@ -163,6 +163,7 @@ enum class RENDER_DOMAIN
 {
 	DOMAIN_OPAQUE,		// 불투명
 	DOMAIN_MASKED,		// 붙투명 + 완전 투명 /// discard 가 있는 셰이더
+	DOMAIN_PARTICLE,	// 파티클 - 보통은 반투명으로 그려지지만, 셰이더에 따라 다름
 	DOMAIN_TRANSPARENT, // 반투명 
 	DOMAIN_POSTPROCESS, // 후처리 - 가장 마지막에 동작, 기존에 그려진 장면을 재가공
 
