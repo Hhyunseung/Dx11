@@ -1350,5 +1350,14 @@
     <FxCompile Include="distortion.fx">
       <Filter>HLSL\Render\2.2D</Filter>
     </FxCompile>
+    <FxCompile Include="particle_func.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="particle.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
+    <FxCompile Include="particle_tick.fx">
+      <Filter>HLSL\Render\2.2D</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
