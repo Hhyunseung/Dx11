@@ -274,7 +274,7 @@ void CreateTestLevel()
 
 		// 파티클 입자에 입힐 텍스쳐 설정
 		Ptr<CParticleRender> pRender = pParticle->ParticleRender();
-		Ptr<ATexture> pParticleTex = AssetMgr::GetInst()->Load<ATexture>(L"Particle", L"Texture\\particle\\FX_Flare.png");
+		Ptr<ATexture> pParticleTex = AssetMgr::GetInst()->Load<ATexture>(L"Particle", L"Texture\\particle\\TX_HitFlash02.png");
 		pRender->SetParticleTex(pParticleTex);
 
 		// 스폰옵션 설정
@@ -283,22 +283,22 @@ void CreateTestLevel()
 		pRender->SetSpawnShapeScale(Vec3(500.f, 500.f, 500.f)); // 파티클 생성 영역
 		pRender->SetMinLife(1.f);
 		pRender->SetMaxLife(3.f);
-		pRender->SetMinScale(Vec3(100.f, 30.f, 10.f));
-		pRender->SetMaxScale(Vec3(200.f, 60.f, 20.f));
+		pRender->SetMinScale(Vec3(100.f, 100.f, 1.f));
+		pRender->SetMaxScale(Vec3(200.f, 200.f, 1.f));
 
 		// 파티클 시뮬레이션 좌표계 설정(Local or World)
 		pRender->SetSpaceType(0);
 
 		// AddVelocity 모듈 설정
 		pRender->SetModlue(PARTICLE_MODULE::ADD_VELOCITY, true);
-		pRender->SetAddVelocityType(3);
-		pRender->SetMinSpeed(1000.f);
-		pRender->SetMaxSpeed(1200.f);
+		pRender->SetAddVelocityType(0);
+		pRender->SetMinSpeed(300.f);
+		pRender->SetMaxSpeed(500.f);
 		pRender->SetFixedVelocity(Vec3(0.f, -1.f, 0.f));
 
 		// SpawnBurst 모듈 설정
 		pRender->SetModlue(PARTICLE_MODULE::SPAWN_BURST, true);
-		pRender->SetBurstParticleCount(200);
+		pRender->SetBurstParticleCount(10);
 		pRender->SetBurstRepeatCount(10);
 		pRender->SetBurstTerm(1.f);
 
@@ -328,7 +328,7 @@ void CreateTestLevel()
 		pRender->SetFadOutStartRatio(0.7f);
 
 		// 속도 정렬기능
-		pRender->SetVelocityAlignment(true, true);
+		pRender->SetVelocityAlignment(false, false);
 
 		pLevel->AddObject(0, pParticle);
 

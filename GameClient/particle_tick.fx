@@ -25,29 +25,40 @@ void CS_ParticleTick(int3 _ID : SV_DispatchThreadID)
         E_DT = 0.f;
     }
     
+// 스레드가 담당한 파티클이 비활성화 상태면
     if (false == g_Buffer[_ID.x].Active)
     {
-        int Success = 0;
-        while (g_Spawn[0].SpawnCount)
-        {
-            int SpawnCount = g_Spawn[0].SpawnCount;
-            int Input = SpawnCount - 1;
-            int Origin = 0;
-        
-            InterlockedCompareExchange(g_Spawn[0].SpawnCount, SpawnCount, Input, Origin);
-        
-            if (Origin == SpawnCount)
-            {
-                Success = 1;
-                break;
-            }
-        }
-        
-        if (Success)
+        int LimitCount = 0;
+        InterlockedAdd(g_Spawn[0].SpawnCount, -1, LimitCount);
+        if (0 < LimitCount)
         {
             float NormalizedThreadID = (float) _ID.x / (float) MAX_PARTICLE;
             ParticleInit(g_Buffer[_ID.x], g_Module[0], g_tex_0, g_btex_0, NormalizedThreadID);
         }
+      
+        
+        //int Success = 0;
+        
+        //while (g_Spawn[0].SpawnCount)
+        //{
+        //    int SpawnCount = g_Spawn[0].SpawnCount;
+        //    int Input = SpawnCount - 1;
+        //    int Origin = 0;
+        
+        //    InterlockedCompareExchange(g_Spawn[0].SpawnCount, SpawnCount, Input, Origin);
+        
+        //    if (Origin == SpawnCount)
+        //    {
+        //        Success = 1;
+        //        break;
+        //    }
+        //}
+        
+        //if (Success)
+        //{
+        //    float NormalizedThreadID = (float) _ID.x / (float) MAX_PARTICLE;
+        //    ParticleInit(g_Buffer[_ID.x], g_Module[0], g_tex_0, g_btex_0, NormalizedThreadID);
+        //}
     }
     else
     {

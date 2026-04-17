@@ -113,13 +113,15 @@ void CParticleRender::Render()
 	// 파티클 동작(시뮬) 방식 정보(모듈버퍼) t21 레지스터에 바인딩
 	m_ModuleBuffer->Binding(21);
 
-	GetMaterial()->GetShader()->SetRSType(RS_TYPE::WIRE_FRAME);
+	GetMaterial()->GetShader()->SetRSType(RS_TYPE::CULL_BACK);
 	GetMaterial()->SetTexture(TEX_0, m_ParticleTex);
 	GetMaterial()->SetScalar(VEC4_0, Transform()->GetWorldPos());
 
 	// 파티클 재질 업데이트
 	GetMaterial()->Binding();
 
+	// 대량의 파티클을 렌더링할때, 필요한 데이터는 모두 파티클 버퍼안에 들어있기 때문에
+	// 한번에 1000개 가량의 파티클을 렌더링하고 종료하는것이 속도면에서 훨씬 이득
 	// 파티클 렌더링(인스턴싱 기법 활용)
 	GetMesh()->Render_Particle(m_MaxParticle);
 
