@@ -418,6 +418,28 @@ void AssetMgr::CreateEngineTexture()
 	Load<ATexture>(L"Cookie_Slide", L"Texture\\DefaultCookie\\Cookie_Slide.png");
 
 
+	// ==============================
+	// 다크초코 쿠키 애니메이션 텍스쳐	
+	// ==============================
+	Load<ATexture>(L"Dark_BonusTimeDown", L"Texture\\DarkCookie\\Dark_BonusTimeDown.png");
+	Load<ATexture>(L"Dark_BonusTimeUp", L"Texture\\DarkCookie\\Dark_BonusTimeUp.png");
+	Load<ATexture>(L"Dark_Die", L"Texture\\DarkCookie\\Dark_Die.png");
+	Load<ATexture>(L"Dark_DoubleJump", L"Texture\\DarkCookie\\Dark_DoubleJump.png");
+	Load<ATexture>(L"Dark_Hit", L"Texture\\DarkCookie\\Dark_Hit.png");
+	Load<ATexture>(L"Dark_Idle", L"Texture\\DarkCookie\\Dark_Idle.png");
+	Load<ATexture>(L"Dark_Jump", L"Texture\\DarkCookie\\Dark_Jump.png");
+	Load<ATexture>(L"Dark_Land", L"Texture\\DarkCookie\\Dark_Land.png");
+	Load<ATexture>(L"Dark_Skill_DoubleJump", L"Texture\\DarkCookie\\Dark_Skill_DoubleJump.png");
+	Load<ATexture>(L"Dark_Skill_End", L"Texture\\DarkCookie\\Dark_Skill_End.png");
+	Load<ATexture>(L"Dark_Skill_Idle", L"Texture\\DarkCookie\\Dark_Skill_Idle.png");
+	Load<ATexture>(L"Dark_Skill_Jump", L"Texture\\DarkCookie\\Dark_Skill_Jump.png");
+	Load<ATexture>(L"Dark_Skill_Land", L"Texture\\DarkCookie\\Dark_Skill_Land.png");
+	Load<ATexture>(L"Dark_Skill_Slide", L"Texture\\DarkCookie\\Dark_Skill_Slide.png");
+	Load<ATexture>(L"Dark_Skill_Start", L"Texture\\DarkCookie\\Dark_Skill_Start.png");
+	Load<ATexture>(L"Dark_Slide", L"Texture\\DarkCookie\\Dark_Slide.png");
+
+
+
 
 	// ========
 	// 펫

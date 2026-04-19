@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -153,6 +153,12 @@ call CopyShader.bat
 call ComponentAuto.exe
 call CodeGen.exe</Command>
     </PreBuildEvent>
+    <FxCompile>
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AComputeShader.h" />
@@ -252,6 +258,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Source\Scripts\CCamMoveScript.h" />
     <ClInclude Include="Source\Scripts\CCharSelectBtnScript.h" />
     <ClInclude Include="Source\Scripts\CCookieSkillScript.h" />
+    <ClInclude Include="Source\Scripts\CDarkChocoSkillScript.h" />
     <ClInclude Include="Source\Scripts\CDeadState.h" />
     <ClInclude Include="Source\Scripts\CDoubleJumpState.h" />
     <ClInclude Include="Source\Scripts\CEffectScript.h" />
@@ -405,6 +412,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Source\Scripts\CCamMoveScript.cpp" />
     <ClCompile Include="Source\Scripts\CCharSelectBtnScript.cpp" />
     <ClCompile Include="Source\Scripts\CCookieSkillScript.cpp" />
+    <ClCompile Include="Source\Scripts\CDarkChocoSkillScript.cpp" />
     <ClCompile Include="Source\Scripts\CDeadState.cpp" />
     <ClCompile Include="Source\Scripts\CDoubleJumpState.cpp" />
     <ClCompile Include="Source\Scripts\CEffectScript.cpp" />

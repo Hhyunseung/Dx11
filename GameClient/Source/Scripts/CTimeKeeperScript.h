@@ -35,6 +35,10 @@ private:
 	Ptr<APrefab> m_TKBGEffectPrefab;
 	GameObject*  m_TKBGEffectObject;
 
+	// 시간지기 전용 포스트 프로세싱 효과
+	Ptr<APrefab> m_TKPostEffectPrefab;
+	GameObject*  m_TKPostEffectObject;
+
 public:
 	virtual void Begin() override;
 	virtual void OnEquip() override;
@@ -54,6 +58,9 @@ private:
 
 	void SpawnTKBGEffect(int _LayerIdx);
 	void DestroyTKBGEffect();
+
+	void SpawnTKPostEffect(int _LayerIdx);
+	void DestroyTKPostEffect();
 
 	void TrySpawnSlideEffect();
 

@@ -53,6 +53,8 @@ void CTimeKeeperScript::OnEquip()
 	SetSKillEffectPrefab(pAttackEffectPrefab);
 
 	m_TKBGEffectPrefab = FIND(APrefab, L"Prefab\\TimeKeeper_SkillEffect.pref");
+
+	m_TKPostEffectPrefab = FIND(APrefab, L"Prefab\\Postprocess.pref");
 }
 
 // 스킬 해제 시 호출
@@ -98,6 +100,7 @@ void CTimeKeeperScript::UseSkill()
 	SpawnSkillBG(1);
 	SpawnSkillBGEffect(1);
 	//SpawnTKBGEffect(1);
+	SpawnTKPostEffect(1);
 
 	// 스킬 배경음악 재생
 	SceneFlowMgr::GetInst()->PlayBGM(L"TimeKeeperCookie_Skill", 0.5f);
@@ -126,6 +129,7 @@ void CTimeKeeperScript::EndSkill()
 	DestroySkillBG();
 	//DestroySkillBGEffect();
 	//DestroyTKBGEffect();
+	DestroyTKPostEffect();
 	//DestroySkillEffect();
 
 	// 게임플레이 배경음악 복원
@@ -238,6 +242,32 @@ void CTimeKeeperScript::DestroyTKBGEffect()
 	info.Param_0 = (DWORD_PTR)m_TKBGEffectObject;
 	TaskMgr::GetInst()->AddTask(info);
 	m_TKBGEffectObject = nullptr;
+}
+
+void CTimeKeeperScript::SpawnTKPostEffect(int _LayerIdx)
+{
+	if (m_TKPostEffectPrefab == nullptr)
+		return;
+
+	DestroyTKPostEffect();
+
+	m_TKPostEffectObject = m_TKPostEffectPrefab->Instantiate();
+	CreateObject(m_TKPostEffectObject, _LayerIdx);
+}
+
+void CTimeKeeperScript::DestroyTKPostEffect()
+{
+	if (m_TKPostEffectObject == nullptr || m_TKPostEffectObject->IsDead())
+	{
+		m_TKPostEffectObject = nullptr;
+		return;
+	}
+
+	TaskInfo info = {};
+	info.Type = TASK_TYPE::DESTROY_OBJECT;
+	info.Param_0 = (DWORD_PTR)m_TKPostEffectObject;
+	TaskMgr::GetInst()->AddTask(info);
+	m_TKPostEffectObject = nullptr;
 }
 
 

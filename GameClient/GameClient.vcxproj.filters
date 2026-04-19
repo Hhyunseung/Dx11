@@ -468,6 +468,7 @@
     <ClInclude Include="AParticleTickCS.h">
       <Filter>GameEngine\04.Asset\11.ComputeShader</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scripts\CDarkChocoSkillScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameClient.ico">
@@ -1298,6 +1299,7 @@
     <ClCompile Include="AParticleTickCS.cpp">
       <Filter>GameEngine\04.Asset\11.ComputeShader</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scripts\CDarkChocoSkillScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
