@@ -29,6 +29,7 @@ CLycheeScript::CLycheeScript()
 	, m_ScorePerTick(3000000)
 	, m_TKBGEffectPrefab(nullptr)
 	, m_TKBGEffectObject(nullptr)
+	, m_TKParticleObject(nullptr)
 {
 	m_WaitTime = 15.f; // 자동 발동 대기시간 15초
 }
@@ -97,6 +98,7 @@ void CLycheeScript::UseSkill()
 
 	SpawnSkillBG(1);
 	SpawnSkillBGEffect(1);
+	SpawnTKParticle(1);
 	//SpawnTKBGEffect(1);
 
 	// 스킬 배경음악 재생
@@ -124,6 +126,7 @@ void CLycheeScript::EndSkill()
 	m_bEndReserved = false;
 
 	DestroySkillBG();
+	DestroyTKParticle();
 	//DestroySkillBGEffect();
 	//DestroyTKBGEffect();
 	//DestroySkillEffect();
@@ -238,6 +241,96 @@ void CLycheeScript::DestroyTKBGEffect()
 	info.Param_0 = (DWORD_PTR)m_TKBGEffectObject;
 	TaskMgr::GetInst()->AddTask(info);
 	m_TKBGEffectObject = nullptr;
+}
+
+void CLycheeScript::SpawnTKParticle(int _LayerIdx)
+{
+	DestroyTKParticle();
+
+	// Paritlce Object
+	m_TKParticleObject = new GameObject;
+	m_TKParticleObject->SetName(L"Particle Object");
+
+	m_TKParticleObject->AddComponent(new CTransform);
+	m_TKParticleObject->AddComponent(new CParticleRender);
+
+	m_TKParticleObject->Transform()->SetRelativePos(Vec3(-200.f, 0.f, -100.f));
+
+
+	// 파티클 입자에 입힐 텍스쳐 설정
+	Ptr<CParticleRender> pRender = m_TKParticleObject->ParticleRender();
+	Ptr<ATexture> m_TKParticleObjectTex = AssetMgr::GetInst()->Load<ATexture>(L"Lychee_Particle", L"Texture\\Effect\\Lychee_Effect.png");
+	pRender->SetParticleTex(m_TKParticleObjectTex);
+
+	// 스폰옵션 설정
+	pRender->SetSpawnRate(2.f);
+	pRender->SetSpawnShape(0);
+	pRender->SetSpawnShapeScale(Vec3(500.f, 50.f, 500.f)); // 파티클 생성 영역
+	pRender->SetMinLife(1.f);
+	pRender->SetMaxLife(3.f);
+	pRender->SetMinScale(Vec3(30.f, 30.f, 1.f));
+	pRender->SetMaxScale(Vec3(50.f, 50.f, 1.f));
+
+	// 파티클 시뮬레이션 좌표계 설정(Local or World)
+	pRender->SetSpaceType(0);
+
+	// AddVelocity 모듈 설정
+	pRender->SetModlue(PARTICLE_MODULE::ADD_VELOCITY, true);
+	pRender->SetAddVelocityType(0);
+	pRender->SetMinSpeed(300.f);
+	pRender->SetMaxSpeed(500.f);
+	pRender->SetFixedVelocity(Vec3(-1.f, -0.2f, 0.f));
+
+	// SpawnBurst 모듈 설정
+	pRender->SetModlue(PARTICLE_MODULE::SPAWN_BURST, true);
+	pRender->SetBurstParticleCount(500);
+	pRender->SetBurstRepeatCount(500);
+	pRender->SetBurstTerm(1.f);
+
+	// Scale 
+	pRender->SetModlue(PARTICLE_MODULE::SCALE, true);
+	pRender->SetStartScale(2.f);
+	pRender->SetEndScale(4.f);
+
+	// Drag : 감속
+	pRender->SetModlue(PARTICLE_MODULE::DRAG, false);
+	pRender->SetDragDestNormalizeAge(0.9f);  // 드래그 시작시점
+	pRender->SetDragLimitSpeed(0.f);		// 최종 속도 제한
+
+	// NoiseForce : 랜덤 힘
+	pRender->SetModlue(PARTICLE_MODULE::NOISE_FORCE, true);
+	pRender->SetNoiseForceTerm(0.2f);
+	pRender->SetNoiseForceScale(100.f);
+
+	// ===========
+	// Render 모듈
+	// ===========
+	pRender->SetModlue(PARTICLE_MODULE::RENDER, true);
+	pRender->SetStartColor(Vec4(0.5f, 0.5f, 0.5f, 1.f));
+	pRender->SetEndColor(Vec4(0.2f, 0.2f, 0.2f, 1.f));
+
+	pRender->SetFadeOut(false);
+	pRender->SetFadOutStartRatio(0.7f);
+
+	// 속도 정렬기능
+	pRender->SetVelocityAlignment(false, false);
+
+	CreateObject(m_TKParticleObject, _LayerIdx);
+}
+
+void CLycheeScript::DestroyTKParticle()
+{
+	if (m_TKParticleObject == nullptr || m_TKParticleObject->IsDead())
+	{
+		m_TKParticleObject = nullptr;
+		return;
+	}
+
+	TaskInfo info = {};
+	info.Type = TASK_TYPE::DESTROY_OBJECT;
+	info.Param_0 = (DWORD_PTR)m_TKParticleObject;
+	TaskMgr::GetInst()->AddTask(info);
+	m_TKParticleObject = nullptr;
 }
 
 

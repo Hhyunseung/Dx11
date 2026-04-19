@@ -31,9 +31,12 @@ private:
 	// 스킬 종료 예약 여부
 	bool m_bEndReserved;
 
-	// 시간지기 전용 배경 이펙트
+	// 전용 배경 이펙트
 	Ptr<APrefab> m_TKBGEffectPrefab;
 	GameObject* m_TKBGEffectObject;
+
+	// 파티클 이펙트
+	GameObject* m_TKParticleObject;
 
 public:
 	virtual void Begin() override;
@@ -54,6 +57,9 @@ private:
 
 	void SpawnTKBGEffect(int _LayerIdx);
 	void DestroyTKBGEffect();
+
+	void SpawnTKParticle(int _LayerIdx);
+	void DestroyTKParticle();
 
 	void TrySpawnSlideEffect();
 

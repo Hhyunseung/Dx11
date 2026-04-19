@@ -23,7 +23,7 @@ void CShockWaveScript::Tick()
 
 	vScale += Vec3(700.f * DT, 700.f * DT, 0.f);
 
-	if (vScale.x >= 500.f)
+	if (vScale.x >= 1000.f)
 		vScale = Vec3(-150.f, -150.f, 1.f);
 
 	Transform()->SetRelativeScale(vScale);

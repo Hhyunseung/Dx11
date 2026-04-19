@@ -39,6 +39,9 @@ private:
 	Ptr<APrefab> m_TKPostEffectPrefab;
 	GameObject*  m_TKPostEffectObject;
 
+	// 시간지기 파티클 이펙트
+	GameObject* m_TKParticleObject;
+
 public:
 	virtual void Begin() override;
 	virtual void OnEquip() override;
@@ -61,6 +64,9 @@ private:
 
 	void SpawnTKPostEffect(int _LayerIdx);
 	void DestroyTKPostEffect();
+
+	void SpawnTKParticle(int _LayerIdx);
+	void DestroyTKParticle();
 
 	void TrySpawnSlideEffect();
 
